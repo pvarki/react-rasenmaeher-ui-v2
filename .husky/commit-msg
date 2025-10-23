@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# This hook validates commit messages against conventional commit rules.  It
+# delegates to commitlint; if the message is invalid the commit will be aborted.
+npx --no-install commitlint --edit "$1"

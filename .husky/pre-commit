@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# Block direct commits to main
+branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+if [ "$branch" = "main" ]; then
+  echo "❌ Refusing commit on main. Create a branch."
+  exit 1
+fi
+
+# Enforce branch naming convention: modular-ui/<shortened-task-name>-dev
+if [ -n "$branch" ] && [ "$branch" != "HEAD" ]; then
+  if ! echo "$branch" | grep -qE '^modular-ui/[a-z0-9-]+-dev$'; then
+    echo "❌ Invalid branch name: '$branch'"
+    echo "Branch name must follow the pattern: modular-ui/<shortened-task-name>-dev"
+    echo "Example: modular-ui/translations-dev"
+    exit 1
+  fi
+fi
+
+# Run staged linters and checks
+npx lint-staged
