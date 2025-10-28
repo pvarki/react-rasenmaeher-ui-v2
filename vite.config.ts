@@ -19,4 +19,26 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+  server: {
+    watch: {
+      ignored: ["**/.env*"],
+    },
+    host: process.env.SERVER_DOMAIN || "localhost",
+
+    allowedHosts: [
+      "mtls." + (process.env.SERVER_DOMAIN ?? "localhost"),
+      process.env.SERVER_DOMAIN ?? "localhost", // Dynamically allow the current domain
+      "localhost", // Always allow localhost for local dev
+      "0.0.0.0", // Allow any network access (useful in Docker)
+      "mtls.localmaeher.dev.pvarki.fi",
+      "localmaeher.dev.pvarki.fi",
+    ].filter(Boolean), // Remove undefined values
+    proxy: {
+      "/api": {
+        target: "http://rmapi:8000",
+        secure: false,
+      },
+    },
+  },
 });
