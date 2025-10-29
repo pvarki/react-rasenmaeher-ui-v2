@@ -18,15 +18,15 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Run lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Run prettier
-        run: npm run format:check
+        run: pnpm run format:check
 
       - name: Run secretlint
-        run: npm run lint:secrets
+        run: pnpm run lint:secrets
 
     # TODO: add unit tests
