@@ -35,7 +35,7 @@ export function ProtectedRoute({
     if (currentPath === "/" || currentPath === "/login") {
       if (authType === "mtls") {
         if (userType === "admin") {
-          return "/app/admin";
+          return "/";
         } else if (userType === "user" && callsign) {
           return `/app/users/${callsign}`;
         }

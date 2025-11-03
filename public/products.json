@@ -1,0 +1,32 @@
+[
+  {
+    "shortname": "tak",
+    "title": "TAK: Team Awareness Kit",
+    "icon": null,
+    "description": "Situational awareness system for tactical operations",
+    "language": "en",
+    "docs": "https://tak.gov/docs",
+    "content": "component",
+    "image": "https://photos1.blogger.com/blogger/2965/752/400/liger.jpg"
+  },
+  {
+    "shortname": "comms",
+    "title": "Secure Communications",
+    "icon": null,
+    "description": "End-to-end encrypted communication platform",
+    "language": "en",
+    "docs": null,
+    "link": "https://mil.fi",
+    "content": "link"
+  },
+  {
+    "shortname": "react-rasenmaeher-ui-v2",
+    "title": "React + TypeScript + Vite",
+    "icon": null,
+    "description": "DeployApp test",
+    "language": "en",
+    "docs": null,
+    "content": "markdown",
+    "markdownUrl": "https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2/refs/heads/main/README.md"
+  }
+]

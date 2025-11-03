@@ -4,8 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deploy App</title>
     <meta name="robots" content="noindex,nofollow" />
+    <title id="deployment-title"></title>
+    <script>
+      // Get the deployment name (FQDN) from the window location
+      const deploymentName = window.location.hostname;
+
+      // Set the deployment name as the title
+      document.getElementById("deployment-title").innerText = deploymentName;
+    </script>
   </head>
   <body class="bg-gray-50">
     <div id="root"></div>

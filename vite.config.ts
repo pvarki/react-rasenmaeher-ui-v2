@@ -3,6 +3,15 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import fs from "fs";
+
+function loadThemeAssets() {
+  const themesDir = path.resolve(__dirname, "./public/themes");
+  if (!fs.existsSync(themesDir)) {
+    fs.mkdirSync(themesDir, { recursive: true });
+  }
+  return themesDir;
+}
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,5 +49,8 @@ export default defineConfig({
         secure: false,
       },
     },
+  },
+  define: {
+    __THEME_ASSETS_DIR__: JSON.stringify(loadThemeAssets()),
   },
 });
