@@ -1,24 +1,17 @@
 import { create } from "zustand";
 
-type CodeType = "admin" | "user" | "unknown";
-
 interface LoginCodeStore {
   code: string;
-  codeType: CodeType;
-  approveCode: string;
-
+  codeType: "admin" | "user" | "unknown" | null;
   setCode: (code: string) => void;
-  setCodeType: (codeType: CodeType) => void;
+  setCodeType: (type: "admin" | "user" | "unknown" | null) => void;
   reset: () => void;
 }
 
 export const useLoginCodeStore = create<LoginCodeStore>((set) => ({
   code: "",
-  codeType: "unknown",
-  approveCode: "",
-
-  setCode: (code: string) => set({ code }),
-  setCodeType: (codeType: CodeType) => set({ codeType }),
-  setApproveCode: (approveCode: string) => set({ approveCode }),
-  reset: () => set({ code: "", codeType: "unknown" }),
+  codeType: null,
+  setCode: (code) => set({ code }),
+  setCodeType: (codeType) => set({ codeType }),
+  reset: () => set({ code: "", codeType: null }),
 }));
