@@ -1,5 +1,6 @@
 export interface ThemeConfig {
   name: string;
+  subName?: string;
   primaryColor: string;
   accentColor: string;
   backgroundColor: string;
@@ -14,7 +15,8 @@ export interface ThemeConfig {
 }
 
 const defaultTheme: ThemeConfig = {
-  name: "default",
+  name: "PV-Arki",
+  subName: "Rasenmaeher",
   primaryColor: "oklch(0.205 0 0)",
   accentColor: "oklch(0.488 0.243 264.376)",
   backgroundColor: "oklch(0.145 0 0)",
@@ -28,24 +30,8 @@ const defaultTheme: ThemeConfig = {
   },
 };
 
-const tornileijonaTheme: ThemeConfig = {
-  name: "tornileijona",
-  primaryColor: "oklch(0.3 0.2 30)",
-  accentColor: "oklch(0.6 0.2 140)",
-  backgroundColor: "oklch(0.12 0 0)",
-  sidebarLogo: {
-    bgColor: "#2563eb",
-    icon: "shield",
-  },
-  assets: {
-    logoUrl: "/themes/tornileijona/logo.png",
-    faviconUrl: "/themes/tornileijona/favicon.ico",
-  },
-};
-
 const themes: Record<string, ThemeConfig> = {
   default: defaultTheme,
-  tornileijona: tornileijonaTheme,
 };
 
 export function getTheme(themeName?: string): ThemeConfig {

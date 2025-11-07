@@ -253,7 +253,7 @@ function AddUsersPage() {
             setBulkMode(!bulkMode);
             setSelectedCodes([]);
           }}
-          className="h-14 px-6"
+          className="h-14 px-6 text-base font-semibold"
         >
           {bulkMode ? "Cancel" : "Select Multiple"}
         </Button>
@@ -344,31 +344,31 @@ function AddUsersPage() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Create New Invite Code</DialogTitle>
-            <DialogDescription className="pt-4 space-y-3 text-sm leading-relaxed">
+            <DialogDescription className="pt-4 space-y-3 text-sm leading-relaxed text-left">
               <p className="font-semibold text-foreground">
                 ⚠️ One invite code can be used by multiple users
               </p>
-              <p>
-                You only need to create a new code if:
-                <br />• You've deleted or deactivated your previous code
-                <br />• You want separate codes for different groups
-              </p>
+              <p>You only need to create a new code if:</p>
+              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                <li>You've deleted or deactivated your previous code</li>
+                <li>You want separate codes for different groups</li>
+              </ul>
               <p className="text-xs text-muted-foreground">
                 Tip: Reuse existing active codes instead of creating new ones
               </p>
             </DialogDescription>
           </DialogHeader>
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-3 pt-4 flex-col sm:flex-row">
             <Button
               variant="outline"
               onClick={() => setCreateModalOpen(false)}
-              className="flex-1"
+              className="flex-1 h-11"
             >
               Cancel
             </Button>
             <Button
               onClick={handleCreateInvite}
-              className="flex-1 bg-primary hover:bg-primary/90"
+              className="flex-1 h-11 bg-primary hover:bg-primary/90"
             >
               Create Code
             </Button>

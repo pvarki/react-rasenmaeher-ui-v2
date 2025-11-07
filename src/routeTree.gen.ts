@@ -8,270 +8,270 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as WaitingRoomRouteImport } from './routes/waiting-room'
-import { Route as MtlsInstallRouteImport } from './routes/mtls-install'
-import { Route as ManageUsersRouteImport } from './routes/manage-users'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ErrorRouteImport } from './routes/error'
-import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
-import { Route as ApproveUsersRouteImport } from './routes/approve-users'
-import { Route as ApproveUserRouteImport } from './routes/approve-user'
-import { Route as AddUsersRouteImport } from './routes/add-users'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductShortnameRouteImport } from './routes/product.$shortname'
-import { Route as InviteCodeCodeRouteImport } from './routes/invite-code.$code'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as WaitingRoomRouteImport } from "./routes/waiting-room";
+import { Route as MtlsInstallRouteImport } from "./routes/mtls-install";
+import { Route as ManageUsersRouteImport } from "./routes/manage-users";
+import { Route as LoginRouteImport } from "./routes/login";
+import { Route as ErrorRouteImport } from "./routes/error";
+import { Route as CallsignSetupRouteImport } from "./routes/callsign-setup";
+import { Route as ApproveUsersRouteImport } from "./routes/approve-users";
+import { Route as ApproveUserRouteImport } from "./routes/approve-user";
+import { Route as AddUsersRouteImport } from "./routes/add-users";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as ProductShortnameRouteImport } from "./routes/product.$shortname";
+import { Route as InviteCodeCodeRouteImport } from "./routes/invite-code.$code";
 
 const WaitingRoomRoute = WaitingRoomRouteImport.update({
-  id: '/waiting-room',
-  path: '/waiting-room',
+  id: "/waiting-room",
+  path: "/waiting-room",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const MtlsInstallRoute = MtlsInstallRouteImport.update({
-  id: '/mtls-install',
-  path: '/mtls-install',
+  id: "/mtls-install",
+  path: "/mtls-install",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ManageUsersRoute = ManageUsersRouteImport.update({
-  id: '/manage-users',
-  path: '/manage-users',
+  id: "/manage-users",
+  path: "/manage-users",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ErrorRoute = ErrorRouteImport.update({
-  id: '/error',
-  path: '/error',
+  id: "/error",
+  path: "/error",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const CallsignSetupRoute = CallsignSetupRouteImport.update({
-  id: '/callsign-setup',
-  path: '/callsign-setup',
+  id: "/callsign-setup",
+  path: "/callsign-setup",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApproveUsersRoute = ApproveUsersRouteImport.update({
-  id: '/approve-users',
-  path: '/approve-users',
+  id: "/approve-users",
+  path: "/approve-users",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApproveUserRoute = ApproveUserRouteImport.update({
-  id: '/approve-user',
-  path: '/approve-user',
+  id: "/approve-user",
+  path: "/approve-user",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AddUsersRoute = AddUsersRouteImport.update({
-  id: '/add-users',
-  path: '/add-users',
+  id: "/add-users",
+  path: "/add-users",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ProductShortnameRoute = ProductShortnameRouteImport.update({
-  id: '/product/$shortname',
-  path: '/product/$shortname',
+  id: "/product/$shortname",
+  path: "/product/$shortname",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const InviteCodeCodeRoute = InviteCodeCodeRouteImport.update({
-  id: '/invite-code/$code',
-  path: '/invite-code/$code',
+  id: "/invite-code/$code",
+  path: "/invite-code/$code",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
-  '/approve-users': typeof ApproveUsersRoute
-  '/callsign-setup': typeof CallsignSetupRoute
-  '/error': typeof ErrorRoute
-  '/login': typeof LoginRoute
-  '/manage-users': typeof ManageUsersRoute
-  '/mtls-install': typeof MtlsInstallRoute
-  '/waiting-room': typeof WaitingRoomRoute
-  '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  "/": typeof IndexRoute;
+  "/add-users": typeof AddUsersRoute;
+  "/approve-user": typeof ApproveUserRoute;
+  "/approve-users": typeof ApproveUsersRoute;
+  "/callsign-setup": typeof CallsignSetupRoute;
+  "/error": typeof ErrorRoute;
+  "/login": typeof LoginRoute;
+  "/manage-users": typeof ManageUsersRoute;
+  "/mtls-install": typeof MtlsInstallRoute;
+  "/waiting-room": typeof WaitingRoomRoute;
+  "/invite-code/$code": typeof InviteCodeCodeRoute;
+  "/product/$shortname": typeof ProductShortnameRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
-  '/approve-users': typeof ApproveUsersRoute
-  '/callsign-setup': typeof CallsignSetupRoute
-  '/error': typeof ErrorRoute
-  '/login': typeof LoginRoute
-  '/manage-users': typeof ManageUsersRoute
-  '/mtls-install': typeof MtlsInstallRoute
-  '/waiting-room': typeof WaitingRoomRoute
-  '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  "/": typeof IndexRoute;
+  "/add-users": typeof AddUsersRoute;
+  "/approve-user": typeof ApproveUserRoute;
+  "/approve-users": typeof ApproveUsersRoute;
+  "/callsign-setup": typeof CallsignSetupRoute;
+  "/error": typeof ErrorRoute;
+  "/login": typeof LoginRoute;
+  "/manage-users": typeof ManageUsersRoute;
+  "/mtls-install": typeof MtlsInstallRoute;
+  "/waiting-room": typeof WaitingRoomRoute;
+  "/invite-code/$code": typeof InviteCodeCodeRoute;
+  "/product/$shortname": typeof ProductShortnameRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
-  '/approve-users': typeof ApproveUsersRoute
-  '/callsign-setup': typeof CallsignSetupRoute
-  '/error': typeof ErrorRoute
-  '/login': typeof LoginRoute
-  '/manage-users': typeof ManageUsersRoute
-  '/mtls-install': typeof MtlsInstallRoute
-  '/waiting-room': typeof WaitingRoomRoute
-  '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/add-users": typeof AddUsersRoute;
+  "/approve-user": typeof ApproveUserRoute;
+  "/approve-users": typeof ApproveUsersRoute;
+  "/callsign-setup": typeof CallsignSetupRoute;
+  "/error": typeof ErrorRoute;
+  "/login": typeof LoginRoute;
+  "/manage-users": typeof ManageUsersRoute;
+  "/mtls-install": typeof MtlsInstallRoute;
+  "/waiting-room": typeof WaitingRoomRoute;
+  "/invite-code/$code": typeof InviteCodeCodeRoute;
+  "/product/$shortname": typeof ProductShortnameRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/add-users'
-    | '/approve-user'
-    | '/approve-users'
-    | '/callsign-setup'
-    | '/error'
-    | '/login'
-    | '/manage-users'
-    | '/mtls-install'
-    | '/waiting-room'
-    | '/invite-code/$code'
-    | '/product/$shortname'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/add-users"
+    | "/approve-user"
+    | "/approve-users"
+    | "/callsign-setup"
+    | "/error"
+    | "/login"
+    | "/manage-users"
+    | "/mtls-install"
+    | "/waiting-room"
+    | "/invite-code/$code"
+    | "/product/$shortname";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/add-users'
-    | '/approve-user'
-    | '/approve-users'
-    | '/callsign-setup'
-    | '/error'
-    | '/login'
-    | '/manage-users'
-    | '/mtls-install'
-    | '/waiting-room'
-    | '/invite-code/$code'
-    | '/product/$shortname'
+    | "/"
+    | "/add-users"
+    | "/approve-user"
+    | "/approve-users"
+    | "/callsign-setup"
+    | "/error"
+    | "/login"
+    | "/manage-users"
+    | "/mtls-install"
+    | "/waiting-room"
+    | "/invite-code/$code"
+    | "/product/$shortname";
   id:
-    | '__root__'
-    | '/'
-    | '/add-users'
-    | '/approve-user'
-    | '/approve-users'
-    | '/callsign-setup'
-    | '/error'
-    | '/login'
-    | '/manage-users'
-    | '/mtls-install'
-    | '/waiting-room'
-    | '/invite-code/$code'
-    | '/product/$shortname'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/add-users"
+    | "/approve-user"
+    | "/approve-users"
+    | "/callsign-setup"
+    | "/error"
+    | "/login"
+    | "/manage-users"
+    | "/mtls-install"
+    | "/waiting-room"
+    | "/invite-code/$code"
+    | "/product/$shortname";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AddUsersRoute: typeof AddUsersRoute
-  ApproveUserRoute: typeof ApproveUserRoute
-  ApproveUsersRoute: typeof ApproveUsersRoute
-  CallsignSetupRoute: typeof CallsignSetupRoute
-  ErrorRoute: typeof ErrorRoute
-  LoginRoute: typeof LoginRoute
-  ManageUsersRoute: typeof ManageUsersRoute
-  MtlsInstallRoute: typeof MtlsInstallRoute
-  WaitingRoomRoute: typeof WaitingRoomRoute
-  InviteCodeCodeRoute: typeof InviteCodeCodeRoute
-  ProductShortnameRoute: typeof ProductShortnameRoute
+  IndexRoute: typeof IndexRoute;
+  AddUsersRoute: typeof AddUsersRoute;
+  ApproveUserRoute: typeof ApproveUserRoute;
+  ApproveUsersRoute: typeof ApproveUsersRoute;
+  CallsignSetupRoute: typeof CallsignSetupRoute;
+  ErrorRoute: typeof ErrorRoute;
+  LoginRoute: typeof LoginRoute;
+  ManageUsersRoute: typeof ManageUsersRoute;
+  MtlsInstallRoute: typeof MtlsInstallRoute;
+  WaitingRoomRoute: typeof WaitingRoomRoute;
+  InviteCodeCodeRoute: typeof InviteCodeCodeRoute;
+  ProductShortnameRoute: typeof ProductShortnameRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/waiting-room': {
-      id: '/waiting-room'
-      path: '/waiting-room'
-      fullPath: '/waiting-room'
-      preLoaderRoute: typeof WaitingRoomRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mtls-install': {
-      id: '/mtls-install'
-      path: '/mtls-install'
-      fullPath: '/mtls-install'
-      preLoaderRoute: typeof MtlsInstallRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/manage-users': {
-      id: '/manage-users'
-      path: '/manage-users'
-      fullPath: '/manage-users'
-      preLoaderRoute: typeof ManageUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/error': {
-      id: '/error'
-      path: '/error'
-      fullPath: '/error'
-      preLoaderRoute: typeof ErrorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/callsign-setup': {
-      id: '/callsign-setup'
-      path: '/callsign-setup'
-      fullPath: '/callsign-setup'
-      preLoaderRoute: typeof CallsignSetupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approve-users': {
-      id: '/approve-users'
-      path: '/approve-users'
-      fullPath: '/approve-users'
-      preLoaderRoute: typeof ApproveUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approve-user': {
-      id: '/approve-user'
-      path: '/approve-user'
-      fullPath: '/approve-user'
-      preLoaderRoute: typeof ApproveUserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/add-users': {
-      id: '/add-users'
-      path: '/add-users'
-      fullPath: '/add-users'
-      preLoaderRoute: typeof AddUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/product/$shortname': {
-      id: '/product/$shortname'
-      path: '/product/$shortname'
-      fullPath: '/product/$shortname'
-      preLoaderRoute: typeof ProductShortnameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invite-code/$code': {
-      id: '/invite-code/$code'
-      path: '/invite-code/$code'
-      fullPath: '/invite-code/$code'
-      preLoaderRoute: typeof InviteCodeCodeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/waiting-room": {
+      id: "/waiting-room";
+      path: "/waiting-room";
+      fullPath: "/waiting-room";
+      preLoaderRoute: typeof WaitingRoomRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/mtls-install": {
+      id: "/mtls-install";
+      path: "/mtls-install";
+      fullPath: "/mtls-install";
+      preLoaderRoute: typeof MtlsInstallRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/manage-users": {
+      id: "/manage-users";
+      path: "/manage-users";
+      fullPath: "/manage-users";
+      preLoaderRoute: typeof ManageUsersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/error": {
+      id: "/error";
+      path: "/error";
+      fullPath: "/error";
+      preLoaderRoute: typeof ErrorRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/callsign-setup": {
+      id: "/callsign-setup";
+      path: "/callsign-setup";
+      fullPath: "/callsign-setup";
+      preLoaderRoute: typeof CallsignSetupRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/approve-users": {
+      id: "/approve-users";
+      path: "/approve-users";
+      fullPath: "/approve-users";
+      preLoaderRoute: typeof ApproveUsersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/approve-user": {
+      id: "/approve-user";
+      path: "/approve-user";
+      fullPath: "/approve-user";
+      preLoaderRoute: typeof ApproveUserRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/add-users": {
+      id: "/add-users";
+      path: "/add-users";
+      fullPath: "/add-users";
+      preLoaderRoute: typeof AddUsersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/product/$shortname": {
+      id: "/product/$shortname";
+      path: "/product/$shortname";
+      fullPath: "/product/$shortname";
+      preLoaderRoute: typeof ProductShortnameRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/invite-code/$code": {
+      id: "/invite-code/$code";
+      path: "/invite-code/$code";
+      fullPath: "/invite-code/$code";
+      preLoaderRoute: typeof InviteCodeCodeRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -288,7 +288,7 @@ const rootRouteChildren: RootRouteChildren = {
   WaitingRoomRoute: WaitingRoomRoute,
   InviteCodeCodeRoute: InviteCodeCodeRoute,
   ProductShortnameRoute: ProductShortnameRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

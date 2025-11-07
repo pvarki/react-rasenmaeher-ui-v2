@@ -112,9 +112,9 @@ function MtlsInstallPage() {
     <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4 md:p-6">
       <div className="w-full max-w-3xl space-y-6 md:space-y-8 py-8">
         <div className="text-center space-y-3">
-          <h1 className="text-sm font-medium text-muted-foreground uppercase">
+          {/* <h1 className="text-sm font-medium text-muted-foreground uppercase">
             {callsign || "USER"}
-          </h1>
+          </h1> */}
           <div className="flex justify-center">
             <div className="p-4 rounded-full bg-primary/10 border-2 border-primary/20">
               <Key className="w-12 h-12 text-primary" />

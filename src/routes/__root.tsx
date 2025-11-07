@@ -7,7 +7,7 @@ import {
   useLocation,
   useNavigate,
 } from "@tanstack/react-router";
-import { ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu, User, UserStar } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -45,6 +45,7 @@ function RootLayout() {
     callsign,
     isValidUser,
   } = useUserType();
+
   const themeConfig = getTheme();
 
   useEffect(() => {
@@ -154,29 +155,39 @@ function RootLayout() {
         )}
       >
         <div className="p-6 border-b border-sidebar-border flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-            style={{ backgroundColor: themeConfig.sidebarLogo?.bgColor }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              className="w-6 h-6 text-white"
+          {themeConfig.assets?.logoUrl ? (
+            <img
+              src={themeConfig.assets.logoUrl || "/placeholder.svg"}
+              alt="Logo"
+              className="w-10 h-12"
+            />
+          ) : (
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+              style={{ backgroundColor: themeConfig.sidebarLogo?.bgColor }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
-          </div>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                className="w-6 h-6 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+          )}
           <div className="flex flex-col text-xs leading-tight">
-            <span className="font-semibold text-sidebar-foreground">
-              PV-Arki
+            <span className="font-semibold text-sidebar-foreground text-[11px]">
+              {themeConfig.name || "PV-Arki"}
             </span>
-            <span className="text-sidebar-foreground/60">Rasenmaeher UI</span>
+            <span className="text-sidebar-foreground/60">
+              {themeConfig.subName || "Rasenmaeher UI"}
+            </span>
           </div>
         </div>
 
@@ -252,13 +263,13 @@ function RootLayout() {
           )}
         </nav>
 
-        <div className="p-4 border-t border-sidebar-border bg-sidebar space-y-3">
+        <div className="p-4 border-t border-sidebar-border bg-sidebar space-y-4">
           <div className="space-y-2">
             <label className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider px-2">
               Language
             </label>
             <Select value={language} onValueChange={setLanguage}>
-              <SelectTrigger className="h-9 bg-sidebar-accent/30 border-sidebar-accent/50">
+              <SelectTrigger className="h-10 bg-sidebar-accent/30 border-sidebar-accent/50">
                 <Globe className="w-4 h-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
@@ -271,7 +282,7 @@ function RootLayout() {
           </div>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild disabled={true}>
               <button className="w-full flex items-center gap-3 px-2 hover:bg-sidebar-accent/80 rounded-lg transition-colors py-2">
                 <div className="w-9 h-9 bg-sidebar-accent rounded-full flex items-center justify-center shrink-0">
                   <svg
@@ -296,7 +307,12 @@ function RootLayout() {
                     {userType || "user"}
                   </p>
                 </div>
-                <ChevronDown className="w-4 h-4 text-sidebar-foreground/70" />
+
+                {userType === "admin" ? (
+                  <UserStar className="w-4 h-4 text-green-400" />
+                ) : (
+                  <User className="w-4 h-4 text-blue-400" />
+                )}
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -317,7 +333,7 @@ function RootLayout() {
               <Menu className="w-5 h-5" />
             </button>
             <h1 className="text-lg font-semibold tracking-tight">
-              DEPLOY APP V2
+              rasenmaeher
             </h1>
           </div>
         </header>
@@ -327,7 +343,7 @@ function RootLayout() {
         </main>
 
         <footer className="border-t border-border p-4 text-center text-xs text-muted-foreground">
-          COPYRIGHT 2025 PV-Arki
+          COPYRIGHT 2025 Rasenmaeher PV Arki
         </footer>
       </div>
     </div>

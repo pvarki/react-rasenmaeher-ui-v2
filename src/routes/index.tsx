@@ -116,9 +116,9 @@ function HomePage() {
     <>
       <div className="mb-12 space-y-3">
         <h2 className="text-3xl font-bold tracking-tight">
-          Welcome to Deploy App
+          Welcome to rasenmaeher
         </h2>
-        <p className="text-lg text-muted-foreground max-w-xl">
+        <p className="text-lg text-muted-foreground max-w-4xl">
           Access your tactical services and tools. Select a service below to get
           started.
         </p>
@@ -149,29 +149,20 @@ function HomePage() {
             )}
           >
             {product.image && (
-              <div
-                className="relative h-40 w-full overflow-hidden bg-linear-to-br flex items-center justify-center"
-                style={{
-                  backgroundImage: `linear-gradient(135deg, ${product.color || "#3b82f6"}20 0%, ${product.color || "#3b82f6"}10 100%)`,
-                }}
-              >
-                <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-transparent opacity-60" />
+              <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-linear-to-br">
                 <img
                   src={product.image || "/placeholder.svg"}
                   alt={product.title}
                   className={cn(
-                    "h-24 w-24 object-contain transition-all duration-500",
-                    "group-hover:scale-110 group-hover:opacity-100",
-                    "opacity-80 blur-[2px]",
+                    "w-full h-full object-cover transition-all duration-500",
+                    "group-hover:scale-105",
                   )}
                   loading="lazy"
-                  onLoad={(e) => {
-                    (e.target as HTMLImageElement).classList.remove(
-                      "blur-[2px]",
-                    );
-                    (e.target as HTMLImageElement).classList.add("blur-0");
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, ${product.color || "#3b82f6"}20 0%, ${product.color || "#3b82f6"}10 100%)`,
                   }}
                 />
+                <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
               </div>
             )}
 
@@ -194,7 +185,10 @@ function HomePage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex-1 rounded-lg hover:bg-accent/50"
+                    className={cn(
+                      "flex-1 rounded-lg hover:bg-accent/50 h-11 md:h-12 text-sm md:text-base font-medium",
+                      !isValidUser && "opacity-50 cursor-not-allowed",
+                    )}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDocsClick(product.docs, e);
@@ -208,7 +202,7 @@ function HomePage() {
                 <Button
                   size="sm"
                   className={cn(
-                    "flex-1 rounded-lg font-medium transition-all",
+                    "flex-1 rounded-lg font-medium transition-all h-11 md:h-12 text-sm md:text-base",
                     isValidUser
                       ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                       : "bg-muted text-muted-foreground cursor-not-allowed",
@@ -236,7 +230,7 @@ function HomePage() {
       <Dialog open={exitDialogOpen} onOpenChange={setExitDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Leave Deploy App?</DialogTitle>
+            <DialogTitle>Leave rasenmaeher?</DialogTitle>
             <DialogDescription className="pt-2">
               You are about to open an external page. Are you sure you want to
               continue?

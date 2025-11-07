@@ -31,7 +31,6 @@ function WaitingRoomPage() {
   const hostname = window.location.hostname;
   const port = window.location.port;
 
-  // Construct mtls URL with subdomain
   let mtlsHostname = hostname;
   if (!hostname.startsWith("mtls.")) {
     mtlsHostname = `mtls.${hostname}`;

@@ -19,6 +19,7 @@ import { useCheckCode } from "@/hooks/api/useCheckCode";
 import { useLoginCodeStore } from "@/store/LoginCodeStore";
 import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import { getTheme } from "@/config/themes";
 
 const TOKEN_REGEX = /^[A-Z0-9]{8,}$/;
 
@@ -48,6 +49,8 @@ function LoginPage() {
   const loginCodeStore = useLoginCodeStore();
   const [codeNotValid, setCodeNotValid] = useState(false);
   const { code: urlCode } = Route.useSearch();
+
+  const theme = getTheme();
 
   useEffect(() => {
     const host = window.location.host;
@@ -127,14 +130,25 @@ function LoginPage() {
         checkCode(urlCode);
       }, 100);
     }
-  }, [urlCode, setFieldValue, checkCode]);
+  }, [checkCode, setFieldValue, urlCode]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">Login to Service</h1>
-          <p className="text-muted-foreground">localmaeher</p>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            {theme.assets?.logoUrl && (
+              <img
+                src={theme.assets.logoUrl || "/placeholder.svg"}
+                alt="Logo"
+                className="h-8 w-8"
+              />
+            )}
+            <h1 className="text-2xl font-bold">{theme.subName}</h1>
+          </div>
+          <p className="text-muted-foreground text-sm">
+            {theme.name} • Rasenmaeher
+          </p>
         </div>
 
         <Card className="border-muted">

@@ -1,8 +1,8 @@
 "use client";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import type React from "react";
 
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useCallback, useEffect } from "react";
 import { useLoginAsAdmin } from "../hooks/api/firstuser/useLoginAsAdmin";
 import { useLoginCodeStore } from "../store/LoginCodeStore";
@@ -21,6 +21,7 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { getTheme } from "@/config/themes";
 
 interface StatusCodeError extends Error {
   statusCode?: number;
@@ -35,6 +36,7 @@ function CallsignSetupPage() {
   const { code, codeType } = useLoginCodeStore();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const theme = getTheme();
 
   useEffect(() => {
     if (!code || !codeType) {
@@ -105,7 +107,16 @@ function CallsignSetupPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
+        <CardHeader className="space-y-3">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            {theme.assets?.logoUrl && (
+              <img
+                src={theme.assets.logoUrl || "/placeholder.svg"}
+                alt="Logo"
+                className="h-8 w-8"
+              />
+            )}
+          </div>
           <CardTitle className="text-2xl font-bold text-center">
             Setup Your Callsign
           </CardTitle>

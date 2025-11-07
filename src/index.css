@@ -42,39 +42,62 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
 :root {
-  --background: oklch(0.11 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.16 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.58 0.18 250);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.22 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.22 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.58 0.2 25);
-  --border: oklch(0.28 0 0);
-  --input: oklch(0.22 0 0);
-  --ring: oklch(0.58 0.18 250);
-  --chart-1: oklch(0.58 0.18 250);
-  --chart-2: oklch(0.65 0.18 160);
-  --chart-3: oklch(0.7 0.18 80);
-  --chart-4: oklch(0.6 0.2 300);
-  --chart-5: oklch(0.62 0.2 30);
-  --sidebar: oklch(0.13 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.58 0.18 250);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.2 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.25 0 0);
-  --sidebar-ring: oklch(0.58 0.18 250);
+  --background: #121113;
+  --foreground: #c1c1c1;
+  --card: #121212;
+  --card-foreground: #c1c1c1;
+  --popover: #121113;
+  --popover-foreground: #c1c1c1;
+  --primary: #e78a53;
+  --primary-foreground: #121113;
+  --secondary: #5f8787;
+  --secondary-foreground: #121113;
+  --muted: #222222;
+  --muted-foreground: #888888;
+  --accent: #333333;
+  --accent-foreground: #c1c1c1;
+  --destructive: #5f8787;
+  --destructive-foreground: #121113;
+  --border: #222222;
+  --input: #222222;
+  --ring: #e78a53;
+  --chart-1: #5f8787;
+  --chart-2: #e78a53;
+  --chart-3: #fbcb97;
+  --chart-4: #888888;
+  --chart-5: #999999;
+  --sidebar: #121212;
+  --sidebar-foreground: #c1c1c1;
+  --sidebar-primary: #e78a53;
+  --sidebar-primary-foreground: #121113;
+  --sidebar-accent: #333333;
+  --sidebar-accent-foreground: #c1c1c1;
+  --sidebar-border: #222222;
+  --sidebar-ring: #e78a53;
+  --font-sans: Geist Mono, ui-monospace, monospace;
+  --font-serif: serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.75rem;
+  --shadow-x: 0px;
+  --shadow-y: 1px;
+  --shadow-blur: 4px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.05;
+  --shadow-color: #000000;
+  --shadow-2xs: 0px 1px 4px 0px hsl(0 0% 0% / 0.03);
+  --shadow-xs: 0px 1px 4px 0px hsl(0 0% 0% / 0.03);
+  --shadow-sm:
+    0px 1px 4px 0px hsl(0 0% 0% / 0.05), 0px 1px 2px -1px hsl(0 0% 0% / 0.05);
+  --shadow:
+    0px 1px 4px 0px hsl(0 0% 0% / 0.05), 0px 1px 2px -1px hsl(0 0% 0% / 0.05);
+  --shadow-md:
+    0px 1px 4px 0px hsl(0 0% 0% / 0.05), 0px 2px 4px -1px hsl(0 0% 0% / 0.05);
+  --shadow-lg:
+    0px 1px 4px 0px hsl(0 0% 0% / 0.05), 0px 4px 6px -1px hsl(0 0% 0% / 0.05);
+  --shadow-xl:
+    0px 1px 4px 0px hsl(0 0% 0% / 0.05), 0px 8px 10px -1px hsl(0 0% 0% / 0.05);
+  --shadow-2xl: 0px 1px 4px 0px hsl(0 0% 0% / 0.13);
 }
 
 @layer base {
@@ -226,7 +249,6 @@
   margin: 2rem 0;
 }
 
-/* Syntax highlighting for code blocks */
 .hljs {
   background: var(--card) !important;
   color: var(--foreground) !important;

@@ -7,7 +7,7 @@
     "language": "en",
     "docs": "https://tak.gov/docs",
     "content": "component",
-    "image": "https://photos1.blogger.com/blogger/2965/752/400/liger.jpg"
+    "image": "/tak.png"
   },
   {
     "shortname": "comms",
@@ -17,16 +17,18 @@
     "language": "en",
     "docs": null,
     "link": "https://mil.fi",
-    "content": "link"
+    "content": "link",
+    "image": "/securecomms.png"
   },
   {
     "shortname": "react-rasenmaeher-ui-v2",
-    "title": "React + TypeScript + Vite",
+    "title": "Rasenmaeher",
     "icon": null,
-    "description": "DeployApp test",
+    "description": "React-based user interface for managing mass-user deployments.",
     "language": "en",
     "docs": null,
     "content": "markdown",
-    "markdownUrl": "https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2/refs/heads/main/README.md"
+    "markdownUrl": "https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2/refs/heads/main/README.md",
+    "image": "/Rasenmaeher.png"
   }
 ]

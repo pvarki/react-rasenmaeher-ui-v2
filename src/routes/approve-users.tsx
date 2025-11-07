@@ -108,15 +108,6 @@ function ApproveUsersPage() {
   const waitingUsers =
     enrollmentList?.filter((u) => u.state === EnrollmentState.PENDING) || [];
 
-  useEffect(() => {
-    if (isScannerOpen && !isScanning) {
-      startScanning();
-    } else if (!isScannerOpen && isScanning) {
-      stopScanning();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isScannerOpen]);
-
   const handleApproveClick = (user: string) => {
     setSelectedUser(user);
     setApproveDialogOpen(true);
@@ -155,7 +146,7 @@ function ApproveUsersPage() {
     if (code) {
       console.log("QR Code detected:", code.data);
 
-      // Parse the QR code data - expecting format like "callsign=xxx&approvalcode=yyy"
+      // Parse the QR code data expecting format like "callsign=xxx&approvalcode=yyy"
       try {
         const url = new URL(code.data);
         const callsignParam = url.searchParams.get("callsign");
@@ -171,7 +162,7 @@ function ApproveUsersPage() {
           toast.error("Invalid QR code format");
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (error) {
+      } catch (e) {
         // If not a URL, try to parse as plain approval code
         setApprovalCode(code.data);
         setIsScannerOpen(false);
@@ -180,6 +171,7 @@ function ApproveUsersPage() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const startScanning = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -216,6 +208,14 @@ function ApproveUsersPage() {
       setIsScanning(false);
     }
   };
+
+  useEffect(() => {
+    if (isScannerOpen && !isScanning) {
+      startScanning();
+    } else if (!isScannerOpen && isScanning) {
+      stopScanning();
+    }
+  }, [isScannerOpen, isScanning, startScanning]);
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -334,27 +334,27 @@ function ApproveUsersPage() {
           <DrawerTrigger asChild>
             <Button
               variant="outline"
-              className="flex-1 rounded-xl bg-transparent"
+              className="flex-1 rounded-xl bg-transparent h-14 text-base font-semibold"
             >
               <Camera className="w-4 h-4 mr-2" />
               Scan QR Code
             </Button>
           </DrawerTrigger>
-          <DrawerContent>
-            <div className="mx-auto w-full max-w-sm">
-              <DrawerHeader className="pt-10">
+          <DrawerContent className="h-[90vh] md:h-auto">
+            <div className="mx-auto w-full max-w-sm flex flex-col h-full md:h-auto">
+              <DrawerHeader className="pt-4 md:pt-10 shrink-0">
                 <DrawerTitle className="text-center">
-                  <Scan className="mb-2 mx-auto size-12" />
-                  <p className="text-sm">Scan approval QR code</p>
+                  <Scan className="mb-2 mx-auto size-10 md:size-12" />
+                  <p className="text-sm md:text-base">Scan approval QR code</p>
                 </DrawerTitle>
-                <DrawerDescription className="text-md">
+                <DrawerDescription className="text-sm md:text-md mt-3">
                   Point your camera at the QR code from the user's waiting room
                   screen. The approval will be detected automatically.
                 </DrawerDescription>
               </DrawerHeader>
 
-              <div className="px-8">
-                <div className="relative mt-6 aspect-4/5 overflow-hidden rounded-lg border border-dashed border-muted-foreground/40 bg-muted">
+              <div className="px-4 md:px-8 flex-1 flex flex-col">
+                <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-dashed border-muted-foreground/40 bg-muted flex-1">
                   <video
                     ref={videoRef}
                     className={cn(
@@ -374,14 +374,17 @@ function ApproveUsersPage() {
                 </div>
 
                 {scanError && (
-                  <p className="mt-3 text-sm text-destructive">{scanError}</p>
+                  <p className="mt-3 text-sm text-destructive text-center">
+                    {scanError}
+                  </p>
                 )}
               </div>
 
-              <DrawerFooter className="mb-7 gap-3 p-8">
+              <DrawerFooter className="shrink-0 gap-3 p-4 md:p-8">
                 <Button
                   variant="outline"
                   onClick={() => setIsScannerOpen(false)}
+                  className="w-full h-11 md:h-12"
                 >
                   Close
                 </Button>
@@ -392,7 +395,7 @@ function ApproveUsersPage() {
       </div>
 
       <Dialog open={approveDialogOpen} onOpenChange={setApproveDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Approve User</DialogTitle>
             <DialogDescription>
@@ -406,16 +409,16 @@ function ApproveUsersPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="approval-code">Approval Code:</Label>
-              <div className="flex gap-1 sm:gap-1.5 justify-center sm:justify-start flex-wrap">
+              <div className="hidden md:flex gap-1.5 justify-start flex-wrap">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <input
                     key={i}
                     type="text"
                     maxLength={1}
                     className={cn(
-                      "w-9 h-10 sm:w-10 sm:h-12 border-2 border-border rounded-lg text-center text-base sm:text-lg font-bold",
+                      "w-10 h-12 border-2 border-border rounded-lg text-center text-lg font-bold",
                       "focus:border-primary focus:outline-none transition-colors",
-                      "bg-input text-foreground text-sm sm:text-base",
+                      "bg-input text-foreground",
                     )}
                     value={approvalCode[i] || ""}
                     onChange={(e) => {
@@ -423,7 +426,6 @@ function ApproveUsersPage() {
                       newCode[i] = e.target.value.toUpperCase();
                       setApprovalCode(newCode.join(""));
 
-                      // Move to next input if not empty
                       if (e.target.value && i < 7) {
                         const nextInput = e.currentTarget
                           .nextElementSibling as HTMLInputElement;
@@ -447,18 +449,39 @@ function ApproveUsersPage() {
                   />
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground text-center sm:text-left">
+              <input
+                type="text"
+                maxLength={8}
+                placeholder="Enter 8-character code"
+                className={cn(
+                  "md:hidden w-full px-3 py-2 border-2 border-border rounded-lg text-center text-lg font-bold",
+                  "focus:border-primary focus:outline-none transition-colors",
+                  "bg-input text-foreground",
+                )}
+                value={approvalCode}
+                onChange={(e) => setApprovalCode(e.target.value.toUpperCase())}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleApprove();
+                  }
+                }}
+                disabled={
+                  approveUserMutation.isLoading || rejectUserMutation.isLoading
+                }
+              />
+              <p className="text-xs text-muted-foreground text-center">
                 Enter or scan the 8-character code
               </p>
             </div>
           </div>
-          <DialogFooter className="flex gap-2 sm:gap-2">
+          <DialogFooter className="flex gap-2 flex-col sm:flex-row">
             <Button
               variant="ghost"
               onClick={() => setApproveDialogOpen(false)}
               disabled={
                 approveUserMutation.isLoading || rejectUserMutation.isLoading
               }
+              className="flex-1 h-11"
             >
               Go Back
             </Button>
@@ -468,12 +491,13 @@ function ApproveUsersPage() {
               disabled={
                 approveUserMutation.isLoading || rejectUserMutation.isLoading
               }
+              className="flex-1 h-11"
             >
               {rejectUserMutation.isLoading ? "Rejecting..." : "Reject"}
             </Button>
             <Button
               onClick={handleApprove}
-              className="bg-green-600 hover:bg-green-700"
+              className="bg-green-600 hover:bg-green-700 flex-1 h-11"
               disabled={
                 approveUserMutation.isLoading || rejectUserMutation.isLoading
               }
