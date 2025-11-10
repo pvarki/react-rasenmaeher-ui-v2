@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { federation } from "@module-federation/vite";
 import fs from "fs";
 
 function loadThemeAssets() {
@@ -16,13 +17,23 @@ function loadThemeAssets() {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
-    tailwindcss(),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
     }),
+    federation({
+      name: "rasenmaeher",
+      shared: {
+        react: { singleton: true, requiredVersion: "18.3.1" },
+      },
+      runtime: "@module-federation/enhanced/runtime",
+    }),
+    react(),
+    tailwindcss(),
   ],
+  build: {
+    target: "chrome89",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -34,7 +45,7 @@ export default defineConfig({
       ignored: ["**/.env*"],
     },
     host: process.env.SERVER_DOMAIN || "localhost",
-
+    fs: { allow: [".", "../shared"] },
     allowedHosts: [
       "mtls." + (process.env.SERVER_DOMAIN ?? "localhost"),
       process.env.SERVER_DOMAIN ?? "localhost", // Dynamically allow the current domain

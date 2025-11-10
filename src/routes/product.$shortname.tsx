@@ -1,13 +1,17 @@
 "use client";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import {
+  loadRemote,
+  registerRemotes,
+} from "@module-federation/enhanced/runtime";
 
 export const Route = createFileRoute("/product/$shortname")({
   component: ProductPage,
@@ -23,6 +27,41 @@ interface Product {
   content: "markdown" | "link" | "component";
   markdownUrl?: string;
 }
+
+const loadRemoteComponent = async (
+  shortname: string,
+): Promise<{ default: React.ComponentType }> => {
+  const remoteName = `${shortname}-integration`;
+  registerRemotes([
+    {
+      name: remoteName,
+      type: "module",
+      entry: `/ui/${shortname}/remoteEntry.js`,
+    },
+  ]);
+  try {
+    const module = await loadRemote(`${remoteName}/remote-ui`);
+    return module as { default: React.ComponentType };
+  } catch {
+    // Fallback module: a simple local component
+    return {
+      default: () => (
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "1rem",
+            borderRadius: "8px",
+            marginTop: "1rem",
+            background: "#f8d7da",
+            color: "#842029",
+          }}
+        >
+          Remote app unavailable. Please try again later.
+        </div>
+      ),
+    };
+  }
+};
 
 function ProductPage() {
   const { shortname } = Route.useParams();
@@ -73,7 +112,7 @@ function ProductPage() {
   if (!product) {
     return null;
   }
-
+  const Remote = lazy(() => loadRemoteComponent(shortname));
   return (
     <div className="fixed inset-0 z-50 bg-background flex flex-col">
       <div className="border-b border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between bg-card/50 backdrop-blur-sm sticky top-0 z-10">
@@ -110,8 +149,9 @@ function ProductPage() {
             {product.content === "component" ? (
               <div className="text-center space-y-4 py-12">
                 <h2 className="text-2xl font-bold mb-6 text-foreground">
-                  (MOCK): HELLO WORLD KOMPONENTTI LADATTU MODULAARI LOADINGILLA
-                  :)
+                  <Suspense fallback={<div>Loading remote...</div>}>
+                    <Remote />
+                  </Suspense>
                 </h2>
                 <p className="text-muted-foreground">{product.description}</p>
               </div>
