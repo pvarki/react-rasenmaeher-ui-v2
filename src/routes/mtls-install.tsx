@@ -41,6 +41,84 @@ export const Route = createFileRoute("/mtls-install")({
   component: MtlsInstallPage,
 });
 
+const PLATFORM_INSTRUCTIONS: Record<
+  string,
+  { steps: string[]; notes?: string[] }
+> = {
+  Windows: {
+    steps: [
+      "Download your certificate using the button below",
+      "Double-click the .pfx file to open the Certificate Import Wizard",
+      "Select 'Current User' or 'Local Machine' (Current User is recommended)",
+      "Choose 'Automatically select the certificate store based on the type of certificate'",
+      "When prompted for a password, enter your callsign",
+      "Click 'Finish' to complete the installation",
+      "Use the 'Navigate with your key' button to access services",
+    ],
+    notes: [
+      "The certificate will be stored in your Windows Certificate Store",
+      "You may need to restart your browser for the certificate to be recognized",
+    ],
+  },
+  MacOS: {
+    steps: [
+      "Download your certificate using the button below",
+      "Double-click the .pfx file to open Keychain Access",
+      "When prompted, enter your callsign as the password",
+      "Verify the certificate was added to your login Keychain",
+      "Use the 'Navigate with your key' button to access services",
+    ],
+    notes: [
+      "macOS will automatically install the certificate to Keychain",
+      "If prompted about trust, select 'Always Trust' for this application",
+    ],
+  },
+  Linux: {
+    steps: [
+      "Download your certificate using the button below",
+      "Convert the .pfx to PEM format: openssl pkcs12 -in [certificate].pfx -out [certificate].pem -nodes",
+      "When prompted, enter your callsign as the password",
+      "Place the certificate in your browser's certificate directory or system store",
+      "For Firefox: Settings → Privacy → Certificates → View Certificates → Import",
+      "For Chrome: Settings → Privacy and security → Security → Manage certificates → Import",
+      "Use the 'Navigate with your key' button to access services",
+    ],
+    notes: [
+      "The exact process depends on your Linux distribution and browser",
+      "You may need to restart your browser after importing the certificate",
+    ],
+  },
+  Android: {
+    steps: [
+      "Download your certificate using the button below",
+      "Open Settings → Security → Encryption and credentials → Install a certificate",
+      "Select 'Certificate' and choose the .pfx file",
+      "When prompted, enter your callsign as the password",
+      "Name the certificate and confirm installation",
+      "Use the 'Navigate with your key' button to access services",
+    ],
+    notes: [
+      "Android must be running version 4.4 or later",
+      "The certificate will be added to your system's trusted certificate store",
+    ],
+  },
+  iOS: {
+    steps: [
+      "Download your certificate using the button below",
+      "Tap the file to open it, then tap 'Allow' to install",
+      "Go to Settings → General → VPN & Device Management",
+      "Tap the certificate under 'Downloaded Profile'",
+      "When prompted, enter your callsign as the password",
+      "Tap 'Install' twice to confirm",
+      "Use the 'Navigate with your key' button to access services",
+    ],
+    notes: [
+      "iOS requires the certificate to be trusted before use",
+      "You may see a prompt asking to allow certificate installation",
+    ],
+  },
+};
+
 function MtlsInstallPage() {
   const { userType, callsign: userCallsign } = useUserType();
 
@@ -74,7 +152,6 @@ function MtlsInstallPage() {
   const hostname = window.location.hostname;
   const port = window.location.port;
 
-  // Construct mtls URL with subdomain
   let mtlsHostname = hostname;
   if (!hostname.startsWith("mtls.")) {
     mtlsHostname = `mtls.${hostname}`;
@@ -108,13 +185,13 @@ function MtlsInstallPage() {
     }
   };
 
+  const platformInstructions =
+    PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Windows;
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4 md:p-6">
       <div className="w-full max-w-3xl space-y-6 md:space-y-8 py-8">
         <div className="text-center space-y-3">
-          {/* <h1 className="text-sm font-medium text-muted-foreground uppercase">
-            {callsign || "USER"}
-          </h1> */}
           <div className="flex justify-center">
             <div className="p-4 rounded-full bg-primary/10 border-2 border-primary/20">
               <Key className="w-12 h-12 text-primary" />
@@ -166,16 +243,38 @@ function MtlsInstallPage() {
         <div className="space-y-4 bg-card border border-border rounded-xl p-6">
           <h3 className="font-semibold">Installation Instructions:</h3>
           <ol className="list-decimal list-inside space-y-3 text-sm text-muted-foreground">
-            <li>Download your certificate using the button below</li>
-            <li>
-              When prompted for a password, enter:{" "}
-              <span className="font-mono font-semibold text-foreground bg-muted px-2 py-0.5 rounded">
+            {platformInstructions.steps.map((step, idx) => (
+              <li key={idx} className="pl-2">
+                {step}
+              </li>
+            ))}
+          </ol>
+
+          {platformInstructions.notes &&
+            platformInstructions.notes.length > 0 && (
+              <div className="mt-6 p-4 bg-accent/10 border border-accent/20 rounded-lg space-y-2">
+                <p className="text-sm font-semibold text-accent">Note:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  {platformInstructions.notes.map((note, idx) => (
+                    <li
+                      key={idx}
+                      className="text-sm text-muted-foreground pl-1"
+                    >
+                      {note}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+          <div className="pt-2 p-4 bg-muted/50 border border-border rounded-lg">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold">Password for certificate:</span>{" "}
+              <span className="font-mono font-semibold text-foreground bg-card px-2 py-0.5 rounded inline-block mt-1">
                 {callsign}
               </span>
-            </li>
-            <li>Install the certificate on your device</li>
-            <li>Use the "Navigate with your key" button to access services</li>
-          </ol>
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-3 md:gap-4 pt-4">

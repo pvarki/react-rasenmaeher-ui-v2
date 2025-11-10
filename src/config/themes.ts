@@ -16,7 +16,7 @@ export interface ThemeConfig {
 
 const defaultTheme: ThemeConfig = {
   name: "PV-Arki",
-  subName: "Rasenmaeher",
+  subName: "Deploy App",
   primaryColor: "oklch(0.205 0 0)",
   accentColor: "oklch(0.488 0.243 264.376)",
   backgroundColor: "oklch(0.145 0 0)",

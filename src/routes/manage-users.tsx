@@ -303,7 +303,7 @@ function ManageUsersPage() {
             <div className="space-y-2">
               <h4 className="font-semibold text-sm">Removing Users</h4>
               <p className="text-sm text-muted-foreground">
-                Removing users will revoke their access to this rasenmaeher and
+                Removing users will revoke their access to this Deploy App and
                 all connected services. They will no longer be able to connect
                 to your situation awareness service.
               </p>
@@ -391,13 +391,6 @@ function ManageUsersPage() {
                     <p>You cannot remove yourself from this application</p>
                   </TooltipContent>
                 )}
-                {selectedUser &&
-                  isAdmin(selectedUser) &&
-                  administrators.length <= 1 && (
-                    <TooltipContent>
-                      <p>Cannot remove the last admin</p>
-                    </TooltipContent>
-                  )}
               </Tooltip>
               {selectedUser && !isAdmin(selectedUser) ? (
                 <Button

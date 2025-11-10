@@ -138,16 +138,12 @@ function LoginPage() {
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             {theme.assets?.logoUrl && (
-              <img
-                src={theme.assets.logoUrl || "/placeholder.svg"}
-                alt="Logo"
-                className="h-8 w-8"
-              />
+              <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
             )}
             <h1 className="text-2xl font-bold">{theme.subName}</h1>
           </div>
           <p className="text-muted-foreground text-sm">
-            {theme.name} • Rasenmaeher
+            {theme.name} • Deploy App
           </p>
         </div>
 

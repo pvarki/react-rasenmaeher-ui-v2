@@ -7,7 +7,7 @@ import {
   useLocation,
   useNavigate,
 } from "@tanstack/react-router";
-import { ChevronDown, Menu, User, UserStar } from "lucide-react";
+import { ChevronDown, Menu, User, UserSearch as UserStar } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -28,8 +28,12 @@ import {
 } from "@/components/ui/select";
 
 export const Route = createRootRoute({
-  component: RootLayout,
+  component: RootLayoutWrapper,
 });
+
+function RootLayoutWrapper() {
+  return <RootLayout />;
+}
 
 function RootLayout() {
   const location = useLocation();
@@ -37,7 +41,6 @@ function RootLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userManagementOpen, setUserManagementOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [language, setLanguage] = useState("en");
 
   const {
     userType,
@@ -157,7 +160,7 @@ function RootLayout() {
         <div className="p-6 border-b border-sidebar-border flex items-center gap-3">
           {themeConfig.assets?.logoUrl ? (
             <img
-              src={themeConfig.assets.logoUrl || "/placeholder.svg"}
+              src={themeConfig.assets.logoUrl}
               alt="Logo"
               className="w-10 h-12"
             />
@@ -186,7 +189,7 @@ function RootLayout() {
               {themeConfig.name || "PV-Arki"}
             </span>
             <span className="text-sidebar-foreground/60">
-              {themeConfig.subName || "Rasenmaeher UI"}
+              {themeConfig.subName || "Deploy App UI"}
             </span>
           </div>
         </div>
@@ -268,7 +271,7 @@ function RootLayout() {
             <label className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider px-2">
               Language
             </label>
-            <Select value={language} onValueChange={setLanguage}>
+            <Select>
               <SelectTrigger className="h-10 bg-sidebar-accent/30 border-sidebar-accent/50">
                 <Globe className="w-4 h-4 mr-2" />
                 <SelectValue />
@@ -332,9 +335,7 @@ function RootLayout() {
             >
               <Menu className="w-5 h-5" />
             </button>
-            <h1 className="text-lg font-semibold tracking-tight">
-              rasenmaeher
-            </h1>
+            <h1 className="text-lg font-semibold tracking-tight">Deploy App</h1>
           </div>
         </header>
 
@@ -343,7 +344,7 @@ function RootLayout() {
         </main>
 
         <footer className="border-t border-border p-4 text-center text-xs text-muted-foreground">
-          COPYRIGHT 2025 Rasenmaeher PV Arki
+          COPYRIGHT 2025 Deploy App PV Arki
         </footer>
       </div>
     </div>

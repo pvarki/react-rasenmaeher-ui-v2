@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import type React from "react";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { BookOpen, ExternalLink, Zap } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -29,53 +30,43 @@ interface Product {
   description: string;
   language: string;
   docs: string | null;
-  link: string | null;
-  content: "markdown" | "link" | "component";
-  markdownUrl?: string;
-  image?: string;
-  color?: string;
+  component: {
+    type: "component" | "markdown" | "link";
+    ref: string;
+  };
 }
 
 function HomePage() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState<Product[]>([]);
   const [exitDialogOpen, setExitDialogOpen] = useState(false);
   const [exitUrl, setExitUrl] = useState("");
-  const [isContentReady, setIsContentReady] = useState(false);
 
   const { isValidUser, callsign, isLoading: userTypeLoading } = useUserType();
 
-  useEffect(() => {
-    if (!userTypeLoading && !callsign) {
-      navigate({ to: "/login" });
-    }
-  }, [callsign, userTypeLoading, navigate]);
+  const { data: products = [], isLoading: productsLoading } =
+    useGetProductDescriptions("en");
 
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setIsContentReady(true);
-      })
-      .catch((err) => {
-        console.error("Failed to load products:", err);
-        setIsContentReady(true);
-      });
-  }, []);
+  if (userTypeLoading || productsLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-muted-foreground">Loading your services...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userTypeLoading && !callsign) {
+    navigate({ to: "/login" });
+  }
 
   const handleProductClick = (product: Product) => {
     if (!isValidUser) return;
 
-    if (product.content === "link") {
-      setExitUrl(product.link || "");
+    if (product.component.type === "link") {
+      setExitUrl("#");
       setExitDialogOpen(true);
-    } else if (product.content === "markdown") {
-      window.open(
-        `/product/${product.shortname}`,
-        "_blank",
-        "width=1200,height=800",
-      );
     } else {
       window.open(
         `/product/${product.shortname}`,
@@ -99,24 +90,11 @@ function HomePage() {
     setExitUrl("");
   };
 
-  if (!isContentReady) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">
-            Loading React + TypeScript + Vite...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="mb-12 space-y-3">
         <h2 className="text-3xl font-bold tracking-tight">
-          Welcome to rasenmaeher
+          Welcome to Deploy App
         </h2>
         <p className="text-lg text-muted-foreground max-w-4xl">
           Access your tactical services and tools. Select a service below to get
@@ -137,7 +115,7 @@ function HomePage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {products.map((product: Product) => (
           <div
             key={product.shortname}
             onClick={() => handleProductClick(product)}
@@ -148,19 +126,16 @@ function HomePage() {
                 : "opacity-60 cursor-not-allowed bg-card",
             )}
           >
-            {product.image && (
+            {product.icon && (
               <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-linear-to-br">
                 <img
-                  src={product.image || "/placeholder.svg"}
+                  src={product.icon}
                   alt={product.title}
                   className={cn(
                     "w-full h-full object-cover transition-all duration-500",
                     "group-hover:scale-105",
                   )}
                   loading="lazy"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, ${product.color || "#3b82f6"}20 0%, ${product.color || "#3b82f6"}10 100%)`,
-                  }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
               </div>
@@ -169,7 +144,7 @@ function HomePage() {
             <div className="flex flex-col flex-1 p-6">
               <div className="mb-4">
                 <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">
-                  {product.shortname.toUpperCase()} (PoC)
+                  {product.shortname.toUpperCase()}
                 </p>
                 <h3 className="text-xl font-bold text-foreground">
                   {product.title}
@@ -209,7 +184,7 @@ function HomePage() {
                   )}
                   disabled={!isValidUser}
                 >
-                  {product.content === "component" ? (
+                  {product.component.type === "component" ? (
                     <>
                       <Zap className="w-4 h-4 mr-2" />
                       LAUNCH
@@ -230,7 +205,7 @@ function HomePage() {
       <Dialog open={exitDialogOpen} onOpenChange={setExitDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Leave rasenmaeher?</DialogTitle>
+            <DialogTitle>Leave Deploy App?</DialogTitle>
             <DialogDescription className="pt-2">
               You are about to open an external page. Are you sure you want to
               continue?

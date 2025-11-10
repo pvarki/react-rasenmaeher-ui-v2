@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, lazy, Suspense } from "react";
 import { X, Loader2 } from "lucide-react";
@@ -12,25 +14,23 @@ import {
   loadRemote,
   registerRemotes,
 } from "@module-federation/enhanced/runtime";
+import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
+import { useGetProductInstructions } from "@/hooks/api/useGetProductInstructions";
 
 export const Route = createFileRoute("/product/$shortname")({
   component: ProductPage,
 });
 
-interface Product {
-  shortname: string;
-  title: string;
-  icon: string | null;
-  description: string;
-  language: string;
-  docs: string | null;
-  content: "markdown" | "link" | "component";
-  markdownUrl?: string;
+interface RemoteComponentProps {
+  data?: unknown;
+  shortname?: string;
+  onNavigate?: (options: { to: string }) => void;
+  [key: string]: unknown;
 }
 
 const loadRemoteComponent = async (
   shortname: string,
-): Promise<{ default: React.ComponentType }> => {
+): Promise<{ default: React.ComponentType<RemoteComponentProps> }> => {
   const remoteName = `${shortname}-integration`;
   registerRemotes([
     {
@@ -43,9 +43,8 @@ const loadRemoteComponent = async (
     const module = await loadRemote(`${remoteName}/remote-ui`);
     return module as { default: React.ComponentType };
   } catch {
-    // Fallback module: a simple local component
     return {
-      default: () => (
+      default: (props: RemoteComponentProps) => (
         <div
           style={{
             border: "1px solid #ccc",
@@ -56,7 +55,8 @@ const loadRemoteComponent = async (
             color: "#842029",
           }}
         >
-          Remote app unavailable. Please try again later.
+          Remote app unavailable for {props.shortname || "unknown"}. Please try
+          again later.
         </div>
       ),
     };
@@ -66,53 +66,94 @@ const loadRemoteComponent = async (
 function ProductPage() {
   const { shortname } = Route.useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [markdownContent, setMarkdownContent] = useState("");
+  const [markdownContent] = useState("");
+
+  const {
+    data: products = [],
+    isLoading: productsLoading,
+    error: productsError,
+  } = useGetProductDescriptions("en");
+  const { data: instructionsData } = useGetProductInstructions(shortname);
+
+  const product = products.find((p) => p.shortname === shortname);
 
   useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data: Product[]) => {
-        const found = data.find((p) => p.shortname === shortname);
-        if (found) {
-          setProduct(found);
-          const interval = setInterval(() => {
-            setProgress((prev) => {
-              if (prev >= 100) {
-                clearInterval(interval);
-                setTimeout(() => setLoading(false), 300);
-                return 100;
-              }
-              return prev + 5;
-            });
-          }, 100);
+    console.log(products);
 
-          if (found.content === "markdown" && found.markdownUrl) {
-            fetch(found.markdownUrl)
-              .then((res) => res.text())
-              .then((text) => setMarkdownContent(text))
-              .catch((err) => console.error("Failed to load markdown:", err));
+    // If products are still loading, don't do anything yet
+    if (productsLoading) {
+      return;
+    }
+
+    // If products have loaded but the product doesn't exist, navigate away
+    if (!productsLoading && !product) {
+      navigate({ to: "/" });
+      return;
+    }
+
+    // If we have a product, start the loading animation
+    if (product) {
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => setLoading(false), 300);
+            return 100;
           }
-        } else {
-          navigate({ to: "/" });
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load product:", err);
-        navigate({ to: "/" });
-      });
-  }, [shortname, navigate]);
+          return prev + 5;
+        });
+      }, 100);
+
+      return () => clearInterval(interval);
+    }
+  }, [product, navigate, productsLoading, products]);
 
   const handleClose = () => {
     navigate({ to: "/" });
   };
 
-  if (!product) {
-    return null;
+  // Show loading while products are being fetched
+  if (productsLoading) {
+    return (
+      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">Loading products...</p>
+        </div>
+      </div>
+    );
   }
+
+  // Show error state if products failed to load
+  if (productsError) {
+    return (
+      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <p className="text-sm text-destructive">Failed to load products</p>
+          <Button onClick={() => navigate({ to: "/" })}>Go Home</Button>
+        </div>
+      </div>
+    );
+  }
+
+  // If products loaded but this specific product doesn't exist, this will be handled by useEffect
+  if (!product) {
+    return (
+      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">
+            Product not found, redirecting...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const Remote = lazy(() => loadRemoteComponent(shortname));
+
   return (
     <div className="fixed inset-0 z-50 bg-background flex flex-col">
       <div className="border-b border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between bg-card/50 backdrop-blur-sm sticky top-0 z-10">
@@ -146,16 +187,19 @@ function ProductPage() {
           </div>
         ) : (
           <div className="max-w-4xl mx-auto">
-            {product.content === "component" ? (
+            {product.component.type === "component" ? (
               <div className="text-center space-y-4 py-12">
                 <h2 className="text-2xl font-bold mb-6 text-foreground">
                   <Suspense fallback={<div>Loading remote...</div>}>
-                    <Remote />
+                    <Remote
+                      data={instructionsData?.data || {}}
+                      shortname={shortname}
+                      onNavigate={navigate}
+                    />
                   </Suspense>
                 </h2>
-                <p className="text-muted-foreground">{product.description}</p>
               </div>
-            ) : product.content === "markdown" ? (
+            ) : product.component.type === "markdown" ? (
               <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-primary prose-pre:bg-card prose-pre:border prose-blockquote:border-l-primary">
                 {markdownContent ? (
                   <ReactMarkdown

@@ -4,7 +4,13 @@ import type React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Search, MoreVertical, HelpCircle, Plus } from "lucide-react";
+import {
+  Search,
+  MoreVertical,
+  HelpCircle,
+  Plus,
+  CheckSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -255,7 +261,10 @@ function AddUsersPage() {
           }}
           className="h-14 px-6 text-base font-semibold"
         >
-          {bulkMode ? "Cancel" : "Select Multiple"}
+          <CheckSquare className="w-5 h-5 md:mr-2 inline md:hidden" />
+          <span className="hidden md:inline">
+            {bulkMode ? "Cancel" : "Select Multiple"}
+          </span>
         </Button>
       </div>
 
