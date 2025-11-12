@@ -28,6 +28,7 @@ import { useDeleteInviteCode } from "@/hooks/api/inviteCode/useDeleteInviteCode"
 import { useDeactivateInviteCode } from "@/hooks/api/inviteCode/useDeactivateInviteCode";
 import { useReactivateInviteCode } from "@/hooks/api/inviteCode/useReactivateInviteCode";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { format } from "date-fns";
 
 export const Route = createFileRoute("/add-users")({
   component: AddUsersPage,
@@ -53,12 +54,14 @@ function AddUsersPage() {
   }, [callsign, userTypeLoading, navigate]);
 
   useEffect(() => {
-    const hasSeenWalkthrough = localStorage.getItem("add-users-walkthrough");
+    const hasSeenWalkthrough = localStorage.getItem(
+      `add-users-walkthrough-${callsign}`,
+    );
     if (!hasSeenWalkthrough && !userTypeLoading) {
       setWalkthroughOpen(true);
-      localStorage.setItem("add-users-walkthrough", "true");
+      localStorage.setItem(`add-users-walkthrough-${callsign}`, "true");
     }
-  }, [userTypeLoading]);
+  }, [callsign, userTypeLoading]);
 
   const {
     data: inviteCodes,
@@ -242,16 +245,21 @@ function AddUsersPage() {
         </Button>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col md:flex-row items-center gap-3">
         <Button
           onClick={() => setCreateModalOpen(true)}
-          className="flex-1 md:flex-none bg-primary hover:bg-primary/90 h-14 md:h-14 rounded-xl text-base font-semibold"
+          className="w-full md:w-auto bg-primary hover:bg-primary/90 h-12 md:h-12 px-6 font-semibold rounded-xl"
           disabled={createInviteCodeMutation.isLoading}
         >
           <Plus className="w-5 h-5 mr-2" />
-          {createInviteCodeMutation.isLoading
-            ? "Creating..."
-            : "Create New Invite"}
+          <span className="hidden md:inline">
+            {createInviteCodeMutation.isLoading
+              ? "Creating..."
+              : "Create New Invite"}
+          </span>
+          <span className="md:hidden">
+            {createInviteCodeMutation.isLoading ? "..." : "Create"}
+          </span>
         </Button>
         <Button
           variant="outline"
@@ -259,10 +267,10 @@ function AddUsersPage() {
             setBulkMode(!bulkMode);
             setSelectedCodes([]);
           }}
-          className="h-14 px-6 text-base font-semibold"
+          className="w-full md:w-auto h-12 px-6 font-semibold rounded-xl"
         >
-          <CheckSquare className="w-5 h-5 md:mr-2 inline md:hidden" />
-          <span className="hidden md:inline">
+          <CheckSquare className="w-5 h-5" />
+          <span className="ml-2 hidden md:inline">
             {bulkMode ? "Cancel" : "Select Multiple"}
           </span>
         </Button>
@@ -314,7 +322,7 @@ function AddUsersPage() {
                 "bg-accent border-primary",
             )}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-1">
               {bulkMode && (
                 <input
                   type="checkbox"
@@ -323,19 +331,29 @@ function AddUsersPage() {
                   className="w-5 h-5 rounded border-border"
                 />
               )}
-              <span className="font-mono font-bold text-lg">
-                {invite.invitecode}
-              </span>
-              <span
-                className={cn(
-                  "text-xs font-bold uppercase px-3 py-1.5 rounded-full",
-                  invite.active
-                    ? "text-green-600 bg-green-100 dark:bg-green-900/30"
-                    : "text-gray-500 bg-gray-100 dark:bg-gray-800",
-                )}
-              >
-                {invite.active ? "active" : "inactive"}
-              </span>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold text-lg">
+                    {invite.invitecode}
+                  </span>
+                  <span
+                    className={cn(
+                      "text-xs font-bold uppercase px-3 py-0.5 rounded-full",
+                      invite.active
+                        ? "text-green-600 bg-green-100 dark:bg-green-900/30"
+                        : "text-gray-500 bg-gray-100 dark:bg-gray-800",
+                    )}
+                  >
+                    {invite.active ? "active" : "inactive"}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">
+                  {invite.owner_cs === callsign ? "You" : invite.owner_cs}{" "}
+                  created this code{" "}
+                  {invite.created &&
+                    `on ${format(new Date(invite.created), "MMM d, yyyy")}`}
+                </p>
+              </div>
             </div>
             {!bulkMode && (
               <button

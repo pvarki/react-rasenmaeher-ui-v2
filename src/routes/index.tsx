@@ -18,6 +18,7 @@ import {
 import { BookOpen, ExternalLink, Zap } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
+import { MtlsInfoModal } from "@/components/MtlsInfoModal";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -40,6 +41,7 @@ function HomePage() {
   const navigate = useNavigate();
   const [exitDialogOpen, setExitDialogOpen] = useState(false);
   const [exitUrl, setExitUrl] = useState("");
+  const [mtlsInfoOpen, setMtlsInfoOpen] = useState(false);
 
   const { isValidUser, callsign, isLoading: userTypeLoading } = useUserType();
 
@@ -68,11 +70,7 @@ function HomePage() {
       setExitUrl("#");
       setExitDialogOpen(true);
     } else {
-      window.open(
-        `/product/${product.shortname}`,
-        "_blank",
-        "width=1200,height=800",
-      );
+      window.open(`/product/${product.shortname}`);
     }
   };
 
@@ -92,26 +90,28 @@ function HomePage() {
 
   return (
     <>
-      <div className="mb-12 space-y-3">
-        <h2 className="text-3xl font-bold tracking-tight">
-          Welcome to Deploy App
-        </h2>
-        <p className="text-lg text-muted-foreground max-w-4xl">
-          Access your tactical services and tools. Select a service below to get
-          started.
-        </p>
-        {!isValidUser && (
-          <p className="text-sm text-destructive font-medium flex items-center gap-2">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            You must be authenticated to access services. Please log in.
+      <div className="mb-12 space-y-3 flex items-start justify-between">
+        <div className="space-y-3">
+          <h2 className="text-3xl font-bold tracking-tight">
+            Welcome to Deploy App
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-4xl">
+            Access your tactical services and tools. Select a service below to
+            get started.
           </p>
-        )}
+          {!isValidUser && (
+            <p className="text-sm text-destructive font-medium flex items-center gap-2">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              You must be authenticated to access services. Please log in.
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -230,6 +230,8 @@ function HomePage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <MtlsInfoModal open={mtlsInfoOpen} onOpenChange={setMtlsInfoOpen} />
     </>
   );
 }

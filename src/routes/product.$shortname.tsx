@@ -111,7 +111,7 @@ function ProductPage() {
   }, [product, navigate, productsLoading, products]);
 
   const handleClose = () => {
-    navigate({ to: "/" });
+    window.close();
   };
 
   // Show loading while products are being fetched
@@ -188,16 +188,20 @@ function ProductPage() {
         ) : (
           <div className="max-w-4xl mx-auto">
             {product.component.type === "component" ? (
-              <div className="text-center space-y-4 py-12">
-                <h2 className="text-2xl font-bold mb-6 text-foreground">
-                  <Suspense fallback={<div>Loading remote...</div>}>
-                    <Remote
-                      data={instructionsData?.data || {}}
-                      shortname={shortname}
-                      onNavigate={navigate}
-                    />
-                  </Suspense>
-                </h2>
+              <div>
+                <Suspense
+                  fallback={
+                    <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
+                      Loading remote...
+                    </div>
+                  }
+                >
+                  <Remote
+                    data={instructionsData?.data || {}}
+                    shortname={shortname}
+                    onNavigate={navigate}
+                  />
+                </Suspense>
               </div>
             ) : product.component.type === "markdown" ? (
               <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-primary prose-pre:bg-card prose-pre:border prose-blockquote:border-l-primary">

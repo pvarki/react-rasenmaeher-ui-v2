@@ -31,6 +31,8 @@ import { useDemoteUser } from "@/hooks/api/useDemoteUser";
 import { useDeleteUser } from "@/hooks/api/useDeleteUser";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useNavigate } from "@tanstack/react-router";
+import { TypeConfirmationModal } from "@/components/ConfirmationModals";
+import { KeycloakManageModal } from "@/components/KeycloakManageModal";
 
 export const Route = createFileRoute("/manage-users")({
   component: ManageUsersPage,
@@ -46,8 +48,11 @@ function ManageUsersPage() {
   const [administratorsOpen, setAdministratorsOpen] = useState(true);
   const [fightersOpen, setFightersOpen] = useState(true);
   const [walkthroughOpen, setWalkthroughOpen] = useState(false);
-  const currentDomain = window.location.hostname.replace(/^mtls\./, "");
-  const keycloakUrl = `https://kc.${currentDomain}:9443/admin/RASENMAEHER/console/`;
+  const [keycloakModalOpen, setKeycloakModalOpen] = useState(false);
+  const [promoteConfirmOpen, setPromoteConfirmOpen] = useState(false);
+  const [demoteConfirmOpen, setDemoteConfirmOpen] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
   const navigate = useNavigate();
 
@@ -59,12 +64,20 @@ function ManageUsersPage() {
   }, [callsign, userTypeLoading, navigate]);
 
   useEffect(() => {
-    const hasSeenWalkthrough = localStorage.getItem("manage-users-walkthrough");
+    const walkthroughKey = `manage-users-walkthrough-${callsign}`;
+    const hasSeenWalkthrough = localStorage.getItem(walkthroughKey);
     if (!hasSeenWalkthrough && !userTypeLoading) {
       setWalkthroughOpen(true);
-      localStorage.setItem("manage-users-walkthrough", "true");
+      localStorage.setItem(walkthroughKey, "true");
     }
-  }, [userTypeLoading]);
+  }, [userTypeLoading, callsign]);
+
+  useEffect(() => {
+    if (!userTypeLoading && userType !== "admin") {
+      toast.error("403 Forbidden: Admin access required");
+      navigate({ to: "/" });
+    }
+  }, [userType, userTypeLoading, navigate]);
 
   const {
     data: users,
@@ -78,6 +91,7 @@ function ManageUsersPage() {
     onSuccess: () => {
       toast.success(`${selectedUser?.callsign} promoted to administrator!`);
       setSelectedUser(null);
+      setPromoteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
@@ -89,6 +103,7 @@ function ManageUsersPage() {
     onSuccess: () => {
       toast.success(`${selectedUser?.callsign} demoted to fighter!`);
       setSelectedUser(null);
+      setDemoteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
@@ -100,19 +115,13 @@ function ManageUsersPage() {
     onSuccess: () => {
       toast.error(`${selectedUser?.callsign} removed from the system`);
       setSelectedUser(null);
+      setDeleteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
       toast.error(`Failed to remove user: ${error.message}`);
     },
   });
-
-  useEffect(() => {
-    if (!userTypeLoading && userType !== "admin") {
-      toast.error("403 Forbidden: Admin access required");
-      navigate({ to: "/" });
-    }
-  }, [userType, userTypeLoading, navigate]);
 
   const administrators =
     users?.filter((u) => u.roles && u.roles.includes("admin")) || [];
@@ -122,23 +131,31 @@ function ManageUsersPage() {
   const isAdmin = (user: User) => user.roles && user.roles.includes("admin");
   const isCurrentUser = (user: User) => user.callsign === callsign;
 
-  const handlePromote = () => {
+  const handlePromoteClick = () => {
+    if (!selectedUser) return;
+    setPromoteConfirmOpen(true);
+  };
+
+  const handlePromoteConfirm = () => {
     if (!selectedUser) return;
     promoteUserMutation.mutate({ callsign: selectedUser.callsign });
   };
 
-  const handleDemote = () => {
+  const handleDemoteClick = () => {
     if (!selectedUser) return;
-
     if (selectedUser.callsign === callsign) {
       toast.error("You cannot demote your own account");
       return;
     }
+    setDemoteConfirmOpen(true);
+  };
 
+  const handleDemoteConfirm = () => {
+    if (!selectedUser) return;
     demoteUserMutation.mutate({ callsign: selectedUser.callsign });
   };
 
-  const handleRemove = () => {
+  const handleRemoveClick = () => {
     if (!selectedUser) return;
 
     if (selectedUser.callsign === callsign) {
@@ -153,6 +170,11 @@ function ManageUsersPage() {
       return;
     }
 
+    setDeleteConfirmOpen(true);
+  };
+
+  const handleRemoveConfirm = () => {
+    if (!selectedUser) return;
     deleteUserMutation.mutate(selectedUser.callsign);
   };
 
@@ -271,13 +293,10 @@ function ManageUsersPage() {
 
       <div>
         <Button
-          asChild
-          variant="outline"
-          className="w-full bg-transparent rounded-xl"
+          onClick={() => setKeycloakModalOpen(true)}
+          className="w-full bg-primary hover:bg-primary/90 h-12 rounded-xl text-base font-semibold"
         >
-          <a href={keycloakUrl} target="_blank" rel="noopener noreferrer">
-            Go to Keycloak Management Console
-          </a>
+          Open Keycloak Management Console
         </Button>
       </div>
 
@@ -368,7 +387,7 @@ function ManageUsersPage() {
                   <span className="flex-1">
                     <Button
                       variant="destructive"
-                      onClick={handleRemove}
+                      onClick={handleRemoveClick}
                       className="w-full"
                       disabled={
                         promoteUserMutation.isLoading ||
@@ -394,7 +413,7 @@ function ManageUsersPage() {
               </Tooltip>
               {selectedUser && !isAdmin(selectedUser) ? (
                 <Button
-                  onClick={handlePromote}
+                  onClick={handlePromoteClick}
                   className="flex-1 bg-teal-600 hover:bg-teal-700"
                   disabled={
                     promoteUserMutation.isLoading ||
@@ -409,7 +428,7 @@ function ManageUsersPage() {
                   <TooltipTrigger asChild>
                     <span className="flex-1">
                       <Button
-                        onClick={handleDemote}
+                        onClick={handleDemoteClick}
                         className="w-full bg-orange-600 hover:bg-orange-700"
                         disabled={
                           promoteUserMutation.isLoading ||
@@ -435,6 +454,42 @@ function ManageUsersPage() {
           </DialogContent>
         </Dialog>
       </TooltipProvider>
+
+      <TypeConfirmationModal
+        open={promoteConfirmOpen}
+        onOpenChange={setPromoteConfirmOpen}
+        title="Promote User"
+        description={`Are you sure you want to promote ${selectedUser?.callsign} to administrator? They will have full access to user management tools.`}
+        requiredText="PROMOTE"
+        onConfirm={handlePromoteConfirm}
+        isLoading={promoteUserMutation.isLoading}
+      />
+
+      <TypeConfirmationModal
+        open={demoteConfirmOpen}
+        onOpenChange={setDemoteConfirmOpen}
+        title="Demote User"
+        description={`Are you sure you want to demote ${selectedUser?.callsign} from administrator to fighter? They will lose access to user management tools.`}
+        requiredText="DEMOTE"
+        onConfirm={handleDemoteConfirm}
+        isLoading={demoteUserMutation.isLoading}
+      />
+
+      <TypeConfirmationModal
+        open={deleteConfirmOpen}
+        onOpenChange={setDeleteConfirmOpen}
+        title="Remove User"
+        description={`This action cannot be undone. Enter the username "${selectedUser?.callsign?.toUpperCase()}" to confirm removal.`}
+        requiredText={selectedUser?.callsign?.toUpperCase() || ""}
+        onConfirm={handleRemoveConfirm}
+        isLoading={deleteUserMutation.isLoading}
+        isDangerous={true}
+      />
+
+      <KeycloakManageModal
+        open={keycloakModalOpen}
+        onOpenChange={setKeycloakModalOpen}
+      />
     </div>
   );
 }

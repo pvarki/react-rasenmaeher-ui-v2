@@ -48,6 +48,7 @@
     "@tailwindcss/vite": "^4.1.16",
     "@tanstack/react-router": "^1.133.22",
     "@tanstack/react-router-devtools": "^1.133.22",
+    "@types/pdfmake": "^0.2.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -56,11 +57,13 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
     "formik": "^2.4.6",
+    "html2canvas-pro": "^1.5.13",
     "husky": "^9.1.7",
     "input-otp": "^1.4.2",
     "jsqr": "^1.4.0",
     "lint-staged": "^16.2.5",
     "lucide-react": "^0.552.0",
+    "pdfmake": "^0.2.20",
     "react": "^18.3.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^18.3.1",
@@ -109,6 +112,7 @@
       "vite": "5.2.10"
     },
     "onlyBuiltDependencies": [
+      "core-js",
       "esbuild"
     ]
   },

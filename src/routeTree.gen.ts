@@ -16,7 +16,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ErrorRouteImport } from './routes/error'
 import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
 import { Route as ApproveUsersRouteImport } from './routes/approve-users'
-import { Route as ApproveUserRouteImport } from './routes/approve-user'
 import { Route as AddUsersRouteImport } from './routes/add-users'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductShortnameRouteImport } from './routes/product.$shortname'
@@ -57,11 +56,6 @@ const ApproveUsersRoute = ApproveUsersRouteImport.update({
   path: '/approve-users',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApproveUserRoute = ApproveUserRouteImport.update({
-  id: '/approve-user',
-  path: '/approve-user',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AddUsersRoute = AddUsersRouteImport.update({
   id: '/add-users',
   path: '/add-users',
@@ -86,7 +80,6 @@ const InviteCodeCodeRoute = InviteCodeCodeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
   '/error': typeof ErrorRoute
@@ -100,7 +93,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
   '/error': typeof ErrorRoute
@@ -115,7 +107,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
-  '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
   '/error': typeof ErrorRoute
@@ -131,7 +122,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-users'
-    | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
     | '/error'
@@ -145,7 +135,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-users'
-    | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
     | '/error'
@@ -159,7 +148,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-users'
-    | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
     | '/error'
@@ -174,7 +162,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddUsersRoute: typeof AddUsersRoute
-  ApproveUserRoute: typeof ApproveUserRoute
   ApproveUsersRoute: typeof ApproveUsersRoute
   CallsignSetupRoute: typeof CallsignSetupRoute
   ErrorRoute: typeof ErrorRoute
@@ -237,13 +224,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApproveUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/approve-user': {
-      id: '/approve-user'
-      path: '/approve-user'
-      fullPath: '/approve-user'
-      preLoaderRoute: typeof ApproveUserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/add-users': {
       id: '/add-users'
       path: '/add-users'
@@ -278,7 +258,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddUsersRoute: AddUsersRoute,
-  ApproveUserRoute: ApproveUserRoute,
   ApproveUsersRoute: ApproveUsersRoute,
   CallsignSetupRoute: CallsignSetupRoute,
   ErrorRoute: ErrorRoute,
