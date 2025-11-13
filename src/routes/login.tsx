@@ -20,7 +20,7 @@ import { useLoginCodeStore } from "@/store/LoginCodeStore";
 import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { getTheme } from "@/config/themes";
-
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 const TOKEN_REGEX = /^[A-Z0-9]{8,}$/;
 
 interface ApiError extends Error {
@@ -49,7 +49,7 @@ function LoginPage() {
   const loginCodeStore = useLoginCodeStore();
   const [codeNotValid, setCodeNotValid] = useState(false);
   const { code: urlCode } = Route.useSearch();
-
+  const { deployment } = useHealthCheck();
   const theme = getTheme();
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function LoginPage() {
     validateOnMount: false,
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: (values) => {
+    onSubmit: (values: { code: string }) => {
       checkCode(values.code);
     },
   });
@@ -138,17 +138,11 @@ function LoginPage() {
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             {theme.assets?.logoUrl && (
-              <img
-                src={theme.assets.logoUrl || "/placeholder.svg"}
-                alt="Logo"
-                className="h-8 w-8"
-              />
+              <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
             )}
-            <h1 className="text-2xl font-bold">{theme.subName}</h1>
+            <h1 className="text-2xl font-bold">{deployment}</h1>
           </div>
-          <p className="text-muted-foreground text-sm">
-            {theme.name} • Rasenmaeher
-          </p>
+          <p className="text-muted-foreground text-sm">{theme.name}</p>
         </div>
 
         <Card className="border-muted">

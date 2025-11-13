@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AlertCircle, Home } from "lucide-react";
+import { Home } from "lucide-react";
 
 interface ErrorSearch {
   code?: string;
@@ -35,26 +35,35 @@ function ErrorView() {
           title: "Certificate Authentication Failed",
           description:
             "Your mTLS certificate could not be verified. Please ensure you have installed the correct certificate and try again.",
-          showHome: true,
+          icon: "🔐",
+          bgGradient: "from-red-500/10 to-orange-500/10",
+          borderColor: "border-red-500/30",
         };
       case "unauthorized":
         return {
           title: "Unauthorized Access",
           description: "You do not have permission to access this resource.",
-          showHome: true,
+          icon: "🚫",
+          bgGradient: "from-yellow-500/10 to-orange-500/10",
+          borderColor: "border-yellow-500/30",
         };
       case "not_found":
         return {
           title: "Page Not Found",
-          description: "The page you are looking for does not exist.",
-          showHome: true,
+          description:
+            "The page you are looking for does not exist or has been moved.",
+          icon: "🔍",
+          bgGradient: "from-blue-500/10 to-purple-500/10",
+          borderColor: "border-blue-500/30",
         };
       default:
         return {
           title: "Something went wrong!",
           description:
             "An unexpected error occurred. Please try again or contact support if the problem persists.",
-          showHome: true,
+          icon: "⚠️",
+          bgGradient: "from-red-500/10 to-pink-500/10",
+          borderColor: "border-red-500/30",
         };
     }
   };
@@ -62,40 +71,54 @@ function ErrorView() {
   const errorDetails = getErrorDetails(code);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md border-destructive/50">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center">
-            <AlertCircle className="w-8 h-8 text-destructive" />
-          </div>
-          <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold">
-              {errorDetails.title}
-            </CardTitle>
-            {code && (
-              <p className="text-sm text-muted-foreground font-mono">
-                Error Code: {code.toUpperCase()}
-              </p>
-            )}
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <CardDescription className="text-center text-base leading-relaxed">
-            {errorDetails.description}
-          </CardDescription>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-background via-background to-muted p-4">
+      <div className="w-full max-w-md space-y-6">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-secondary/5 rounded-full blur-3xl" />
+        </div>
 
-          {errorDetails.showHome && (
-            <Button
-              onClick={() => navigate({ to: "/" })}
-              className="w-full"
-              size="lg"
-            >
-              <Home className="w-4 h-4 mr-2" />
-              Back to Home
-            </Button>
-          )}
-        </CardContent>
-      </Card>
+        <Card
+          className={`border ${errorDetails.borderColor} bg-linear-to-br ${errorDetails.bgGradient}`}
+        >
+          <CardHeader className="text-center space-y-4">
+            <div className="mx-auto w-20 h-20 bg-foreground/5 rounded-full flex items-center justify-center text-4xl">
+              {errorDetails.icon}
+            </div>
+            <div className="space-y-2">
+              <CardTitle className="text-3xl font-bold">
+                {errorDetails.title}
+              </CardTitle>
+              {code && (
+                <p className="text-sm text-muted-foreground font-mono bg-muted/50 rounded px-3 py-1 inline-block">
+                  Error: {code.toUpperCase()}
+                </p>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <CardDescription className="text-center text-base leading-relaxed">
+              {errorDetails.description}
+            </CardDescription>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={() => navigate({ to: "/" })}
+                className="w-full flex-1"
+                size="default"
+              >
+                <Home className="w-4 h-4 mr-2" />
+                Return Home
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <p className="text-center text-xs text-muted-foreground/60">
+          If you need further assistance, please contact support.
+        </p>
+      </div>
     </div>
   );
 }

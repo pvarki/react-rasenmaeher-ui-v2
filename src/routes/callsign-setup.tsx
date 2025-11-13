@@ -110,11 +110,7 @@ function CallsignSetupPage() {
         <CardHeader className="space-y-3">
           <div className="flex items-center justify-center gap-2 mb-2">
             {theme.assets?.logoUrl && (
-              <img
-                src={theme.assets.logoUrl || "/placeholder.svg"}
-                alt="Logo"
-                className="h-8 w-8"
-              />
+              <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
             )}
           </div>
           <CardTitle className="text-2xl font-bold text-center">
