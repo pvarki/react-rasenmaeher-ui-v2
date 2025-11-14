@@ -1,0 +1,34 @@
+{
+  "common": {
+    "language": "Språk",
+    "home": "Hem",
+    "navigation": "Navigering",
+    "administrators": "Administratörer",
+    "userManagement": "Användarhantering",
+    "approveUsers": "Godkänn användare",
+    "manageUsers": "Hantera användare",
+    "addUsers": "Lägg till användare",
+    "admin": "Administratör",
+    "user": "Användare",
+    "deployApp": "Deploy App",
+    "takServer": "TAK-server",
+    "feedback": "Feedback",
+    "learnAboutMtls": "Läs mer om mTLS",
+    "proudlyServedBy": "Stolt serverad av PV-Arki.",
+    "releasedUnder": "Släppt under GNU GPLv3 av TAK Product Center.",
+    "viewSource": "Visa källa",
+    "letDevelopersKnow": "Låt utvecklare veta",
+    "whatYouThink": "vad du tycker",
+    "allRightsReserved": "Alla rättigheter reserverade.",
+    "copyright": "© 2025 PV-Arki. Alla rättigheter reserverade.",
+    "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
+    "authenticating": "Autentiserar...",
+    "adminConsole": "Admin-konsol",
+    "forbiddenAdminAccess": "403 Förbjudet: Administratörsåtkomst krävs"
+  },
+  "pages": {
+    "login": "Logga in",
+    "waitingRoom": "Väntrum",
+    "error": "Fel"
+  }
+}

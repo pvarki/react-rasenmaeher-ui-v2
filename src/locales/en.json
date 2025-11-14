@@ -1,0 +1,34 @@
+{
+  "common": {
+    "language": "Language",
+    "home": "Home",
+    "navigation": "Navigation",
+    "administrators": "Administrators",
+    "userManagement": "User Management",
+    "approveUsers": "Approve Users",
+    "manageUsers": "Manage Users",
+    "addUsers": "Add Users",
+    "admin": "Admin",
+    "user": "User",
+    "deployApp": "Deploy App",
+    "takServer": "TAK Server",
+    "feedback": "Feedback",
+    "learnAboutMtls": "Learn about mTLS",
+    "proudlyServedBy": "Proudly served by PV-Arki.",
+    "releasedUnder": "Released under GNU GPLv3 by TAK Product Center.",
+    "viewSource": "View source",
+    "letDevelopersKnow": "Let developers know",
+    "whatYouThink": "what you think",
+    "allRightsReserved": "All rights reserved.",
+    "copyright": "© 2025 PV-Arki. All rights reserved.",
+    "rmUi": "RM-UI, Logo, and Background Images © PV-Arki",
+    "authenticating": "Authenticating...",
+    "adminConsole": "Admin Console",
+    "forbiddenAdminAccess": "403 Forbidden: Admin access required"
+  },
+  "pages": {
+    "login": "Login",
+    "waitingRoom": "Waiting Room",
+    "error": "Error"
+  }
+}
