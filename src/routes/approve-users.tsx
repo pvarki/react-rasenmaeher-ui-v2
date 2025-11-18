@@ -31,6 +31,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import { useEnrollmentList } from "@/hooks/api/useEnrollmentList";
 import { useApproveUser } from "@/hooks/api/useApproveUser";
@@ -57,21 +58,22 @@ function ApproveUsersPage() {
   const scanIntervalRef = useRef<number | null>(null);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
 
   useEffect(() => {
     if (!userTypeLoading && !callsign) {
-      toast.error("No callsign found. Please log in.");
+      toast.error(t("approveUsers.noCallsignFound"));
       navigate({ to: "/login" });
     }
-  }, [callsign, userTypeLoading, navigate]);
+  }, [callsign, userTypeLoading, navigate, t]);
 
   useEffect(() => {
     if (!userTypeLoading && userType !== "admin") {
-      toast.error("403 Forbidden: Admin access required");
+      toast.error(t("approveUsers.forbidden"));
       navigate({ to: "/" });
     }
-  }, [userType, userTypeLoading, navigate]);
+  }, [userType, userTypeLoading, navigate, t]);
 
   const {
     data: enrollmentList,
@@ -82,26 +84,28 @@ function ApproveUsersPage() {
   });
   const approveUserMutation = useApproveUser({
     onSuccess: () => {
-      toast.success(`User ${selectedUser} approved successfully!`);
+      toast.success(
+        t("approveUsers.userApprovedSuccessfully", { callsign: selectedUser }),
+      );
       setApproveDialogOpen(false);
       setApprovalCode("");
       setSelectedUser(null);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to approve user: ${error.message}`);
+      toast.error(t("approveUsers.failedToApprove", { error: error.message }));
     },
   });
   const rejectUserMutation = useRejectUser({
     onSuccess: () => {
-      toast.error(`User ${selectedUser} rejected`);
+      toast.error(t("approveUsers.userRejected", { callsign: selectedUser }));
       setApproveDialogOpen(false);
       setApprovalCode("");
       setSelectedUser(null);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to reject user: ${error.message}`);
+      toast.error(t("approveUsers.failedToReject", { error: error.message }));
     },
   });
 
@@ -115,7 +119,7 @@ function ApproveUsersPage() {
 
   const handleApprove = () => {
     if (!approvalCode.trim()) {
-      toast.error("Please enter an approval code");
+      toast.error(t("approveUsers.enterApprovalCodeMessage"));
       return;
     }
     if (!selectedUser) return;
@@ -146,7 +150,6 @@ function ApproveUsersPage() {
     if (code) {
       console.log("QR Code detected:", code.data);
 
-      // Parse the QR code data expecting format like "callsign=xxx&approvalcode=yyy"
       try {
         const url = new URL(code.data);
         const callsignParam = url.searchParams.get("callsign");
@@ -157,21 +160,19 @@ function ApproveUsersPage() {
           setApprovalCode(approvalCodeParam);
           setIsScannerOpen(false);
           setApproveDialogOpen(true);
-          toast.success("QR code scanned successfully!");
+          toast.success(t("approveUsers.qrScannedSuccessfully"));
         } else {
-          toast.error("Invalid QR code format");
+          toast.error(t("approveUsers.invalidQRFormat"));
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
-        // If not a URL, try to parse as plain approval code
         setApprovalCode(code.data);
         setIsScannerOpen(false);
-        toast.success("Approval code scanned!");
+        toast.success(t("approveUsers.approvalCodeScanned"));
       }
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const startScanning = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -190,8 +191,8 @@ function ApproveUsersPage() {
         scanIntervalRef.current = window.setInterval(scanQRCode, 100);
       }
     } catch (err) {
-      setScanError("Failed to access camera. Please check permissions.");
-      console.error("Camera error:", err);
+      setScanError(t("approveUsers.cameraAccessFailed"));
+      console.error(t("approveUsers.cameraError"), err);
     }
   };
 
@@ -215,14 +216,15 @@ function ApproveUsersPage() {
     } else if (!isScannerOpen && isScanning) {
       stopScanning();
     }
-  }, [isScannerOpen, isScanning, startScanning]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isScannerOpen, isScanning]);
 
   if (!userTypeLoading && userType !== "admin") {
     return (
       <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
-          Forbidden: Admin access required
+          {t("approveUsers.forbidden")}
         </p>
       </div>
     );
@@ -231,7 +233,7 @@ function ApproveUsersPage() {
   if (isLoading || userTypeLoading) {
     return (
       <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold">Approve Users</h1>
+        <h1 className="text-3xl font-bold">{t("approveUsers.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -242,12 +244,12 @@ function ApproveUsersPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Approve Users</h1>
+        <h1 className="text-3xl font-bold">{t("approveUsers.title")}</h1>
       </div>
 
       <div className="space-y-4">
         <p className="text-muted-foreground">
-          Users awaiting approval are displayed here.
+          {t("approveUsers.usersAwaiting")}
         </p>
 
         <Collapsible
@@ -256,7 +258,7 @@ function ApproveUsersPage() {
           className="border border-border rounded-xl overflow-hidden"
         >
           <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors">
-            <span className="font-medium">How it works:</span>
+            <span className="font-medium">{t("approveUsers.howItWorks")}</span>
             <ChevronDown
               className={cn(
                 "w-5 h-5 transition-transform",
@@ -266,22 +268,28 @@ function ApproveUsersPage() {
           </CollapsibleTrigger>
           <CollapsibleContent className="px-4 pb-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
             <p>
-              <span className="text-primary font-semibold">1.</span> Users in
-              the waiting room will have an{" "}
-              <span className="font-medium text-foreground">approval code</span>{" "}
-              and QR code displayed on their screen.
+              <span className="text-primary font-semibold">1.</span>{" "}
+              {t("approveUsers.step1")}{" "}
+              <span className="font-medium text-foreground">
+                {t("approveUsers.approvalCode")}
+              </span>{" "}
+              {t("approveUsers.step1End")}
             </p>
             <p>
-              <span className="text-primary font-semibold">2.</span> Click on a
-              user below to open the approval dialog, or scan their QR code.
+              <span className="text-primary font-semibold">2.</span>{" "}
+              {t("approveUsers.step2")}
             </p>
             <p>
-              <span className="text-primary font-semibold">3.</span> Enter their
-              approval code and click{" "}
-              <span className="font-medium text-green-600">Approve</span> to
-              grant access, or{" "}
-              <span className="font-medium text-destructive">Reject</span> to
-              deny.
+              <span className="text-primary font-semibold">3.</span>{" "}
+              {t("approveUsers.step3")}{" "}
+              <span className="font-medium text-green-600">
+                {t("approveUsers.approve")}
+              </span>{" "}
+              {t("approveUsers.step3End")}{" "}
+              <span className="font-medium text-destructive">
+                {t("approveUsers.reject")}
+              </span>
+              {t("approveUsers.step3End2")}
             </p>
           </CollapsibleContent>
         </Collapsible>
@@ -293,7 +301,7 @@ function ApproveUsersPage() {
         >
           <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors">
             <span className="font-medium">
-              Waiting Users ({waitingUsers.length})
+              {t("approveUsers.waitingUsers")} ({waitingUsers.length})
             </span>
             <ChevronDown
               className={cn(
@@ -306,7 +314,7 @@ function ApproveUsersPage() {
             <div className="space-y-1">
               {waitingUsers.length === 0 ? (
                 <div className="p-6 text-center text-sm text-muted-foreground">
-                  No users waiting for approval
+                  {t("approveUsers.noUsersWaiting")}
                 </div>
               ) : (
                 waitingUsers.map((user) => (
@@ -337,7 +345,7 @@ function ApproveUsersPage() {
               className="flex-1 rounded-xl bg-transparent h-14 text-base font-semibold"
             >
               <Camera className="w-4 h-4 mr-2" />
-              Scan QR Code
+              {t("approveUsers.scanQRCode")}
             </Button>
           </DrawerTrigger>
           <DrawerContent className="h-[90vh] md:h-auto">
@@ -345,11 +353,12 @@ function ApproveUsersPage() {
               <DrawerHeader className="pt-4 md:pt-10 shrink-0">
                 <DrawerTitle className="text-center">
                   <Scan className="mb-2 mx-auto size-10 md:size-12" />
-                  <p className="text-sm md:text-base">Scan approval QR code</p>
+                  <p className="text-sm md:text-base">
+                    {t("approveUsers.scanApprovalQR")}
+                  </p>
                 </DrawerTitle>
                 <DrawerDescription className="text-sm md:text-md mt-3">
-                  Point your camera at the QR code from the user's waiting room
-                  screen. The approval will be detected automatically.
+                  {t("approveUsers.pointCamera")}
                 </DrawerDescription>
               </DrawerHeader>
 
@@ -368,7 +377,7 @@ function ApproveUsersPage() {
 
                   {!isScanning && (
                     <div className="flex h-full items-center justify-center text-center text-sm text-muted-foreground">
-                      Camera preview will appear here once started.
+                      {t("approveUsers.cameraPreview")}
                     </div>
                   )}
                 </div>
@@ -386,7 +395,7 @@ function ApproveUsersPage() {
                   onClick={() => setIsScannerOpen(false)}
                   className="w-full h-11 md:h-12"
                 >
-                  Close
+                  {t("approveUsers.close")}
                 </Button>
               </DrawerFooter>
             </div>
@@ -397,18 +406,22 @@ function ApproveUsersPage() {
       <Dialog open={approveDialogOpen} onOpenChange={setApproveDialogOpen}>
         <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Approve User</DialogTitle>
+            <DialogTitle>{t("approveUsers.approveUser")}</DialogTitle>
             <DialogDescription>
-              Enter the user's approval code and press Approve.
+              {t("approveUsers.enterApprovalCode")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label className="text-muted-foreground">Callsign:</Label>
+              <Label className="text-muted-foreground">
+                {t("approveUsers.callsign")}
+              </Label>
               <p className="font-semibold text-lg">{selectedUser}</p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="approval-code">Approval Code:</Label>
+              <Label htmlFor="approval-code">
+                {t("approveUsers.approvalCodeLabel")}
+              </Label>
               <div className="hidden md:flex gap-1.5 justify-start flex-wrap">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <input
@@ -452,7 +465,7 @@ function ApproveUsersPage() {
               <input
                 type="text"
                 maxLength={8}
-                placeholder="Enter 8-character code"
+                placeholder={t("approveUsers.enterCode8Char")}
                 className={cn(
                   "md:hidden w-full px-3 py-2 border-2 border-border rounded-lg text-center text-lg font-bold",
                   "focus:border-primary focus:outline-none transition-colors",
@@ -470,7 +483,7 @@ function ApproveUsersPage() {
                 }
               />
               <p className="text-xs text-muted-foreground text-center">
-                Enter or scan the 8-character code
+                {t("approveUsers.enterCode8Char")}
               </p>
             </div>
           </div>
@@ -483,7 +496,7 @@ function ApproveUsersPage() {
               }
               className="flex-1 h-11"
             >
-              Go Back
+              {t("approveUsers.goBack")}
             </Button>
             <Button
               variant="destructive"
@@ -493,7 +506,9 @@ function ApproveUsersPage() {
               }
               className="flex-1 h-11"
             >
-              {rejectUserMutation.isLoading ? "Rejecting..." : "Reject"}
+              {rejectUserMutation.isLoading
+                ? t("approveUsers.rejecting")
+                : t("approveUsers.reject")}
             </Button>
             <Button
               onClick={handleApprove}
@@ -502,7 +517,9 @@ function ApproveUsersPage() {
                 approveUserMutation.isLoading || rejectUserMutation.isLoading
               }
             >
-              {approveUserMutation.isLoading ? "Approving..." : "Approve"}
+              {approveUserMutation.isLoading
+                ? t("approveUsers.approving")
+                : t("approveUsers.approve")}
             </Button>
           </DialogFooter>
         </DialogContent>

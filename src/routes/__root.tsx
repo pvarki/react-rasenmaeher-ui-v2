@@ -29,6 +29,8 @@ import {
 import { MtlsInfoModal } from "@/components/MtlsInfoModal";
 import { OnboardingGuide } from "@/components/OnboardingGuide";
 import { SystemStatusPopover } from "@/components/SystemStatusPopover";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export const Route = createRootRoute({
   component: RootLayoutWrapper,
@@ -40,19 +42,26 @@ function RootLayoutWrapper() {
 
 function BreadcrumbNav() {
   const location = useLocation();
+  const { t } = useTranslation();
 
   const getBreadcrumbs = () => {
     const path = location.pathname;
     const breadcrumbs: Array<{ label: string; href: string }> = [
-      { label: "Admin Console", href: "/" },
+      { label: t("common.adminConsole"), href: "/" },
     ];
 
     if (path.includes("/approve-users")) {
-      breadcrumbs.push({ label: "Approve Users", href: "/approve-users" });
+      breadcrumbs.push({
+        label: t("common.approveUsers"),
+        href: "/approve-users",
+      });
     } else if (path.includes("/manage-users")) {
-      breadcrumbs.push({ label: "Manage Users", href: "/manage-users" });
+      breadcrumbs.push({
+        label: t("common.manageUsers"),
+        href: "/manage-users",
+      });
     } else if (path.includes("/add-users")) {
-      breadcrumbs.push({ label: "Add Users", href: "/add-users" });
+      breadcrumbs.push({ label: t("common.addUsers"), href: "/add-users" });
     }
 
     return breadcrumbs;
@@ -113,6 +122,8 @@ function RootLayout() {
   const [userManagementOpen, setUserManagementOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [mtlsModalOpen, setMtlsModalOpen] = useState(false);
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage } = useLanguage();
 
   const {
     userType,
@@ -133,7 +144,6 @@ function RootLayout() {
       !isMtlsDomain &&
       location.pathname === "/"
     ) {
-      // User is authenticated but on non-mTLS domain, redirect to mTLS domain
       const mtlsHost = `mtls.${host}`;
       window.location.href = `${window.location.protocol}//${mtlsHost}/`;
       return;
@@ -177,11 +187,11 @@ function RootLayout() {
       );
 
       if (isAdminPath && userType !== "admin") {
-        toast.error("403 Forbidden: Admin access required");
+        toast.error(t("common.forbiddenAdminAccess"));
         navigate({ to: "/" });
       }
     }
-  }, [userType, userTypeLoading, isValidUser, location.pathname, navigate]);
+  }, [userType, userTypeLoading, isValidUser, location.pathname, navigate, t]);
 
   if (isAuthPage) {
     return <Outlet />;
@@ -192,7 +202,7 @@ function RootLayout() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">Authenticating...</p>
+          <p className="text-muted-foreground">{t("common.authenticating")}</p>
         </div>
       </div>
     );
@@ -269,7 +279,7 @@ function RootLayout() {
         <nav className="flex-1 p-4 space-y-6 overflow-y-auto">
           <div className="space-y-1">
             <h3 className="text-xs font-semibold text-sidebar-foreground/50 mb-3 px-3 uppercase tracking-wider">
-              Navigation
+              {t("common.navigation")}
             </h3>
             <Link
               to="/"
@@ -279,20 +289,20 @@ function RootLayout() {
                   "bg-sidebar-accent text-sidebar-foreground",
               )}
             >
-              Home
+              {t("common.home")}
             </Link>
           </div>
 
           {userType === "admin" && (
             <div className="space-y-1">
               <h3 className="text-xs font-semibold text-sidebar-foreground/50 mb-3 px-3 uppercase tracking-wider">
-                Administrators
+                {t("common.administrators")}
               </h3>
               <button
                 onClick={() => setUserManagementOpen(!userManagementOpen)}
                 className="w-full flex items-center justify-between px-3 py-2.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium"
               >
-                <span>User Management</span>
+                <span>{t("common.userManagement")}</span>
                 <ChevronDown
                   className={cn(
                     "w-4 h-4 transition-transform",
@@ -310,7 +320,7 @@ function RootLayout() {
                         "bg-sidebar-accent text-sidebar-foreground font-medium",
                     )}
                   >
-                    Approve Users
+                    {t("common.approveUsers")}
                   </Link>
                   <Link
                     to="/manage-users"
@@ -320,7 +330,7 @@ function RootLayout() {
                         "bg-sidebar-accent text-sidebar-foreground font-medium",
                     )}
                   >
-                    Manage Users
+                    {t("common.manageUsers")}
                   </Link>
                   <Link
                     to="/add-users"
@@ -330,7 +340,7 @@ function RootLayout() {
                         "bg-sidebar-accent text-sidebar-foreground font-medium",
                     )}
                   >
-                    Add Users
+                    {t("common.addUsers")}
                   </Link>
                 </div>
               )}
@@ -341,17 +351,17 @@ function RootLayout() {
         <div className="p-4 border-t border-sidebar-border bg-sidebar space-y-4">
           <div className="space-y-2">
             <label className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider px-2">
-              Language
+              {t("common.language")}
             </label>
-            <Select value="en">
+            <Select value={currentLanguage} onValueChange={changeLanguage}>
               <SelectTrigger className="h-10 bg-sidebar-accent/30 border-sidebar-accent/50">
                 <Globe className="w-4 h-4 mr-2" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="en">English</SelectItem>
-                <SelectItem value="fi">Finnish</SelectItem>
-                <SelectItem value="sv">Swedish</SelectItem>
+                <SelectItem value="fi">Suomi (Finnish)</SelectItem>
+                <SelectItem value="sv">Svenska (Swedish)</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -379,7 +389,9 @@ function RootLayout() {
                     {callsign || "USER"}
                   </p>
                   <p className="text-xs text-sidebar-foreground/60 capitalize">
-                    {userType || "user"}
+                    {userType === "admin"
+                      ? t("common.admin")
+                      : t("common.user")}
                   </p>
                 </div>
 
@@ -409,7 +421,7 @@ function RootLayout() {
             </button>
             <div className="flex flex-col gap-1 min-w-0">
               <h1 className="text-lg font-semibold tracking-tight truncate">
-                Deploy App
+                {t("common.deployApp")}
               </h1>
               <div className="hidden md:block">
                 <BreadcrumbNav />
@@ -430,37 +442,37 @@ function RootLayout() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 pb-6 border-b border-border/50">
               <div className="space-y-2">
                 <p className="font-semibold text-foreground text-sm">
-                  Deploy App
+                  {t("common.deployApp")}
                 </p>
                 <p className="text-muted-foreground/80">
-                  Proudly served by PV-Arki.{" "}
+                  {t("common.proudlyServedBy")}{" "}
                   <button
                     onClick={() => setMtlsModalOpen(true)}
                     className="text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
                   >
-                    Learn about mTLS
+                    {t("common.learnAboutMtls")}
                   </button>
                 </p>
               </div>
               <div className="space-y-2">
                 <p className="font-semibold text-foreground text-sm">
-                  TAK Server
+                  {t("common.takServer")}
                 </p>
                 <p className="text-muted-foreground/80">
-                  Released under GNU GPLv3 by TAK Product Center.{" "}
+                  {t("common.releasedUnder")}{" "}
                   <a
                     href="https://github.com/TAK-Product-Center/Server"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
-                    View source
+                    {t("common.viewSource")}
                   </a>
                 </p>
               </div>
               <div className="space-y-2">
                 <p className="font-semibold text-foreground text-sm">
-                  Feedback
+                  {t("common.feedback")}
                 </p>
                 <p className="text-muted-foreground/80">
                   <a
@@ -469,20 +481,16 @@ function RootLayout() {
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
                   >
-                    Let developers know
+                    {t("common.letDevelopersKnow")}
                   </a>{" "}
-                  what you think
+                  {t("common.whatYouThink")}
                 </p>
               </div>
             </div>
             <div className="text-center">
               <p className="text-xs leading-relaxed text-muted-foreground/50">
-                © 2025 PV-Arki. All rights reserved. <br></br> RM-UI, Logo, and
-                Background Images © PV-Arki{" "}
+                {t("common.copyright")} <br></br> {t("common.rmUi")}
               </p>
-              {/* <p className="text-xs leading-relaxed text-muted-foreground/50">
-                <span className="block">RM-UI, Logo, and Background Images © PV-Arki</span>
-              </p> */}
             </div>
           </div>
         </footer>

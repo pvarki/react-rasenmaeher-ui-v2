@@ -1,0 +1,34 @@
+{
+  "common": {
+    "language": "Kieli",
+    "home": "Koti",
+    "navigation": "Navigaatio",
+    "administrators": "Ylläpitäjät",
+    "userManagement": "Käyttäjien hallinta",
+    "approveUsers": "Hyväksy käyttäjät",
+    "manageUsers": "Hallitse käyttäjiä",
+    "addUsers": "Lisää käyttäjät",
+    "admin": "Ylläpitäjä",
+    "user": "Käyttäjä",
+    "deployApp": "Deploy App",
+    "takServer": "TAK-palvelin",
+    "feedback": "Palaute",
+    "learnAboutMtls": "Lue lisää mTLS:stä",
+    "proudlyServedBy": "Ylpeästi palveltu PV-Arki:n toimesta.",
+    "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä TAK Product Centerin toimesta.",
+    "viewSource": "Näytä lähdekoodi",
+    "letDevelopersKnow": "Kerro kehittäjille",
+    "whatYouThink": "mitä sinä ajattelet",
+    "allRightsReserved": "Kaikki oikeudet pidätetään.",
+    "copyright": "© 2025 PV-Arki. Kaikki oikeudet pidätetään.",
+    "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
+    "authenticating": "Todennus käynnissä...",
+    "adminConsole": "Ylläpidon konsoli",
+    "forbiddenAdminAccess": "403 Kielletty: Ylläpidon pääsy vaaditaan"
+  },
+  "pages": {
+    "login": "Kirjautuminen",
+    "waitingRoom": "Odotushuone",
+    "error": "Virhe"
+  }
+}

@@ -13,6 +13,18 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+
+const hashString = (str: string): string => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(36).padStart(8, "0").slice(0, 8);
+};
 
 interface OnboardingStep {
   id: string;
@@ -25,57 +37,50 @@ interface OnboardingStep {
 const ONBOARDING_STEPS: OnboardingStep[] = [
   {
     id: "welcome",
-    title: "Get Started",
-    description:
-      "Deploy App is your central operations hub for managing and launching all tactical systems and services.",
+    title: "onboarding.steps.welcome.title",
+    description: "onboarding.steps.welcome.description",
     icon: "👋",
     roles: ["user", "admin"],
   },
   {
     id: "products",
-    title: "Access Mission Apps",
-    description:
-      "Access mission applications and establish secure connections through mTLS-protected channels.",
+    title: "onboarding.steps.products.title",
+    description: "onboarding.steps.products.description",
     icon: "⚙️",
     roles: ["user", "admin"],
   },
   {
     id: "credentials",
-    title: "Credentials Ready",
-    description:
-      "Your authentication certificates are installed and verified. You can operate immediately with full access.",
+    title: "onboarding.steps.credentials.title",
+    description: "onboarding.steps.credentials.description",
     icon: "✅",
     roles: ["user", "admin"],
   },
   {
     id: "users",
-    title: "Control User Accounts",
-    description:
-      "Control user access, assign admin roles, and remove inactive accounts to keep the roster accurate.",
+    title: "onboarding.steps.users.title",
+    description: "onboarding.steps.users.description",
     icon: "👥",
     roles: ["admin"],
   },
   {
     id: "invite",
-    title: "Add New Operators",
-    description:
-      "Issue secure invite or QR codes to onboard new team members into your operational network.",
+    title: "onboarding.steps.invite.title",
+    description: "onboarding.steps.invite.description",
     icon: "📨",
     roles: ["admin"],
   },
   {
     id: "health",
-    title: "System Status",
-    description:
-      "View live system metrics and verify all services are running within mission parameters.",
+    title: "onboarding.steps.health.title",
+    description: "onboarding.steps.health.description",
     icon: "📊",
     roles: ["user", "admin"],
   },
   {
     id: "instructions",
-    title: "Tactical Guides",
-    description:
-      "Access quick-reference manuals, deployment steps, and usage notes for every system in service.",
+    title: "onboarding.steps.instructions.title",
+    description: "onboarding.steps.instructions.description",
     icon: "📖",
     roles: ["user", "admin"],
   },
@@ -87,17 +92,20 @@ export function OnboardingGuide() {
   const [completed, setCompleted] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
   const { userType, callsign } = useUserType();
+  const { t } = useTranslation();
+  const { deployment } = useHealthCheck();
 
   useEffect(() => {
-    if (!callsign || !userType) return;
+    if (!callsign || !userType || !deployment) return;
 
-    const storageKey = `onboarding-${callsign}-${userType}`;
-    const roleChangeKey = `onboarding-role-${callsign}`;
+    const deploymentHash = hashString(deployment);
+    const storageKey = `${deploymentHash}-onboarding-${callsign}-${userType}`;
+    const roleChangeKey = `${deploymentHash}-onboarding-role-${callsign}`;
     const seenOnboarding = localStorage.getItem(storageKey);
     const lastRole = localStorage.getItem(roleChangeKey);
 
     const completedSteps = localStorage.getItem(
-      `onboarding-steps-${callsign}-${userType}`,
+      `${deploymentHash}-onboarding-steps-${callsign}-${userType}`,
     );
 
     if (lastRole && lastRole !== userType && userType === "admin") {
@@ -123,7 +131,7 @@ export function OnboardingGuide() {
     if (completedSteps) {
       setCompleted(JSON.parse(completedSteps));
     }
-  }, [callsign, userType]);
+  }, [callsign, userType, deployment]);
 
   const relevantSteps = ONBOARDING_STEPS.filter((step) =>
     step.roles.includes(userType as "user" | "admin"),
@@ -146,9 +154,10 @@ export function OnboardingGuide() {
     if (!completed.includes(step.id)) {
       const newCompleted = [...completed, step.id];
       setCompleted(newCompleted);
-      if (callsign && userType) {
+      if (callsign && userType && deployment) {
+        const deploymentHash = hashString(deployment);
         localStorage.setItem(
-          `onboarding-steps-${callsign}-${userType}`,
+          `${deploymentHash}-onboarding-steps-${callsign}-${userType}`,
           JSON.stringify(newCompleted),
         );
       }
@@ -157,12 +166,16 @@ export function OnboardingGuide() {
     if (currentStep === relevantSteps.length - 1) {
       setShowCompletion(true);
       setTimeout(() => {
-        if (callsign && userType) {
-          localStorage.setItem(`onboarding-${callsign}-${userType}`, "true");
+        if (callsign && userType && deployment) {
+          const deploymentHash = hashString(deployment);
+          localStorage.setItem(
+            `${deploymentHash}-onboarding-${callsign}-${userType}`,
+            "true",
+          );
         }
         setOpen(false);
         setShowCompletion(false);
-        toast.success("Onboarding completed! Ready to go.", { duration: 3000 });
+        toast.success(t("onboarding.completion"), { duration: 3000 });
       }, 2500);
     } else {
       handleNext();
@@ -170,8 +183,12 @@ export function OnboardingGuide() {
   };
 
   const handleSkip = () => {
-    if (callsign && userType) {
-      localStorage.setItem(`onboarding-${callsign}-${userType}`, "true");
+    if (callsign && userType && deployment) {
+      const deploymentHash = hashString(deployment);
+      localStorage.setItem(
+        `${deploymentHash}-onboarding-${callsign}-${userType}`,
+        "true",
+      );
     }
     setOpen(false);
   };
@@ -191,9 +208,11 @@ export function OnboardingGuide() {
               <CheckCircle2 className="w-24 h-24 text-primary relative" />
             </div>
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold">Onboarding Completed!</h3>
+              <h3 className="text-2xl font-bold">
+                {t("onboarding.completion")}
+              </h3>
               <p className="text-sm text-muted-foreground max-w-xs">
-                You're all set and ready to operate at full capacity.
+                {t("onboarding.completionDesc")}
               </p>
             </div>
           </div>
@@ -201,10 +220,11 @@ export function OnboardingGuide() {
           <>
             <DialogHeader>
               <DialogTitle>
-                {step.icon} {step.title}
+                {step.icon} {t(step.title)}
               </DialogTitle>
               <DialogDescription className="pt-2">
-                Step {currentStep + 1} of {relevantSteps.length}
+                {t("onboarding.step")} {currentStep + 1} {t("onboarding.of")}{" "}
+                {relevantSteps.length}
               </DialogDescription>
             </DialogHeader>
 
@@ -216,13 +236,13 @@ export function OnboardingGuide() {
                 />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                {step.description}
+                {t(step.description)}
               </p>
             </div>
 
             <div className="flex-row gap-2 flex justify-between">
               <Button variant="ghost" onClick={handleSkip} className="text-xs">
-                Skip All
+                {t("onboarding.skipAll")}
               </Button>
               <div className="flex gap-2">
                 <Button
@@ -238,7 +258,9 @@ export function OnboardingGuide() {
                   size="sm"
                   className="bg-primary hover:bg-primary/90"
                 >
-                  {currentStep === relevantSteps.length - 1 ? "Finish" : "Next"}
+                  {currentStep === relevantSteps.length - 1
+                    ? t("onboarding.finish")
+                    : t("onboarding.next")}
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>

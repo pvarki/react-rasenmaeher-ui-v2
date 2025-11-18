@@ -1,0 +1,175 @@
+{
+  "common": {
+    "language": "Language",
+    "home": "Home",
+    "navigation": "Navigation",
+    "administrators": "Administrators",
+    "userManagement": "User Management",
+    "approveUsers": "Approve Users",
+    "manageUsers": "Manage Users",
+    "addUsers": "Add Users",
+    "admin": "Admin",
+    "user": "User",
+    "deployApp": "Deploy App",
+    "takServer": "TAK Server",
+    "feedback": "Feedback",
+    "learnAboutMtls": "Learn about mTLS",
+    "proudlyServedBy": "Proudly served by PV-Arki.",
+    "releasedUnder": "Released under GNU GPLv3 by TAK Product Center.",
+    "viewSource": "View source",
+    "letDevelopersKnow": "Let developers know",
+    "whatYouThink": "what you think",
+    "allRightsReserved": "All rights reserved.",
+    "copyright": "© 2025 PV-Arki. All rights reserved.",
+    "rmUi": "RM-UI, Logo, and Background Images © PV-Arki",
+    "authenticating": "Authenticating...",
+    "adminConsole": "Admin Console",
+    "forbiddenAdminAccess": "403 Forbidden: Admin access required",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "confirming": "Confirming...",
+    "processing": "Processing...",
+    "type": "Type",
+    "toConfirm": "to confirm",
+    "typeConfirmPlaceholder": "Type \"{text}\" to confirm"
+  },
+  "pages": {
+    "login": "Login",
+    "waitingRoom": "Waiting Room",
+    "error": "Error"
+  },
+  "modals": {
+    "keycloak": {
+      "title": "Keycloak Management Console",
+      "description": "Access the Keycloak administration interface to manage users, roles, and authentication settings.",
+      "whatIsKeycloak": "What is Keycloak?",
+      "whatIsKeycloakDesc": "Keycloak is an open-source identity and access management platform. It handles user authentication, authorization, and role management for this application.",
+      "whatCanYouDo": "What can you do there?",
+      "resetPasswords": "Reset user passwords",
+      "configureLogin": "Configure login settings",
+      "manageAttributes": "Manage user attributes",
+      "configureProviders": "Configure identity providers",
+      "cancelButton": "Cancel",
+      "openConsole": "Open Console"
+    },
+    "mtls": {
+      "title": "What is mTLS?",
+      "description": "Mutual TLS (mTLS) authentication explained",
+      "paragraph1": "By using an mTLS key installed on your device to connect to our service, we can ensure the connection comes from you. No one else can impersonate you.",
+      "paragraph2": "Likewise, you are assured that on the other end, it's us.",
+      "paragraph3": "All services from Deploy App (Rasenmäher) that you take into use encrypt their traffic with your mTLS key.",
+      "gotIt": "Got it"
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "welcome": {
+        "title": "Get Started",
+        "description": "Deploy App is your central operations hub for managing and launching all tactical systems and services."
+      },
+      "products": {
+        "title": "Access Mission Apps",
+        "description": "Access mission applications and establish secure connections through mTLS-protected channels."
+      },
+      "credentials": {
+        "title": "Credentials Ready",
+        "description": "Your authentication certificates are installed and verified. You can operate immediately with full access."
+      },
+      "users": {
+        "title": "Control User Accounts",
+        "description": "Control user access, assign admin roles, and remove inactive accounts to keep the roster accurate."
+      },
+      "invite": {
+        "title": "Add New Operators",
+        "description": "Issue secure invite or QR codes to onboard new team members into your operational network."
+      },
+      "health": {
+        "title": "System Status",
+        "description": "View live system metrics and verify all services are running within mission parameters."
+      },
+      "instructions": {
+        "title": "Tactical Guides",
+        "description": "Access quick-reference manuals, deployment steps, and usage notes for every system in service."
+      }
+    },
+    "completion": "Onboarding Completed!",
+    "completionDesc": "You're all set and ready to operate at full capacity.",
+    "step": "Step",
+    "of": "of",
+    "skipAll": "Skip All",
+    "finish": "Finish",
+    "next": "Next"
+  },
+  "systemStatus": {
+    "title": "System Status",
+    "lastUpdated": "Last updated",
+    "services": "Services",
+    "active": "Active",
+    "issues": "Issues",
+    "noServices": "No services available",
+    "operational": "OPERATIONAL",
+    "down": "DOWN",
+    "networkConnected": "Network Connected",
+    "networkDisconnected": "Network Disconnected",
+    "online": "Online",
+    "offline": "Offline",
+    "justNow": "Just now",
+    "minAgo": "min ago",
+    "hoursAgo": "hours ago",
+    "hourAgo": "hour ago"
+  },
+  "login": {
+    "chooseMethod": "Choose Login Method",
+    "loginDesc": "Login with your certificate or enter an invite code",
+    "certificate": "Login with Certificate",
+    "or": "Or",
+    "enterCode": "Enter your code:",
+    "codePlaceholder": "ABCD1234",
+    "loginCode": "Login with Code",
+    "verifying": "Verifying...",
+    "codeRequired": "Code is required",
+    "codeInvalid": "Code format is invalid",
+    "codeNotValid": "Code is invalid"
+  },
+  "approveUsers": {
+    "title": "Approve Users",
+    "usersAwaiting": "Users awaiting approval are displayed here.",
+    "howItWorks": "How it works:",
+    "step1": "Users in the waiting room will have an",
+    "approvalCode": "approval code",
+    "step1End": "and QR code displayed on their screen.",
+    "step2": "Click on a user below to open the approval dialog, or scan their QR code.",
+    "step3": "Enter their approval code and click",
+    "approve": "Approve",
+    "reject": "Reject",
+    "step3End": "to grant access, or",
+    "step3End2": "to deny.",
+    "waitingUsers": "Waiting Users",
+    "scanQRCode": "Scan QR Code",
+    "noUsersWaiting": "No users waiting for approval",
+    "scanApprovalQR": "Scan approval QR code",
+    "pointCamera": "Point your camera at the QR code from the user's waiting room screen. The approval will be detected automatically.",
+    "cameraPreview": "Camera preview will appear here once started.",
+    "close": "Close",
+    "approveUser": "Approve User",
+    "enterApprovalCode": "Enter the user's approval code and press Approve.",
+    "callsign": "Callsign:",
+    "approvalCodeLabel": "Approval Code:",
+    "enterCode8Char": "Enter 8-character code",
+    "goBack": "Go Back",
+    "approving": "Approving...",
+    "rejecting": "Rejecting...",
+    "userApprovedSuccessfully": "User {{callsign}} approved successfully!",
+    "failedToApprove": "Failed to approve user: {{error}}",
+    "userRejected": "User {{callsign}} rejected",
+    "failedToReject": "Failed to reject user: {{error}}",
+    "noCallsignFound": "No callsign found. Please log in.",
+    "forbidden": "Forbidden: Admin access required",
+    "enterApprovalCodeMessage": "Please enter an approval code",
+    "cameraAccessFailed": "Failed to access camera. Please check permissions.",
+    "invalidQRFormat": "Invalid QR code format",
+    "qrScannedSuccessfully": "QR code scanned successfully!",
+    "approvalCodeScanned": "Approval code scanned!",
+    "cameraError": "Camera error"
+  }
+}

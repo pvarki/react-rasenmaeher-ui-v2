@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface KeycloakManageModalProps {
   open: boolean;
@@ -19,6 +20,7 @@ export function KeycloakManageModal({
   open,
   onOpenChange,
 }: KeycloakManageModalProps) {
+  const { t } = useTranslation();
   const currentDomain = window.location.hostname.replace(/^mtls\./, "");
   const keycloakUrl = `https://kc.${currentDomain}:9443/admin/RASENMAEHER/console/`;
 
@@ -26,34 +28,31 @@ export function KeycloakManageModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Keycloak Management Console</DialogTitle>
+          <DialogTitle>{t("modals.keycloak.title")}</DialogTitle>
           <DialogDescription>
-            Access the Keycloak administration interface to manage users, roles,
-            and authentication settings.
+            {t("modals.keycloak.description")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="py-4 space-y-4">
           <div className="p-4 bg-muted rounded-lg space-y-2">
             <p className="text-sm font-semibold text-foreground">
-              What is Keycloak?
+              {t("modals.keycloak.whatIsKeycloak")}
             </p>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Keycloak is an open-source identity and access management
-              platform. It handles user authentication, authorization, and role
-              management for this application.
+              {t("modals.keycloak.whatIsKeycloakDesc")}
             </p>
           </div>
 
           <div className="p-4 bg-muted rounded-lg space-y-2">
             <p className="text-sm font-semibold text-foreground">
-              What can you do there?
+              {t("modals.keycloak.whatCanYouDo")}
             </p>
             <ul className="text-xs text-muted-foreground space-y-2 list-disc list-inside">
-              <li>Reset user passwords</li>
-              <li>Configure login settings</li>
-              <li>Manage user attributes</li>
-              <li>Configure identity providers</li>
+              <li>{t("modals.keycloak.resetPasswords")}</li>
+              <li>{t("modals.keycloak.configureLogin")}</li>
+              <li>{t("modals.keycloak.manageAttributes")}</li>
+              <li>{t("modals.keycloak.configureProviders")}</li>
             </ul>
           </div>
         </div>
@@ -64,7 +63,7 @@ export function KeycloakManageModal({
             onClick={() => onOpenChange(false)}
             className="flex-1"
           >
-            Cancel
+            {t("modals.keycloak.cancelButton")}
           </Button>
           <a
             href={keycloakUrl}
@@ -73,7 +72,7 @@ export function KeycloakManageModal({
             className="flex-1"
           >
             <Button className="w-full bg-primary hover:bg-primary/90">
-              Open Console
+              {t("modals.keycloak.openConsole")}
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
           </a>
