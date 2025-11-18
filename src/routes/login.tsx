@@ -21,6 +21,8 @@ import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { getTheme } from "@/config/themes";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { useTranslation } from "react-i18next";
+
 const TOKEN_REGEX = /^[A-Z0-9]{8,}$/;
 
 interface ApiError extends Error {
@@ -51,11 +53,11 @@ function LoginPage() {
   const { code: urlCode } = Route.useSearch();
   const { deployment } = useHealthCheck();
   const theme = getTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const host = window.location.host;
     if (host.startsWith("mtls.")) {
-      // User is on mTLS domain but reached login page - certificate auth failed
       const nonMtlsHost = host.replace("mtls.", "");
       window.location.href = `${window.location.protocol}//${nonMtlsHost}/error?code=mtls_fail`;
     }
@@ -68,8 +70,8 @@ function LoginPage() {
   const CodeSchema = yup.object().shape({
     code: yup
       .string()
-      .required("Code is required")
-      .matches(TOKEN_REGEX, "Code format is invalid"),
+      .required(t("login.codeRequired"))
+      .matches(TOKEN_REGEX, t("login.codeInvalid")),
   });
 
   const formik = useFormik({
@@ -138,7 +140,11 @@ function LoginPage() {
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             {theme.assets?.logoUrl && (
-              <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
+              <img
+                src={theme.assets.logoUrl || "/placeholder.svg"}
+                alt="Logo"
+                className="h-8 w-8"
+              />
             )}
             <h1 className="text-2xl font-bold">{deployment}</h1>
           </div>
@@ -147,10 +153,8 @@ function LoginPage() {
 
         <Card className="border-muted">
           <CardHeader>
-            <CardTitle className="text-lg">Choose Login Method</CardTitle>
-            <CardDescription>
-              Login with your certificate or enter an invite code
-            </CardDescription>
+            <CardTitle className="text-lg">{t("login.chooseMethod")}</CardTitle>
+            <CardDescription>{t("login.loginDesc")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <a href={mtlsUrl} className="block">
@@ -159,7 +163,7 @@ function LoginPage() {
                 type="button"
               >
                 <Shield className="w-5 h-5 mr-2" />
-                Login with Certificate
+                {t("login.certificate")}
               </Button>
             </a>
 
@@ -169,7 +173,7 @@ function LoginPage() {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
-                  Or
+                  {t("login.or")}
                 </span>
               </div>
             </div>
@@ -177,13 +181,13 @@ function LoginPage() {
             <FormikProvider value={formik}>
               <Form className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="code">Enter your code:</Label>
+                  <Label htmlFor="code">{t("login.enterCode")}</Label>
                   <Field
                     as={Input}
                     id="code"
                     name="code"
                     type="text"
-                    placeholder="ABCD1234"
+                    placeholder={t("login.codePlaceholder")}
                     className="font-mono h-12 text-base"
                     onFocus={handleInputFocus}
                     onChange={handleChange}
@@ -191,11 +195,11 @@ function LoginPage() {
                   />
                   <span className="text-sm text-destructive">
                     {submitCount > 0 && <ErrorMessage name="code" />}
-                    {codeNotValid && <div>Code is invalid</div>}
+                    {codeNotValid && <div>{t("login.codeNotValid")}</div>}
                     {isError && (
                       <div>
                         {(error as ApiError).response?.data?.detail ||
-                          "Error occurred"}
+                          t("login.codeInvalid")}
                       </div>
                     )}
                   </span>
@@ -209,12 +213,12 @@ function LoginPage() {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Verifying...
+                      {t("login.verifying")}
                     </>
                   ) : (
                     <>
                       <Key className="w-5 h-5 mr-2" />
-                      Login with Code
+                      {t("login.loginCode")}
                     </>
                   )}
                 </Button>

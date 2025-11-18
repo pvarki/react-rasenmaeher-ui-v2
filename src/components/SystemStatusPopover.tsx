@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useHealthCheck } from "@/hooks/api/useHealthCheck";
+import { useTranslation } from "react-i18next";
 
 interface SystemStatusPopoverProps {
   isOnline: boolean;
@@ -20,19 +21,20 @@ export function SystemStatusPopover({
 }: SystemStatusPopoverProps) {
   const [open, setOpen] = useState(false);
   const { data: healthData } = useHealthCheck();
+  const { t } = useTranslation();
 
   const formatTime = (date: Date) => {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
 
-    if (diffMins < 1) return "Just now";
-    if (diffMins === 1) return "1 min ago";
-    if (diffMins < 60) return `${diffMins} mins ago`;
+    if (diffMins < 1) return t("systemStatus.justNow");
+    if (diffMins === 1) return `1 ${t("systemStatus.minAgo")}`;
+    if (diffMins < 60) return `${diffMins} ${t("systemStatus.minAgo")}`;
 
     const diffHours = Math.floor(diffMins / 60);
-    if (diffHours === 1) return "1 hour ago";
-    if (diffHours < 24) return `${diffHours} hours ago`;
+    if (diffHours === 1) return `1 ${t("systemStatus.hourAgo")}`;
+    if (diffHours < 24) return `${diffHours} ${t("systemStatus.hoursAgo")}`;
 
     return date.toLocaleDateString();
   };
@@ -57,12 +59,12 @@ export function SystemStatusPopover({
           {overallStatus ? (
             <>
               <Wifi className="w-3 h-3 text-green-500" />
-              <span>Online</span>
+              <span>{t("systemStatus.online")}</span>
             </>
           ) : (
             <>
               <WifiOff className="w-3 h-3 text-red-500" />
-              <span>Offline</span>
+              <span>{t("systemStatus.offline")}</span>
             </>
           )}
         </button>
@@ -70,24 +72,24 @@ export function SystemStatusPopover({
 
       <PopoverContent className="w-80 p-0 border border-border/50">
         <div className="p-4 space-y-4">
-          {/* Header */}
           <div className="space-y-2 pb-3 border-b border-border/30">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-primary" />
               <h3 className="font-semibold text-sm text-foreground">
-                System Status
+                {t("systemStatus.title")}
               </h3>
             </div>
             <p className="text-xs text-muted-foreground">
-              Last updated {formatTime(lastSync)}
+              {t("systemStatus.lastUpdated")} {formatTime(lastSync)}
             </p>
           </div>
 
-          {/* Status Summary */}
           <div className="grid grid-cols-3 gap-2">
             <div className="bg-card/60 border border-border/30 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-primary">{totalCount}</p>
-              <p className="text-xs text-muted-foreground">Services</p>
+              <p className="text-xs text-muted-foreground">
+                {t("systemStatus.services")}
+              </p>
             </div>
             <div
               className={`bg-card/60 border border-border/30 rounded-lg p-3 text-center ${totalCount - downCount === totalCount ? "border-green-500/30 bg-green-500/5" : ""}`}
@@ -95,7 +97,9 @@ export function SystemStatusPopover({
               <p className="text-2xl font-bold text-green-600">
                 {totalCount - downCount}
               </p>
-              <p className="text-xs text-muted-foreground">Active</p>
+              <p className="text-xs text-muted-foreground">
+                {t("systemStatus.active")}
+              </p>
             </div>
             <div
               className={`bg-card/60 border border-border/30 rounded-lg p-3 text-center ${downCount > 0 ? "border-red-500/30 bg-red-500/5" : ""}`}
@@ -105,15 +109,16 @@ export function SystemStatusPopover({
               >
                 {downCount}
               </p>
-              <p className="text-xs text-muted-foreground">Issues</p>
+              <p className="text-xs text-muted-foreground">
+                {t("systemStatus.issues")}
+              </p>
             </div>
           </div>
 
-          {/* Product List */}
           <div className="space-y-2 pt-2">
             {filteredProducts.length === 0 ? (
               <p className="text-xs text-muted-foreground text-center py-2">
-                No services available
+                {t("systemStatus.noServices")}
               </p>
             ) : (
               filteredProducts.map(([product, status]) => (
@@ -140,7 +145,9 @@ export function SystemStatusPopover({
                         : "bg-red-500/20 text-red-700 dark:text-red-400"
                     }`}
                   >
-                    {status ? "OPERATIONAL" : "DOWN"}
+                    {status
+                      ? t("systemStatus.operational")
+                      : t("systemStatus.down")}
                   </span>
                 </div>
               ))
@@ -153,12 +160,16 @@ export function SystemStatusPopover({
             {isOnline ? (
               <>
                 <Wifi className="w-3 h-3 text-blue-600 dark:text-blue-400" />
-                <span className="text-foreground">Network Connected</span>
+                <span className="text-foreground">
+                  {t("systemStatus.networkConnected")}
+                </span>
               </>
             ) : (
               <>
                 <AlertTriangle className="w-3 h-3 text-yellow-600 dark:text-yellow-400" />
-                <span className="text-foreground">Network Disconnected</span>
+                <span className="text-foreground">
+                  {t("systemStatus.networkDisconnected")}
+                </span>
               </>
             )}
           </div>

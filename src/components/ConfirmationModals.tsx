@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +35,7 @@ export function TypeConfirmationModal({
   isDangerous = false,
 }: TypeConfirmationModalProps) {
   const [input, setInput] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!open) {
@@ -53,16 +55,18 @@ export function TypeConfirmationModal({
         <div className="space-y-4 py-4">
           <div className="space-y-2">
             <p className="text-sm font-medium">
-              Type{" "}
+              {t("common.type")}{" "}
               <span className="font-mono bg-muted px-2 py-1 rounded">
                 {requiredText}
               </span>{" "}
-              to confirm
+              {t("common.toConfirm")}
             </p>
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value.toUpperCase())}
-              placeholder={`Type "${requiredText}" to confirm`}
+              placeholder={t("common.typeConfirmPlaceholder", {
+                text: requiredText,
+              })}
               className="font-mono uppercase"
             />
           </div>
@@ -74,7 +78,7 @@ export function TypeConfirmationModal({
             disabled={isLoading}
             className="flex-1"
           >
-            Cancel
+            {t("common.cancel")}
           </Button>
           <Button
             onClick={onConfirm}
@@ -85,7 +89,7 @@ export function TypeConfirmationModal({
                 : "flex-1"
             }
           >
-            {isLoading ? "Confirming..." : "Confirm"}
+            {isLoading ? t("common.confirming") : t("common.confirm")}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -114,6 +118,8 @@ export function SimpleConfirmationModal({
   isLoading = false,
   isDangerous = false,
 }: SimpleConfirmationModalProps) {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
@@ -128,7 +134,7 @@ export function SimpleConfirmationModal({
             disabled={isLoading}
             className="flex-1"
           >
-            Cancel
+            {t("common.cancel")}
           </Button>
           <Button
             onClick={onConfirm}
@@ -139,7 +145,7 @@ export function SimpleConfirmationModal({
                 : "flex-1"
             }
           >
-            {isLoading ? "Processing..." : actionText}
+            {isLoading ? t("common.processing") : actionText}
           </Button>
         </DialogFooter>
       </DialogContent>
