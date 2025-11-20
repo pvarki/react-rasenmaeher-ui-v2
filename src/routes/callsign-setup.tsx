@@ -22,6 +22,7 @@ import { Input } from "../components/ui/input";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { getTheme } from "@/config/themes";
+import { useTranslation } from "react-i18next";
 
 interface StatusCodeError extends Error {
   statusCode?: number;
@@ -37,6 +38,7 @@ function CallsignSetupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const theme = getTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!code || !codeType) {
@@ -47,18 +49,21 @@ function CallsignSetupPage() {
   const CallsignSchema = yup.object().shape({
     callsign: yup
       .string()
-      .required("Callsign is required")
-      .min(3, "Callsign must be at least 3 characters")
-      .matches(/^[a-zA-Z0-9]{3,30}$/, "Only alphanumeric characters allowed")
-      .max(30, "Callsign must be at most 30 characters"),
+      .required(t("callsignSetup.validation.required"))
+      .min(3, t("callsignSetup.validation.min"))
+      .matches(
+        /^[a-zA-Z0-9]{3,30}$/,
+        t("callsignSetup.validation.pattern"),
+      )
+      .max(30, t("callsignSetup.validation.max")),
   });
 
   const handleCommonError = (error: StatusCodeError) => {
     setIsSubmitting(false);
     if (error.statusCode === 400) {
-      setErrorMessage("Callsign is already in use");
+      setErrorMessage(t("callsignSetup.errors.alreadyInUse"));
     } else {
-      setErrorMessage("An unexpected error occurred");
+      setErrorMessage(t("callsignSetup.errors.unexpected"));
     }
   };
 
@@ -114,23 +119,24 @@ function CallsignSetupPage() {
             )}
           </div>
           <CardTitle className="text-2xl font-bold text-center">
-            Setup Your Callsign
+            {t("callsignSetup.title")}
           </CardTitle>
           <CardDescription className="text-center">
-            Using {codeType === "admin" ? "admin" : "invite"} code:{" "}
-            <span className="font-mono font-bold">{code}</span>
+            {codeType === "admin"
+              ? t("callsignSetup.usingAdmin", { code })
+              : t("callsignSetup.usingInvite", { code })}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <FormikProvider value={formik}>
             <Form className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="callsign">Your Callsign</Label>
+                <Label htmlFor="callsign">{t("callsignSetup.yourCallsignLabel")}</Label>
                 <Input
                   id="callsign"
                   name="callsign"
                   type="text"
-                  placeholder="Enter your callsign"
+                  placeholder={t("callsignSetup.callsignPlaceholder")}
                   className="font-mono"
                   value={formik.values.callsign}
                   onChange={handleInputChange}
@@ -157,7 +163,7 @@ function CallsignSetupPage() {
                     isSubmitting || isLoadingAdmin || isLoadingEnrollment
                   }
                 >
-                  Back
+                  {t("callsignSetup.buttons.back")}
                 </Button>
                 <Button
                   type="submit"
@@ -170,8 +176,8 @@ function CallsignSetupPage() {
                   }
                 >
                   {isSubmitting || isLoadingAdmin || isLoadingEnrollment
-                    ? "Setting up..."
-                    : "Continue"}
+                    ? t("callsignSetup.buttons.settingUp")
+                    : t("callsignSetup.buttons.continue")}
                 </Button>
               </div>
             </Form>

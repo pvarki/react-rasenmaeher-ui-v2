@@ -16,6 +16,7 @@ import {
 } from "@module-federation/enhanced/runtime";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { useGetProductInstructions } from "@/hooks/api/useGetProductInstructions";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/product/$shortname")({
   component: ProductPage,
@@ -64,6 +65,7 @@ const loadRemoteComponent = async (
 };
 
 function ProductPage() {
+  const { t } = useTranslation();
   const { shortname } = Route.useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -120,7 +122,9 @@ function ProductPage() {
       <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
         <div className="flex flex-col items-center space-y-4">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">Loading products...</p>
+          <p className="text-sm text-muted-foreground">
+            {t("product.loadingProducts")}
+          </p>
         </div>
       </div>
     );
@@ -131,8 +135,10 @@ function ProductPage() {
     return (
       <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-sm text-destructive">Failed to load products</p>
-          <Button onClick={() => navigate({ to: "/" })}>Go Home</Button>
+          <p className="text-sm text-destructive">{t("product.failedToLoad")}</p>
+          <Button onClick={() => navigate({ to: "/" })}>
+            {t("product.goHome")}
+          </Button>
         </div>
       </div>
     );
@@ -145,7 +151,7 @@ function ProductPage() {
         <div className="flex flex-col items-center space-y-4">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
           <p className="text-sm text-muted-foreground">
-            Product not found, redirecting...
+            {t("product.notFoundRedirect")}
           </p>
         </div>
       </div>
@@ -180,8 +186,12 @@ function ProductPage() {
             <div className="w-full max-w-md space-y-3">
               <Progress value={progress} className="h-2" />
               <div className="text-center space-y-1">
-                <p className="text-sm font-medium">Loading {product.title}</p>
-                <p className="text-xs text-muted-foreground">{progress}%</p>
+                <p className="text-sm font-medium">
+                  {t("product.loadingProduct", { title: product.title })}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t("product.progress", { progress })}
+                </p>
               </div>
             </div>
           </div>
@@ -192,7 +202,7 @@ function ProductPage() {
                 <Suspense
                   fallback={
                     <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
-                      Loading remote...
+                      {t("product.loadingRemote")}
                     </div>
                   }
                 >

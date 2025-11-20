@@ -33,6 +33,7 @@ import { useUserType } from "@/hooks/auth/useUserType";
 import { useNavigate } from "@tanstack/react-router";
 import { TypeConfirmationModal } from "@/components/ConfirmationModals";
 import { KeycloakManageModal } from "@/components/KeycloakManageModal";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/manage-users")({
   component: ManageUsersPage,
@@ -55,13 +56,14 @@ function ManageUsersPage() {
 
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!userTypeLoading && !callsign) {
-      toast.error("No callsign found. Please log in.");
+      toast.error(t("manageUsers.messages.noCandidateFound"));
       navigate({ to: "/login" });
     }
-  }, [callsign, userTypeLoading, navigate]);
+  }, [callsign, userTypeLoading, navigate, t]);
 
   useEffect(() => {
     const walkthroughKey = `manage-users-walkthrough-${callsign}`;
@@ -74,10 +76,10 @@ function ManageUsersPage() {
 
   useEffect(() => {
     if (!userTypeLoading && userType !== "admin") {
-      toast.error("403 Forbidden: Admin access required");
+      toast.error(t("manageUsers.forbidden"));
       navigate({ to: "/" });
     }
-  }, [userType, userTypeLoading, navigate]);
+  }, [userType, userTypeLoading, navigate, t]);
 
   const {
     data: users,
@@ -89,37 +91,49 @@ function ManageUsersPage() {
 
   const promoteUserMutation = usePromoteUser({
     onSuccess: () => {
-      toast.success(`${selectedUser?.callsign} promoted to administrator!`);
+      toast.success(
+        t("manageUsers.messages.promoted", { callsign: selectedUser?.callsign }),
+      );
       setSelectedUser(null);
       setPromoteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to promote user: ${error.message}`);
+      toast.error(
+        t("manageUsers.messages.promoteFailed", { error: error.message }),
+      );
     },
   });
 
   const demoteUserMutation = useDemoteUser({
     onSuccess: () => {
-      toast.success(`${selectedUser?.callsign} demoted to fighter!`);
+      toast.success(
+        t("manageUsers.messages.demoted", { callsign: selectedUser?.callsign }),
+      );
       setSelectedUser(null);
       setDemoteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to demote user: ${error.message}`);
+      toast.error(
+        t("manageUsers.messages.demoteFailed", { error: error.message }),
+      );
     },
   });
 
   const deleteUserMutation = useDeleteUser({
     onSuccess: () => {
-      toast.error(`${selectedUser?.callsign} removed from the system`);
+      toast.error(
+        t("manageUsers.messages.removed", { callsign: selectedUser?.callsign }),
+      );
       setSelectedUser(null);
       setDeleteConfirmOpen(false);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to remove user: ${error.message}`);
+      toast.error(
+        t("manageUsers.messages.removeFailed", { error: error.message }),
+      );
     },
   });
 
@@ -144,7 +158,7 @@ function ManageUsersPage() {
   const handleDemoteClick = () => {
     if (!selectedUser) return;
     if (selectedUser.callsign === callsign) {
-      toast.error("You cannot demote your own account");
+      toast.error(t("manageUsers.messages.cannotDemoteOwn"));
       return;
     }
     setDemoteConfirmOpen(true);
@@ -159,14 +173,12 @@ function ManageUsersPage() {
     if (!selectedUser) return;
 
     if (selectedUser.callsign === callsign) {
-      toast.error("You cannot delete your own account");
+      toast.error(t("manageUsers.messages.cannotDeleteOwn"));
       return;
     }
 
     if (isAdmin(selectedUser) && administrators.length <= 1) {
-      toast.error(
-        "Cannot delete the last admin. At least one admin must exist.",
-      );
+      toast.error(t("manageUsers.messages.cannotDeleteLastAdmin"));
       return;
     }
 
@@ -183,7 +195,7 @@ function ManageUsersPage() {
       <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
-          Forbidden: Admin access required
+          {t("manageUsers.forbidden")}
         </p>
       </div>
     );
@@ -192,7 +204,7 @@ function ManageUsersPage() {
   if (isLoading || userTypeLoading) {
     return (
       <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold">Manage Users</h1>
+        <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -204,13 +216,12 @@ function ManageUsersPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Manage Users</h1>
+          <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Manage users in this view.{" "}
-            <span className="text-primary font-medium">Admins</span> are users
-            that are able to access these user management tools.{" "}
-            <span className="text-primary font-medium">Fighters</span> are basic
-            users, who have access to your services.
+            {t("manageUsers.description", {
+              admins: t("manageUsers.adminHighlight"),
+              fighters: t("manageUsers.fighterHighlight"),
+            })}
           </p>
         </div>
         <Button
@@ -229,7 +240,7 @@ function ManageUsersPage() {
       >
         <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
           <span className="font-medium">
-            Administrators ({administrators.length})
+            {t("manageUsers.administrators")} ({administrators.length})
           </span>
           <ChevronDown
             className={cn(
@@ -241,7 +252,7 @@ function ManageUsersPage() {
         <CollapsibleContent className="mt-2 space-y-2">
           {administrators.length === 0 ? (
             <div className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center">
-              No administrators yet.
+              {t("manageUsers.noAdministrators")}
             </div>
           ) : (
             administrators.map((user) => (
@@ -253,7 +264,7 @@ function ManageUsersPage() {
                 <span className="text-sm font-medium">{user.callsign}</span>
                 {isCurrentUser(user) && (
                   <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                    You
+                    {t("manageUsers.you")}
                   </span>
                 )}
               </div>
@@ -264,7 +275,9 @@ function ManageUsersPage() {
 
       <Collapsible open={fightersOpen} onOpenChange={setFightersOpen}>
         <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-          <span className="font-medium">Fighters ({fighters.length})</span>
+          <span className="font-medium">
+            {t("manageUsers.fighters")} ({fighters.length})
+          </span>
           <ChevronDown
             className={cn(
               "w-5 h-5 transition-transform",
@@ -275,7 +288,7 @@ function ManageUsersPage() {
         <CollapsibleContent className="mt-2 space-y-2">
           {fighters.length === 0 ? (
             <div className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center">
-              No fighters yet.
+              {t("manageUsers.noFighters")}
             </div>
           ) : (
             fighters.map((user) => (
@@ -296,42 +309,42 @@ function ManageUsersPage() {
           onClick={() => setKeycloakModalOpen(true)}
           className="w-full bg-primary hover:bg-primary/90 h-12 rounded-xl text-base font-semibold"
         >
-          Open Keycloak Management Console
+          {t("manageUsers.keycloakButton")}
         </Button>
       </div>
 
       <Dialog open={walkthroughOpen} onOpenChange={setWalkthroughOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>How to Manage Users</DialogTitle>
+            <DialogTitle>{t("manageUsers.walkthrough.title")}</DialogTitle>
             <DialogDescription>
-              Quick guide to managing your team
+              {t("manageUsers.walkthrough.description")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <h4 className="font-semibold text-sm">
-                Promoting/Demoting Users
+                {t("manageUsers.walkthrough.promotingTitle")}
               </h4>
               <p className="text-sm text-muted-foreground">
-                Click on any user to promote fighters to admins or demote admins
-                to fighters. Promoted users gain the same administrative rights
-                as you.
+                {t("manageUsers.walkthrough.promotingDesc")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Removing Users</h4>
+              <h4 className="font-semibold text-sm">
+                {t("manageUsers.walkthrough.removingTitle")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                Removing users will revoke their access to this Deploy App and
-                all connected services. They will no longer be able to connect
-                to your situation awareness service.
+                {t("manageUsers.walkthrough.removingDesc")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Important Notes</h4>
+              <h4 className="font-semibold text-sm">
+                {t("manageUsers.walkthrough.notesTitle")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                • You cannot remove or demote yourself
-                <br />• At least one admin must exist at all times
+                • {t("manageUsers.walkthrough.note1")}
+                <br />• {t("manageUsers.walkthrough.note2")}
               </p>
             </div>
           </div>
@@ -340,7 +353,7 @@ function ManageUsersPage() {
               onClick={() => setWalkthroughOpen(false)}
               className="w-full"
             >
-              Got it!
+              {t("manageUsers.walkthrough.gotIt")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -353,9 +366,9 @@ function ManageUsersPage() {
         >
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Manage User</DialogTitle>
+              <DialogTitle>{t("manageUsers.userDialog.title")}</DialogTitle>
               <DialogDescription>
-                Managing{" "}
+                {t("common.managing")}{" "}
                 <span className="font-semibold text-foreground">
                   {selectedUser?.callsign}
                 </span>
@@ -363,9 +376,11 @@ function ManageUsersPage() {
             </DialogHeader>
             <div className="py-4">
               <p className="text-sm text-muted-foreground">
-                Current role:{" "}
+                {t("manageUsers.userDialog.currentRole")}{" "}
                 <span className="font-medium text-foreground capitalize">
-                  {selectedUser && isAdmin(selectedUser) ? "admin" : "fighter"}
+                  {selectedUser && isAdmin(selectedUser)
+                    ? t("common.admin")
+                    : t("common.user")}
                 </span>
               </p>
             </div>
@@ -380,7 +395,7 @@ function ManageUsersPage() {
                   deleteUserMutation.isLoading
                 }
               >
-                Go back
+                {t("manageUsers.userDialog.goBack")}
               </Button>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -401,13 +416,15 @@ function ManageUsersPage() {
                         )
                       }
                     >
-                      {deleteUserMutation.isLoading ? "Removing..." : "Remove"}
+                      {deleteUserMutation.isLoading
+                        ? t("manageUsers.userDialog.removing")
+                        : t("manageUsers.userDialog.remove")}
                     </Button>
                   </span>
                 </TooltipTrigger>
                 {selectedUser && isCurrentUser(selectedUser) && (
                   <TooltipContent>
-                    <p>You cannot remove yourself from this application</p>
+                    <p>{t("manageUsers.tooltips.cannotRemove")}</p>
                   </TooltipContent>
                 )}
               </Tooltip>
@@ -421,7 +438,9 @@ function ManageUsersPage() {
                     deleteUserMutation.isLoading
                   }
                 >
-                  {promoteUserMutation.isLoading ? "Promoting..." : "Promote"}
+                  {promoteUserMutation.isLoading
+                    ? t("manageUsers.userDialog.promoting")
+                    : t("manageUsers.userDialog.promote")}
                 </Button>
               ) : (
                 <Tooltip>
@@ -438,14 +457,14 @@ function ManageUsersPage() {
                         }
                       >
                         {demoteUserMutation.isLoading
-                          ? "Demoting..."
-                          : "Demote"}
+                          ? t("manageUsers.userDialog.demoting")
+                          : t("manageUsers.userDialog.demote")}
                       </Button>
                     </span>
                   </TooltipTrigger>
                   {selectedUser && isCurrentUser(selectedUser) && (
                     <TooltipContent>
-                      <p>You cannot demote yourself</p>
+                      <p>{t("manageUsers.tooltips.cannotDemote")}</p>
                     </TooltipContent>
                   )}
                 </Tooltip>
@@ -458,9 +477,12 @@ function ManageUsersPage() {
       <TypeConfirmationModal
         open={promoteConfirmOpen}
         onOpenChange={setPromoteConfirmOpen}
-        title="Promote User"
-        description={`Are you sure you want to promote ${selectedUser?.callsign} to administrator? They will have full access to user management tools.`}
-        requiredText="PROMOTE"
+        title={t("manageUsers.confirmModals.promote.title")}
+        description={t(
+          "manageUsers.confirmModals.promote.description",
+          { callsign: selectedUser?.callsign },
+        )}
+        requiredText={t("manageUsers.confirmModals.promote.requiredText")}
         onConfirm={handlePromoteConfirm}
         isLoading={promoteUserMutation.isLoading}
       />
@@ -468,9 +490,12 @@ function ManageUsersPage() {
       <TypeConfirmationModal
         open={demoteConfirmOpen}
         onOpenChange={setDemoteConfirmOpen}
-        title="Demote User"
-        description={`Are you sure you want to demote ${selectedUser?.callsign} from administrator to fighter? They will lose access to user management tools.`}
-        requiredText="DEMOTE"
+        title={t("manageUsers.confirmModals.demote.title")}
+        description={t(
+          "manageUsers.confirmModals.demote.description",
+          { callsign: selectedUser?.callsign },
+        )}
+        requiredText={t("manageUsers.confirmModals.demote.requiredText")}
         onConfirm={handleDemoteConfirm}
         isLoading={demoteUserMutation.isLoading}
       />
@@ -478,8 +503,11 @@ function ManageUsersPage() {
       <TypeConfirmationModal
         open={deleteConfirmOpen}
         onOpenChange={setDeleteConfirmOpen}
-        title="Remove User"
-        description={`This action cannot be undone. Enter the username "${selectedUser?.callsign?.toUpperCase()}" to confirm removal.`}
+        title={t("manageUsers.confirmModals.remove.title")}
+        description={t(
+          "manageUsers.confirmModals.remove.description",
+          { callsign: selectedUser?.callsign?.toUpperCase() },
+        )}
         requiredText={selectedUser?.callsign?.toUpperCase() || ""}
         onConfirm={handleRemoveConfirm}
         isLoading={deleteUserMutation.isLoading}
