@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import { useApproveUser } from "@/hooks/api/useApproveUser";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ApproveUserSearch {
   callsign?: string;
@@ -34,16 +35,17 @@ export const Route = createFileRoute("/approve-user")({
 
 function ApproveUserPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { callsign, approvalcode } = Route.useSearch();
   const [approvalCode, setApprovalCode] = useState(approvalcode || "");
 
   const approveUserMutation = useApproveUser({
     onSuccess: () => {
-      toast.success(`User ${callsign} approved successfully!`);
+      toast.success(t("approveUser.approvedSuccess", { callsign }));
       navigate({ to: "/approve-users" });
     },
     onError: (error) => {
-      toast.error(`Failed to approve user: ${error.message}`);
+      toast.error(t("approveUser.approveFailed", { error: error.message }));
     },
   });
 
@@ -55,7 +57,7 @@ function ApproveUserPage() {
 
   const handleApprove = () => {
     if (!approvalCode.trim()) {
-      toast.error("Please enter an approval code");
+      toast.error(t("approveUser.enterApprovalCodeMessage"));
       return;
     }
     if (!callsign) return;
@@ -64,57 +66,59 @@ function ApproveUserPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            Approve User
-          </CardTitle>
-          <CardDescription className="text-center">
-            Approve{" "}
-            <span className="font-semibold text-foreground">{callsign}</span> to
-            access the system
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="approval-code">Approval Code</Label>
-            <Input
-              id="approval-code"
-              value={approvalCode}
-              onChange={(e) => setApprovalCode(e.target.value)}
-              placeholder="Enter approval code"
-              onKeyDown={(e) => e.key === "Enter" && handleApprove()}
-              autoFocus
-              disabled={approveUserMutation.isLoading}
-            />
-          </div>
+      <div className="w-full max-w-md space-y-6">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center">
+              {t("approveUser.title")}
+            </CardTitle>
+            <CardDescription className="text-center">
+              {t("approveUser.description", { callsign })}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="approval-code">
+                {t("approveUser.approvalCodeLabel")}
+              </Label>
+              <Input
+                id="approval-code"
+                value={approvalCode}
+                onChange={(e) => setApprovalCode(e.target.value)}
+                placeholder={t("approveUser.approvalCodePlaceholder")}
+                onKeyDown={(e) => e.key === "Enter" && handleApprove()}
+                autoFocus
+                disabled={approveUserMutation.isLoading}
+              />
+            </div>
 
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => navigate({ to: "/approve-users" })}
-              disabled={approveUserMutation.isLoading}
-              className="flex-1"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleApprove}
-              className="flex-1 bg-green-600 hover:bg-green-700"
-              disabled={approveUserMutation.isLoading || !approvalCode.trim()}
-            >
-              {approveUserMutation.isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Approving...
-                </>
-              ) : (
-                "Approve"
-              )}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => navigate({ to: "/approve-users" })}
+                disabled={approveUserMutation.isLoading}
+                className="flex-1"
+              >
+                {t("approveUser.cancel")}
+              </Button>
+              <Button
+                onClick={handleApprove}
+                className="flex-1 bg-green-600 hover:bg-green-700"
+                disabled={approveUserMutation.isLoading || !approvalCode.trim()}
+              >
+                {approveUserMutation.isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    {t("approveUser.approving")}
+                  </>
+                ) : (
+                  t("approveUser.approve")
+                )}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

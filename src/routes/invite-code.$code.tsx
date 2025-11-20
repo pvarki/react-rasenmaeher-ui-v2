@@ -27,6 +27,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import QRCode from "react-qr-code";
 import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { useTranslation } from "react-i18next";
 
 pdfMake.vfs = pdfFonts.vfs;
 
@@ -42,6 +43,7 @@ function InviteCodePage() {
 
   const { isCopied, handleCopy } = useCopyToClipboard();
   const { deployment } = useHealthCheck();
+  const { t } = useTranslation();
 
   let hostname = new URL(window.location.origin).hostname;
   hostname = hostname.replace(/^mtls\./, "");
@@ -104,7 +106,7 @@ function InviteCodePage() {
         pageMargins: [40, 60, 40, 60] as [number, number, number, number],
         content: [
           {
-            text: "Deploy App",
+            text: t("inviteCode.pdf.title"),
             fontSize: 28,
             bold: true,
             color: "#1a1a1a",
@@ -123,7 +125,7 @@ function InviteCodePage() {
               ]
             : []),
           {
-            text: "User Enrollment QR Code",
+            text: t("inviteCode.pdf.userEnrollment"),
             fontSize: 14,
             color: "#666666",
             alignment: "center" as const,
@@ -144,7 +146,7 @@ function InviteCodePage() {
             link: inviteUrl,
           },
           {
-            text: "Instructions:",
+            text: t("inviteCode.pdf.instructionsTitle"),
             fontSize: 12,
             bold: true,
             color: "#1a1a1a",
@@ -153,19 +155,19 @@ function InviteCodePage() {
           {
             ul: [
               {
-                text: "Point your camera at the QR code above",
+                text: t("inviteCode.pdf.steps.step1"),
                 margin: [0, 0, 0, 8] as [number, number, number, number],
               },
               {
-                text: "Or visit the link and follow the enrollment process",
+                text: t("inviteCode.pdf.steps.step2"),
                 margin: [0, 0, 0, 8] as [number, number, number, number],
               },
               {
-                text: "Set your callsign when prompted",
+                text: t("inviteCode.pdf.steps.step3"),
                 margin: [0, 0, 0, 8] as [number, number, number, number],
               },
               {
-                text: "Wait for administrator approval",
+                text: t("inviteCode.pdf.steps.step4"),
                 margin: [0, 0, 0, 8] as [number, number, number, number],
               },
             ],
@@ -173,7 +175,7 @@ function InviteCodePage() {
             color: "#444444",
           },
           {
-            text: `Generated: ${new Date().toLocaleString()}`,
+            text: `${t("inviteCode.pdf.generated")} ${new Date().toLocaleString()}`,
             fontSize: 9,
             color: "#999999",
             alignment: "right" as const,
@@ -181,7 +183,7 @@ function InviteCodePage() {
           },
         ],
         footer: {
-          text: "Deploy App",
+          text: t("inviteCode.pdf.footer"),
           alignment: "center" as const,
           fontSize: 9,
           color: "#999999",
@@ -189,10 +191,10 @@ function InviteCodePage() {
       };
 
       pdfMake.createPdf(docDefinition).download(`invite-code-${code}.pdf`);
-      toast.success("PDF downloaded successfully!");
+      toast.success(t("inviteCode.pdf.downloadSuccess"));
     } catch (error) {
       console.error("Failed to export PDF:", error);
-      toast.error("Failed to export PDF. Please try again.");
+      toast.error(t("inviteCode.pdf.downloadFailure"));
     }
   };
 
@@ -206,14 +208,16 @@ function InviteCodePage() {
             className="flex items-center gap-2 text-sm hover:bg-accent/50"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Invites
+            {t("inviteCode.backToInvites")}
           </Button>
         </div>
 
         <main className="flex-1 p-4 md:p-8 overflow-auto">
           <div className="max-w-3xl mx-auto space-y-8">
             <div className="flex items-center gap-4">
-              <h1 className="text-2xl font-bold">Invite Code {code}</h1>
+              <h1 className="text-2xl font-bold">
+                {t("inviteCode.title", { code })}
+              </h1>
               <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-mono">
                 {code}
               </span>
@@ -240,12 +244,12 @@ function InviteCodePage() {
                   <span
                     className={cn("transition-all", isCopied && "opacity-0")}
                   >
-                    Copy invite link
+                    {t("inviteCode.copyInvite")}
                   </span>
                   {isCopied && (
                     <span className="absolute inset-0 flex items-center justify-center gap-2">
                       <Check className="w-5 h-5" />
-                      Copied!
+                      {t("inviteCode.copied")}
                     </span>
                   )}
                 </Button>
@@ -255,43 +259,44 @@ function InviteCodePage() {
                   className="flex-1 h-12 text-base font-medium rounded-xl bg-transparent"
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  Export PDF
+                  {t("inviteCode.exportPdf")}
                 </Button>
               </div>
             </div>
 
             <div className="space-y-4 text-sm leading-relaxed">
               <p>
-                <span className="text-primary font-semibold">1. Show</span> this
-                QR code to your user.
+                <span className="text-primary font-semibold">
+                  1. {t("inviteCode.steps.show")}
+                </span>
               </p>
               <p>
                 <span className="text-primary font-semibold">
-                  2. Alternatively,
+                  2. {t("inviteCode.steps.alternative")}
                 </span>{" "}
-                press the <span className="font-medium">Copy invite link</span>{" "}
-                button above, and paste & send the link to the user you want to
-                enroll.
+                {t("inviteCode.steps.copyButtonHint")}
               </p>
               <p>
                 <span className="text-primary font-semibold">
-                  3. Print & Post
+                  3. {t("inviteCode.steps.print")}
                 </span>{" "}
-                the exported PDF on a physical poster so soldiers can scan it
-                during onboarding.
+                {t("inviteCode.steps.printHint")}
               </p>
               <p>
-                <span className="text-primary font-semibold">4.</span> Via the
-                QR code or the link, your user can log in and get to set their{" "}
-                <span className="text-primary font-medium">callsign</span>.
+                <span className="text-primary font-semibold">
+                  4. {t("inviteCode.steps.callsign")}
+                </span>
               </p>
               <p>
-                <span className="text-primary font-semibold">5.</span> After
-                that, they are in the Waiting Room.
+                <span className="text-primary font-semibold">
+                  5. {t("inviteCode.steps.waiting")}
+                </span>
               </p>
               <p>
-                <span className="text-primary font-semibold">6. Approve</span>{" "}
-                your user by one of the methods below.
+                <span className="text-primary font-semibold">
+                  6. {t("inviteCode.steps.approve")}
+                </span>{" "}
+                {t("inviteCode.steps.approveHint")}
               </p>
             </div>
 
@@ -300,7 +305,9 @@ function InviteCodePage() {
               onOpenChange={setInstructionsOpen}
             >
               <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-                <span className="font-medium">Approval methods</span>
+                <span className="font-medium">
+                  {t("inviteCode.approvalMethods.title")}
+                </span>
                 <ChevronDown
                   className={cn(
                     "w-5 h-5 transition-transform",
@@ -312,14 +319,9 @@ function InviteCodePage() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-primary">
                     <Smartphone className="w-4 h-4" />
-                    Method 1: QR Code Scanning
+                    {t("inviteCode.approvalMethods.method1.title")}
                   </div>
-                  <p>
-                    Ask the user to show you their approval code on their
-                    Waiting Room screen. Use your device's camera or a QR code
-                    scanner app to scan the QR code. The approval will be
-                    processed automatically.
-                  </p>
+                  <p>{t("inviteCode.approvalMethods.method1.description")}</p>
                 </div>
 
                 <hr className="border-border/30" />
@@ -327,14 +329,9 @@ function InviteCodePage() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-primary">
                     <Binary className="w-4 h-4" />
-                    Method 2: Approval Code
+                    {t("inviteCode.approvalMethods.method2.title")}
                   </div>
-                  <p>
-                    Take the{" "}
-                    <span className="font-semibold">approval code</span> from
-                    their Waiting Room screen and use it in the{" "}
-                    <span className="font-semibold">"Approve Users"</span> view.
-                  </p>
+                  <p>{t("inviteCode.approvalMethods.method2.description")}</p>
                 </div>
 
                 <hr className="border-border/30" />
@@ -342,12 +339,9 @@ function InviteCodePage() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-primary">
                     <Link2 className="w-4 h-4" />
-                    Method 3: Link Approval
+                    {t("inviteCode.approvalMethods.method3.title")}
                   </div>
-                  <p>
-                    Ask them to provide you the approval link from their Waiting
-                    Room screen, which you can click to approve them directly.
-                  </p>
+                  <p>{t("inviteCode.approvalMethods.method3.description")}</p>
                 </div>
               </CollapsibleContent>
             </Collapsible>

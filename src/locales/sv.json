@@ -8,27 +8,549 @@
     "approveUsers": "Godkänn användare",
     "manageUsers": "Hantera användare",
     "addUsers": "Lägg till användare",
-    "admin": "Administratör",
+    "admin": "Admin",
     "user": "Användare",
     "deployApp": "Deploy App",
     "takServer": "TAK-server",
     "feedback": "Feedback",
-    "learnAboutMtls": "Läs mer om mTLS",
-    "proudlyServedBy": "Stolt serverad av PV-Arki.",
+    "learnAboutMtls": "Lär dig om mTLS",
+    "proudlyServedBy": "Stolt levererad av PV-Arki.",
     "releasedUnder": "Släppt under GNU GPLv3 av TAK Product Center.",
-    "viewSource": "Visa källa",
-    "letDevelopersKnow": "Låt utvecklare veta",
+    "viewSource": "Visa källkod",
+    "letDevelopersKnow": "Låt utvecklarna veta",
     "whatYouThink": "vad du tycker",
-    "allRightsReserved": "Alla rättigheter reserverade.",
-    "copyright": "© 2025 PV-Arki. Alla rättigheter reserverade.",
-    "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
+    "allRightsReserved": "Alla rättigheter förbehållna.",
+    "copyright": "© 2025 PV-Arki. Alla rättigheter förbehållna.",
+    "rmUi": "RM-UI, logotyp och bakgrundsbilder © PV-Arki",
     "authenticating": "Autentiserar...",
-    "adminConsole": "Admin-konsol",
-    "forbiddenAdminAccess": "403 Förbjudet: Administratörsåtkomst krävs"
+    "adminConsole": "Adminkonsol",
+    "forbiddenAdminAccess": "403 Förbjuden: Administratörsåtkomst krävs",
+    "cancel": "Avbryt",
+    "confirm": "Bekräfta",
+    "confirming": "Bekräftar...",
+    "processing": "Bearbetar...",
+    "type": "Skriv",
+    "toConfirm": "för att bekräfta",
+    "typeConfirmPlaceholder": "Skriv \"{text}\" för att bekräfta"
   },
   "pages": {
     "login": "Logga in",
     "waitingRoom": "Väntrum",
     "error": "Fel"
+  },
+  "modals": {
+    "keycloak": {
+      "title": "Keycloak hanteringskonsol",
+      "description": "Få tillgång till Keycloaks administrationsgränssnitt för att hantera användare, roller och autentiseringsinställningar.",
+      "whatIsKeycloak": "Vad är Keycloak?",
+      "whatIsKeycloakDesc": "Keycloak är en open-source plattform för identitets- och åtkomsthantering. Den hanterar användarautentisering, auktorisering och rollhantering för denna applikation.",
+      "whatCanYouDo": "Vad kan du göra där?",
+      "resetPasswords": "Återställ användarlösenord",
+      "configureLogin": "Konfigurera inloggningsinställningar",
+      "manageAttributes": "Hantera användarattribut",
+      "configureProviders": "Konfigurera identitetsleverantörer",
+      "cancelButton": "Avbryt",
+      "openConsole": "Öppna konsol"
+    },
+    "mtls": {
+      "title": "Vad är mTLS?",
+      "description": "Ömsesidig TLS (mTLS) autentisering förklarad",
+      "paragraph1": "Genom att använda en mTLS-nyckel installerad på din enhet för att ansluta till vår tjänst, kan vi säkerställa att anslutningen kommer från dig. Ingen annan kan utge sig för att vara dig.",
+      "paragraph2": "På samma sätt försäkras du om att det är vi som finns i andra änden.",
+      "paragraph3": "Alla tjänster från Deploy App (Rasenmäher) som du tar i bruk krypterar sin trafik med din mTLS-nyckel.",
+      "gotIt": "Uppfattat"
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "welcome": {
+        "title": "Kom igång",
+        "description": "Deploy App är ditt centrala operativa nav för att hantera och starta alla taktiska system och tjänster."
+      },
+      "products": {
+        "title": "Åtkomst till uppdragsappar",
+        "description": "Få tillgång till uppdragsapplikationer och upprätta säkra anslutningar genom mTLS-skyddade kanaler."
+      },
+      "credentials": {
+        "title": "Autentiseringsuppgifter redo",
+        "description": "Dina autentiseringscertifikat är installerade och verifierade. Du kan operera omedelbart med full åtkomst."
+      },
+      "users": {
+        "title": "Kontrollera användarkonton",
+        "description": "Kontrollera användaråtkomst, tilldela administratörsroller och ta bort inaktiva konton för att hålla rullan korrekt."
+      },
+      "invite": {
+        "title": "Lägg till nya operatörer",
+        "description": "Utfärda säkra inbjudningar eller QR-koder för att onboarda nya teammedlemmar i ditt operativa nätverk."
+      },
+      "health": {
+        "title": "Systemstatus",
+        "description": "Se systemstatistik i realtid och verifiera att alla tjänster körs inom uppdragsparametrarna."
+      },
+      "instructions": {
+        "title": "Taktiska guider",
+        "description": "Få tillgång till snabbmanualer, distributionssteg och användarinstruktioner för varje system i drift."
+      }
+    },
+    "completion": "Onboarding slutförd!",
+    "completionDesc": "Du är klar och redo att operera med full kapacitet.",
+    "step": "Steg",
+    "of": "av",
+    "skipAll": "Hoppa över alla",
+    "finish": "Slutför",
+    "next": "Nästa"
+  },
+  "systemStatus": {
+    "title": "Systemstatus",
+    "lastUpdated": "Senast uppdaterad",
+    "services": "Tjänster",
+    "active": "Aktiv",
+    "issues": "Problem",
+    "noServices": "Inga tjänster tillgängliga",
+    "operational": "I DRIFT",
+    "down": "NERE",
+    "networkConnected": "Nätverk anslutet",
+    "networkDisconnected": "Nätverk frånkopplat",
+    "online": "Online",
+    "offline": "Offline",
+    "justNow": "Just nu",
+    "minAgo": "min sedan",
+    "hoursAgo": "timmar sedan",
+    "hourAgo": "timme sedan"
+  },
+  "login": {
+    "chooseMethod": "Välj inloggningsmetod",
+    "loginDesc": "Logga in med ditt certifikat eller ange en inbjudningskod",
+    "certificate": "Logga in med certifikat",
+    "or": "Eller",
+    "enterCode": "Ange din kod:",
+    "codePlaceholder": "ABCD1234",
+    "loginCode": "Logga in med kod",
+    "verifying": "Verifierar...",
+    "codeRequired": "Kod krävs",
+    "codeInvalid": "Kodformatet är ogiltigt",
+    "codeNotValid": "Koden är ogiltig"
+  },
+  "approveUsers": {
+    "title": "Godkänn användare",
+    "usersAwaiting": "Användare som väntar på godkännande visas här.",
+    "howItWorks": "Hur det fungerar:",
+    "step1": "Användare i väntrummet kommer ha en",
+    "approvalCode": "godkännandekod",
+    "step1End": "och QR-kod som visas på deras skärm.",
+    "step2": "Klicka på en användare nedan för att öppna godkännandedialogen, eller skanna deras QR-kod.",
+    "step3": "Ange deras godkännandekod och klicka på",
+    "approve": "Godkänn",
+    "reject": "Neka",
+    "step3End": "för att ge åtkomst, eller",
+    "step3End2": "för att neka.",
+    "waitingUsers": "Väntande användare",
+    "scanQRCode": "Skanna QR-kod",
+    "noUsersWaiting": "Inga användare väntar på godkännande",
+    "scanApprovalQR": "Skanna godkännande-QR-kod",
+    "pointCamera": "Rikta kameran mot QR-koden från användarens väntrumsskärm. Godkännandet kommer att upptäckas automatiskt.",
+    "cameraPreview": "Kameravisning visas här när den startats.",
+    "close": "Stäng",
+    "approveUser": "Godkänn användare",
+    "enterApprovalCode": "Ange användarens godkännandekod och tryck på Godkänn.",
+    "callsign": "Anropssignal:",
+    "approvalCodeLabel": "Godkännandekod:",
+    "enterCode8Char": "Ange 8-teckenskod",
+    "goBack": "Gå tillbaka",
+    "approving": "Godkänner...",
+    "rejecting": "Nekar...",
+    "userApprovedSuccessfully": "Användare {{callsign}} godkändes framgångsrikt!",
+    "failedToApprove": "Misslyckades med att godkänna användare: {{error}}",
+    "userRejected": "Användare {{callsign}} nekad",
+    "failedToReject": "Misslyckades med att neka användare: {{error}}",
+    "noCallsignFound": "Ingen anropssignal hittades. Vänligen logga in.",
+    "forbidden": "Förbjuden: Administratörsåtkomst krävs",
+    "enterApprovalCodeMessage": "Vänligen ange en godkännandekod",
+    "cameraAccessFailed": "Misslyckades med att komma åt kameran. Kontrollera behörigheter.",
+    "invalidQRFormat": "Ogiltigt QR-kodformat",
+    "qrScannedSuccessfully": "QR-kod skannad framgångsrikt!",
+    "approvalCodeScanned": "Godkännandekod skannad!",
+    "cameraError": "Kamerafel"
+  },
+  "addUsers": {
+    "title": "Lägg till användare med inbjudningskod",
+    "subtitle": "En inbjudningskod kan användas flera gånger. Klicka på en kod för att se dess QR-kod och dela den med användare. Skapa en ny kod endast om det behövs.",
+    "subtitleHighlight": "En inbjudningskod kan användas flera gånger.",
+    "createNewInvite": "Skapa ny inbjudan",
+    "create": "Skapa",
+    "creating": "Skapar...",
+    "selectMultiple": "Välj flera",
+    "cancel": "Avbryt",
+    "selected": "{{count}} valda",
+    "enable": "Aktivera",
+    "disable": "Inaktivera",
+    "delete": "Ta bort",
+    "filterPlaceholder": "Filtrera inbjudningskoder",
+    "active": "aktiv",
+    "inactive": "inaktiv",
+    "createdBy": "{{creator}} skapade denna kod den {{date}}",
+    "createdByYou": "Du skapade denna kod den {{date}}",
+    "forbidden": "403 Förbjuden: Administratörsåtkomst krävs",
+    "noCallsign": "Ingen anropssignal hittades. Vänligen logga in.",
+    "createModalTitle": "Skapa ny inbjudningskod",
+    "createModalDescription": "En inbjudningskod kan användas av flera användare",
+    "createModalWarning": "⚠️ En inbjudningskod kan användas av flera användare",
+    "createModalText": "Du behöver bara skapa en ny kod om:",
+    "createModalReason1": "Du har tagit bort eller inaktiverat din föregående kod",
+    "createModalReason2": "Du vill ha separata koder för olika grupper",
+    "createModalTip": "Tips: Återanvänd befintliga aktiva koder istället för att skapa nya",
+    "manageModalTitle": "Hantera inbjudningskod",
+    "manageModalCode": "Kod:",
+    "disableCode": "Inaktivera kod",
+    "enableCode": "Aktivera kod",
+    "deleteCode": "Ta bort kod",
+    "deleting": "Tar bort...",
+    "goBack": "Gå tillbaka",
+    "walkthrough": {
+      "title": "Hur man lägger till användare",
+      "description": "Snabbguide för att bjuda in användare",
+      "step1Title": "1. Använd befintliga koder",
+      "step1Description": "Klicka på valfri aktiv inbjudningskod för att se dess QR-kod. En kod kan användas av flera användare - du behöver inte skapa en ny varje gång!",
+      "step2Title": "2. Dela QR-koden",
+      "step2Description": "Visa QR-koden för användare eller dela inbjudningslänken. De skannar den för att starta registreringsprocessen.",
+      "step3Title": "3. Godkänn användare",
+      "step3Description": "När användare angett sin anropssignal, godkänn dem i sektionen \"Godkänn användare\" med deras godkännandekod eller QR-kod.",
+      "managingTitle": "Hantera koder",
+      "managingBullet1": "Inaktivera koder tillfälligt utan att ta bort dem",
+      "managingBullet2": "Ta bort koder du inte längre behöver",
+      "managingBullet3": "Använd \"Välj flera\" för massåtgärder",
+      "gotIt": "Uppfattat!"
+    },
+    "messages": {
+      "codeCreated": "Inbjudningskod skapad framgångsrikt!",
+      "codeDeleted": "Inbjudningskod borttagen",
+      "codeDeactivated": "Inbjudningskod inaktiverad",
+      "codeActivated": "Inbjudningskod aktiverad",
+      "codesDeleted": "Tog bort {{count}} inbjudningskoder",
+      "codesDisabled": "Inaktiverade {{count}} inbjudningskoder",
+      "codesEnabled": "Aktiverade {{count}} inbjudningskoder",
+      "createError": "Misslyckades med att skapa inbjudningskod: {{error}}",
+      "deleteError": "Misslyckades med att ta bort inbjudningskod: {{error}}",
+      "deactivateError": "Misslyckades med att inaktivera inbjudningskod: {{error}}",
+      "activateError": "Misslyckades med att aktivera inbjudningskod: {{error}}",
+      "forbiddenError": "403 Förbjuden: Administratörsåtkomst krävs",
+      "noCallsignError": "Ingen anropssignal hittades. Vänligen logga in."
+    }
+  },
+  "approveUser": {
+    "title": "Godkänn användare",
+    "description": "Godkänn {{callsign}} för åtkomst till systemet",
+    "approvalCodeLabel": "Godkännandekod",
+    "approvalCodePlaceholder": "Ange godkännandekod",
+    "enterApprovalCodeMessage": "Vänligen ange en godkännandekod",
+    "goBack": "Gå tillbaka",
+    "cancel": "Avbryt",
+    "approve": "Godkänn",
+    "approving": "Godkänner...",
+    "approvedSuccess": "Användare {{callsign}} godkänd framgångsrikt!",
+    "approveFailed": "Misslyckades med att godkänna användare: {{error}}"
+  },
+  "callsignSetup": {
+    "title": "Ställ in din anropssignal",
+    "usingAdmin": "Använder adminkod: {{code}}",
+    "usingInvite": "Använder inbjudningskod: {{code}}",
+    "yourCallsignLabel": "Din anropssignal",
+    "callsignPlaceholder": "Ange din anropssignal",
+    "validation": {
+      "required": "Anropssignal krävs",
+      "min": "Anropssignal måste vara minst 3 tecken",
+      "pattern": "Endast alfanumeriska tecken tillåtna",
+      "max": "Anropssignal får vara högst 30 tecken"
+    },
+    "errors": {
+      "alreadyInUse": "Anropssignalen används redan",
+      "unexpected": "Ett oväntat fel inträffade"
+    },
+    "buttons": {
+      "back": "Tillbaka",
+      "continue": "Fortsätt",
+      "settingUp": "Ställer in..."
+    }
+  },
+  "error": {
+    "mtls_fail": {
+      "title": "Certifikatautentisering misslyckades",
+      "description": "Ditt mTLS-certifikat kunde inte verifieras. Vänligen se till att du har installerat rätt certifikat och försök igen.",
+      "icon": "🔐"
+    },
+    "unauthorized": {
+      "title": "Obehörig åtkomst",
+      "description": "Du har inte behörighet att komma åt denna resurs.",
+      "icon": "🚫"
+    },
+    "not_found": {
+      "title": "Sidan hittades inte",
+      "description": "Sidan du letar efter finns inte eller har flyttats.",
+      "icon": "🔍"
+    },
+    "default": {
+      "title": "Något gick fel!",
+      "description": "Ett oväntat fel inträffade. Försök igen eller kontakta support om problemet kvarstår.",
+      "icon": "⚠️"
+    },
+    "returnHome": "Återvänd hem",
+    "errorCode": "Fel: {{code}}",
+    "contactSupport": "Om du behöver ytterligare hjälp, vänligen kontakta support."
+  },
+  "home": {
+    "welcome": "Välkommen till Deploy App",
+    "description": "Få tillgång till dina taktiska tjänster och verktyg. Välj en tjänst nedan för att komma igång.",
+    "loadingServices": "Laddar dina tjänster...",
+    "authRequired": "Du måste vara autentiserad för att komma åt tjänster. Vänligen logga in.",
+    "dialog": {
+      "leaveTitle": "Lämna Deploy App?",
+      "leaveDescription": "Du är på väg att öppna en extern sida. Är du säker på att du vill fortsätta?",
+      "cancel": "Avbryt",
+      "continue": "Fortsätt"
+    },
+    "productCard": {
+      "docs": "DOK",
+      "launch": "STARTA",
+      "open": "ÖPPNA"
+    }
+  },
+  "inviteCode": {
+    "title": "Inbjudningskod {{code}}",
+    "backToInvites": "Tillbaka till inbjudningar",
+    "copyInvite": "Kopiera inbjudningslänk",
+    "copied": "Kopierad!",
+    "exportPdf": "Exportera PDF",
+    "steps": {
+      "show": "Visa denna QR-kod för din användare.",
+      "alternative": "Alternativt, tryck på Kopiera inbjudningslänk ovan,",
+      "copyButtonHint": "och klistra in & skicka länken till användaren du vill skriva in.",
+      "print": "Skriv ut & Sätt upp den exporterade PDF:en på en fysisk affisch.",
+      "printHint": "så soldater kan skanna den under onboarding.",
+      "callsign": "Via QR-koden eller länken kan din användare ställa in sin anropssignal.",
+      "waiting": "Efter det hamnar de i väntrummet.",
+      "approve": "Godkänn din användare med en av metoderna nedan.",
+      "approveHint": ""
+    },
+    "approvalMethods": {
+      "title": "Godkännandemetoder",
+      "method1": {
+        "title": "Metod 1: QR-kodsskanning",
+        "description": "Be användaren visa dig sin godkännandekod på deras väntrumsskärm. Använd din enhets kamera eller en QR-kodsläsare för att skanna QR-koden. Godkännandet behandlas automatiskt."
+      },
+      "method2": {
+        "title": "Metod 2: Godkännandekod",
+        "description": "Ta godkännandekoden från deras väntrumsskärm och använd den i vyn \"Godkänn användare\"."
+      },
+      "method3": {
+        "title": "Metod 3: Länkgodkännande",
+        "description": "Be dem ge dig godkännandelänken från deras väntrumsskärm, som du kan klicka på för att godkänna dem direkt."
+      }
+    },
+    "pdf": {
+      "title": "Deploy App",
+      "userEnrollment": "QR-kod för användarinskrivning",
+      "instructionsTitle": "Instruktioner:",
+      "steps": {
+        "step1": "Rikta kameran mot QR-koden ovan",
+        "step2": "Eller besök länken och följ registreringsprocessen",
+        "step3": "Ställ in din anropssignal när du uppmanas",
+        "step4": "Vänta på administratörens godkännande"
+      },
+      "generated": "Genererad:",
+      "footer": "Deploy App",
+      "downloadSuccess": "PDF nedladdad framgångsrikt!",
+      "downloadFailure": "Misslyckades med att exportera PDF. Försök igen."
+    }
+  },
+  "manageUsers": {
+    "title": "Hantera användare",
+    "description": "Hantera användare i denna vy. Administratörer är användare som kan komma åt dessa användarhanteringsverktyg. Stridande är grundanvändare som har tillgång till dina tjänster.",
+    "adminHighlight": "Administratörer",
+    "fighterHighlight": "Stridande",
+    "noCallsignFound": "Ingen anropssignal hittades. Vänligen logga in.",
+    "forbidden": "403 Förbjuden: Administratörsåtkomst krävs",
+    "administrators": "Administratörer",
+    "fighters": "Stridande",
+    "noAdministrators": "Inga administratörer än.",
+    "noFighters": "Inga stridande än.",
+    "you": "Du",
+    "keycloakButton": "Öppna Keycloak hanteringskonsol",
+    "walkthrough": {
+      "title": "Hur man hanterar användare",
+      "description": "Snabbguide för att hantera ditt team",
+      "promotingTitle": "Befordra/Degradera användare",
+      "promotingDesc": "Klicka på valfri användare för att befordra stridande till administratörer eller degradera administratörer till stridande. Befordrade användare får samma administrativa rättigheter som du.",
+      "removingTitle": "Ta bort användare",
+      "removingDesc": "Att ta bort användare återkallar deras åtkomst till denna Deploy App och alla anslutna tjänster. De kommer inte längre kunna ansluta till din lägesbildstjänst.",
+      "notesTitle": "Viktiga anteckningar",
+      "note1": "Du kan inte ta bort eller degradera dig själv",
+      "note2": "Minst en administratör måste finnas vid alla tillfällen",
+      "gotIt": "Uppfattat!"
+    },
+    "userDialog": {
+      "title": "Hantera användare",
+      "currentRole": "Nuvarande roll:",
+      "goBack": "Gå tillbaka",
+      "remove": "Ta bort",
+      "removing": "Tar bort...",
+      "promote": "Befordra",
+      "promoting": "Befordrar...",
+      "demote": "Degradera",
+      "demoting": "Degraderar..."
+    },
+    "tooltips": {
+      "cannotRemove": "Du kan inte ta bort dig själv från denna applikation",
+      "cannotDemote": "Du kan inte degradera dig själv"
+    },
+    "confirmModals": {
+      "promote": {
+        "title": "Befordra användare",
+        "description": "Är du säker på att du vill befordra {{callsign}} till administratör? De kommer att få full tillgång till användarhanteringsverktyg.",
+        "requiredText": "BEFORDRA"
+      },
+      "demote": {
+        "title": "Degradera användare",
+        "description": "Är du säker på att du vill degradera {{callsign}} från administratör till stridande? De kommer att förlora tillgången till användarhanteringsverktyg.",
+        "requiredText": "DEGRADERA"
+      },
+      "remove": {
+        "title": "Ta bort användare",
+        "description": "Denna åtgärd kan inte ångras. Ange användarnamnet \"{{callsign}}\" för att bekräfta borttagning.",
+        "requiredText": "{{callsign}}"
+      }
+    },
+    "messages": {
+      "noCandidateFound": "Ingen anropssignal hittades. Vänligen logga in.",
+      "promoted": "{{callsign}} befordrad till administratör!",
+      "promoteFailed": "Misslyckades med att befordra användare: {{error}}",
+      "demoted": "{{callsign}} degraderad till stridande!",
+      "demoteFailed": "Misslyckades med att degradera användare: {{error}}",
+      "removed": "{{callsign}} borttagen från systemet",
+      "removeFailed": "Misslyckades med att ta bort användare: {{error}}",
+      "cannotDemoteOwn": "Du kan inte degradera ditt eget konto",
+      "cannotDeleteOwn": "Du kan inte ta bort ditt eget konto",
+      "cannotDeleteLastAdmin": "Kan inte ta bort den sista administratören. Minst en admin måste finnas kvar."
+    }
+  },
+  "mtlsInstall": {
+    "title": "Ladda ner & Installera din nyckel",
+    "description": "Installera ditt mTLS-certifikat för att säkert komma åt alla tjänster. Detta säkerställer att endast du kan ansluta med din identitet.",
+    "whatIsTitle": "Vad är mTLS?",
+    "whatIsDesc": "Genom att använda en mTLS-nyckel installerad på din enhet för att ansluta till vår tjänst, kan vi säkerställa att anslutningen kommer från dig. Ingen annan kan utge sig för att vara dig.",
+    "choosePlatform": "Välj din plattform:",
+    "selectPlaceholder": "Välj ditt OS",
+    "instructionsTitle": "Installationsinstruktioner:",
+    "note": "Obs:",
+    "passwordLabel": "Lösenord för certifikat:",
+    "downloadButton": "Ladda ner din nyckel",
+    "downloading": "Laddar ner...",
+    "navigateButton": "Navigera med din nyckel",
+    "certificateDownloaded": "Certifikat nedladdat framgångsrikt!",
+    "downloadFailed": "Misslyckades med att ladda ner certifikat. Försök igen.",
+    "callsignNotFound": "Anropssignal hittades inte",
+    "os": {
+      "Windows": "Windows",
+      "MacOS": "MacOS",
+      "Linux": "Linux",
+      "Android": "Android",
+      "iOS": "iOS"
+    },
+    "platforms": {
+      "Windows": {
+        "steps": {
+          "1": "Ladda ner ditt certifikat med knappen nedan",
+          "2": "Dubbelklicka på .pfx-filen för att öppna guiden för certifikatsimport",
+          "3": "Välj 'Aktuell användare' eller 'Lokal maskin' (Aktuell användare rekommenderas)",
+          "4": "Välj 'Välj automatiskt certifikatlager baserat på certifikatstyp'",
+          "5": "När du uppmanas, ange din anropssignal",
+          "6": "Klicka på 'Slutför' för att slutföra installationen",
+          "7": "Använd knappen 'Navigera med din nyckel' för att komma åt tjänster"
+        },
+        "notes": {
+          "1": "Certifikatet kommer att lagras i ditt Windows-certifikatlager",
+          "2": "Du kan behöva starta om din webbläsare för att certifikatet ska kännas igen"
+        }
+      },
+      "MacOS": {
+        "steps": {
+          "1": "Ladda ner ditt certifikat med knappen nedan",
+          "2": "Dubbelklicka på .pfx-filen för att öppna Nyckelhanterare (Keychain Access)",
+          "3": "När du uppmanas, ange din anropssignal som lösenord",
+          "4": "Verifiera att certifikatet lades till i din inloggningsnyckelring",
+          "5": "Använd knappen 'Navigera med din nyckel' för att komma åt tjänster"
+        },
+        "notes": {
+          "1": "macOS installerar automatiskt certifikatet i nyckelringen",
+          "2": "Om du tillfrågas om tillit, välj 'Lita alltid på' för denna applikation"
+        }
+      },
+      "Linux": {
+        "steps": {
+          "1": "Ladda ner ditt certifikat med knappen nedan",
+          "2": "Konvertera .pfx till PEM-format: openssl pkcs12 -in [certifikat].pfx -out [certifikat].pem -nodes",
+          "3": "När du uppmanas, ange din anropssignal som lösenord",
+          "4": "Placera certifikatet i din webbläsares certifikatkatalog eller systemlager",
+          "5": "För Firefox: Inställningar → Sekretess → Certifikat → Visa certifikat → Importera",
+          "6": "För Chrome: Inställningar → Integritet och säkerhet → Säkerhet → Hantera certifikat → Importera",
+          "7": "Använd knappen 'Navigera med din nyckel' för att komma åt tjänster"
+        },
+        "notes": {
+          "1": "Den exakta processen beror på din Linux-distribution och webbläsare",
+          "2": "Du kan behöva starta om din webbläsare efter att ha importerat certifikatet"
+        }
+      },
+      "Android": {
+        "steps": {
+          "1": "Ladda ner ditt certifikat med knappen nedan",
+          "2": "Öppna Inställningar → Säkerhet → Kryptering och inloggningsuppgifter → Installera ett certifikat",
+          "3": "Välj 'Certifikat' och välj .pfx-filen",
+          "4": "När du uppmanas, ange din anropssignal som lösenord",
+          "5": "Namnge certifikatet och bekräfta installationen",
+          "6": "Använd knappen 'Navigera med din nyckel' för att komma åt tjänster"
+        },
+        "notes": {
+          "1": "Android måste köra version 4.4 eller senare",
+          "2": "Certifikatet kommer att läggas till i ditt systems betrodda certifikatlager"
+        }
+      },
+      "iOS": {
+        "steps": {
+          "1": "Ladda ner ditt certifikat med knappen nedan",
+          "2": "Tryck på filen för att öppna den, tryck sedan på 'Tillåt' för att installera",
+          "3": "Gå till Inställningar → Allmänt → VPN och enhetshantering",
+          "4": "Tryck på certifikatet under 'Hämtad profil'",
+          "5": "När du uppmanas, ange din anropssignal som lösenord",
+          "6": "Tryck på 'Installera' två gånger för att bekräfta",
+          "7": "Använd knappen 'Navigera med din nyckel' för att komma åt tjänster"
+        },
+        "notes": {
+          "1": "iOS kräver att certifikatet är betrott innan användning",
+          "2": "Du kan se en uppmaning om att tillåta certifikatsinstallation"
+        }
+      }
+    }
+  },
+  "product": {
+    "loadingProducts": "Laddar produkter...",
+    "failedToLoad": "Misslyckades med att ladda produkter",
+    "goHome": "Gå hem",
+    "notFoundRedirect": "Produkt hittades inte, omdirigerar...",
+    "loadingProduct": "Laddar {{title}}",
+    "progress": "{{progress}}%",
+    "loadingRemote": "Laddar fjärr...",
+    "remoteUnavailable": "Fjärrapp ej tillgänglig för {{shortname}}. Försök igen senare."
+  },
+  "waitingRoom": {
+    "titleShort": "Väntar på godkännande",
+    "title": "Du är i väntrummet!",
+    "description": "Du väntar på att din administratör ska godkänna dig för tjänsterna. Kopiera och skicka din godkännandelänk till din admin.",
+    "checkingStatus": "Kontrollerar registreringsstatus...",
+    "yourApprovalCodeLabel": "Din godkännandekod:",
+    "copyButton": "Kopiera godkännandelänk för din administratör",
+    "copied": "Kopierad!",
+    "actionFailed": "Åtgärd misslyckades: {{error}}",
+    "instructionsTitle": "Väntar på godkännande (instruktioner)",
+    "instructionsText": "Du kan godkänna din användare antingen genom att ta godkännandekoden från skärmen i väntrummet, genom att be dem skicka godkännandekoden som en länk, eller genom att ange deras godkännandekod i vyn \"Godkänn användare\".",
+    "approvedToast": "Du har blivit godkänd!"
   }
 }

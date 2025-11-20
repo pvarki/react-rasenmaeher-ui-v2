@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Home } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ErrorSearch {
   code?: string;
@@ -27,41 +28,39 @@ export const Route = createFileRoute("/error")({
 function ErrorView() {
   const navigate = useNavigate();
   const { code } = Route.useSearch();
+  const { t } = useTranslation();
 
   const getErrorDetails = (errorCode?: string) => {
     switch (errorCode) {
       case "mtls_fail":
         return {
-          title: "Certificate Authentication Failed",
-          description:
-            "Your mTLS certificate could not be verified. Please ensure you have installed the correct certificate and try again.",
-          icon: "🔐",
+          title: t("error.mtls_fail.title"),
+          description: t("error.mtls_fail.description"),
+          icon: t("error.mtls_fail.icon"),
           bgGradient: "from-red-500/10 to-orange-500/10",
           borderColor: "border-red-500/30",
         };
       case "unauthorized":
         return {
-          title: "Unauthorized Access",
-          description: "You do not have permission to access this resource.",
-          icon: "🚫",
+          title: t("error.unauthorized.title"),
+          description: t("error.unauthorized.description"),
+          icon: t("error.unauthorized.icon"),
           bgGradient: "from-yellow-500/10 to-orange-500/10",
           borderColor: "border-yellow-500/30",
         };
       case "not_found":
         return {
-          title: "Page Not Found",
-          description:
-            "The page you are looking for does not exist or has been moved.",
-          icon: "🔍",
+          title: t("error.not_found.title"),
+          description: t("error.not_found.description"),
+          icon: t("error.not_found.icon"),
           bgGradient: "from-blue-500/10 to-purple-500/10",
           borderColor: "border-blue-500/30",
         };
       default:
         return {
-          title: "Something went wrong!",
-          description:
-            "An unexpected error occurred. Please try again or contact support if the problem persists.",
-          icon: "⚠️",
+          title: t("error.default.title"),
+          description: t("error.default.description"),
+          icon: t("error.default.icon"),
           bgGradient: "from-red-500/10 to-pink-500/10",
           borderColor: "border-red-500/30",
         };
@@ -92,7 +91,7 @@ function ErrorView() {
               </CardTitle>
               {code && (
                 <p className="text-sm text-muted-foreground font-mono bg-muted/50 rounded px-3 py-1 inline-block">
-                  Error: {code.toUpperCase()}
+                  {t("error.errorCode", { code: code.toUpperCase() })}
                 </p>
               )}
             </div>
@@ -109,14 +108,14 @@ function ErrorView() {
                 size="default"
               >
                 <Home className="w-4 h-4 mr-2" />
-                Return Home
+                {t("error.returnHome")}
               </Button>
             </div>
           </CardContent>
         </Card>
 
         <p className="text-center text-xs text-muted-foreground/60">
-          If you need further assistance, please contact support.
+          {t("error.contactSupport")}
         </p>
       </div>
     </div>
