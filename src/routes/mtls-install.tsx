@@ -211,7 +211,9 @@ function MtlsInstallPage() {
           <div className="flex items-start gap-3">
             <Shield className="w-5 h-5 text-primary mt-0.5 shrink-0" />
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">{t("mtlsInstall.whatIsTitle")}</h3>
+              <h3 className="font-semibold text-lg">
+                {t("mtlsInstall.whatIsTitle")}
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {t("mtlsInstall.whatIsDesc")}
               </p>
@@ -240,7 +242,9 @@ function MtlsInstallPage() {
         </div>
 
         <div className="space-y-4 bg-card border border-border rounded-xl p-6">
-          <h3 className="font-semibold">{t("mtlsInstall.instructionsTitle")}</h3>
+          <h3 className="font-semibold">
+            {t("mtlsInstall.instructionsTitle")}
+          </h3>
           <ol className="list-decimal list-inside space-y-3 text-sm text-muted-foreground">
             {platformInstructions.steps.map((keyOrText, idx) => (
               <li key={idx} className="pl-2">
@@ -252,7 +256,9 @@ function MtlsInstallPage() {
           {platformInstructions.notes &&
             platformInstructions.notes.length > 0 && (
               <div className="mt-6 p-4 bg-accent/10 border border-accent/20 rounded-lg space-y-2">
-                <p className="text-sm font-semibold text-accent">{t("mtlsInstall.note")}</p>
+                <p className="text-sm font-semibold text-accent">
+                  {t("mtlsInstall.note")}
+                </p>
                 <ul className="list-disc list-inside space-y-1">
                   {platformInstructions.notes.map((noteKey, idx) => (
                     <li
@@ -268,7 +274,9 @@ function MtlsInstallPage() {
 
           <div className="pt-2 p-4 bg-muted/50 border border-border rounded-lg">
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold">{t("mtlsInstall.passwordLabel")}</span>{" "}
+              <span className="font-semibold">
+                {t("mtlsInstall.passwordLabel")}
+              </span>{" "}
               <span className="font-mono font-semibold text-foreground bg-card px-2 py-0.5 rounded inline-block mt-1">
                 {callsign}
               </span>

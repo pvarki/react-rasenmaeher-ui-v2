@@ -92,7 +92,9 @@ function ManageUsersPage() {
   const promoteUserMutation = usePromoteUser({
     onSuccess: () => {
       toast.success(
-        t("manageUsers.messages.promoted", { callsign: selectedUser?.callsign }),
+        t("manageUsers.messages.promoted", {
+          callsign: selectedUser?.callsign,
+        }),
       );
       setSelectedUser(null);
       setPromoteConfirmOpen(false);
@@ -478,10 +480,9 @@ function ManageUsersPage() {
         open={promoteConfirmOpen}
         onOpenChange={setPromoteConfirmOpen}
         title={t("manageUsers.confirmModals.promote.title")}
-        description={t(
-          "manageUsers.confirmModals.promote.description",
-          { callsign: selectedUser?.callsign },
-        )}
+        description={t("manageUsers.confirmModals.promote.description", {
+          callsign: selectedUser?.callsign,
+        })}
         requiredText={t("manageUsers.confirmModals.promote.requiredText")}
         onConfirm={handlePromoteConfirm}
         isLoading={promoteUserMutation.isLoading}
@@ -491,10 +492,9 @@ function ManageUsersPage() {
         open={demoteConfirmOpen}
         onOpenChange={setDemoteConfirmOpen}
         title={t("manageUsers.confirmModals.demote.title")}
-        description={t(
-          "manageUsers.confirmModals.demote.description",
-          { callsign: selectedUser?.callsign },
-        )}
+        description={t("manageUsers.confirmModals.demote.description", {
+          callsign: selectedUser?.callsign,
+        })}
         requiredText={t("manageUsers.confirmModals.demote.requiredText")}
         onConfirm={handleDemoteConfirm}
         isLoading={demoteUserMutation.isLoading}
@@ -504,10 +504,9 @@ function ManageUsersPage() {
         open={deleteConfirmOpen}
         onOpenChange={setDeleteConfirmOpen}
         title={t("manageUsers.confirmModals.remove.title")}
-        description={t(
-          "manageUsers.confirmModals.remove.description",
-          { callsign: selectedUser?.callsign?.toUpperCase() },
-        )}
+        description={t("manageUsers.confirmModals.remove.description", {
+          callsign: selectedUser?.callsign?.toUpperCase(),
+        })}
         requiredText={selectedUser?.callsign?.toUpperCase() || ""}
         onConfirm={handleRemoveConfirm}
         isLoading={deleteUserMutation.isLoading}

@@ -51,10 +51,7 @@ function CallsignSetupPage() {
       .string()
       .required(t("callsignSetup.validation.required"))
       .min(3, t("callsignSetup.validation.min"))
-      .matches(
-        /^[a-zA-Z0-9]{3,30}$/,
-        t("callsignSetup.validation.pattern"),
-      )
+      .matches(/^[a-zA-Z0-9]{3,30}$/, t("callsignSetup.validation.pattern"))
       .max(30, t("callsignSetup.validation.max")),
   });
 
@@ -131,7 +128,9 @@ function CallsignSetupPage() {
           <FormikProvider value={formik}>
             <Form className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="callsign">{t("callsignSetup.yourCallsignLabel")}</Label>
+                <Label htmlFor="callsign">
+                  {t("callsignSetup.yourCallsignLabel")}
+                </Label>
                 <Input
                   id="callsign"
                   name="callsign"

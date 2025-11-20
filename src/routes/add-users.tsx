@@ -105,7 +105,9 @@ function AddUsersPage() {
       refetch();
     },
     onError: (error) => {
-      toast.error(t("addUsers.messages.deactivateError", { error: error.message }));
+      toast.error(
+        t("addUsers.messages.deactivateError", { error: error.message }),
+      );
     },
   });
 
@@ -117,7 +119,9 @@ function AddUsersPage() {
       refetch();
     },
     onError: (error) => {
-      toast.error(t("addUsers.messages.activateError", { error: error.message }));
+      toast.error(
+        t("addUsers.messages.activateError", { error: error.message }),
+      );
     },
   });
 
@@ -181,7 +185,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await deleteInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(t("addUsers.messages.codesDeleted", { count: selectedCodes.length }));
+    toast.success(
+      t("addUsers.messages.codesDeleted", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -191,7 +197,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await deactivateInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(t("addUsers.messages.codesDisabled", { count: selectedCodes.length }));
+    toast.success(
+      t("addUsers.messages.codesDisabled", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -201,7 +209,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await reactivateInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(t("addUsers.messages.codesEnabled", { count: selectedCodes.length }));
+    toast.success(
+      t("addUsers.messages.codesEnabled", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -416,29 +426,39 @@ function AddUsersPage() {
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t("addUsers.walkthrough.title")}</DialogTitle>
-            <DialogDescription>{t("addUsers.walkthrough.description")}</DialogDescription>
+            <DialogDescription>
+              {t("addUsers.walkthrough.description")}
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("addUsers.walkthrough.step1Title")}</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step1Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
                 {t("addUsers.walkthrough.step1Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("addUsers.walkthrough.step2Title")}</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step2Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
                 {t("addUsers.walkthrough.step2Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("addUsers.walkthrough.step3Title")}</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step3Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
                 {t("addUsers.walkthrough.step3Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("addUsers.walkthrough.managingTitle")}</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.managingTitle")}
+              </h4>
               <p className="text-sm text-muted-foreground">
                 • {t("addUsers.walkthrough.managingBullet1")}
                 <br />• {t("addUsers.walkthrough.managingBullet2")}

@@ -135,7 +135,9 @@ function ProductPage() {
     return (
       <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-sm text-destructive">{t("product.failedToLoad")}</p>
+          <p className="text-sm text-destructive">
+            {t("product.failedToLoad")}
+          </p>
           <Button onClick={() => navigate({ to: "/" })}>
             {t("product.goHome")}
           </Button>
