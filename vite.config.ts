@@ -24,7 +24,9 @@ export default defineConfig({
     federation({
       name: "rasenmaeher",
       shared: {
-        react: { singleton: true, requiredVersion: "18.3.1" },
+        react: { requiredVersion: "18.3.1", singleton: true },
+        i18next: { requiredVersion: "25.6.2", singleton: true },
+        "react-i18next": { requiredVersion: "16.3.3", singleton: true },
       },
       runtime: "@module-federation/enhanced/runtime",
     }),
