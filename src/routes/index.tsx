@@ -19,6 +19,7 @@ import { BookOpen, ExternalLink, Zap } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { MtlsInfoModal } from "@/components/MtlsInfoModal";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -42,6 +43,7 @@ function HomePage() {
   const [exitDialogOpen, setExitDialogOpen] = useState(false);
   const [exitUrl, setExitUrl] = useState("");
   const [mtlsInfoOpen, setMtlsInfoOpen] = useState(false);
+  const { t } = useTranslation();
 
   const { isValidUser, callsign, isLoading: userTypeLoading } = useUserType();
 
@@ -53,7 +55,7 @@ function HomePage() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">Loading your services...</p>
+          <p className="text-muted-foreground">{t("home.loadingServices")}</p>
         </div>
       </div>
     );
@@ -93,11 +95,10 @@ function HomePage() {
       <div className="mb-12 space-y-3 flex items-start justify-between">
         <div className="space-y-3">
           <h2 className="text-3xl font-bold tracking-tight">
-            Welcome to Deploy App
+            {t("home.welcome")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-4xl">
-            Access your tactical services and tools. Select a service below to
-            get started.
+            {t("home.description")}
           </p>
           {!isValidUser && (
             <p className="text-sm text-destructive font-medium flex items-center gap-2">
@@ -108,7 +109,7 @@ function HomePage() {
                   clipRule="evenodd"
                 />
               </svg>
-              You must be authenticated to access services. Please log in.
+              {t("home.authRequired")}
             </p>
           )}
         </div>
@@ -171,7 +172,7 @@ function HomePage() {
                     disabled={!isValidUser}
                   >
                     <BookOpen className="w-4 h-4 mr-2" />
-                    DOCS
+                    {t("home.productCard.docs")}
                   </Button>
                 )}
                 <Button
@@ -187,12 +188,12 @@ function HomePage() {
                   {product.component.type === "component" ? (
                     <>
                       <Zap className="w-4 h-4 mr-2" />
-                      LAUNCH
+                      {t("home.productCard.launch")}
                     </>
                   ) : (
                     <>
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      OPEN
+                      {t("home.productCard.open")}
                     </>
                   )}
                 </Button>
@@ -205,10 +206,9 @@ function HomePage() {
       <Dialog open={exitDialogOpen} onOpenChange={setExitDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Leave Deploy App?</DialogTitle>
+            <DialogTitle>{t("home.dialog.leaveTitle")}</DialogTitle>
             <DialogDescription className="pt-2">
-              You are about to open an external page. Are you sure you want to
-              continue?
+              {t("home.dialog.leaveDescription")}
             </DialogDescription>
           </DialogHeader>
           <div className="py-2">
@@ -222,10 +222,10 @@ function HomePage() {
               onClick={() => setExitDialogOpen(false)}
               className="flex-1"
             >
-              Cancel
+              {t("home.dialog.cancel")}
             </Button>
             <Button onClick={handleConfirmExit} className="flex-1">
-              Continue
+              {t("home.dialog.continue")}
             </Button>
           </DialogFooter>
         </DialogContent>

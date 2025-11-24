@@ -31,7 +31,8 @@
     "processing": "Processing...",
     "type": "Type",
     "toConfirm": "to confirm",
-    "typeConfirmPlaceholder": "Type \"{text}\" to confirm"
+    "typeConfirmPlaceholder": "Type \"{text}\" to confirm",
+    "managing": "Managing"
   },
   "pages": {
     "login": "Login",
@@ -171,5 +172,386 @@
     "qrScannedSuccessfully": "QR code scanned successfully!",
     "approvalCodeScanned": "Approval code scanned!",
     "cameraError": "Camera error"
+  },
+  "addUsers": {
+    "title": "Add Users with Invite Code",
+    "subtitle": "One invite code can be used multiple times. Click on a code to view its QR code and share it with users. Create a new code only if needed.",
+    "subtitleHighlight": "One invite code can be used multiple times.",
+    "createNewInvite": "Create New Invite",
+    "create": "Create",
+    "creating": "Creating...",
+    "selectMultiple": "Select Multiple",
+    "cancel": "Cancel",
+    "selected": "{{count}} selected",
+    "enable": "Enable",
+    "disable": "Disable",
+    "delete": "Delete",
+    "filterPlaceholder": "Filter Invite Codes",
+    "active": "active",
+    "inactive": "inactive",
+    "createdBy": "{{creator}} created this code on {{date}}",
+    "createdByYou": "You created this code on {{date}}",
+    "forbidden": "403 Forbidden: Admin access required",
+    "noCallsign": "No callsign found. Please log in.",
+    "createModalTitle": "Create New Invite Code",
+    "createModalDescription": "One invite code can be used by multiple users",
+    "createModalWarning": "⚠️ One invite code can be used by multiple users",
+    "createModalText": "You only need to create a new code if:",
+    "createModalReason1": "You've deleted or deactivated your previous code",
+    "createModalReason2": "You want separate codes for different groups",
+    "createModalTip": "Tip: Reuse existing active codes instead of creating new ones",
+    "manageModalTitle": "Manage Invite Code",
+    "manageModalCode": "Code:",
+    "disableCode": "Disable Code",
+    "enableCode": "Enable Code",
+    "deleteCode": "Delete Code",
+    "deleting": "Deleting...",
+    "goBack": "Go Back",
+    "walkthrough": {
+      "title": "How to Add Users",
+      "description": "Quick guide to inviting users",
+      "step1Title": "1. Use Existing Codes",
+      "step1Description": "Click on any active invite code to view its QR code. One code can be used by multiple users - no need to create a new one each time!",
+      "step2Title": "2. Share the QR Code",
+      "step2Description": "Show the QR code to users or share the invite link. They'll scan it to start the enrollment process.",
+      "step3Title": "3. Approve Users",
+      "step3Description": "After users enter their callsign, approve them in the \"Approve Users\" section using their approval code or QR code.",
+      "managingTitle": "Managing Codes",
+      "managingBullet1": "Deactivate codes temporarily without deleting them",
+      "managingBullet2": "Delete codes you no longer need",
+      "managingBullet3": "Use \"Select Multiple\" for bulk operations",
+      "gotIt": "Got it!"
+    },
+    "messages": {
+      "codeCreated": "Invite code created successfully!",
+      "codeDeleted": "Invite code deleted",
+      "codeDeactivated": "Invite code deactivated",
+      "codeActivated": "Invite code activated",
+      "codesDeleted": "Deleted {{count}} invite codes",
+      "codesDisabled": "Disabled {{count}} invite codes",
+      "codesEnabled": "Enabled {{count}} invite codes",
+      "createError": "Failed to create invite code: {{error}}",
+      "deleteError": "Failed to delete invite code: {{error}}",
+      "deactivateError": "Failed to deactivate invite code: {{error}}",
+      "activateError": "Failed to activate invite code: {{error}}",
+      "forbiddenError": "403 Forbidden: Admin access required",
+      "noCallsignError": "No callsign found. Please log in."
+    }
+  },
+  "approveUser": {
+    "title": "Approve User",
+    "description": "Approve {{callsign}} to access the system",
+    "approvalCodeLabel": "Approval Code",
+    "approvalCodePlaceholder": "Enter approval code",
+    "enterApprovalCodeMessage": "Please enter an approval code",
+    "goBack": "Go Back",
+    "cancel": "Cancel",
+    "approve": "Approve",
+    "approving": "Approving...",
+    "approvedSuccess": "User {{callsign}} approved successfully!",
+    "approveFailed": "Failed to approve user: {{error}}"
+  },
+  "callsignSetup": {
+    "title": "Setup Your Callsign",
+    "usingAdmin": "Using admin code: {{code}}",
+    "usingInvite": "Using invite code: {{code}}",
+    "yourCallsignLabel": "Your Callsign",
+    "callsignPlaceholder": "Enter your callsign",
+    "validation": {
+      "required": "Callsign is required",
+      "min": "Callsign must be at least 3 characters",
+      "pattern": "Only alphanumeric characters allowed",
+      "max": "Callsign must be at most 30 characters"
+    },
+    "errors": {
+      "alreadyInUse": "Callsign is already in use",
+      "unexpected": "An unexpected error occurred"
+    },
+    "buttons": {
+      "back": "Back",
+      "continue": "Continue",
+      "settingUp": "Setting up..."
+    }
+  },
+  "error": {
+    "mtls_fail": {
+      "title": "Certificate Authentication Failed",
+      "description": "Your mTLS certificate could not be verified. Please ensure you have installed the correct certificate and try again.",
+      "icon": "🔐"
+    },
+    "unauthorized": {
+      "title": "Unauthorized Access",
+      "description": "You do not have permission to access this resource.",
+      "icon": "🚫"
+    },
+    "not_found": {
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist or has been moved.",
+      "icon": "🔍"
+    },
+    "default": {
+      "title": "Something went wrong!",
+      "description": "An unexpected error occurred. Please try again or contact support if the problem persists.",
+      "icon": "⚠️"
+    },
+    "returnHome": "Return Home",
+    "errorCode": "Error: {{code}}",
+    "contactSupport": "If you need further assistance, please contact support."
+  },
+  "home": {
+    "welcome": "Welcome to Deploy App",
+    "description": "Access your tactical services and tools. Select a service below to get started.",
+    "loadingServices": "Loading your services...",
+    "authRequired": "You must be authenticated to access services. Please log in.",
+    "dialog": {
+      "leaveTitle": "Leave Deploy App?",
+      "leaveDescription": "You are about to open an external page. Are you sure you want to continue?",
+      "cancel": "Cancel",
+      "continue": "Continue"
+    },
+    "productCard": {
+      "docs": "DOCS",
+      "launch": "LAUNCH",
+      "open": "OPEN"
+    }
+  },
+  "inviteCode": {
+    "title": "Invite Code {{code}}",
+    "backToInvites": "Back to Invites",
+    "copyInvite": "Copy invite link",
+    "copied": "Copied!",
+    "exportPdf": "Export PDF",
+    "steps": {
+      "show": "Show this QR code to your user.",
+      "alternative": "Alternatively, press the Copy invite link button above,",
+      "copyButtonHint": "and paste & send the link to the user you want to enroll.",
+      "print": "Print & Post the exported PDF on a physical poster.",
+      "printHint": "so soldiers can scan it during onboarding.",
+      "callsign": "Via the QR code or the link, your user can set their callsign.",
+      "waiting": "After that, they are in the Waiting Room.",
+      "approve": "Approve your user by one of the methods below.",
+      "approveHint": ""
+    },
+    "approvalMethods": {
+      "title": "Approval methods",
+      "method1": {
+        "title": "Method 1: QR Code Scanning",
+        "description": "Ask the user to show you their approval code on their Waiting Room screen. Use your device's camera or a QR code scanner app to scan the QR code. The approval will be processed automatically."
+      },
+      "method2": {
+        "title": "Method 2: Approval Code",
+        "description": "Take the approval code from their Waiting Room screen and use it in the \"Approve Users\" view."
+      },
+      "method3": {
+        "title": "Method 3: Link Approval",
+        "description": "Ask them to provide you the approval link from their Waiting Room screen, which you can click to approve them directly."
+      }
+    },
+    "pdf": {
+      "title": "Deploy App",
+      "userEnrollment": "User Enrollment QR Code",
+      "instructionsTitle": "Instructions:",
+      "steps": {
+        "step1": "Point your camera at the QR code above",
+        "step2": "Or visit the link and follow the enrollment process",
+        "step3": "Set your callsign when prompted",
+        "step4": "Wait for administrator approval"
+      },
+      "generated": "Generated:",
+      "footer": "Deploy App",
+      "downloadSuccess": "PDF downloaded successfully!",
+      "downloadFailure": "Failed to export PDF. Please try again."
+    }
+  },
+  "manageUsers": {
+    "title": "Manage Users",
+    "description": "Manage users in this view. Admins are users that are able to access these user management tools. Fighters are basic users, who have access to your services.",
+    "adminHighlight": "Admins",
+    "fighterHighlight": "Fighters",
+    "noCallsignFound": "No callsign found. Please log in.",
+    "forbidden": "403 Forbidden: Admin access required",
+    "administrators": "Administrators",
+    "fighters": "Fighters",
+    "noAdministrators": "No administrators yet.",
+    "noFighters": "No fighters yet.",
+    "you": "You",
+    "keycloakButton": "Open Keycloak Management Console",
+    "walkthrough": {
+      "title": "How to Manage Users",
+      "description": "Quick guide to managing your team",
+      "promotingTitle": "Promoting/Demoting Users",
+      "promotingDesc": "Click on any user to promote fighters to admins or demote admins to fighters. Promoted users gain the same administrative rights as you.",
+      "removingTitle": "Removing Users",
+      "removingDesc": "Removing users will revoke their access to this Deploy App and all connected services. They will no longer be able to connect to your situation awareness service.",
+      "notesTitle": "Important Notes",
+      "note1": "You cannot remove or demote yourself",
+      "note2": "At least one admin must exist at all times",
+      "gotIt": "Got it!"
+    },
+    "userDialog": {
+      "title": "Manage User",
+      "currentRole": "Current role:",
+      "goBack": "Go back",
+      "remove": "Remove",
+      "removing": "Removing...",
+      "promote": "Promote",
+      "promoting": "Promoting...",
+      "demote": "Demote",
+      "demoting": "Demoting..."
+    },
+    "tooltips": {
+      "cannotRemove": "You cannot remove yourself from this application",
+      "cannotDemote": "You cannot demote yourself"
+    },
+    "confirmModals": {
+      "promote": {
+        "title": "Promote User",
+        "description": "Are you sure you want to promote {{callsign}} to administrator? They will have full access to user management tools.",
+        "requiredText": "PROMOTE"
+      },
+      "demote": {
+        "title": "Demote User",
+        "description": "Are you sure you want to demote {{callsign}} from administrator to fighter? They will lose access to user management tools.",
+        "requiredText": "DEMOTE"
+      },
+      "remove": {
+        "title": "Remove User",
+        "description": "This action cannot be undone. Enter the username \"{{callsign}}\" to confirm removal.",
+        "requiredText": "{{callsign}}"
+      }
+    },
+    "messages": {
+      "noCandidateFound": "No callsign found. Please log in.",
+      "promoted": "{{callsign}} promoted to administrator!",
+      "promoteFailed": "Failed to promote user: {{error}}",
+      "demoted": "{{callsign}} demoted to fighter!",
+      "demoteFailed": "Failed to demote user: {{error}}",
+      "removed": "{{callsign}} removed from the system",
+      "removeFailed": "Failed to remove user: {{error}}",
+      "cannotDemoteOwn": "You cannot demote your own account",
+      "cannotDeleteOwn": "You cannot delete your own account",
+      "cannotDeleteLastAdmin": "Cannot delete the last admin. At least one admin must exist."
+    }
+  },
+  "mtlsInstall": {
+    "title": "Download & Install Your Key",
+    "description": "Install your mTLS certificate to securely access all services. This ensures only you can connect with your identity.",
+    "whatIsTitle": "What is mTLS?",
+    "whatIsDesc": "By using an mTLS key installed on your device to connect to our service, we can ensure the connection comes from you. No one else can impersonate you.",
+    "choosePlatform": "Choose your platform:",
+    "selectPlaceholder": "Select your OS",
+    "instructionsTitle": "Installation Instructions:",
+    "note": "Note:",
+    "passwordLabel": "Password for certificate:",
+    "downloadButton": "Download your key",
+    "downloading": "Downloading...",
+    "navigateButton": "Navigate with your key",
+    "certificateDownloaded": "Certificate downloaded successfully!",
+    "downloadFailed": "Failed to download certificate. Please try again.",
+    "callsignNotFound": "Callsign not found",
+    "os": {
+      "Windows": "Windows",
+      "MacOS": "MacOS",
+      "Linux": "Linux",
+      "Android": "Android",
+      "iOS": "iOS"
+    },
+    "platforms": {
+      "Windows": {
+        "steps": {
+          "1": "Download your certificate using the button below",
+          "2": "Double-click the .pfx file to open the Certificate Import Wizard",
+          "3": "Select 'Current User' or 'Local Machine' (Current User is recommended)",
+          "4": "Choose 'Automatically select the certificate store based on the type of certificate'",
+          "5": "When prompted, enter your callsign",
+          "6": "Click 'Finish' to complete the installation",
+          "7": "Use the 'Navigate with your key' button to access services"
+        },
+        "notes": {
+          "1": "The certificate will be stored in your Windows Certificate Store",
+          "2": "You may need to restart your browser for the certificate to be recognized"
+        }
+      },
+      "MacOS": {
+        "steps": {
+          "1": "Download your certificate using the button below",
+          "2": "Double-click the .pfx file to open Keychain Access",
+          "3": "When prompted, enter your callsign as the password",
+          "4": "Verify the certificate was added to your login Keychain",
+          "5": "Use the 'Navigate with your key' button to access services"
+        },
+        "notes": {
+          "1": "macOS will automatically install the certificate to Keychain",
+          "2": "If prompted about trust, select 'Always Trust' for this application"
+        }
+      },
+      "Linux": {
+        "steps": {
+          "1": "Download your certificate using the button below",
+          "2": "Convert the .pfx to PEM format: openssl pkcs12 -in [certificate].pfx -out [certificate].pem -nodes",
+          "3": "When prompted, enter your callsign as the password",
+          "4": "Place the certificate in your browser's certificate directory or system store",
+          "5": "For Firefox: Settings → Privacy → Certificates → View Certificates → Import",
+          "6": "For Chrome: Settings → Privacy and security → Security → Manage certificates → Import",
+          "7": "Use the 'Navigate with your key' button to access services"
+        },
+        "notes": {
+          "1": "The exact process depends on your Linux distribution and browser",
+          "2": "You may need to restart your browser after importing the certificate"
+        }
+      },
+      "Android": {
+        "steps": {
+          "1": "Download your certificate using the button below",
+          "2": "Open Settings → Security → Encryption and credentials → Install a certificate",
+          "3": "Select 'Certificate' and choose the .pfx file",
+          "4": "When prompted, enter your callsign as the password",
+          "5": "Name the certificate and confirm installation",
+          "6": "Use the 'Navigate with your key' button to access services"
+        },
+        "notes": {
+          "1": "Android must be running version 4.4 or later",
+          "2": "The certificate will be added to your system's trusted certificate store"
+        }
+      },
+      "iOS": {
+        "steps": {
+          "1": "Download your certificate using the button below",
+          "2": "Tap the file to open it, then tap 'Allow' to install",
+          "3": "Go to Settings → General → VPN & Device Management",
+          "4": "Tap the certificate under 'Downloaded Profile'",
+          "5": "When prompted, enter your callsign as the password",
+          "6": "Tap 'Install' twice to confirm",
+          "7": "Use the 'Navigate with your key' button to access services"
+        },
+        "notes": {
+          "1": "iOS requires the certificate to be trusted before use",
+          "2": "You may see a prompt asking to allow certificate installation"
+        }
+      }
+    }
+  },
+  "product": {
+    "loadingProducts": "Loading products...",
+    "failedToLoad": "Failed to load products",
+    "goHome": "Go Home",
+    "notFoundRedirect": "Product not found, redirecting...",
+    "loadingProduct": "Loading {{title}}",
+    "progress": "{{progress}}%",
+    "loadingRemote": "Loading remote...",
+    "remoteUnavailable": "Remote app unavailable for {{shortname}}. Please try again later."
+  },
+  "waitingRoom": {
+    "titleShort": "Awaiting Approval",
+    "title": "You are in the Waiting Room!",
+    "description": "You are awaiting your administrator to approve you to the services. Copy and send your Admin your Approval Link.",
+    "checkingStatus": "Checking enrollment status...",
+    "yourApprovalCodeLabel": "Your approval code:",
+    "copyButton": "Copy approval link for your administrator",
+    "copied": "Copied!",
+    "actionFailed": "Action failed: {{error}}",
+    "instructionsTitle": "Waiting for Approval (instructions)",
+    "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
+    "approvedToast": "You have been approved!"
   }
 }

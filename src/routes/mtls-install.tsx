@@ -14,6 +14,7 @@ import { Key, Download, Shield, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useGetCertificate } from "@/hooks/api/useGetCertificate";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { useTranslation } from "react-i18next";
 
 function getOperatingSystem() {
   const userAgent = window.navigator.userAgent;
@@ -47,80 +48,81 @@ const PLATFORM_INSTRUCTIONS: Record<
 > = {
   Windows: {
     steps: [
-      "Download your certificate using the button below",
-      "Double-click the .pfx file to open the Certificate Import Wizard",
-      "Select 'Current User' or 'Local Machine' (Current User is recommended)",
-      "Choose 'Automatically select the certificate store based on the type of certificate'",
-      "When prompted for a password, enter your callsign",
-      "Click 'Finish' to complete the installation",
-      "Use the 'Navigate with your key' button to access services",
+      "mtlsInstall.platforms.Windows.steps.1",
+      "mtlsInstall.platforms.Windows.steps.2",
+      "mtlsInstall.platforms.Windows.steps.3",
+      "mtlsInstall.platforms.Windows.steps.4",
+      "mtlsInstall.platforms.Windows.steps.5",
+      "mtlsInstall.platforms.Windows.steps.6",
+      "mtlsInstall.platforms.Windows.steps.7",
     ],
     notes: [
-      "The certificate will be stored in your Windows Certificate Store",
-      "You may need to restart your browser for the certificate to be recognized",
+      "mtlsInstall.platforms.Windows.notes.1",
+      "mtlsInstall.platforms.Windows.notes.2",
     ],
   },
   MacOS: {
     steps: [
-      "Download your certificate using the button below",
-      "Double-click the .pfx file to open Keychain Access",
-      "When prompted, enter your callsign as the password",
-      "Verify the certificate was added to your login Keychain",
-      "Use the 'Navigate with your key' button to access services",
+      "mtlsInstall.platforms.MacOS.steps.1",
+      "mtlsInstall.platforms.MacOS.steps.2",
+      "mtlsInstall.platforms.MacOS.steps.3",
+      "mtlsInstall.platforms.MacOS.steps.4",
+      "mtlsInstall.platforms.MacOS.steps.5",
     ],
     notes: [
-      "macOS will automatically install the certificate to Keychain",
-      "If prompted about trust, select 'Always Trust' for this application",
+      "mtlsInstall.platforms.MacOS.notes.1",
+      "mtlsInstall.platforms.MacOS.notes.2",
     ],
   },
   Linux: {
     steps: [
-      "Download your certificate using the button below",
-      "Convert the .pfx to PEM format: openssl pkcs12 -in [certificate].pfx -out [certificate].pem -nodes",
-      "When prompted, enter your callsign as the password",
-      "Place the certificate in your browser's certificate directory or system store",
-      "For Firefox: Settings → Privacy → Certificates → View Certificates → Import",
-      "For Chrome: Settings → Privacy and security → Security → Manage certificates → Import",
-      "Use the 'Navigate with your key' button to access services",
+      "mtlsInstall.platforms.Linux.steps.1",
+      "mtlsInstall.platforms.Linux.steps.2",
+      "mtlsInstall.platforms.Linux.steps.3",
+      "mtlsInstall.platforms.Linux.steps.4",
+      "mtlsInstall.platforms.Linux.steps.5",
+      "mtlsInstall.platforms.Linux.steps.6",
+      "mtlsInstall.platforms.Linux.steps.7",
     ],
     notes: [
-      "The exact process depends on your Linux distribution and browser",
-      "You may need to restart your browser after importing the certificate",
+      "mtlsInstall.platforms.Linux.notes.1",
+      "mtlsInstall.platforms.Linux.notes.2",
     ],
   },
   Android: {
     steps: [
-      "Download your certificate using the button below",
-      "Open Settings → Security → Encryption and credentials → Install a certificate",
-      "Select 'Certificate' and choose the .pfx file",
-      "When prompted, enter your callsign as the password",
-      "Name the certificate and confirm installation",
-      "Use the 'Navigate with your key' button to access services",
+      "mtlsInstall.platforms.Android.steps.1",
+      "mtlsInstall.platforms.Android.steps.2",
+      "mtlsInstall.platforms.Android.steps.3",
+      "mtlsInstall.platforms.Android.steps.4",
+      "mtlsInstall.platforms.Android.steps.5",
+      "mtlsInstall.platforms.Android.steps.6",
     ],
     notes: [
-      "Android must be running version 4.4 or later",
-      "The certificate will be added to your system's trusted certificate store",
+      "mtlsInstall.platforms.Android.notes.1",
+      "mtlsInstall.platforms.Android.notes.2",
     ],
   },
   iOS: {
     steps: [
-      "Download your certificate using the button below",
-      "Tap the file to open it, then tap 'Allow' to install",
-      "Go to Settings → General → VPN & Device Management",
-      "Tap the certificate under 'Downloaded Profile'",
-      "When prompted, enter your callsign as the password",
-      "Tap 'Install' twice to confirm",
-      "Use the 'Navigate with your key' button to access services",
+      "mtlsInstall.platforms.iOS.steps.1",
+      "mtlsInstall.platforms.iOS.steps.2",
+      "mtlsInstall.platforms.iOS.steps.3",
+      "mtlsInstall.platforms.iOS.steps.4",
+      "mtlsInstall.platforms.iOS.steps.5",
+      "mtlsInstall.platforms.iOS.steps.6",
+      "mtlsInstall.platforms.iOS.steps.7",
     ],
     notes: [
-      "iOS requires the certificate to be trusted before use",
-      "You may see a prompt asking to allow certificate installation",
+      "mtlsInstall.platforms.iOS.notes.1",
+      "mtlsInstall.platforms.iOS.notes.2",
     ],
   },
 };
 
 function MtlsInstallPage() {
   const { userType, callsign: userCallsign } = useUserType();
+  const { t } = useTranslation();
 
   const [callsign, setCallsign] = useState("");
   const [selectedOS, setSelectedOS] = useState("");
@@ -141,11 +143,11 @@ function MtlsInstallPage() {
 
   const osToShow = selectedOS || userOS;
   const osOptions = [
-    { label: "Windows", value: "Windows" },
-    { label: "MacOS", value: "MacOS" },
-    { label: "Linux", value: "Linux" },
-    { label: "Android", value: "Android" },
-    { label: "iOS", value: "iOS" },
+    { label: t("mtlsInstall.os.Windows"), value: "Windows" },
+    { label: t("mtlsInstall.os.MacOS"), value: "MacOS" },
+    { label: t("mtlsInstall.os.Linux"), value: "Linux" },
+    { label: t("mtlsInstall.os.Android"), value: "Android" },
+    { label: t("mtlsInstall.os.iOS"), value: "iOS" },
   ];
 
   const protocol = window.location.protocol;
@@ -169,11 +171,11 @@ function MtlsInstallPage() {
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
       console.log("Certificate downloaded successfully");
-      toast.success("Certificate downloaded successfully!");
+      toast.success(t("mtlsInstall.certificateDownloaded"));
     },
     onError: (err) => {
       console.error("Certificate download error:", err);
-      toast.error(err.message || "Failed to download certificate");
+      toast.error(err.message || t("mtlsInstall.downloadFailed"));
     },
   });
 
@@ -181,7 +183,7 @@ function MtlsInstallPage() {
     if (callsign) {
       getCertificateMutation.mutate(callsign);
     } else {
-      toast.error("Callsign not found");
+      toast.error(t("mtlsInstall.callsignNotFound"));
     }
   };
 
@@ -198,11 +200,10 @@ function MtlsInstallPage() {
             </div>
           </div>
           <h2 className="text-2xl md:text-3xl font-semibold text-balance">
-            Download & Install Your Key
+            {t("mtlsInstall.title")}
           </h2>
           <p className="text-muted-foreground text-balance max-w-xl mx-auto leading-relaxed">
-            Install your mTLS certificate to securely access all services. This
-            ensures only you can connect with your identity.
+            {t("mtlsInstall.description")}
           </p>
         </div>
 
@@ -210,11 +211,11 @@ function MtlsInstallPage() {
           <div className="flex items-start gap-3">
             <Shield className="w-5 h-5 text-primary mt-0.5 shrink-0" />
             <div className="space-y-2">
-              <h3 className="font-semibold text-lg">What is mTLS?</h3>
+              <h3 className="font-semibold text-lg">
+                {t("mtlsInstall.whatIsTitle")}
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                By using an mTLS key installed on your device to connect to our
-                service, we can ensure the connection comes from you. No one
-                else can impersonate you.
+                {t("mtlsInstall.whatIsDesc")}
               </p>
             </div>
           </div>
@@ -222,13 +223,13 @@ function MtlsInstallPage() {
 
         <div className="space-y-3">
           <label className="text-sm font-medium">
-            Choose your platform:{" "}
+            {t("mtlsInstall.choosePlatform")}
             {osToShow &&
-              `(${osOptions.find((o) => o.value === osToShow)?.label})`}
+              ` (${osOptions.find((o) => o.value === osToShow)?.label})`}
           </label>
           <Select value={osToShow} onValueChange={setSelectedOS}>
             <SelectTrigger className="w-full md:w-80">
-              <SelectValue placeholder="Select your OS" />
+              <SelectValue placeholder={t("mtlsInstall.selectPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               {osOptions.map((os) => (
@@ -241,11 +242,13 @@ function MtlsInstallPage() {
         </div>
 
         <div className="space-y-4 bg-card border border-border rounded-xl p-6">
-          <h3 className="font-semibold">Installation Instructions:</h3>
+          <h3 className="font-semibold">
+            {t("mtlsInstall.instructionsTitle")}
+          </h3>
           <ol className="list-decimal list-inside space-y-3 text-sm text-muted-foreground">
-            {platformInstructions.steps.map((step, idx) => (
+            {platformInstructions.steps.map((keyOrText, idx) => (
               <li key={idx} className="pl-2">
-                {step}
+                {t(keyOrText)}
               </li>
             ))}
           </ol>
@@ -253,14 +256,16 @@ function MtlsInstallPage() {
           {platformInstructions.notes &&
             platformInstructions.notes.length > 0 && (
               <div className="mt-6 p-4 bg-accent/10 border border-accent/20 rounded-lg space-y-2">
-                <p className="text-sm font-semibold text-accent">Note:</p>
+                <p className="text-sm font-semibold text-accent">
+                  {t("mtlsInstall.note")}
+                </p>
                 <ul className="list-disc list-inside space-y-1">
-                  {platformInstructions.notes.map((note, idx) => (
+                  {platformInstructions.notes.map((noteKey, idx) => (
                     <li
                       key={idx}
                       className="text-sm text-muted-foreground pl-1"
                     >
-                      {note}
+                      {t(noteKey)}
                     </li>
                   ))}
                 </ul>
@@ -269,7 +274,9 @@ function MtlsInstallPage() {
 
           <div className="pt-2 p-4 bg-muted/50 border border-border rounded-lg">
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold">Password for certificate:</span>{" "}
+              <span className="font-semibold">
+                {t("mtlsInstall.passwordLabel")}
+              </span>{" "}
               <span className="font-mono font-semibold text-foreground bg-card px-2 py-0.5 rounded inline-block mt-1">
                 {callsign}
               </span>
@@ -286,12 +293,12 @@ function MtlsInstallPage() {
             {getCertificateMutation.isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Downloading...
+                {t("mtlsInstall.downloading")}
               </>
             ) : (
               <>
                 <Download className="w-4 h-4 mr-2" />
-                Download your key
+                {t("mtlsInstall.downloadButton")}
               </>
             )}
           </Button>
@@ -300,7 +307,7 @@ function MtlsInstallPage() {
               variant="outline"
               className="w-full bg-primary hover:bg-primary/90 text-white h-12 rounded-xl border-2"
             >
-              Navigate with your key
+              {t("mtlsInstall.navigateButton")}
             </Button>
           </a>
         </div>

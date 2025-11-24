@@ -22,6 +22,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useInviteCodeList } from "@/hooks/api/inviteCode/useInviteCodeList";
 import { useCreateInviteCode } from "@/hooks/api/inviteCode/useCreateInviteCode";
 import { useDeleteInviteCode } from "@/hooks/api/inviteCode/useDeleteInviteCode";
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/add-users")({
 });
 
 function AddUsersPage() {
+  const { t } = useTranslation();
   const [filterText, setFilterText] = useState("");
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
@@ -48,10 +50,10 @@ function AddUsersPage() {
 
   useEffect(() => {
     if (!userTypeLoading && !callsign) {
-      toast.error("No callsign found. Please log in.");
+      toast.error(t("addUsers.messages.noCallsignError"));
       navigate({ to: "/login" });
     }
-  }, [callsign, userTypeLoading, navigate]);
+  }, [callsign, userTypeLoading, navigate, t]);
 
   useEffect(() => {
     const hasSeenWalkthrough = localStorage.getItem(
@@ -73,65 +75,69 @@ function AddUsersPage() {
 
   const createInviteCodeMutation = useCreateInviteCode({
     onSuccess: (newCode) => {
-      toast.success("Invite code created successfully!");
+      toast.success(t("addUsers.messages.codeCreated"));
       setCreateModalOpen(false);
       refetch();
       navigate({ to: "/invite-code/$code", params: { code: newCode } });
     },
     onError: (error) => {
-      toast.error(`Failed to create invite code: ${error.message}`);
+      toast.error(t("addUsers.messages.createError", { error: error.message }));
     },
   });
 
   const deleteInviteCodeMutation = useDeleteInviteCode({
     onSuccess: () => {
-      toast.success("Invite code deleted");
+      toast.success(t("addUsers.messages.codeDeleted"));
       setManageDialogOpen(false);
       setSelectedCode(null);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to delete invite code: ${error.message}`);
+      toast.error(t("addUsers.messages.deleteError", { error: error.message }));
     },
   });
 
   const deactivateInviteCodeMutation = useDeactivateInviteCode({
     onSuccess: () => {
-      toast.success("Invite code deactivated");
+      toast.success(t("addUsers.messages.codeDeactivated"));
       setManageDialogOpen(false);
       setSelectedCode(null);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to deactivate invite code: ${error.message}`);
+      toast.error(
+        t("addUsers.messages.deactivateError", { error: error.message }),
+      );
     },
   });
 
   const reactivateInviteCodeMutation = useReactivateInviteCode({
     onSuccess: () => {
-      toast.success("Invite code activated");
+      toast.success(t("addUsers.messages.codeActivated"));
       setManageDialogOpen(false);
       setSelectedCode(null);
       refetch();
     },
     onError: (error) => {
-      toast.error(`Failed to activate invite code: ${error.message}`);
+      toast.error(
+        t("addUsers.messages.activateError", { error: error.message }),
+      );
     },
   });
 
   useEffect(() => {
     if (!userTypeLoading && userType !== "admin") {
-      toast.error("403 Forbidden: Admin access required");
+      toast.error(t("addUsers.messages.forbiddenError"));
       navigate({ to: "/" });
     }
-  }, [userType, userTypeLoading, navigate]);
+  }, [userType, userTypeLoading, navigate, t]);
 
   if (!userTypeLoading && userType !== "admin") {
     return (
       <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
-          Forbidden: Admin access required
+          {t("addUsers.forbidden")}
         </p>
       </div>
     );
@@ -179,7 +185,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await deleteInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(`Deleted ${selectedCodes.length} invite codes`);
+    toast.success(
+      t("addUsers.messages.codesDeleted", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -189,7 +197,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await deactivateInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(`Disabled ${selectedCodes.length} invite codes`);
+    toast.success(
+      t("addUsers.messages.codesDisabled", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -199,7 +209,9 @@ function AddUsersPage() {
     for (const code of selectedCodes) {
       await reactivateInviteCodeMutation.mutateAsync(code);
     }
-    toast.success(`Enabled ${selectedCodes.length} invite codes`);
+    toast.success(
+      t("addUsers.messages.codesEnabled", { count: selectedCodes.length }),
+    );
     setSelectedCodes([]);
     setBulkMode(false);
     refetch();
@@ -214,7 +226,7 @@ function AddUsersPage() {
   if (isLoading || userTypeLoading) {
     return (
       <div className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-2xl font-bold">Add Users with Invite Code</h1>
+        <h1 className="text-2xl font-bold">{t("addUsers.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -226,13 +238,12 @@ function AddUsersPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold">Add Users with Invite Code</h1>
+          <h1 className="text-2xl font-bold">{t("addUsers.title")}</h1>
           <p className="text-sm text-muted-foreground">
             <span className="text-primary font-medium">
-              One invite code can be used multiple times.
+              {t("addUsers.subtitleHighlight")}
             </span>{" "}
-            Click on a code to view its QR code and share it with users. Create
-            a new code only if needed.
+            {t("addUsers.subtitle")}
           </p>
         </div>
         <Button
@@ -254,11 +265,11 @@ function AddUsersPage() {
           <Plus className="w-5 h-5 mr-2" />
           <span className="hidden md:inline">
             {createInviteCodeMutation.isLoading
-              ? "Creating..."
-              : "Create New Invite"}
+              ? t("addUsers.creating")
+              : t("addUsers.createNewInvite")}
           </span>
           <span className="md:hidden">
-            {createInviteCodeMutation.isLoading ? "..." : "Create"}
+            {createInviteCodeMutation.isLoading ? "..." : t("addUsers.create")}
           </span>
         </Button>
         <Button
@@ -271,7 +282,7 @@ function AddUsersPage() {
         >
           <CheckSquare className="w-5 h-5" />
           <span className="ml-2 hidden md:inline">
-            {bulkMode ? "Cancel" : "Select Multiple"}
+            {bulkMode ? t("addUsers.cancel") : t("addUsers.selectMultiple")}
           </span>
         </Button>
       </div>
@@ -279,17 +290,17 @@ function AddUsersPage() {
       {bulkMode && selectedCodes.length > 0 && (
         <div className="flex items-center gap-2 p-4 bg-card border border-border rounded-xl">
           <span className="text-sm font-medium">
-            {selectedCodes.length} selected
+            {t("addUsers.selected", { count: selectedCodes.length })}
           </span>
           <div className="flex-1"></div>
           <Button variant="outline" size="sm" onClick={handleBulkEnable}>
-            Enable
+            {t("addUsers.enable")}
           </Button>
           <Button variant="outline" size="sm" onClick={handleBulkDisable}>
-            Disable
+            {t("addUsers.disable")}
           </Button>
           <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
-            Delete
+            {t("addUsers.delete")}
           </Button>
         </div>
       )}
@@ -297,7 +308,7 @@ function AddUsersPage() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
-          placeholder="Filter Invite Codes"
+          placeholder={t("addUsers.filterPlaceholder")}
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
           className="pl-9"
@@ -344,14 +355,22 @@ function AddUsersPage() {
                         : "text-gray-500 bg-gray-100 dark:bg-gray-800",
                     )}
                   >
-                    {invite.active ? "active" : "inactive"}
+                    {t(`addUsers.${invite.active ? "active" : "inactive"}`)}
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  {invite.owner_cs === callsign ? "You" : invite.owner_cs}{" "}
-                  created this code{" "}
-                  {invite.created &&
-                    `on ${format(new Date(invite.created), "MMM d, yyyy")}`}
+                  {invite.owner_cs === callsign
+                    ? t("addUsers.createdByYou", {
+                        date: invite.created
+                          ? format(new Date(invite.created), "MMM d, yyyy")
+                          : "",
+                      })
+                    : t("addUsers.createdBy", {
+                        creator: invite.owner_cs,
+                        date: invite.created
+                          ? format(new Date(invite.created), "MMM d, yyyy")
+                          : "",
+                      })}
                 </p>
               </div>
             </div>
@@ -370,18 +389,18 @@ function AddUsersPage() {
       <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Create New Invite Code</DialogTitle>
+            <DialogTitle>{t("addUsers.createModalTitle")}</DialogTitle>
             <DialogDescription className="pt-4 space-y-3 text-sm leading-relaxed text-left">
               <p className="font-semibold text-foreground">
-                ⚠️ One invite code can be used by multiple users
+                {t("addUsers.createModalWarning")}
               </p>
-              <p>You only need to create a new code if:</p>
+              <p>{t("addUsers.createModalText")}</p>
               <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                <li>You've deleted or deactivated your previous code</li>
-                <li>You want separate codes for different groups</li>
+                <li>{t("addUsers.createModalReason1")}</li>
+                <li>{t("addUsers.createModalReason2")}</li>
               </ul>
               <p className="text-xs text-muted-foreground">
-                Tip: Reuse existing active codes instead of creating new ones
+                {t("addUsers.createModalTip")}
               </p>
             </DialogDescription>
           </DialogHeader>
@@ -391,13 +410,13 @@ function AddUsersPage() {
               onClick={() => setCreateModalOpen(false)}
               className="flex-1 h-11"
             >
-              Cancel
+              {t("addUsers.cancel")}
             </Button>
             <Button
               onClick={handleCreateInvite}
               className="flex-1 h-11 bg-primary hover:bg-primary/90"
             >
-              Create Code
+              {t("addUsers.createModalTitle")}
             </Button>
           </div>
         </DialogContent>
@@ -406,38 +425,44 @@ function AddUsersPage() {
       <Dialog open={walkthroughOpen} onOpenChange={setWalkthroughOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>How to Add Users</DialogTitle>
-            <DialogDescription>Quick guide to inviting users</DialogDescription>
+            <DialogTitle>{t("addUsers.walkthrough.title")}</DialogTitle>
+            <DialogDescription>
+              {t("addUsers.walkthrough.description")}
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">1. Use Existing Codes</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step1Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                Click on any active invite code to view its QR code. One code
-                can be used by multiple users - no need to create a new one each
-                time!
+                {t("addUsers.walkthrough.step1Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">2. Share the QR Code</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step2Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                Show the QR code to users or share the invite link. They'll scan
-                it to start the enrollment process.
+                {t("addUsers.walkthrough.step2Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">3. Approve Users</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step3Title")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                After users enter their callsign, approve them in the "Approve
-                Users" section using their approval code or QR code.
+                {t("addUsers.walkthrough.step3Description")}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-sm">Managing Codes</h4>
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.managingTitle")}
+              </h4>
               <p className="text-sm text-muted-foreground">
-                • Deactivate codes temporarily without deleting them
-                <br />• Delete codes you no longer need
-                <br />• Use "Select Multiple" for bulk operations
+                • {t("addUsers.walkthrough.managingBullet1")}
+                <br />• {t("addUsers.walkthrough.managingBullet2")}
+                <br />• {t("addUsers.walkthrough.managingBullet3")}
               </p>
             </div>
           </div>
@@ -446,7 +471,7 @@ function AddUsersPage() {
               onClick={() => setWalkthroughOpen(false)}
               className="w-full"
             >
-              Got it!
+              {t("addUsers.walkthrough.gotIt")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -455,9 +480,9 @@ function AddUsersPage() {
       <Dialog open={manageDialogOpen} onOpenChange={setManageDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Manage Invite Code</DialogTitle>
+            <DialogTitle>{t("addUsers.manageModalTitle")}</DialogTitle>
             <DialogDescription>
-              Code:{" "}
+              {t("addUsers.manageModalCode")}{" "}
               <span className="font-mono font-semibold text-foreground">
                 {selectedCode}
               </span>
@@ -475,9 +500,8 @@ function AddUsersPage() {
               }
             >
               {inviteCodes?.find((c) => c.invitecode === selectedCode)?.active
-                ? "Disable"
-                : "Enable"}{" "}
-              Code
+                ? t("addUsers.disableCode")
+                : t("addUsers.enableCode")}
             </Button>
             <Button
               variant="destructive"
@@ -490,15 +514,15 @@ function AddUsersPage() {
               }
             >
               {deleteInviteCodeMutation.isLoading
-                ? "Deleting..."
-                : "Delete Code"}
+                ? t("addUsers.deleting")
+                : t("addUsers.deleteCode")}
             </Button>
             <Button
               variant="ghost"
               onClick={() => setManageDialogOpen(false)}
               className="w-full"
             >
-              Cancel
+              {t("addUsers.cancel")}
             </Button>
           </div>
         </DialogContent>
