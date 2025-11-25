@@ -4,7 +4,9 @@ interface RemoteComponentFallbackProps {
   shortname?: string;
 }
 
-export function RemoteComponentFallback({ shortname }: RemoteComponentFallbackProps) {
+export function RemoteComponentFallback({
+  shortname,
+}: RemoteComponentFallbackProps) {
   return (
     <div
       style={{

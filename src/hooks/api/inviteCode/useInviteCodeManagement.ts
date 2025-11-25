@@ -63,7 +63,7 @@ export function useInviteCodeManagement() {
     },
     onError: (error) => {
       toast.error(
-        t("addUsers.messages.deactivateError", { error: error.message })
+        t("addUsers.messages.deactivateError", { error: error.message }),
       );
     },
   });
@@ -77,7 +77,7 @@ export function useInviteCodeManagement() {
     },
     onError: (error) => {
       toast.error(
-        t("addUsers.messages.activateError", { error: error.message })
+        t("addUsers.messages.activateError", { error: error.message }),
       );
     },
   });
@@ -100,7 +100,7 @@ export function useInviteCodeManagement() {
   // Walkthrough on first visit
   useEffect(() => {
     const hasSeenWalkthrough = localStorage.getItem(
-      `add-users-walkthrough-${callsign}`
+      `add-users-walkthrough-${callsign}`,
     );
     if (!hasSeenWalkthrough && !userTypeLoading) {
       setWalkthroughOpen(true);
@@ -117,7 +117,7 @@ export function useInviteCodeManagement() {
 
   const filteredCodes =
     inviteCodes?.filter((invite) =>
-      invite.invitecode.toLowerCase().includes(filterText.toLowerCase())
+      invite.invitecode.toLowerCase().includes(filterText.toLowerCase()),
     ) || [];
 
   const handleCreateInvite = () => {
@@ -155,7 +155,7 @@ export function useInviteCodeManagement() {
       await deleteInviteCodeMutation.mutateAsync(code);
     }
     toast.success(
-      t("addUsers.messages.codesDeleted", { count: selectedCodes.length })
+      t("addUsers.messages.codesDeleted", { count: selectedCodes.length }),
     );
     setSelectedCodes([]);
     setBulkMode(false);
@@ -167,7 +167,7 @@ export function useInviteCodeManagement() {
       await deactivateInviteCodeMutation.mutateAsync(code);
     }
     toast.success(
-      t("addUsers.messages.codesDisabled", { count: selectedCodes.length })
+      t("addUsers.messages.codesDisabled", { count: selectedCodes.length }),
     );
     setSelectedCodes([]);
     setBulkMode(false);
@@ -179,7 +179,7 @@ export function useInviteCodeManagement() {
       await reactivateInviteCodeMutation.mutateAsync(code);
     }
     toast.success(
-      t("addUsers.messages.codesEnabled", { count: selectedCodes.length })
+      t("addUsers.messages.codesEnabled", { count: selectedCodes.length }),
     );
     setSelectedCodes([]);
     setBulkMode(false);
@@ -188,7 +188,7 @@ export function useInviteCodeManagement() {
 
   const toggleCodeSelection = (code: string) => {
     setSelectedCodes((prev) =>
-      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]
+      prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code],
     );
   };
 

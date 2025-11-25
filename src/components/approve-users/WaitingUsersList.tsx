@@ -37,10 +37,7 @@ export function WaitingUsersList({
           {t("approveUsers.waitingUsers")} ({users.length})
         </span>
         <ChevronDown
-          className={cn(
-            "w-5 h-5 transition-transform",
-            open && "rotate-180",
-          )}
+          className={cn("w-5 h-5 transition-transform", open && "rotate-180")}
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="px-2 pb-2">

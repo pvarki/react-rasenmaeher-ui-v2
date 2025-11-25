@@ -13,7 +13,7 @@ export interface RemoteComponentProps {
 }
 
 export async function loadRemoteComponent(
-  shortname: string
+  shortname: string,
 ): Promise<{ default: React.ComponentType<RemoteComponentProps> }> {
   const remoteName = `${shortname}-integration`;
   registerRemotes([

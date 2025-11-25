@@ -37,7 +37,10 @@ interface MenuItem {
   icon: LucideIcon;
   titleKey: string;
   descKey: string;
-  action: { type: "navigate"; to: string; search?: Record<string, unknown> } | { type: "external"; url: string } | { type: "modal"; modal: string };
+  action:
+    | { type: "navigate"; to: string; search?: Record<string, unknown> }
+    | { type: "external"; url: string }
+    | { type: "modal"; modal: string };
 }
 
 interface MenuSection {
@@ -107,13 +110,21 @@ function AdminToolsPage() {
       icon: Users,
       titleKey: "common.userManagement",
       descKey: "adminTools.userManagementDesc",
-      action: { type: "navigate", to: "/admin-tools", search: { type: "users" } },
+      action: {
+        type: "navigate",
+        to: "/admin-tools",
+        search: { type: "users" },
+      },
     },
     {
       icon: Server,
       titleKey: "adminTools.externalServicesSection",
       descKey: "adminTools.externalServicesDesc",
-      action: { type: "navigate", to: "/admin-tools", search: { type: "services" } },
+      action: {
+        type: "navigate",
+        to: "/admin-tools",
+        search: { type: "services" },
+      },
     },
   ];
 
@@ -242,7 +253,7 @@ function AdminToolsPage() {
   }
 
   const visibleSections = menuSections.filter((_, index) =>
-    index === 0 ? showUserTools : showServiceTools
+    index === 0 ? showUserTools : showServiceTools,
   );
 
   return (

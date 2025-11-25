@@ -21,7 +21,7 @@ export function ApprovalMethodsSection() {
         <ChevronDown
           className={cn(
             "w-5 h-5 transition-transform",
-            instructionsOpen && "rotate-180"
+            instructionsOpen && "rotate-180",
           )}
         />
       </CollapsibleTrigger>

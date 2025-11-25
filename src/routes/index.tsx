@@ -27,7 +27,12 @@ function HomePage() {
   const [mtlsInfoOpen, setMtlsInfoOpen] = useState(false);
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
-  const { userType, isValidUser, callsign, isLoading: userTypeLoading } = useUserType();
+  const {
+    userType,
+    isValidUser,
+    callsign,
+    isLoading: userTypeLoading,
+  } = useUserType();
 
   const { data: products = [], isLoading: productsLoading } =
     useGetProductDescriptions(currentLanguage);
@@ -78,7 +83,9 @@ function HomePage() {
         <HomeGreeting callsign={callsign} isValidUser={isValidUser} />
 
         {userType === "admin" && (
-          <AdminToolsSection onNavigate={() => navigate({ to: "/admin-tools" })} />
+          <AdminToolsSection
+            onNavigate={() => navigate({ to: "/admin-tools" })}
+          />
         )}
       </div>
 
