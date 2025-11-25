@@ -18,7 +18,6 @@ interface InviteCode {
   created?: string;
 }
 
-
 export const Route = createFileRoute("/add-users")({
   component: AddUsersPage,
 });

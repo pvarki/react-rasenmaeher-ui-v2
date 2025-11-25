@@ -58,7 +58,7 @@ export function UserList({
                 "flex items-center gap-3 p-4 bg-card border-2 rounded-xl hover:bg-accent/50 transition-colors cursor-pointer",
                 bulkMode && selectedUsers.includes(user.callsign)
                   ? "border-primary bg-primary/5"
-                  : "border-border"
+                  : "border-border",
               )}
               onClick={() => {
                 if (bulkMode) {

@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Product } from "./productUtils";
-import { getProductIcon, getCleanProductTitle, getProductShortLabel } from "./productUtils";
+import {
+  getProductIcon,
+  getCleanProductTitle,
+  getProductShortLabel,
+} from "./productUtils";
 
 interface ProductCardProps {
   product: Product;

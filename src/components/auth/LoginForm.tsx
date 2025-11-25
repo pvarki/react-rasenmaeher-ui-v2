@@ -1,43 +1,52 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import { useNavigate } from "@tanstack/react-router"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Loader2, Key } from "lucide-react"
-import { useCheckCode } from "@/hooks/api/useCheckCode"
-import { useLoginCodeStore } from "@/store/LoginCodeStore"
-import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik"
-import * as yup from "yup"
-import { useTranslation } from "react-i18next"
+import type React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Loader2, Key } from "lucide-react";
+import { useCheckCode } from "@/hooks/api/useCheckCode";
+import { useLoginCodeStore } from "@/store/LoginCodeStore";
+import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
-const TOKEN_REGEX = /^[A-Z0-9]{8,}$/
+const TOKEN_REGEX = /^[A-Z0-9]{8,}$/;
 
 interface ApiError extends Error {
   response?: {
     data?: {
-      detail?: string
-    }
-  }
+      detail?: string;
+    };
+  };
 }
 
 interface LoginFormProps {
-  mtlsUrl: string
-  initialCode?: string
+  mtlsUrl: string;
+  initialCode?: string;
 }
 
 export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
-  const navigate = useNavigate()
-  const loginCodeStore = useLoginCodeStore()
-  const [codeNotValid, setCodeNotValid] = useState(false)
-  const { t } = useTranslation()
+  const navigate = useNavigate();
+  const loginCodeStore = useLoginCodeStore();
+  const [codeNotValid, setCodeNotValid] = useState(false);
+  const { t } = useTranslation();
 
   const CodeSchema = yup.object().shape({
-    code: yup.string().required(t("login.codeRequired")).matches(TOKEN_REGEX, t("login.codeInvalid")),
-  })
+    code: yup
+      .string()
+      .required(t("login.codeRequired"))
+      .matches(TOKEN_REGEX, t("login.codeInvalid")),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -48,11 +57,11 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values: { code: string }) => {
-      checkCode(values.code)
+      checkCode(values.code);
     },
-  })
+  });
 
-  const { values, setFieldValue, submitCount } = formik
+  const { values, setFieldValue, submitCount } = formik;
 
   const {
     mutate: checkCode,
@@ -61,45 +70,44 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
     error,
   } = useCheckCode({
     onSuccess: (data) => {
-      loginCodeStore.setCode(values.code)
+      loginCodeStore.setCode(values.code);
       if (data.isAdminCodeValid) {
-        loginCodeStore.setCodeType("admin")
-        navigate({ to: "/callsign-setup" })
+        loginCodeStore.setCodeType("admin");
+        navigate({ to: "/callsign-setup" });
       } else if (data.isEnrollmentCodeValid) {
-        loginCodeStore.setCodeType("user")
-        navigate({ to: "/callsign-setup" })
+        loginCodeStore.setCodeType("user");
+        navigate({ to: "/callsign-setup" });
       } else {
-        loginCodeStore.setCodeType("unknown")
-        setCodeNotValid(true)
+        loginCodeStore.setCodeType("unknown");
+        setCodeNotValid(true);
       }
     },
     onError: (err: ApiError) => {
-      const errorMessage = err.response?.data?.detail || "Unknown error"
-      formik.setErrors({ code: errorMessage })
+      const errorMessage = err.response?.data?.detail || "Unknown error";
+      formik.setErrors({ code: errorMessage });
     },
-  })
+  });
 
   // Auto-submit when initialCode is provided via URL
   useEffect(() => {
     if (initialCode) {
-      void setFieldValue("code", initialCode, false)
+      void setFieldValue("code", initialCode, false);
       setTimeout(() => {
-        checkCode(initialCode)
-      }, 100)
+        checkCode(initialCode);
+      }, 100);
     }
-  }, [initialCode, setFieldValue, checkCode])
+  }, [initialCode, setFieldValue, checkCode]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const upperCaseValue = e.target.value.toUpperCase()
-    setCodeNotValid(false)
-    formik.setErrors({})
-    void setFieldValue("code", upperCaseValue, false)
-  }
+    const upperCaseValue = e.target.value.toUpperCase();
+    setCodeNotValid(false);
+    formik.setErrors({});
+    void setFieldValue("code", upperCaseValue, false);
+  };
 
   const handleInputFocus = () => {
-    setCodeNotValid(false)
-  }
-
+    setCodeNotValid(false);
+  };
 
   return (
     <Card className="border-muted">
@@ -109,7 +117,10 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         <a href={mtlsUrl} className="block">
-          <Button className="w-full h-14 bg-green-600 hover:bg-green-700 text-base font-semibold" type="button">
+          <Button
+            className="w-full h-14 bg-green-600 hover:bg-green-700 text-base font-semibold"
+            type="button"
+          >
             {t("login.certificate")}
           </Button>
         </a>
@@ -119,7 +130,9 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">{t("login.or")}</span>
+            <span className="bg-background px-2 text-muted-foreground">
+              {t("login.or")}
+            </span>
           </div>
         </div>
 
@@ -141,7 +154,12 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
               <span className="text-sm text-destructive">
                 {submitCount > 0 && <ErrorMessage name="code" />}
                 {codeNotValid && <div>{t("login.codeNotValid")}</div>}
-                {isError && <div>{(error as ApiError).response?.data?.detail || t("login.codeInvalid")}</div>}
+                {isError && (
+                  <div>
+                    {(error as ApiError).response?.data?.detail ||
+                      t("login.codeInvalid")}
+                  </div>
+                )}
               </span>
             </div>
 
@@ -166,5 +184,5 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
         </FormikProvider>
       </CardContent>
     </Card>
-  )
+  );
 }

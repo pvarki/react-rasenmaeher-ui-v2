@@ -12,7 +12,10 @@ interface PlatformSelectorProps {
   onValueChange: (value: string) => void;
 }
 
-export function PlatformSelector({ value, onValueChange }: PlatformSelectorProps) {
+export function PlatformSelector({
+  value,
+  onValueChange,
+}: PlatformSelectorProps) {
   const { t } = useTranslation();
 
   const osOptions = [

@@ -82,10 +82,7 @@ function MtlsInstallPage() {
 
         <MtlsExplanationCard />
 
-        <PlatformSelector
-          value={osToShow}
-          onValueChange={setSelectedOS}
-        />
+        <PlatformSelector value={osToShow} onValueChange={setSelectedOS} />
 
         <MtlsInstructions instructions={platformInstructions} />
 
