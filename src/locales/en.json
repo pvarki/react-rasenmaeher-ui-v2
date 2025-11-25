@@ -553,5 +553,42 @@
     "instructionsTitle": "Waiting for Approval (instructions)",
     "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
     "approvedToast": "You have been approved!"
+  },
+  "feedbackForm": {
+    "title": "Send feedback",
+    "description": "Let us know what you think. Your feedback helps improve the app.",
+    "roleLabel": "Your role",
+    "rolePlaceholder": "Select role...",
+    "roles": {
+      "end_user": "End user",
+      "developer": "Developer",
+      "admin": "Administrator",
+      "maintainer": "Maintainer",
+      "other": "Other"
+    },
+    "versionLabel": "The Deploy App version you are using",
+    "osLabel": "Operating system",
+    "osPlaceholder": "Select OS...",
+    "os": {
+      "linux": "Linux",
+      "windows": "Windows",
+      "macos": "macOS",
+      "android": "Android",
+      "iphone": "iPhone",
+      "other": "Other"
+    },
+    "ratingLabel": "How was your experience?",
+    "ratingPlaceholder": "Choose...",
+    "ratings": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "veryBad": "Very Bad",
+      "bad": "Bad"
+    },
+    "commentsLabel": "Comments",
+    "commentsPlaceholder": "Share details, suggestions or issues...",
+    "send": "Send feedback",
+    "sending": "Sending...",
+    "thanks": "Thanks for the feedback!"
   }
 }

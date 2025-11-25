@@ -552,5 +552,42 @@
     "instructionsTitle": "Väntar på godkännande (instruktioner)",
     "instructionsText": "Du kan godkänna din användare antingen genom att ta godkännandekoden från skärmen i väntrummet, genom att be dem skicka godkännandekoden som en länk, eller genom att ange deras godkännandekod i vyn \"Godkänn användare\".",
     "approvedToast": "Du har blivit godkänd!"
+  },
+  "feedbackForm": {
+    "title": "Skicka feedback",
+    "description": "Låt oss veta vad du tycker. Din feedback hjälper oss att förbättra appen.",
+    "roleLabel": "Din roll",
+    "rolePlaceholder": "Välj roll...",
+    "roles": {
+      "end_user": "Slutanvändare",
+      "developer": "Utvecklare",
+      "admin": "Administratör",
+      "maintainer": "Underhållare",
+      "other": "Annat"
+    },
+    "versionLabel": "Den version av Deploy App som du använder",
+    "osLabel": "Operativsystem",
+    "osPlaceholder": "Välj OS...",
+    "os": {
+      "linux": "Linux",
+      "windows": "Windows",
+      "macos": "macOS",
+      "android": "Android",
+      "iphone": "iPhone",
+      "other": "Annat"
+    },
+    "ratingLabel": "Hur var din upplevelse?",
+    "ratingPlaceholder": "Välj...",
+    "ratings": {
+      "excellent": "Utmärkt",
+      "good": "Bra",
+      "veryBad": "Mycket Dåligt",
+      "bad": "Dåligt"
+    },
+    "commentsLabel": "Kommentarer",
+    "commentsPlaceholder": "Dela detaljer, förslag eller problem...",
+    "send": "Skicka feedback",
+    "sending": "Skickar...",
+    "thanks": "Tack för din feedback!"
   }
 }
