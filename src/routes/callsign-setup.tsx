@@ -1,32 +1,21 @@
 "use client";
 
-import type React from "react";
-
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useCallback, useEffect } from "react";
-import { useLoginAsAdmin } from "../hooks/api/firstuser/useLoginAsAdmin";
-import { useLoginCodeStore } from "../store/LoginCodeStore";
-import { useInitEnrollment } from "../hooks/api/firstuser/useInitEnrollment";
-import { FormikProvider, useFormik, Form } from "formik";
-import * as yup from "yup";
-import { Button } from "../components/ui/button";
+import { useEffect } from "react";
+import { useLoginCodeStore } from "@/store/LoginCodeStore";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Label } from "../components/ui/label";
-import { Input } from "../components/ui/input";
-import { Alert, AlertDescription } from "../components/ui/alert";
-import { AlertCircle } from "lucide-react";
-import { getTheme } from "@/config/themes";
+} from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
-
-interface StatusCodeError extends Error {
-  statusCode?: number;
-}
+import { LanguageSwitcher } from "@/components/auth/LanguageSwitcher";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { LoginHeader } from "@/components/auth/LoginHeader";
+import { CallsignForm } from "@/components/callsign-setup";
+import { useCallsignSetup } from "@/hooks/auth/useCallsignSetup";
 
 export const Route = createFileRoute("/callsign-setup")({
   component: CallsignSetupPage,
@@ -35,10 +24,14 @@ export const Route = createFileRoute("/callsign-setup")({
 function CallsignSetupPage() {
   const navigate = useNavigate();
   const { code, codeType } = useLoginCodeStore();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const theme = getTheme();
+  const { deployment } = useHealthCheck();
   const { t } = useTranslation();
+
+  const { errorMessage, isLoading, submitCallsign, clearError } =
+    useCallsignSetup({
+      code: code || "",
+      codeType,
+    });
 
   useEffect(() => {
     if (!code || !codeType) {
@@ -46,143 +39,35 @@ function CallsignSetupPage() {
     }
   }, [code, codeType, navigate]);
 
-  const CallsignSchema = yup.object().shape({
-    callsign: yup
-      .string()
-      .required(t("callsignSetup.validation.required"))
-      .min(3, t("callsignSetup.validation.min"))
-      .matches(/^[a-zA-Z0-9]{3,30}$/, t("callsignSetup.validation.pattern"))
-      .max(30, t("callsignSetup.validation.max")),
-  });
-
-  const handleCommonError = (error: StatusCodeError) => {
-    setIsSubmitting(false);
-    if (error.statusCode === 400) {
-      setErrorMessage(t("callsignSetup.errors.alreadyInUse"));
-    } else {
-      setErrorMessage(t("callsignSetup.errors.unexpected"));
-    }
-  };
-
-  const { mutate: loginAsAdmin, isLoading: isLoadingAdmin } = useLoginAsAdmin({
-    onSuccess: (jwt) => {
-      localStorage.setItem("token", jwt);
-      localStorage.setItem("callsign", formik.values.callsign);
-      navigate({ to: "/mtls-install" });
-    },
-    onError: handleCommonError,
-  });
-
-  const { mutate: initEnrollment, isLoading: isLoadingEnrollment } =
-    useInitEnrollment({
-      onSuccess: (data) => {
-        localStorage.setItem("token", data.jwt);
-        localStorage.setItem("approveCode", data.approvecode);
-        localStorage.setItem("callsign", data.callsign);
-        navigate({ to: "/waiting-room" });
-      },
-      onError: handleCommonError,
-    });
-
-  const formik = useFormik({
-    initialValues: { callsign: "" },
-    validationSchema: CallsignSchema,
-    onSubmit: (values) => {
-      setIsSubmitting(true);
-      setErrorMessage("");
-      if (codeType === "admin") {
-        loginAsAdmin({ callsign: values.callsign, code });
-      } else if (codeType === "user") {
-        initEnrollment({ callsign: values.callsign, invite_code: code });
-      }
-    },
-  });
-
-  const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setErrorMessage("");
-      formik.handleChange(event);
-    },
-    [formik],
-  );
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-3">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {theme.assets?.logoUrl && (
-              <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
-            )}
-          </div>
-          <CardTitle className="text-2xl font-bold text-center">
-            {t("callsignSetup.title")}
-          </CardTitle>
-          <CardDescription className="text-center">
-            {codeType === "admin"
-              ? t("callsignSetup.usingAdmin", { code })
-              : t("callsignSetup.usingInvite", { code })}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FormikProvider value={formik}>
-            <Form className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="callsign">
-                  {t("callsignSetup.yourCallsignLabel")}
-                </Label>
-                <Input
-                  id="callsign"
-                  name="callsign"
-                  type="text"
-                  placeholder={t("callsignSetup.callsignPlaceholder")}
-                  className="font-mono"
-                  value={formik.values.callsign}
-                  onChange={handleInputChange}
-                />
-                {formik.errors.callsign && formik.touched.callsign && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.callsign}
-                  </p>
-                )}
-                {errorMessage && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4" />
-                    <AlertDescription>{errorMessage}</AlertDescription>
-                  </Alert>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => navigate({ to: "/login" })}
-                  disabled={
-                    isSubmitting || isLoadingAdmin || isLoadingEnrollment
-                  }
-                >
-                  {t("callsignSetup.buttons.back")}
-                </Button>
-                <Button
-                  type="submit"
-                  className="flex-1"
-                  disabled={
-                    !formik.isValid ||
-                    isSubmitting ||
-                    isLoadingAdmin ||
-                    isLoadingEnrollment
-                  }
-                >
-                  {isSubmitting || isLoadingAdmin || isLoadingEnrollment
-                    ? t("callsignSetup.buttons.settingUp")
-                    : t("callsignSetup.buttons.continue")}
-                </Button>
-              </div>
-            </Form>
-          </FormikProvider>
-        </CardContent>
-      </Card>
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
+      <div className="w-full max-w-md space-y-8">
+        <LoginHeader deployment={deployment} />
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-3">
+            <CardTitle className="text-2xl font-bold text-center">
+              {t("callsignSetup.title")}
+            </CardTitle>
+            <CardDescription className="text-center">
+              {codeType === "admin"
+                ? t("callsignSetup.usingAdmin", { code })
+                : t("callsignSetup.usingInvite", { code })}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CallsignForm
+              onSubmit={submitCallsign}
+              onBack={() => navigate({ to: "/login" })}
+              errorMessage={errorMessage}
+              onErrorClear={clearError}
+              isLoading={isLoading}
+            />
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
