@@ -1,247 +1,113 @@
-"use client"
+"use client";
 
-import { createFileRoute } from "@tanstack/react-router"
-import { useState, useEffect } from "react"
-import { ChevronDown, HelpCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import { HelpCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { useUserType } from "@/hooks/auth/useUserType";
+import { TypeConfirmationModal } from "@/components/ConfirmationModals";
+import { useTranslation } from "react-i18next";
+import { useUserManagement } from "@/hooks/api/useUserManagement";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { cn } from "@/lib/utils"
-import { toast } from "sonner"
-import { useUsers } from "@/hooks/api/useUsers"
-import { usePromoteUser } from "@/hooks/api/usePromoteUser"
-import { useDemoteUser } from "@/hooks/api/useDemoteUser"
-import { useDeleteUser } from "@/hooks/api/useDeleteUser"
-import { useUserType } from "@/hooks/auth/useUserType"
-import { useNavigate } from "@tanstack/react-router"
-import { TypeConfirmationModal } from "@/components/ConfirmationModals"
-import { useTranslation } from "react-i18next"
+  UserList,
+  BulkActionsBar,
+  UserManagementDialog,
+  WalkthroughDialog,
+} from "@/components/manage-users";
 
 export const Route = createFileRoute("/manage-users")({
   component: ManageUsersPage,
-})
-
-interface User {
-  callsign: string
-  roles: string[]
-}
+});
 
 function ManageUsersPage() {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null)
-  const [administratorsOpen, setAdministratorsOpen] = useState(true)
-  const [fightersOpen, setFightersOpen] = useState(false)
-  const [walkthroughOpen, setWalkthroughOpen] = useState(false)
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([])
-  const [bulkMode, setBulkMode] = useState(false)
-  const [bulkAction, setBulkAction] = useState<"promote" | "demote" | "remove" | null>(null)
-  const [bulkConfirmOpen, setBulkConfirmOpen] = useState(false)
-  const [promoteConfirmOpen, setPromoteConfirmOpen] = useState(false)
-  const [demoteConfirmOpen, setDemoteConfirmOpen] = useState(false)
-  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
-  const [userManagementInfoOpen, setUserManagementInfoOpen] = useState(false)
+  const [administratorsOpen, setAdministratorsOpen] = useState(true);
+  const [fightersOpen, setFightersOpen] = useState(false);
+  const [walkthroughOpen, setWalkthroughOpen] = useState(false);
 
-  const { userType, isLoading: userTypeLoading, callsign } = useUserType()
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { userType, isLoading: userTypeLoading, callsign } = useUserType();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const {
+    administrators,
+    fighters,
+    isLoading,
+    selectedUser,
+    setSelectedUser,
+    selectedUsers,
+    bulkMode,
+    bulkAction,
+    hasAdminSelected,
+    promoteConfirmOpen,
+    setPromoteConfirmOpen,
+    demoteConfirmOpen,
+    setDemoteConfirmOpen,
+    deleteConfirmOpen,
+    setDeleteConfirmOpen,
+    bulkConfirmOpen,
+    setBulkConfirmOpen,
+    promoteUserMutation,
+    demoteUserMutation,
+    deleteUserMutation,
+    isAdmin,
+    isCurrentUser,
+    toggleUserSelection,
+    toggleBulkMode,
+    handlePromoteClick,
+    handlePromoteConfirm,
+    handleDemoteClick,
+    handleDemoteConfirm,
+    handleRemoveClick,
+    handleRemoveConfirm,
+    handleBulkPromote,
+    handleBulkDemote,
+    handleBulkRemove,
+    confirmBulkAction,
+  } = useUserManagement({ currentCallsign: callsign });
 
   useEffect(() => {
     if (!userTypeLoading && !callsign) {
-      toast.error(t("manageUsers.messages.noCandidateFound"))
-      navigate({ to: "/login" })
+      toast.error(t("manageUsers.messages.noCandidateFound"));
+      navigate({ to: "/login" });
     }
-  }, [callsign, userTypeLoading, navigate, t])
+  }, [callsign, userTypeLoading, navigate, t]);
 
   useEffect(() => {
-    const walkthroughKey = `manage-users-walkthrough-${callsign}`
-    const hasSeenWalkthrough = localStorage.getItem(walkthroughKey)
+    const walkthroughKey = `manage-users-walkthrough-${callsign}`;
+    const hasSeenWalkthrough = localStorage.getItem(walkthroughKey);
     if (!hasSeenWalkthrough && !userTypeLoading) {
-      setWalkthroughOpen(true)
-      localStorage.setItem(walkthroughKey, "true")
+      setWalkthroughOpen(true);
+      localStorage.setItem(walkthroughKey, "true");
     }
-  }, [userTypeLoading, callsign])
+  }, [userTypeLoading, callsign]);
 
   useEffect(() => {
     if (!userTypeLoading && userType !== "admin") {
-      toast.error(t("manageUsers.forbidden"))
-      navigate({ to: "/" })
+      toast.error(t("manageUsers.forbidden"));
+      navigate({ to: "/" });
     }
-  }, [userType, userTypeLoading, navigate, t])
-
-  const {
-    data: users,
-    isLoading,
-    refetch,
-  } = useUsers({
-    refetchInterval: 10000,
-  })
-
-  const promoteUserMutation = usePromoteUser({
-    onSuccess: () => {
-      toast.success(
-        t("manageUsers.messages.promoted", {
-          callsign: selectedUser?.callsign,
-        }),
-      )
-      setPromoteConfirmOpen(false)
-      setTimeout(() => setSelectedUser(null), 150)
-      refetch()
-    },
-    onError: (error) => {
-      toast.error(t("manageUsers.messages.promoteFailed", { error: error.message }))
-    },
-  })
-
-  const demoteUserMutation = useDemoteUser({
-    onSuccess: () => {
-      toast.success(t("manageUsers.messages.demoted", { callsign: selectedUser?.callsign }))
-      setDemoteConfirmOpen(false)
-      setTimeout(() => setSelectedUser(null), 150)
-      refetch()
-    },
-    onError: (error) => {
-      toast.error(t("manageUsers.messages.demoteFailed", { error: error.message }))
-    },
-  })
-
-  const deleteUserMutation = useDeleteUser({
-    onSuccess: () => {
-      toast.error(t("manageUsers.messages.removed", { callsign: selectedUser?.callsign }))
-      setDeleteConfirmOpen(false)
-      setTimeout(() => setSelectedUser(null), 150)
-      refetch()
-    },
-    onError: (error) => {
-      toast.error(t("manageUsers.messages.removeFailed", { error: error.message }))
-    },
-  })
-
-  const administrators = users?.filter((u) => u.roles && u.roles.includes("admin")) || []
-  const fighters = users?.filter((u) => u.roles && !u.roles.includes("admin")) || []
-
-  const isAdmin = (user: User) => user.roles && user.roles.includes("admin")
-  const isCurrentUser = (user: User) => user.callsign === callsign
-
-  const handlePromoteClick = () => {
-    if (!selectedUser) return
-    setPromoteConfirmOpen(true)
-  }
-
-  const handlePromoteConfirm = () => {
-    if (!selectedUser) return
-    promoteUserMutation.mutate({ callsign: selectedUser.callsign })
-  }
-
-  const handleDemoteClick = () => {
-    if (!selectedUser) return
-    if (selectedUser.callsign === callsign) {
-      toast.error(t("manageUsers.messages.cannotDemoteOwn"))
-      return
-    }
-    setDemoteConfirmOpen(true)
-  }
-
-  const handleDemoteConfirm = () => {
-    if (!selectedUser) return
-    
-    demoteUserMutation.mutate({ callsign: selectedUser.callsign })
-  }
-
-  const handleRemoveClick = () => {
-    if (!selectedUser) return
-
-    if (selectedUser.callsign === callsign) {
-      toast.error(t("manageUsers.messages.cannotDeleteOwn"))
-      return
-    }
-
-    if (isAdmin(selectedUser) && administrators.length <= 1) {
-      toast.error(t("manageUsers.messages.cannotDeleteLastAdmin"))
-      return
-    }
-
-    setDeleteConfirmOpen(true)
-  }
-
-  const handleRemoveConfirm = () => {
-    if (!selectedUser) return
-    deleteUserMutation.mutate(selectedUser.callsign)
-  }
-
-  const toggleUserSelection = (userCallsign: string) => {
-    // Prevent selecting self
-    if (userCallsign === callsign) {
-      toast.error(t("manageUsers.messages.cannotSelectSelf"))
-      return
-    }
-    setSelectedUsers((prev) => (prev.includes(userCallsign) ? prev.filter((c) => c !== userCallsign) : [...prev, userCallsign]))
-  }
-
-  // Check if any selected user is an admin (for disabling promote button)
-  const hasAdminSelected = selectedUsers.some((userCallsign) => 
-    administrators.some((admin) => admin.callsign === userCallsign)
-  )
-
-  const handleBulkPromote = () => {
-    setBulkAction("promote")
-    setBulkConfirmOpen(true)
-  }
-
-  const handleBulkDemote = () => {
-    setBulkAction("demote")
-    setBulkConfirmOpen(true)
-  }
-
-  const handleBulkRemove = () => {
-    setBulkAction("remove")
-    setBulkConfirmOpen(true)
-  }
-
-  const confirmBulkAction = async () => {
-    for (const callsign of selectedUsers) {
-      if (bulkAction === "promote") {
-        await promoteUserMutation.mutateAsync({ callsign })
-      } else if (bulkAction === "demote") {
-        await demoteUserMutation.mutateAsync({ callsign })
-      } else if (bulkAction === "remove") {
-        await deleteUserMutation.mutateAsync(callsign)
-      }
-    }
-    toast.success(t(`manageUsers.messages.bulk${bulkAction}Success`))
-    setSelectedUsers([])
-    setBulkMode(false)
-    setBulkConfirmOpen(false)
-    setBulkAction(null)
-    refetch()
-  }
+  }, [userType, userTypeLoading, navigate, t]);
 
   const handleAdministratorsOpen = (open: boolean) => {
-    setAdministratorsOpen(open)
-    if (open) {
-      setFightersOpen(false)
-    }
-  }
+    setAdministratorsOpen(open);
+    if (open) setFightersOpen(false);
+  };
 
   const handleFightersOpen = (open: boolean) => {
-    setFightersOpen(open)
-    if (open) {
-      setAdministratorsOpen(false)
-    }
-  }
+    setFightersOpen(open);
+    if (open) setAdministratorsOpen(false);
+  };
 
   if (!userTypeLoading && userType !== "admin") {
     return (
       <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
         <h1 className="text-6xl font-bold text-destructive">403</h1>
-        <p className="text-xl text-muted-foreground">{t("manageUsers.forbidden")}</p>
+        <p className="text-xl text-muted-foreground">
+          {t("manageUsers.forbidden")}
+        </p>
       </div>
-    )
+    );
   }
 
   if (isLoading || userTypeLoading) {
@@ -252,8 +118,13 @@ function ManageUsersPage() {
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
       </div>
-    )
+    );
   }
+
+  const isMutating =
+    promoteUserMutation.isLoading ||
+    demoteUserMutation.isLoading ||
+    deleteUserMutation.isLoading;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -261,7 +132,12 @@ function ManageUsersPage() {
         <div className="space-y-2 flex-1">
           <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
         </div>
-        <Button variant="ghost" size="icon" onClick={() => setWalkthroughOpen(true)} className="shrink-0">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setWalkthroughOpen(true)}
+          className="shrink-0"
+        >
           <HelpCircle className="w-5 h-5" />
         </Button>
       </div>
@@ -269,259 +145,65 @@ function ManageUsersPage() {
       <div className="flex gap-3">
         <Button
           variant={bulkMode ? "default" : "outline"}
-          onClick={() => {
-            setBulkMode(!bulkMode)
-            setSelectedUsers([])
-          }}
+          onClick={toggleBulkMode}
           className="rounded-xl"
         >
           {bulkMode ? t("manageUsers.exitBulkMode") : t("manageUsers.bulkMode")}
         </Button>
       </div>
 
-      {bulkMode && selectedUsers.length > 0 && (
-        <div className="flex items-center gap-2 p-4 bg-card border border-border rounded-xl">
-          <span className="text-sm font-medium">{t("manageUsers.selected", { count: selectedUsers.length })}</span>
-          <div className="flex-1"></div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleBulkPromote}
-            className="bg-teal-600 hover:bg-teal-700 text-white disabled:opacity-50"
-            disabled={hasAdminSelected}
-            title={hasAdminSelected ? t("manageUsers.tooltips.cannotPromoteAdmins") : undefined}
-          >
-            {t("manageUsers.promote")}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleBulkDemote}
-            className="bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50"
-            disabled={!hasAdminSelected}
-            title={!hasAdminSelected ? t("manageUsers.tooltips.cannotDemoteNonAdmins") : undefined}
-          >
-            {t("manageUsers.demote")}
-          </Button>
-          <Button variant="destructive" size="sm" onClick={handleBulkRemove}>
-            {t("manageUsers.remove")}
-          </Button>
-        </div>
+      {bulkMode && (
+        <BulkActionsBar
+          selectedCount={selectedUsers.length}
+          hasAdminSelected={hasAdminSelected}
+          onPromote={handleBulkPromote}
+          onDemote={handleBulkDemote}
+          onRemove={handleBulkRemove}
+        />
       )}
 
-      <Collapsible open={administratorsOpen} onOpenChange={handleAdministratorsOpen}>
-        <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-          <span className="font-medium">
-            {t("manageUsers.administrators")} ({administrators.length})
-          </span>
-          <ChevronDown className={cn("w-5 h-5 transition-transform", administratorsOpen && "rotate-180")} />
-        </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 space-y-2">
-          {administrators.length === 0 ? (
-            <div className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center">
-              {t("manageUsers.noAdministrators")}
-            </div>
-          ) : (
-            administrators.map((user) => (
-              <div
-                key={user.callsign}
-                className={cn(
-                  "flex items-center gap-3 p-4 bg-card border-2 rounded-xl hover:bg-accent/50 transition-colors",
-                  bulkMode && selectedUsers.includes(user.callsign) ? "border-primary bg-primary/5" : "border-border",
-                  bulkMode ? "cursor-pointer" : "cursor-pointer",
-                )}
-                onClick={() => {
-                  if (bulkMode) {
-                    toggleUserSelection(user.callsign)
-                  } else {
-                    setSelectedUser(user)
-                  }
-                }}
-              >
-                <span className="text-sm font-medium">{user.callsign}</span>
-                {isCurrentUser(user) && (
-                  <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded ml-auto">
-                    {t("manageUsers.you")}
-                  </span>
-                )}
-              </div>
-            ))
-          )}
-        </CollapsibleContent>
-      </Collapsible>
+      <UserList
+        title={t("manageUsers.administrators")}
+        users={administrators}
+        open={administratorsOpen}
+        onOpenChange={handleAdministratorsOpen}
+        emptyMessage={t("manageUsers.noAdministrators")}
+        bulkMode={bulkMode}
+        selectedUsers={selectedUsers}
+        currentCallsign={callsign}
+        onUserClick={setSelectedUser}
+        onUserSelect={toggleUserSelection}
+      />
 
-      <Collapsible open={fightersOpen} onOpenChange={handleFightersOpen}>
-        <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-          <span className="font-medium">
-            {t("manageUsers.fighters")} ({fighters.length})
-          </span>
-          <ChevronDown className={cn("w-5 h-5 transition-transform", fightersOpen && "rotate-180")} />
-        </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 space-y-2">
-          {fighters.length === 0 ? (
-            <div className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center">
-              {t("manageUsers.noFighters")}
-            </div>
-          ) : (
-            fighters.map((user) => (
-              <div
-                key={user.callsign}
-                className={cn(
-                  "flex items-center gap-3 p-4 bg-card border-2 rounded-xl hover:bg-accent/50 transition-colors",
-                  bulkMode && selectedUsers.includes(user.callsign) ? "border-primary bg-primary/5" : "border-border",
-                  bulkMode ? "cursor-pointer" : "cursor-pointer",
-                )}
-                onClick={() => {
-                  if (bulkMode) {
-                    toggleUserSelection(user.callsign)
-                  } else {
-                    setSelectedUser(user)
-                  }
-                }}
-              >
-                <span className="text-sm font-medium">{user.callsign}</span>
-              </div>
-            ))
-          )}
-        </CollapsibleContent>
-      </Collapsible>
+      <UserList
+        title={t("manageUsers.fighters")}
+        users={fighters}
+        open={fightersOpen}
+        onOpenChange={handleFightersOpen}
+        emptyMessage={t("manageUsers.noFighters")}
+        bulkMode={bulkMode}
+        selectedUsers={selectedUsers}
+        currentCallsign={callsign}
+        onUserClick={setSelectedUser}
+        onUserSelect={toggleUserSelection}
+      />
 
-      <Dialog open={userManagementInfoOpen} onOpenChange={setUserManagementInfoOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("manageUsers.infoModal.title", "User Roles")}</DialogTitle>
-            <DialogDescription>
-              {t("manageUsers.infoModal.description", "Learn about different user roles")}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm text-foreground">{t("common.admin", "Administrator")}</h4>
-              <p className="text-sm text-muted-foreground">
-                {t(
-                  "manageUsers.infoModal.adminDesc",
-                  "Administrators have access to management tools and can manage users.",
-                )}
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm text-foreground">{t("common.user", "User")}</h4>
-              <p className="text-sm text-muted-foreground">
-                {t("manageUsers.infoModal.userDesc", "Users have basic access to services.")}
-              </p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => setUserManagementInfoOpen(false)} className="w-full">
-              {t("common.close", "Close")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <WalkthroughDialog
+        open={walkthroughOpen}
+        onOpenChange={setWalkthroughOpen}
+      />
 
-      <Dialog open={walkthroughOpen} onOpenChange={setWalkthroughOpen}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{t("manageUsers.walkthrough.title")}</DialogTitle>
-            <DialogDescription>{t("manageUsers.walkthrough.description")}</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("manageUsers.walkthrough.promotingTitle")}</h4>
-              <p className="text-sm text-muted-foreground">{t("manageUsers.walkthrough.promotingDesc")}</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("manageUsers.walkthrough.removingTitle")}</h4>
-              <p className="text-sm text-muted-foreground">{t("manageUsers.walkthrough.removingDesc")}</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-sm">{t("manageUsers.walkthrough.notesTitle")}</h4>
-              <p className="text-sm text-muted-foreground">
-                • {t("manageUsers.walkthrough.note1")}
-                <br />• {t("manageUsers.walkthrough.note2")}
-              </p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => setWalkthroughOpen(false)} className="w-full">
-              {t("manageUsers.walkthrough.gotIt")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("manageUsers.userDialog.title")}</DialogTitle>
-            <DialogDescription>
-              {t("common.managing")} <span className="font-semibold text-foreground">{selectedUser?.callsign}</span>
-            </DialogDescription>
-          </DialogHeader>
-          <div className="py-4">
-            <p className="text-sm text-muted-foreground">
-              {t("manageUsers.userDialog.currentRole")}{" "}
-              <span className="font-medium text-foreground capitalize">
-                {selectedUser && isAdmin(selectedUser) ? t("common.admin") : t("common.user")}
-              </span>
-            </p>
-          </div>
-          <DialogFooter className="flex-row gap-2 sm:justify-between">
-            <Button
-              variant="ghost"
-              onClick={() => setSelectedUser(null)}
-              className="flex-1"
-              disabled={promoteUserMutation.isLoading || demoteUserMutation.isLoading || deleteUserMutation.isLoading}
-            >
-              {t("manageUsers.userDialog.goBack")}
-            </Button>
-
-            <Button
-              variant="destructive"
-              onClick={handleRemoveClick}
-              className="flex-1"
-              disabled={
-                promoteUserMutation.isLoading ||
-                demoteUserMutation.isLoading ||
-                deleteUserMutation.isLoading ||
-                !!(selectedUser && isCurrentUser(selectedUser)) ||
-                !!(selectedUser && isAdmin(selectedUser) && administrators.length <= 1)
-              }
-              title={selectedUser && isCurrentUser(selectedUser) ? t("manageUsers.tooltips.cannotRemove") : undefined}
-            >
-              {deleteUserMutation.isLoading ? t("manageUsers.userDialog.removing") : t("manageUsers.userDialog.remove")}
-            </Button>
-
-            {selectedUser && !isAdmin(selectedUser) ? (
-              <Button
-                onClick={handlePromoteClick}
-                className="flex-1 bg-teal-600 hover:bg-teal-700"
-                disabled={promoteUserMutation.isLoading || demoteUserMutation.isLoading || deleteUserMutation.isLoading}
-              >
-                {promoteUserMutation.isLoading
-                  ? t("manageUsers.userDialog.promoting")
-                  : t("manageUsers.userDialog.promote")}
-              </Button>
-            ) : selectedUser && isAdmin(selectedUser) ? (
-              <Button
-                onClick={handleDemoteClick}
-                className="flex-1 bg-orange-600 hover:bg-orange-700"
-                disabled={
-                  promoteUserMutation.isLoading ||
-                  demoteUserMutation.isLoading ||
-                  deleteUserMutation.isLoading ||
-                  (selectedUser ? isCurrentUser(selectedUser) : false)
-                }
-                title={selectedUser && isCurrentUser(selectedUser) ? t("manageUsers.tooltips.cannotDemote") : undefined}
-              >
-                {demoteUserMutation.isLoading
-                  ? t("manageUsers.userDialog.demoting")
-                  : t("manageUsers.userDialog.demote")}
-              </Button>
-            ) : null}
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <UserManagementDialog
+        user={selectedUser}
+        onOpenChange={() => setSelectedUser(null)}
+        isAdmin={selectedUser ? isAdmin(selectedUser) : false}
+        isCurrentUser={selectedUser ? isCurrentUser(selectedUser) : false}
+        administratorsCount={administrators.length}
+        isLoading={isMutating}
+        onPromote={handlePromoteClick}
+        onDemote={handleDemoteClick}
+        onRemove={handleRemoveClick}
+      />
 
       <TypeConfirmationModal
         open={promoteConfirmOpen}
@@ -565,5 +247,5 @@ function ManageUsersPage() {
         isLoading={false}
       />
     </div>
-  )
+  );
 }

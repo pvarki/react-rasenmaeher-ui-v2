@@ -1,67 +1,22 @@
 "use client";
 
-import type React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, lazy, Suspense } from "react";
-import { X, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
-import {
-  loadRemote,
-  registerRemotes,
-} from "@module-federation/enhanced/runtime";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { useGetProductInstructions } from "@/hooks/api/useGetProductInstructions";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
-import i18n from "@/config/i18n";
+import {
+  ProductLoading,
+  ProductError,
+} from "@/components/product/ProductLoadingStates";
+import { ProductHeader } from "@/components/product/ProductHeader";
+import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
+import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
 
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
 });
-
-interface RemoteComponentProps {
-  data?: unknown;
-  shortname?: string;
-  onNavigate?: (options: { to: string }) => void;
-  [key: string]: unknown;
-}
-
-const loadRemoteComponent = async (
-  shortname: string,
-): Promise<{ default: React.ComponentType<RemoteComponentProps> }> => {
-  const remoteName = `${shortname}-integration`;
-  registerRemotes([
-    {
-      name: remoteName,
-      type: "module",
-      entry: `/ui/${shortname}/remoteEntry.js`,
-    },
-  ]);
-  try {
-    const module = await loadRemote(`${remoteName}/remote-ui`);
-    return module as { default: React.ComponentType };
-  } catch {
-    return {
-      default: (props: RemoteComponentProps) => (
-        <div
-          style={{
-            border: "1px solid #ccc",
-            padding: "1rem",
-            borderRadius: "8px",
-            marginTop: "1rem",
-            background: "#f8d7da",
-            color: "#842029",
-          }}
-        >
-          {i18n.t("product.remoteUnavailable", { shortname: props.shortname || "unknown" })}
-        </div>
-      ),
-    };
-  }
-};
 
 function ProductPage() {
   const { t } = useTranslation();
@@ -81,18 +36,15 @@ function ProductPage() {
   const product = products.find((p) => p.shortname === shortname);
 
   useEffect(() => {
-    // If products are still loading, don't do anything yet
     if (productsLoading) {
       return;
     }
 
-    // If products have loaded but the product doesn't exist, navigate away
     if (!productsLoading && !product) {
       navigate({ to: "/" });
       return;
     }
 
-    // Fetch markdown content if the product uses markdown
     if (product?.component?.type === "markdown" && product.component.ref) {
       setMarkdownLoading(true);
       fetch(product.component.ref)
@@ -112,171 +64,47 @@ function ProductPage() {
     window.close();
   };
 
-  // Show loading while products are being fetched
   if (productsLoading) {
-    return (
-      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">
-            {t("product.loadingProducts")}
-          </p>
-        </div>
-      </div>
-    );
+    return <ProductLoading message={t("product.loadingProducts")} />;
   }
 
-  // Show error state if products failed to load
   if (productsError) {
-    return (
-      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <p className="text-sm text-destructive">
-            {t("product.failedToLoad")}
-          </p>
-          <Button onClick={() => navigate({ to: "/" })}>
-            {t("product.goHome")}
-          </Button>
-        </div>
-      </div>
-    );
+    return <ProductError onGoHome={() => navigate({ to: "/" })} />;
   }
 
-  // If products loaded but this specific product doesn't exist, this will be handled by useEffect
   if (!product) {
-    return (
-      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">
-            {t("product.notFoundRedirect")}
-          </p>
-        </div>
-      </div>
-    );
+    return <ProductLoading message={t("product.notFoundRedirect")} />;
   }
 
   const Remote = lazy(() => loadRemoteComponent(shortname));
 
   return (
     <div className="fixed inset-0 z-50 bg-background flex flex-col">
-      <div className="border-b border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <h1 className="text-base md:text-lg font-semibold truncate">
-          {product.title}
-        </h1>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleClose}
-          className="shrink-0"
-        >
-          <X className="w-5 h-5" />
-        </Button>
-      </div>
+      <ProductHeader title={product.title} onClose={handleClose} />
 
       <div className="flex-1 overflow-auto p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           {product.component.type === "component" ? (
-            <div>
-              <Suspense
-                fallback={
-                  <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
-                    {t("product.loadingRemote")}
-                  </div>
-                }
-              >
-                <Remote
-                  data={instructionsData?.data || {}}
-                  shortname={shortname}
-                  onNavigate={navigate}
-                />
-              </Suspense>
-            </div>
-          ) : product.component.type === "markdown" ? (
-            <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-primary prose-pre:bg-card prose-pre:border prose-blockquote:border-l-primary">
-              {markdownLoading ? (
-                <div className="flex flex-col items-center justify-center py-12 space-y-4">
-                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                  <p className="text-sm text-muted-foreground">
-                    {t("product.loadingMarkdown")}
-                  </p>
+            <Suspense
+              fallback={
+                <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
+                  {t("product.loadingRemote")}
                 </div>
-              ) : markdownContent ? (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeHighlight]}
-                  components={{
-                    h1: ({ children }) => (
-                      <h1 className="text-3xl font-bold mb-6 text-foreground">
-                        {children}
-                      </h1>
-                    ),
-                    h2: ({ children }) => (
-                      <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                        {children}
-                      </h2>
-                    ),
-                    h3: ({ children }) => (
-                      <h3 className="text-xl font-medium mb-3 text-foreground">
-                        {children}
-                      </h3>
-                    ),
-                    p: ({ children }) => (
-                      <p className="mb-4 text-muted-foreground leading-relaxed">
-                        {children}
-                      </p>
-                    ),
-                    code: ({ children, className }) => {
-                      const isInline = !className?.includes("language-");
-                      return isInline ? (
-                        <code className="bg-muted px-1.5 py-0.5 rounded text-sm text-primary font-mono">
-                          {children}
-                        </code>
-                      ) : (
-                        <code
-                          className={`block bg-card p-4 rounded-lg border text-sm font-mono overflow-x-auto ${className || ""}`}
-                        >
-                          {children}
-                        </code>
-                      );
-                    },
-                    pre: ({ children }) => (
-                      <pre className="bg-card p-4 rounded-lg border overflow-x-auto mb-4">
-                        {children}
-                      </pre>
-                    ),
-                    blockquote: ({ children }) => (
-                      <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground">
-                        {children}
-                      </blockquote>
-                    ),
-                    a: ({ children, href }) => (
-                      <a href={href} className="text-primary hover:underline">
-                        {children}
-                      </a>
-                    ),
-                    ul: ({ children }) => (
-                      <ul className="list-disc pl-6 mb-4 text-muted-foreground">
-                        {children}
-                      </ul>
-                    ),
-                    ol: ({ children }) => (
-                      <ol className="list-decimal pl-6 mb-4 text-muted-foreground">
-                        {children}
-                      </ol>
-                    ),
-                    li: ({ children }) => <li className="mb-2">{children}</li>,
-                  }}
-                >
-                  {markdownContent}
-                </ReactMarkdown>
-              ) : (
-                <>
-                  <h1>{product.title}</h1>
-                  <p>{product.description}</p>
-                </>
-              )}
-            </div>
+              }
+            >
+              <Remote
+                data={instructionsData?.data || {}}
+                shortname={shortname}
+                onNavigate={navigate}
+              />
+            </Suspense>
+          ) : product.component.type === "markdown" ? (
+            <MarkdownRenderer
+              content={markdownContent}
+              isLoading={markdownLoading}
+              fallbackTitle={product.title}
+              fallbackDescription={product.description}
+            />
           ) : null}
         </div>
       </div>
