@@ -31,6 +31,7 @@ function RootLayout() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mtlsModalOpen, setMtlsModalOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
@@ -146,6 +147,7 @@ function RootLayout() {
       </div>
 
       <MtlsInfoModal open={mtlsModalOpen} onOpenChange={setMtlsModalOpen} />
+      <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
       <OnboardingGuide />
     </div>
   );
