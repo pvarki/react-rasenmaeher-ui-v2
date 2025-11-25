@@ -80,9 +80,6 @@ const PLATFORM_INSTRUCTIONS: Record<
       "mtlsInstall.platforms.Linux.steps.2",
       "mtlsInstall.platforms.Linux.steps.3",
       "mtlsInstall.platforms.Linux.steps.4",
-      "mtlsInstall.platforms.Linux.steps.5",
-      "mtlsInstall.platforms.Linux.steps.6",
-      "mtlsInstall.platforms.Linux.steps.7",
     ],
     notes: [
       "mtlsInstall.platforms.Linux.notes.1",
@@ -170,7 +167,6 @@ function MtlsInstallPage() {
 
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
-      console.log("Certificate downloaded successfully");
       toast.success(t("mtlsInstall.certificateDownloaded"));
     },
     onError: (err) => {

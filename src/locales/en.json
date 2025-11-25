@@ -313,7 +313,10 @@
       "docs": "DOCS",
       "launch": "LAUNCH",
       "open": "OPEN"
-    }
+    },
+    "greetingMorning": "Good morning, {{name}}",
+    "greetingAfternoon": "Good afternoon, {{name}}",
+    "greetingEvening": "Good evening, {{name}}"
   },
   "inviteCode": {
     "title": "Invite Code {{code}}",
@@ -365,7 +368,7 @@
   },
   "manageUsers": {
     "title": "Manage Users",
-    "description": "Manage users in this view. Admins are users that are able to access these user management tools. Fighters are basic users, who have access to your services.",
+    "description": "Manage users in this view.",
     "adminHighlight": "Admins",
     "fighterHighlight": "Fighters",
     "noCallsignFound": "No callsign found. Please log in.",
@@ -416,7 +419,7 @@
       },
       "remove": {
         "title": "Remove User",
-        "description": "This action cannot be undone. Enter the username \"{{callsign}}\" to confirm removal.",
+        "description": "This action cannot be undone. Are you sure you want to remove {{callsign}}?",
         "requiredText": "{{callsign}}"
       }
     },
@@ -430,8 +433,21 @@
       "removeFailed": "Failed to remove user: {{error}}",
       "cannotDemoteOwn": "You cannot demote your own account",
       "cannotDeleteOwn": "You cannot delete your own account",
-      "cannotDeleteLastAdmin": "Cannot delete the last admin. At least one admin must exist."
-    }
+      "cannotDeleteLastAdmin": "Cannot delete the last admin. At least one admin must exist.",
+      "cannotSelectSelf": "You cannot select your own account for bulk actions."
+    },
+    "bulkMode": "Select Multiple",
+    "exitBulkMode": "Exit Bulk Mode",
+    "bulkConfirm": {
+      "title": "Confirm Bulk Action",
+      "promoteDescription": "You are about to promote {{count}} user(s) to admin. Continue?",
+      "demoteDescription": "You are about to demote {{count}} user(s) from admin. Continue?",
+      "removeDescription": "You are about to remove {{count}} user(s). This cannot be undone. Continue?"
+    },
+    "selected": "{{count}} selected",
+    "promote": "Promote",
+    "demote": "Demote",
+    "remove": "Remove"
   },
   "mtlsInstall": {
     "title": "Download & Install Your Key",
@@ -488,12 +504,9 @@
       "Linux": {
         "steps": {
           "1": "Download your certificate using the button below",
-          "2": "Convert the .pfx to PEM format: openssl pkcs12 -in [certificate].pfx -out [certificate].pem -nodes",
-          "3": "When prompted, enter your callsign as the password",
-          "4": "Place the certificate in your browser's certificate directory or system store",
-          "5": "For Firefox: Settings → Privacy → Certificates → View Certificates → Import",
-          "6": "For Chrome: Settings → Privacy and security → Security → Manage certificates → Import",
-          "7": "Use the 'Navigate with your key' button to access services"
+          "2": "For Firefox: Settings → Privacy → Certificates → View Certificates → Import",
+          "3": "For Chrome: Settings → Privacy and security → Security → Manage certificates → Import",
+          "4": "Use the 'Navigate with your key' button to access services"
         },
         "notes": {
           "1": "The exact process depends on your Linux distribution and browser",
@@ -539,7 +552,8 @@
     "loadingProduct": "Loading {{title}}",
     "progress": "{{progress}}%",
     "loadingRemote": "Loading remote...",
-    "remoteUnavailable": "Remote app unavailable for {{shortname}}. Please try again later."
+    "remoteUnavailable": "Remote app unavailable for \"{{shortname}}\". Please try again later.",
+    "loadingMarkdown": "Loading markdown..."
   },
   "waitingRoom": {
     "titleShort": "Awaiting Approval",
@@ -554,41 +568,30 @@
     "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
     "approvedToast": "You have been approved!"
   },
-  "feedbackForm": {
-    "title": "Send feedback",
-    "description": "Let us know what you think. Your feedback helps improve the app.",
-    "roleLabel": "Your role",
-    "rolePlaceholder": "Select role...",
-    "roles": {
-      "end_user": "End user",
-      "developer": "Developer",
-      "admin": "Administrator",
-      "maintainer": "Maintainer",
-      "other": "Other"
-    },
-    "versionLabel": "The Deploy App version you are using",
-    "osLabel": "Operating system",
-    "osPlaceholder": "Select OS...",
-    "os": {
-      "linux": "Linux",
-      "windows": "Windows",
-      "macos": "macOS",
-      "android": "Android",
-      "iphone": "iPhone",
-      "other": "Other"
-    },
-    "ratingLabel": "How was your experience?",
-    "ratingPlaceholder": "Choose...",
-    "ratings": {
-      "excellent": "Excellent",
-      "good": "Good",
-      "veryBad": "Very Bad",
-      "bad": "Bad"
-    },
-    "commentsLabel": "Comments",
-    "commentsPlaceholder": "Share details, suggestions or issues...",
-    "send": "Send feedback",
-    "sending": "Sending...",
-    "thanks": "Thanks for the feedback!"
+  "adminTools": {
+    "navLink": "Admin Tools",
+    "title": "Admin Console",
+    "toolsDesc": "Administrator Tools",
+    "description": "Manage your team, users, and external services from a central location.",
+    "userManagementSection": "User Management",
+    "userManagementDesc": "Approve new users, manage team roles, and control access to your services.",
+    "externalServicesSection": "External Services",
+    "externalServicesDesc": "Access and manage your tactical and battle-log servers.",
+    "approveUsersDesc": "Review and approve new user registrations",
+    "manageUsersDesc": "Manage user roles and permissions",
+    "addUsersDesc": "Create and manage invite codes for new users",
+    "keycloakTitle": "Keycloak Management",
+    "keycloakDesc": "Manage authentication and user identities",
+    "takServerTitle": "TAK Server",
+    "takServerDesc": "Manage TAK service configuration",
+    "blServerTitle": "Battle Log Server",
+    "blServerDesc": "Manage Battle Log and integration services",
+    "openExternal": "Open External",
+    "access": "Access",
+    "helpTitle": "Quick Help",
+    "help1": "User Management - Approve, promote, demote, or remove users",
+    "help2": "Invite Codes - Generate and manage user invite codes",
+    "help3": "Keycloak - Configure authentication and identity management",
+    "help4": "External Services - Access TAK and Business Logic servers"
   }
 }
