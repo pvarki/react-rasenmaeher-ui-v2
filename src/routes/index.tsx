@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-import type React from "react";
+import type React from "react"
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -14,41 +14,81 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { BookOpen, ExternalLink, Zap } from "lucide-react";
-import { useUserType } from "@/hooks/auth/useUserType";
-import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
-import { MtlsInfoModal } from "@/components/MtlsInfoModal";
-import { useTranslation } from "react-i18next";
+} from "@/components/ui/dialog"
+import { BookOpen, ExternalLink, Zap, Settings } from "lucide-react"
+import { useUserType } from "@/hooks/auth/useUserType"
+import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions"
+import { MtlsInfoModal } from "@/components/MtlsInfoModal"
+import { useTranslation } from "react-i18next"
+import { useLanguage } from "@/hooks/useLanguage"
 
 export const Route = createFileRoute("/")({
   component: HomePage,
-});
+})
 
 interface Product {
-  shortname: string;
-  title: string;
-  icon: string | null;
-  description: string;
-  language: string;
-  docs: string | null;
+  shortname: string
+  title: string
+  icon: string | null
+  description: string
+  language: string
+  docs: string | null
   component: {
-    type: "component" | "markdown" | "link";
-    ref: string;
-  };
+    type: "component" | "markdown" | "link"
+    ref: string
+  }
+}
+
+function getProductIcon(shortname: string) {
+  const iconMap: Record<string, React.ReactNode> = {
+    tak: <Zap className="w-6 h-6" />,
+    taktak: <Zap className="w-6 h-6" />,
+    default: <Zap className="w-6 h-6" />,
+  }
+  return iconMap[shortname.toLowerCase()] || iconMap.default
+}
+
+function getCleanProductTitle(title: string): string {
+  const cleanedTitle = title
+    .replace(/^TAKTAK:\s*/, "")
+    .replace(/^TAKTAK:\s?/, "")
+    .replace(/^TAK:\s*/, "")
+    .replace(/^TAK:\s?/, "")
+  return cleanedTitle
+}
+
+function getProductShortLabel(title: string): string {
+  const match = title.match(/^([A-Z]+):\s/)
+  if (match) {
+    const label = match[1]
+    return label.substring(0, 3)
+  }
+  return "APP"
 }
 
 function HomePage() {
-  const navigate = useNavigate();
-  const [exitDialogOpen, setExitDialogOpen] = useState(false);
-  const [exitUrl, setExitUrl] = useState("");
-  const [mtlsInfoOpen, setMtlsInfoOpen] = useState(false);
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const [exitDialogOpen, setExitDialogOpen] = useState(false)
+  const [exitUrl, setExitUrl] = useState("")
+  const [mtlsInfoOpen, setMtlsInfoOpen] = useState(false)
+  const { t } = useTranslation()
+  const { currentLanguage } = useLanguage()
+  const { userType } = useUserType()
 
-  const { isValidUser, callsign, isLoading: userTypeLoading } = useUserType();
+  const { isValidUser, callsign, isLoading: userTypeLoading } = useUserType()
 
-  const { data: products = [], isLoading: productsLoading } =
-    useGetProductDescriptions("en");
+  const { data: products = [], isLoading: productsLoading } = useGetProductDescriptions(currentLanguage)
+
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) {
+      return t("home.greetingMorning", { name: callsign || "User" })
+    } else if (hour < 18) {
+      return t("home.greetingAfternoon", { name: callsign || "User" })
+    } else {
+      return t("home.greetingEvening", { name: callsign || "User" })
+    }
+  }
 
   if (userTypeLoading || productsLoading) {
     return (
@@ -58,48 +98,46 @@ function HomePage() {
           <p className="text-muted-foreground">{t("home.loadingServices")}</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (!userTypeLoading && !callsign) {
-    navigate({ to: "/login" });
+    navigate({ to: "/login" })
   }
 
   const handleProductClick = (product: Product) => {
-    if (!isValidUser) return;
+    if (!isValidUser) return
 
     if (product.component.type === "link") {
-      setExitUrl("#");
-      setExitDialogOpen(true);
+      setExitUrl("#")
+      setExitDialogOpen(true)
     } else {
-      window.open(`/product/${product.shortname}`);
+      window.open(`/product/${product.shortname}`)
     }
-  };
+  }
 
   const handleDocsClick = (docsUrl: string | null, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!isValidUser || !docsUrl) return;
+    e.stopPropagation()
+    if (!isValidUser || !docsUrl) return
 
-    setExitUrl(docsUrl);
-    setExitDialogOpen(true);
-  };
+    setExitUrl(docsUrl)
+    setExitDialogOpen(true)
+  }
 
   const handleConfirmExit = () => {
-    window.open(exitUrl, "_blank");
-    setExitDialogOpen(false);
-    setExitUrl("");
-  };
+    window.open(exitUrl, "_blank")
+    setExitDialogOpen(false)
+    setExitUrl("")
+  }
 
   return (
     <>
-      <div className="mb-12 space-y-3 flex items-start justify-between">
-        <div className="space-y-3">
-          <h2 className="text-3xl font-bold tracking-tight">
-            {t("home.welcome")}
+      <div className="mb-12 space-y-6">
+        <div className="space-y-2 md:space-y-3">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
+            <span className="">{getGreeting()} 👋</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl">
-            {t("home.description")}
-          </p>
+          <p className="text-base md:text-lg text-muted-foreground max-w-4xl">{t("home.description")}</p>
           {!isValidUser && (
             <p className="text-sm text-destructive font-medium flex items-center gap-2">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -113,9 +151,23 @@ function HomePage() {
             </p>
           )}
         </div>
+
+        {userType === "admin" && (
+          <div className="pt-4 border-t border-border">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={() => navigate({ to: "/admin-tools" })}
+                className="w-full sm:w-auto h-12 px-6 flex items-center justify-center gap-2 text-base font-semibold"
+              >
+                <Settings className="w-5 h-5" />
+                {t("adminTools.navLink")}
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product: Product) => (
           <div
             key={product.shortname}
@@ -127,75 +179,60 @@ function HomePage() {
                 : "opacity-60 cursor-not-allowed bg-card",
             )}
           >
-            {product.icon && (
-              <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-linear-to-br">
-                <img
-                  src={product.icon}
-                  alt={product.title}
-                  className={cn(
-                    "w-full h-full object-cover transition-all duration-500",
-                    "group-hover:scale-105",
-                  )}
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
-              </div>
-            )}
-
             <div className="flex flex-col flex-1 p-6">
               <div className="mb-4">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">
-                  {product.shortname.toUpperCase()}
+                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+                  {getProductShortLabel(product.title)}
                 </p>
-                <h3 className="text-xl font-bold text-foreground">
-                  {product.title}
+                <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight">
+                  {getCleanProductTitle(product.title)}
                 </h3>
               </div>
 
-              <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">
-                {product.description}
-              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{product.description}</p>
 
-              <div className="flex gap-2 pt-4 border-t border-border">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                 {product.docs && (
                   <Button
                     variant="ghost"
                     size="sm"
                     className={cn(
-                      "flex-1 rounded-lg hover:bg-accent/50 h-11 md:h-12 text-sm md:text-base font-medium",
+                      "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-full sm:flex-1",
                       !isValidUser && "opacity-50 cursor-not-allowed",
                     )}
                     onClick={(e) => {
-                      e.stopPropagation();
-                      handleDocsClick(product.docs, e);
+                      e.stopPropagation()
+                      handleDocsClick(product.docs, e)
                     }}
                     disabled={!isValidUser}
                   >
-                    <BookOpen className="w-4 h-4 mr-2" />
+                    <BookOpen className="w-5 h-5 mr-2" />
                     {t("home.productCard.docs")}
                   </Button>
                 )}
                 <Button
                   size="sm"
                   className={cn(
-                    "flex-1 rounded-lg font-medium transition-all h-11 md:h-12 text-sm md:text-base",
+                    "flex items-center justify-center rounded-lg font-semibold transition-all h-12 text-sm md:text-base w-full sm:flex-1",
                     isValidUser
                       ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                       : "bg-muted text-muted-foreground cursor-not-allowed",
                   )}
                   disabled={!isValidUser}
                 >
-                  {product.component.type === "component" ? (
-                    <>
-                      <Zap className="w-4 h-4 mr-2" />
-                      {t("home.productCard.launch")}
-                    </>
-                  ) : (
-                    <>
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      {t("home.productCard.open")}
-                    </>
-                  )}
+                  <span className="inline-flex items-center gap-2">
+                    {(product.component.type === "component" || product.component.type === "markdown") ? (
+                      <>
+                        <span className="flex-shrink-0">{getProductIcon(product.shortname)}</span>
+                        <span>{t("home.productCard.launch")}</span>
+                      </>
+                    ) : (
+                      <>
+                        <ExternalLink className="w-5 h-5 flex-shrink-0" />
+                        <span>{t("home.productCard.open")}</span>
+                      </>
+                    )}
+                  </span>
                 </Button>
               </div>
             </div>
@@ -207,21 +244,13 @@ function HomePage() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>{t("home.dialog.leaveTitle")}</DialogTitle>
-            <DialogDescription className="pt-2">
-              {t("home.dialog.leaveDescription")}
-            </DialogDescription>
+            <DialogDescription className="pt-2">{t("home.dialog.leaveDescription")}</DialogDescription>
           </DialogHeader>
           <div className="py-2">
-            <p className="text-muted-foreground break-all font-mono text-xs">
-              {exitUrl}
-            </p>
+            <p className="text-muted-foreground break-all font-mono text-xs">{exitUrl}</p>
           </div>
           <DialogFooter className="flex gap-2 sm:gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setExitDialogOpen(false)}
-              className="flex-1"
-            >
+            <Button variant="outline" onClick={() => setExitDialogOpen(false)} className="flex-1">
               {t("home.dialog.cancel")}
             </Button>
             <Button onClick={handleConfirmExit} className="flex-1">
@@ -233,5 +262,5 @@ function HomePage() {
 
       <MtlsInfoModal open={mtlsInfoOpen} onOpenChange={setMtlsInfoOpen} />
     </>
-  );
+  )
 }

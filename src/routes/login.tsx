@@ -141,7 +141,7 @@ function LoginPage() {
           <div className="flex items-center justify-center gap-2 mb-2">
             {theme.assets?.logoUrl && (
               <img
-                src={theme.assets.logoUrl || "/placeholder.svg"}
+                src={theme.assets.logoUrl}
                 alt="Logo"
                 className="h-8 w-8"
               />

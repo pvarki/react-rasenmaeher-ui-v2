@@ -17,10 +17,11 @@ import { Route as ErrorRouteImport } from './routes/error'
 import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
 import { Route as ApproveUsersRouteImport } from './routes/approve-users'
 import { Route as ApproveUserRouteImport } from './routes/approve-user'
+import { Route as AdminToolsRouteImport } from './routes/admin-tools'
 import { Route as AddUsersRouteImport } from './routes/add-users'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductShortnameRouteImport } from './routes/product.$shortname'
 import { Route as InviteCodeCodeRouteImport } from './routes/invite-code.$code'
+import { Route as ProductShortnameSplatRouteImport } from './routes/product.$shortname.$'
 
 const WaitingRoomRoute = WaitingRoomRouteImport.update({
   id: '/waiting-room',
@@ -62,6 +63,11 @@ const ApproveUserRoute = ApproveUserRouteImport.update({
   path: '/approve-user',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminToolsRoute = AdminToolsRouteImport.update({
+  id: '/admin-tools',
+  path: '/admin-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AddUsersRoute = AddUsersRouteImport.update({
   id: '/add-users',
   path: '/add-users',
@@ -72,20 +78,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductShortnameRoute = ProductShortnameRouteImport.update({
-  id: '/product/$shortname',
-  path: '/product/$shortname',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const InviteCodeCodeRoute = InviteCodeCodeRouteImport.update({
   id: '/invite-code/$code',
   path: '/invite-code/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductShortnameSplatRoute = ProductShortnameSplatRouteImport.update({
+  id: '/product/$shortname/$',
+  path: '/product/$shortname/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
+  '/admin-tools': typeof AdminToolsRoute
   '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
@@ -95,11 +102,12 @@ export interface FileRoutesByFullPath {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
+  '/admin-tools': typeof AdminToolsRoute
   '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
@@ -109,12 +117,13 @@ export interface FileRoutesByTo {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-users': typeof AddUsersRoute
+  '/admin-tools': typeof AdminToolsRoute
   '/approve-user': typeof ApproveUserRoute
   '/approve-users': typeof ApproveUsersRoute
   '/callsign-setup': typeof CallsignSetupRoute
@@ -124,13 +133,14 @@ export interface FileRoutesById {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
-  '/product/$shortname': typeof ProductShortnameRoute
+  '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/add-users'
+    | '/admin-tools'
     | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
@@ -140,11 +150,12 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
-    | '/product/$shortname'
+    | '/product/$shortname/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/add-users'
+    | '/admin-tools'
     | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
@@ -154,11 +165,12 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
-    | '/product/$shortname'
+    | '/product/$shortname/$'
   id:
     | '__root__'
     | '/'
     | '/add-users'
+    | '/admin-tools'
     | '/approve-user'
     | '/approve-users'
     | '/callsign-setup'
@@ -168,12 +180,13 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
-    | '/product/$shortname'
+    | '/product/$shortname/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddUsersRoute: typeof AddUsersRoute
+  AdminToolsRoute: typeof AdminToolsRoute
   ApproveUserRoute: typeof ApproveUserRoute
   ApproveUsersRoute: typeof ApproveUsersRoute
   CallsignSetupRoute: typeof CallsignSetupRoute
@@ -183,7 +196,7 @@ export interface RootRouteChildren {
   MtlsInstallRoute: typeof MtlsInstallRoute
   WaitingRoomRoute: typeof WaitingRoomRoute
   InviteCodeCodeRoute: typeof InviteCodeCodeRoute
-  ProductShortnameRoute: typeof ProductShortnameRoute
+  ProductShortnameSplatRoute: typeof ProductShortnameSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApproveUserRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-tools': {
+      id: '/admin-tools'
+      path: '/admin-tools'
+      fullPath: '/admin-tools'
+      preLoaderRoute: typeof AdminToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/add-users': {
       id: '/add-users'
       path: '/add-users'
@@ -258,18 +278,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/product/$shortname': {
-      id: '/product/$shortname'
-      path: '/product/$shortname'
-      fullPath: '/product/$shortname'
-      preLoaderRoute: typeof ProductShortnameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/invite-code/$code': {
       id: '/invite-code/$code'
       path: '/invite-code/$code'
       fullPath: '/invite-code/$code'
       preLoaderRoute: typeof InviteCodeCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/$shortname/$': {
+      id: '/product/$shortname/$'
+      path: '/product/$shortname/$'
+      fullPath: '/product/$shortname/$'
+      preLoaderRoute: typeof ProductShortnameSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -278,6 +298,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddUsersRoute: AddUsersRoute,
+  AdminToolsRoute: AdminToolsRoute,
   ApproveUserRoute: ApproveUserRoute,
   ApproveUsersRoute: ApproveUsersRoute,
   CallsignSetupRoute: CallsignSetupRoute,
@@ -287,7 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   MtlsInstallRoute: MtlsInstallRoute,
   WaitingRoomRoute: WaitingRoomRoute,
   InviteCodeCodeRoute: InviteCodeCodeRoute,
-  ProductShortnameRoute: ProductShortnameRoute,
+  ProductShortnameSplatRoute: ProductShortnameSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

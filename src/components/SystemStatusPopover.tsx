@@ -42,8 +42,7 @@ export function SystemStatusPopover({
   const filteredProducts = healthData
     ? Object.entries(healthData.products).filter(([product]) => {
         return (
-          !product.toLowerCase().includes("fake") &&
-          !product.toLowerCase().includes("bl")
+          product.toLowerCase()
         );
       })
     : [];

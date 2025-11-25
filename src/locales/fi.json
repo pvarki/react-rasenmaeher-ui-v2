@@ -6,25 +6,25 @@
     "administrators": "Ylläpitäjät",
     "userManagement": "Käyttäjähallinta",
     "approveUsers": "Hyväksy käyttäjiä",
-    "manageUsers": "Hallitse käyttäjiä",
+    "manageUsers": "Hallinnoi käyttäjiä",
     "addUsers": "Lisää käyttäjiä",
     "admin": "Ylläpitäjä",
     "user": "Käyttäjä",
     "deployApp": "Deploy App",
     "takServer": "TAK-palvelin",
     "feedback": "Palaute",
-    "learnAboutMtls": "Lue lisää mTLS:stä",
-    "proudlyServedBy": "Palvelun tarjoaa PV-Arki.",
-    "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä. Tekijä: TAK Product Center.",
+    "learnAboutMtls": "Lisätietoja mTLS:stä",
+    "proudlyServedBy": "Palvelun tarjoaa ylpeänä PV-Arki.",
+    "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä TAK Product Centerin toimesta.",
     "viewSource": "Näytä lähdekoodi",
     "letDevelopersKnow": "Kerro kehittäjille",
-    "whatYouThink": "mitä mieltä olet",
+    "whatYouThink": "mitä ajattelet",
     "allRightsReserved": "Kaikki oikeudet pidätetään.",
     "copyright": "© 2025 PV-Arki. Kaikki oikeudet pidätetään.",
-    "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
+    "rmUi": "RM-UI, logo ja taustakuvat © PV-Arki",
     "authenticating": "Tunnistautuu...",
-    "adminConsole": "Hallintapaneeli",
-    "forbiddenAdminAccess": "403 Kielletty: Vaatii ylläpitäjän oikeudet",
+    "adminConsole": "Ylläpitokonsoli",
+    "forbiddenAdminAccess": "403 Kielletty: Ylläpitäjän oikeudet vaaditaan",
     "cancel": "Peruuta",
     "confirm": "Vahvista",
     "confirming": "Vahvistetaan...",
@@ -41,59 +41,59 @@
   },
   "modals": {
     "keycloak": {
-      "title": "Keycloak-hallintapaneeli",
-      "description": "Siirry Keycloak-hallintaliittymään hallitaksesi käyttäjiä, rooleja ja tunnistautumisasetuksia.",
+      "title": "Keycloak-hallintakonsoli",
+      "description": "Avaa Keycloakin hallintaliittymä käyttäjien, roolien ja todennusasetusten hallintaan.",
       "whatIsKeycloak": "Mikä on Keycloak?",
-      "whatIsKeycloakDesc": "Keycloak on avoimen lähdekoodin identiteetin- ja pääsynhallinta-alusta. Se hoitaa käyttäjien tunnistautumisen, valtuutuksen ja roolien hallinnan tässä sovelluksessa.",
+      "whatIsKeycloakDesc": "Keycloak on avoimen lähdekoodin identiteetin- ja pääsynhallintajärjestelmä. Se hoitaa käyttäjien todennuksen, valtuutuksen ja roolien hallinnan tässä sovelluksessa.",
       "whatCanYouDo": "Mitä siellä voi tehdä?",
-      "resetPasswords": "Nollata käyttäjien salasanoja",
-      "configureLogin": "Määrittää kirjautumisasetuksia",
-      "manageAttributes": "Hallita käyttäjätietoja",
-      "configureProviders": "Määrittää identiteetintarjoajia",
+      "resetPasswords": "Nollaa käyttäjien salasanat",
+      "configureLogin": "Määritä kirjautumisasetukset",
+      "manageAttributes": "Hallinnoi käyttäjätietoja",
+      "configureProviders": "Määritä identiteettipalveluntarjoajat",
       "cancelButton": "Peruuta",
       "openConsole": "Avaa konsoli"
     },
     "mtls": {
       "title": "Mikä on mTLS?",
-      "description": "Mutual TLS (mTLS) -tunnistautuminen selitettynä",
-      "paragraph1": "Käyttämällä laitteellesi asennettua mTLS-avainta palveluun yhdistämiseen voimme varmistaa, että yhteys tulee juuri sinulta. Kukaan muu ei voi esiintyä sinuna.",
-      "paragraph2": "Vastaavasti sinä voit olla varma, että toisessa päässä olemme me.",
-      "paragraph3": "Kaikki käyttöönottamasi Deploy App (Rasenmäher) -palvelut salaavat liikenteensä mTLS-avaimellasi.",
-      "gotIt": "Selvä"
+      "description": "Mutual TLS (mTLS) -tunnistautumisen selitys",
+      "paragraph1": "Käyttämällä laitteellesi asennettua mTLS-avainta palveluumme yhdistämiseen voimme varmistaa, että yhteys tulee sinulta. Kukaan muu ei voi esiintyä sinuna.",
+      "paragraph2": "Samalla tavalla voit olla varma, että toisessa päässä olemme me.",
+      "paragraph3": "Kaikki Deploy Appin (Rasenmäher) palvelut salavaat liikenteensä mTLS-avaimellasi.",
+      "gotIt": "Ymmärretty"
     }
   },
   "onboarding": {
     "steps": {
       "welcome": {
-        "title": "Aloitus",
-        "description": "Deploy App on keskitetty operaatiokeskus taktisten järjestelmien ja palveluiden hallintaan ja käynnistämiseen."
+        "title": "Aloita",
+        "description": "Deploy App on keskeinen toimintakeskuksesi taktisten järjestelmien ja palveluiden hallintaan ja käyttöönottoon."
       },
       "products": {
         "title": "Pääsy tehtäväsovelluksiin",
-        "description": "Pääsy tehtäväsovelluksiin ja turvattujen yhteyksien luominen mTLS-suojattujen kanavien kautta."
+        "description": "Pääse tehtäväsovelluksiin ja muodosta suojatut yhteydet mTLS-suojattujen kanavien kautta."
       },
       "credentials": {
-        "title": "Tunnisteet valmiina",
-        "description": "Tunnistautumisvarmenteesi on asennettu ja vahvistettu. Voit toimia välittömästi täysillä oikeuksilla."
+        "title": "Valmiit käyttöoikeudet",
+        "description": "Todennustodistuksesi on asennettu ja vahvistettu. Voit toimia heti täydellä käyttöoikeudella."
       },
       "users": {
         "title": "Hallitse käyttäjätilejä",
-        "description": "Hallitse käyttäjäoikeuksia, määritä ylläpitäjän rooleja ja poista epäaktiiviset tilit pitääksesi luettelon ajan tasalla."
+        "description": "Hallitse käyttäjien pääsyä, anna ylläpitäjäoikeuksia ja poista epäaktiiviset käyttäjät."
       },
       "invite": {
         "title": "Lisää uusia operaattoreita",
-        "description": "Luo turvallisia kutsuja tai QR-koodeja uusien tiiminjäsenten liittämiseksi operatiiviseen verkkoosi."
+        "description": "Luo turvallisia kutsu- tai QR-koodeja, joilla uudet jäsenet voidaan liittää verkkoosi."
       },
       "health": {
         "title": "Järjestelmän tila",
-        "description": "Tarkastele järjestelmän reaaliaikaisia mittareita ja varmista, että kaikki palvelut toimivat tehtävän vaatimusten mukaisesti."
+        "description": "Tarkastele järjestelmän tilaa ja varmista, että kaikki palvelut toimivat tehtäväparametrien mukaisesti."
       },
       "instructions": {
-        "title": "Taktiset oppaat",
-        "description": "Pääsy pikaoppaisiin, käyttöönotto-ohjeisiin ja käyttöhuomioihin jokaiselle palvelussa olevalle järjestelmälle."
+        "title": "Taktiset ohjeet",
+        "description": "Avaa pikaoppaat, käyttöönotto-ohjeet ja käyttömuistiinpanot kaikille käytössä oleville järjestelmille."
       }
     },
-    "completion": "Perehdytys valmis!",
+    "completion": "Onboarding valmis!",
     "completionDesc": "Olet valmis toimimaan täydellä kapasiteetilla.",
     "step": "Vaihe",
     "of": "/",
@@ -103,15 +103,15 @@
   },
   "systemStatus": {
     "title": "Järjestelmän tila",
-    "lastUpdated": "Päivitetty viimeksi",
+    "lastUpdated": "Päivitetty",
     "services": "Palvelut",
     "active": "Aktiivinen",
-    "issues": "Ongelmia",
+    "issues": "Ongelmat",
     "noServices": "Ei palveluita saatavilla",
-    "operational": "TOIMINNASSA",
+    "operational": "TOIMII",
     "down": "ALHAALLA",
-    "networkConnected": "Verkkoyhteys yhdistetty",
-    "networkDisconnected": "Verkkoyhteys katkennut",
+    "networkConnected": "Verkko yhdistetty",
+    "networkDisconnected": "Verkko ei yhdistetty",
     "online": "Online",
     "offline": "Offline",
     "justNow": "Juuri nyt",
@@ -124,33 +124,33 @@
     "loginDesc": "Kirjaudu varmenteella tai syötä kutsukoodi",
     "certificate": "Kirjaudu varmenteella",
     "or": "Tai",
-    "enterCode": "Syötä koodisi:",
+    "enterCode": "Syötä koodi:",
     "codePlaceholder": "ABCD1234",
     "loginCode": "Kirjaudu koodilla",
-    "verifying": "Tarkistetaan...",
-    "codeRequired": "Koodi on pakollinen",
+    "verifying": "Vahvistetaan...",
+    "codeRequired": "Koodi vaaditaan",
     "codeInvalid": "Koodin muoto on virheellinen",
-    "codeNotValid": "Koodi ei kelpaa"
+    "codeNotValid": "Koodi on virheellinen"
   },
   "approveUsers": {
     "title": "Hyväksy käyttäjiä",
     "usersAwaiting": "Hyväksyntää odottavat käyttäjät näkyvät tässä.",
-    "howItWorks": "Kuinka se toimii:",
-    "step1": "Odotushuoneessa olevilla käyttäjillä on ruudullaan",
+    "howItWorks": "Näin se toimii:",
+    "step1": "Odotushuoneessa olevilla käyttäjillä näkyy",
     "approvalCode": "hyväksyntäkoodi",
-    "step1End": "ja QR-koodi.",
-    "step2": "Napsauta käyttäjää alta avataksesi hyväksyntäikkunan, tai skannaa heidän QR-koodinsa.",
+    "step1End": "ja QR-koodi heidän näytöllään.",
+    "step2": "Avaa käyttäjän hyväksyntävalinta napsauttamalla alla olevia käyttäjiä tai skannaamalla heidän QR-koodinsa.",
     "step3": "Syötä heidän hyväksyntäkoodinsa ja paina",
     "approve": "Hyväksy",
     "reject": "Hylkää",
-    "step3End": "antaaksesi pääsyn, tai",
-    "step3End2": "evätäksesi sen.",
-    "waitingUsers": "Odottavat käyttäjät",
+    "step3End": "myöntääksesi pääsyn tai",
+    "step3End2": "hylätäksesi.",
+    "waitingUsers": "Odottelevat käyttäjät",
     "scanQRCode": "Skannaa QR-koodi",
-    "noUsersWaiting": "Ei hyväksyntää odottavia käyttäjiä",
-    "scanApprovalQR": "Skannaa hyväksyntä-QR",
-    "pointCamera": "Osoita kameralla QR-koodia käyttäjän odotushuoneruudulla. Hyväksyntä tunnistetaan automaattisesti.",
-    "cameraPreview": "Kameran esikatselu ilmestyy tähän kun se käynnistyy.",
+    "noUsersWaiting": "Ei käyttäjiä odottamassa hyväksyntää",
+    "scanApprovalQR": "Skannaa hyväksyntä-QR-koodi",
+    "pointCamera": "Suuntaa kamerasi odotushuoneen QR-koodiin. Hyväksyntä havaitaan automaattisesti.",
+    "cameraPreview": "Kameran esikatselu näkyy tässä, kun se on käynnistetty.",
     "close": "Sulje",
     "approveUser": "Hyväksy käyttäjä",
     "enterApprovalCode": "Syötä käyttäjän hyväksyntäkoodi ja paina Hyväksy.",
@@ -160,14 +160,14 @@
     "goBack": "Takaisin",
     "approving": "Hyväksytään...",
     "rejecting": "Hylätään...",
-    "userApprovedSuccessfully": "Käyttäjä {{callsign}} hyväksytty onnistuneesti!",
-    "failedToApprove": "Käyttäjän hyväksyminen epäonnistui: {{error}}",
-    "userRejected": "Käyttäjä {{callsign}} hylätty",
-    "failedToReject": "Käyttäjän hylkääminen epäonnistui: {{error}}",
-    "noCallsignFound": "Kutsutunnusta ei löytynyt. Ole hyvä ja kirjaudu sisään.",
-    "forbidden": "Kielletty: Vaatii ylläpitäjän oikeudet",
+    "userApprovedSuccessfully": "Käyttäjä {{callsign}} hyväksyttiin onnistuneesti!",
+    "failedToApprove": "Käyttäjän hyväksyntä epäonnistui: {{error}}",
+    "userRejected": "Käyttäjä {{callsign}} hylättiin",
+    "failedToReject": "Käyttäjän hylkäys epäonnistui: {{error}}",
+    "noCallsignFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
+    "forbidden": "Kielletty: Ylläpitäjän oikeudet vaaditaan",
     "enterApprovalCodeMessage": "Syötä hyväksyntäkoodi",
-    "cameraAccessFailed": "Kameran käyttö epäonnistui. Tarkista oikeudet.",
+    "cameraAccessFailed": "Kameran käyttö estetty. Tarkista oikeudet.",
     "invalidQRFormat": "Virheellinen QR-koodin muoto",
     "qrScannedSuccessfully": "QR-koodi skannattu onnistuneesti!",
     "approvalCodeScanned": "Hyväksyntäkoodi skannattu!",
@@ -175,9 +175,9 @@
   },
   "addUsers": {
     "title": "Lisää käyttäjiä kutsukoodilla",
-    "subtitle": "Yhtä kutsukoodia voidaan käyttää useita kertoja. Napsauta koodia nähdäksesi sen QR-koodin ja jakaaksesi sen käyttäjille. Luo uusi koodi vain tarvittaessa.",
+    "subtitle": "Yhtä kutsukoodia voidaan käyttää useita kertoja. Klikkaa koodia nähdäksesi sen QR-koodin ja jakaaksesi sen käyttäjille. Luo uusi koodi vain tarvittaessa.",
     "subtitleHighlight": "Yhtä kutsukoodia voidaan käyttää useita kertoja.",
-    "createNewInvite": "Luo uusi kutsu",
+    "createNewInvite": "Luo uusi kutsukoodi",
     "create": "Luo",
     "creating": "Luodaan...",
     "selectMultiple": "Valitse useita",
@@ -190,17 +190,17 @@
     "active": "aktiivinen",
     "inactive": "ei aktiivinen",
     "createdBy": "{{creator}} loi tämän koodin {{date}}",
-    "createdByYou": "Loit tämän koodin {{date}}",
-    "forbidden": "403 Kielletty: Vaatii ylläpitäjän oikeudet",
-    "noCallsign": "Kutsutunnusta ei löytynyt. Ole hyvä ja kirjaudu sisään.",
+    "createdByYou": "Luoit tämän koodin {{date}}",
+    "forbidden": "403 Kielletty: Ylläpitäjän oikeudet vaaditaan",
+    "noCallsign": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "createModalTitle": "Luo uusi kutsukoodi",
     "createModalDescription": "Yhtä kutsukoodia voi käyttää useampi käyttäjä",
     "createModalWarning": "⚠️ Yhtä kutsukoodia voi käyttää useampi käyttäjä",
-    "createModalText": "Sinun tarvitsee luoda uusi koodi vain jos:",
-    "createModalReason1": "Olet poistanut tai deaktivoinut aiemman koodisi",
+    "createModalText": "Sinun tarvitsee luoda uusi koodi vain, jos:",
+    "createModalReason1": "Olet poistanut tai poistanut käytöstä edellisen koodisi",
     "createModalReason2": "Haluat erilliset koodit eri ryhmille",
-    "createModalTip": "Vinkki: Käytä olemassa olevia aktiivisia koodeja uusien luomisen sijaan",
-    "manageModalTitle": "Hallitse kutsukoodia",
+    "createModalTip": "Vinkki: Käytä olemassa olevia aktiivisia koodeja uuden luomisen sijaan",
+    "manageModalTitle": "Hallinnoi kutsukoodia",
     "manageModalCode": "Koodi:",
     "disableCode": "Poista koodi käytöstä",
     "enableCode": "Ota koodi käyttöön",
@@ -208,64 +208,64 @@
     "deleting": "Poistetaan...",
     "goBack": "Takaisin",
     "walkthrough": {
-      "title": "Kuinka lisätä käyttäjiä",
-      "description": "Pikaohje käyttäjien kutsumiseen",
+      "title": "Näin lisäät käyttäjiä",
+      "description": "Pikakäyttöopas kutsujen lähettämiseen",
       "step1Title": "1. Käytä olemassa olevia koodeja",
-      "step1Description": "Napsauta mitä tahansa aktiivista kutsukoodia nähdäksesi sen QR-koodin. Yhtä koodia voi käyttää useampi käyttäjä - uutta ei tarvitse luoda joka kerta!",
+      "step1Description": "Klikkaa mitä tahansa aktiivista kutsukoodia nähdäksesi sen QR-koodin. Yhtä koodia voi käyttää useampi käyttäjä – uuden luominen ei ole aina tarpeen!",
       "step2Title": "2. Jaa QR-koodi",
-      "step2Description": "Näytä QR-koodi käyttäjille tai jaa kutsulinkki. He skannaavat sen aloittaakseen rekisteröitymisen.",
+      "step2Description": "Näytä QR-koodi käyttäjälle tai jaa kutsulinkki. He skannaavat sen aloittaakseen rekisteröinnin.",
       "step3Title": "3. Hyväksy käyttäjät",
-      "step3Description": "Kun käyttäjät ovat syöttäneet kutsutunnuksensa, hyväksy heidät \"Hyväksy käyttäjiä\" -osiossa käyttäen heidän hyväksyntä- tai QR-koodiaan.",
+      "step3Description": "Käyttäjän syötettyä kutsutunnuksensa hyväksy heidät “Hyväksy käyttäjiä” -osiossa.",
       "managingTitle": "Koodien hallinta",
-      "managingBullet1": "Deaktivoi koodit väliaikaisesti poistamatta niitä",
-      "managingBullet2": "Poista koodit, joita et enää tarvitse",
-      "managingBullet3": "Käytä \"Valitse useita\" -toimintoa joukkotoimintoihin",
-      "gotIt": "Ymmärretty!"
+      "managingBullet1": "Poista koodeja käytöstä väliaikaisesti",
+      "managingBullet2": "Poista koodeja, joita ei tarvita",
+      "managingBullet3": "Käytä “Valitse useita” -toimintoa massatoimintoihin",
+      "gotIt": "Selvä!"
     },
     "messages": {
       "codeCreated": "Kutsukoodi luotu onnistuneesti!",
       "codeDeleted": "Kutsukoodi poistettu",
       "codeDeactivated": "Kutsukoodi poistettu käytöstä",
       "codeActivated": "Kutsukoodi otettu käyttöön",
-      "codesDeleted": "Poistettiin {{count}} kutsukoodia",
-      "codesDisabled": "Poistettiin käytöstä {{count}} kutsukoodia",
-      "codesEnabled": "Otettiin käyttöön {{count}} kutsukoodia",
-      "createError": "Kutsukoodin luominen epäonnistui: {{error}}",
-      "deleteError": "Kutsukoodin poistaminen epäonnistui: {{error}}",
-      "deactivateError": "Kutsukoodin käytöstä poistaminen epäonnistui: {{error}}",
-      "activateError": "Kutsukoodin käyttöönotto epäonnistui: {{error}}",
-      "forbiddenError": "403 Kielletty: Vaatii ylläpitäjän oikeudet",
-      "noCallsignError": "Kutsutunnusta ei löytynyt. Ole hyvä ja kirjaudu sisään."
+      "codesDeleted": "{{count}} kutsukoodia poistettu",
+      "codesDisabled": "{{count}} kutsukoodia poistettu käytöstä",
+      "codesEnabled": "{{count}} kutsukoodia otettu käyttöön",
+      "createError": "Kutsukoodin luonti epäonnistui: {{error}}",
+      "deleteError": "Kutsukoodin poisto epäonnistui: {{error}}",
+      "deactivateError": "Koodin käytöstä poisto epäonnistui: {{error}}",
+      "activateError": "Koodin käyttöönotto epäonnistui: {{error}}",
+      "forbiddenError": "403 Kielletty: Ylläpito-oikeudet vaaditaan",
+      "noCallsignError": "Kutsutunnusta ei löytynyt. Kirjaudu sisään."
     }
   },
   "approveUser": {
     "title": "Hyväksy käyttäjä",
-    "description": "Hyväksy käyttäjä {{callsign}} järjestelmään",
+    "description": "Hyväksy {{callsign}} järjestelmään",
     "approvalCodeLabel": "Hyväksyntäkoodi",
     "approvalCodePlaceholder": "Syötä hyväksyntäkoodi",
-    "enterApprovalCodeMessage": "Ole hyvä ja syötä hyväksyntäkoodi",
+    "enterApprovalCodeMessage": "Syötä hyväksyntäkoodi",
     "goBack": "Takaisin",
     "cancel": "Peruuta",
     "approve": "Hyväksy",
     "approving": "Hyväksytään...",
-    "approvedSuccess": "Käyttäjä {{callsign}} hyväksytty onnistuneesti!",
-    "approveFailed": "Käyttäjän hyväksyminen epäonnistui: {{error}}"
+    "approvedSuccess": "Käyttäjä {{callsign}} hyväksyttiin onnistuneesti!",
+    "approveFailed": "Hyväksyntä epäonnistui: {{error}}"
   },
   "callsignSetup": {
     "title": "Aseta kutsutunnuksesi",
-    "usingAdmin": "Käytetään admin-koodia: {{code}}",
-    "usingInvite": "Käytetään kutsukoodia: {{code}}",
+    "usingAdmin": "Ylläpitokoodi käytössä: {{code}}",
+    "usingInvite": "Kutsukoodi käytössä: {{code}}",
     "yourCallsignLabel": "Kutsutunnuksesi",
-    "callsignPlaceholder": "Syötä kutsutunnuksesi",
+    "callsignPlaceholder": "Syötä kutsutunnus",
     "validation": {
-      "required": "Kutsutunnus on pakollinen",
-      "min": "Kutsutunnuksen on oltava vähintään 3 merkkiä",
+      "required": "Kutsutunnus vaaditaan",
+      "min": "Kutsutunnuksen tulee olla vähintään 3 merkkiä",
       "pattern": "Vain aakkosnumeeriset merkit sallittu",
-      "max": "Kutsutunnus saa olla enintään 30 merkkiä"
+      "max": "Kutsutunnus voi olla enintään 30 merkkiä"
     },
     "errors": {
       "alreadyInUse": "Kutsutunnus on jo käytössä",
-      "unexpected": "Tapahtui odottamaton virhe"
+      "unexpected": "Odottamaton virhe"
     },
     "buttons": {
       "back": "Takaisin",
@@ -275,8 +275,8 @@
   },
   "error": {
     "mtls_fail": {
-      "title": "Varmennetunnistautuminen epäonnistui",
-      "description": "mTLS-varmennettasi ei voitu vahvistaa. Varmista, että olet asentanut oikean varmenteen ja yritä uudelleen.",
+      "title": "Varmenteen todennus epäonnistui",
+      "description": "mTLS-varmenteesi vahvistus epäonnistui. Varmista, että olet asentanut oikean varmenteen ja yritä uudelleen.",
       "icon": "🔐"
     },
     "unauthorized": {
@@ -286,23 +286,23 @@
     },
     "not_found": {
       "title": "Sivua ei löydy",
-      "description": "Etsimääsi sivua ei ole olemassa tai se on siirretty.",
+      "description": "Sivua ei ole olemassa tai se on siirretty.",
       "icon": "🔍"
     },
     "default": {
-      "title": "Jokin meni pieleen!",
-      "description": "Tapahtui odottamaton virhe. Yritä uudelleen tai ota yhteyttä tukeen, jos ongelma jatkuu.",
+      "title": "Jotain meni pieleen!",
+      "description": "Tapahtui odottamaton virhe. Yritä uudelleen tai ota yhteyttä tukeen.",
       "icon": "⚠️"
     },
     "returnHome": "Palaa etusivulle",
     "errorCode": "Virhe: {{code}}",
-    "contactSupport": "Jos tarvitset lisäapua, ota yhteyttä tukeen."
+    "contactSupport": "Tarvitessasi lisäapua ota yhteyttä tukeen."
   },
   "home": {
     "welcome": "Tervetuloa Deploy Appiin",
-    "description": "Pääsy taktisiin palveluihin ja työkaluihin. Valitse palvelu alta aloittaaksesi.",
+    "description": "Pääset käyttämään taktisia palveluita ja työkaluja. Valitse palvelu aloittaaksesi.",
     "loadingServices": "Ladataan palveluita...",
-    "authRequired": "Sinun on tunnistauduttava käyttääksesi palveluita. Ole hyvä ja kirjaudu sisään.",
+    "authRequired": "Sinun tulee olla kirjautunut käyttääksesi palveluita.",
     "dialog": {
       "leaveTitle": "Poistu Deploy Appista?",
       "leaveDescription": "Olet avaamassa ulkoisen sivun. Haluatko varmasti jatkaa?",
@@ -313,48 +313,51 @@
       "docs": "DOKUMENTIT",
       "launch": "KÄYNNISTÄ",
       "open": "AVAA"
-    }
+    },
+    "greetingMorning": "Hyvää huomenta, {{name}}",
+    "greetingAfternoon": "Hyvää iltapäivää, {{name}}",
+    "greetingEvening": "Hyvää iltaa, {{name}}"
   },
   "inviteCode": {
     "title": "Kutsukoodi {{code}}",
-    "backToInvites": "Takaisin kutsuihin",
+    "backToInvites": "Takaisin kutsukoodeihin",
     "copyInvite": "Kopioi kutsulinkki",
     "copied": "Kopioitu!",
     "exportPdf": "Vie PDF",
     "steps": {
-      "show": "Näytä tämä QR-koodi käyttäjällesi.",
-      "alternative": "Vaihtoehtoisesti paina 'Kopioi kutsulinkki' -painiketta yllä,",
-      "copyButtonHint": "ja liitä sekä lähetä linkki käyttäjälle, jonka haluat lisätä.",
-      "print": "Tulosta ja kiinnitä viety PDF fyysiselle seinälle/taululle.",
-      "printHint": "jotta sotilaat voivat skannata sen perehdytyksen aikana.",
-      "callsign": "QR-koodin tai linkin kautta käyttäjäsi voi asettaa kutsutunnuksensa.",
-      "waiting": "Tämän jälkeen he ovat Odotushuoneessa.",
-      "approve": "Hyväksy käyttäjäsi jollakin alla olevista tavoista.",
+      "show": "Näytä tämä QR-koodi käyttäjälle.",
+      "alternative": "Vaihtoehtoisesti paina yllä olevaa Kopioi kutsulinkki -painiketta,",
+      "copyButtonHint": "ja liitä & lähetä linkki käyttäjälle.",
+      "print": "Tulosta ja kiinnitä PDF-juliste.",
+      "printHint": "jotta sotilaat voivat skannata sen onboardingin aikana.",
+      "callsign": "QR-koodilla tai linkillä käyttäjä voi asettaa kutsutunnuksensa.",
+      "waiting": "Tämän jälkeen käyttäjä siirtyy odotushuoneeseen.",
+      "approve": "Hyväksy käyttäjä jollakin alla olevista menetelmistä.",
       "approveHint": ""
     },
     "approvalMethods": {
-      "title": "Hyväksyntätavat",
+      "title": "Hyväksyntämenetelmät",
       "method1": {
-        "title": "Tapa 1: QR-koodin skannaus",
-        "description": "Pyydä käyttäjää näyttämään hyväksyntäkoodinsa Odotushuoneen näytöltä. Käytä laitteesi kameraa tai QR-koodinlukijaa skannataksesi koodin. Hyväksyntä käsitellään automaattisesti."
+        "title": "Menetelmä 1: QR-koodin skannaus",
+        "description": "Pyydä käyttäjää näyttämään hyväksyntäkoodinsa heidän odotushuoneen näytöltään. Skannaa QR-koodi kamerallasi tai sovelluksella. Hyväksyntä tapahtuu automaattisesti."
       },
       "method2": {
-        "title": "Tapa 2: Hyväksyntäkoodi",
-        "description": "Ota hyväksyntäkoodi heidän Odotushuoneen näytöltään ja käytä sitä \"Hyväksy käyttäjiä\" -näkymässä."
+        "title": "Menetelmä 2: Hyväksyntäkoodi",
+        "description": "Ota hyväksyntäkoodi käyttäjän odotushuoneen näytöltä ja käytä sitä “Hyväksy käyttäjiä” -näkymässä."
       },
       "method3": {
-        "title": "Tapa 3: Linkkihyväksyntä",
-        "description": "Pyydä heitä toimittamaan sinulle hyväksyntälinkki Odotushuoneesta, jota napsauttamalla voit hyväksyä heidät suoraan."
+        "title": "Menetelmä 3: Linkkihyväksyntä",
+        "description": "Pyydä käyttäjää antamaan hyväksyntälinkkinsä, jonka kautta voit hyväksyä heidät."
       }
     },
     "pdf": {
       "title": "Deploy App",
-      "userEnrollment": "Käyttäjän rekisteröinti QR-koodi",
+      "userEnrollment": "Käyttäjän rekisteröinnin QR-koodi",
       "instructionsTitle": "Ohjeet:",
       "steps": {
-        "step1": "Osoita kamerallasi yllä olevaa QR-koodia",
-        "step2": "Tai vieraile linkissä ja seuraa rekisteröintiprosessia",
-        "step3": "Aseta kutsutunnuksesi kun sitä pyydetään",
+        "step1": "Suuntaa kamerasi yllä olevaan QR-koodiin",
+        "step2": "Tai avaa linkki ja seuraa ohjeita",
+        "step3": "Aseta kutsutunnuksesi pyydettäessä",
         "step4": "Odota ylläpitäjän hyväksyntää"
       },
       "generated": "Luotu:",
@@ -364,32 +367,32 @@
     }
   },
   "manageUsers": {
-    "title": "Hallitse käyttäjiä",
-    "description": "Hallitse käyttäjiä tässä näkymässä. Ylläpitäjät ovat käyttäjiä, joilla on pääsy näihin hallintatyökaluihin. Taistelijat ovat peruskäyttäjiä, joilla on pääsy palveluihisi.",
+    "title": "Hallinnoi käyttäjiä",
+    "description": "Hallitse käyttäjiä tässä näkymässä.",
     "adminHighlight": "Ylläpitäjät",
-    "fighterHighlight": "Taistelijat",
-    "noCallsignFound": "Kutsutunnusta ei löytynyt. Ole hyvä ja kirjaudu sisään.",
-    "forbidden": "403 Kielletty: Vaatii ylläpitäjän oikeudet",
+    "fighterHighlight": "Fighterit",
+    "noCallsignFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
+    "forbidden": "403 Kielletty: Ylläpito-oikeudet vaaditaan",
     "administrators": "Ylläpitäjät",
-    "fighters": "Taistelijat",
-    "noAdministrators": "Ei vielä ylläpitäjiä.",
-    "noFighters": "Ei vielä taistelijoita.",
+    "fighters": "Fighterit",
+    "noAdministrators": "Ei ylläpitäjiä.",
+    "noFighters": "Ei combattoreita.",
     "you": "Sinä",
-    "keycloakButton": "Avaa Keycloak-hallintapaneeli",
+    "keycloakButton": "Avaa Keycloak-hallintakonsoli",
     "walkthrough": {
-      "title": "Kuinka hallita käyttäjiä",
-      "description": "Pikaohje tiimisi hallintaan",
-      "promotingTitle": "Käyttäjien ylentäminen/alentaminen",
-      "promotingDesc": "Napsauta ketä tahansa käyttäjää ylentääksesi taistelijat ylläpitäjiksi tai alentaaksesi ylläpitäjät taistelijoiksi. Ylennetyt käyttäjät saavat samat hallintaoikeudet kuin sinulla.",
-      "removingTitle": "Käyttäjien poistaminen",
-      "removingDesc": "Käyttäjien poistaminen evää heidän pääsynsä tähän Deploy Appiin ja kaikkiin yhdistettyihin palveluihin. He eivät enää pysty yhdistämään tilannekuvapalveluusi.",
-      "notesTitle": "Tärkeitä huomioita",
+      "title": "Käyttäjähallinnan opas",
+      "description": "Pikakäyttöopas tiimin hallintaan",
+      "promotingTitle": "Ylennä/alennä käyttäjiä",
+      "promotingDesc": "Klikkaa käyttäjää ylentääksesi fighterin ylläpitäjäksi tai alentaaksesi ylläpitäjän fighteriksi.",
+      "removingTitle": "Poista käyttäjiä",
+      "removingDesc": "Käyttäjän poistaminen estää hänen pääsynsä Deploy Appiin ja kaikkiin siihen liitettyihin palveluihin.",
+      "notesTitle": "Huomioitavaa",
       "note1": "Et voi poistaa tai alentaa itseäsi",
-      "note2": "Vähintään yhden ylläpitäjän on oltava olemassa aina",
-      "gotIt": "Ymmärretty!"
+      "note2": "Vähintään yhden ylläpitäjän on oltava olemassa",
+      "gotIt": "Selvä!"
     },
     "userDialog": {
-      "title": "Hallitse käyttäjää",
+      "title": "Hallinnoi käyttäjää",
       "currentRole": "Nykyinen rooli:",
       "goBack": "Takaisin",
       "remove": "Poista",
@@ -400,54 +403,67 @@
       "demoting": "Alennetaan..."
     },
     "tooltips": {
-      "cannotRemove": "Et voi poistaa itseäsi tästä sovelluksesta",
+      "cannotRemove": "Et voi poistaa itseäsi",
       "cannotDemote": "Et voi alentaa itseäsi"
     },
     "confirmModals": {
       "promote": {
         "title": "Ylennä käyttäjä",
-        "description": "Haluatko varmasti ylentää käyttäjän {{callsign}} ylläpitäjäksi? Hän saa täydet oikeudet käyttäjähallintatyökaluihin.",
-        "requiredText": "YLENNÄ"
+        "description": "Haluatko varmasti ylentää käyttäjän {{callsign}} ylläpitäjäksi? He saavat täydet hallintaoikeudet.",
+        "requiredText": "PROMOTE"
       },
       "demote": {
         "title": "Alenna käyttäjä",
-        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä taistelijaksi? Hän menettää pääsyn käyttäjähallintatyökaluihin.",
-        "requiredText": "ALENNA"
+        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä fighteriksi?",
+        "requiredText": "DEMOTE"
       },
       "remove": {
         "title": "Poista käyttäjä",
-        "description": "Tätä toimintoa ei voi kumota. Kirjoita käyttäjänimi \"{{callsign}}\" vahvistaaksesi poiston.",
+        "description": "Toimintoa ei voi peruuttaa. Haluatko varmasti poistaa käyttäjän {{callsign}}?",
         "requiredText": "{{callsign}}"
       }
     },
     "messages": {
-      "noCandidateFound": "Kutsutunnusta ei löytynyt. Ole hyvä ja kirjaudu sisään.",
-      "promoted": "{{callsign}} ylennetty ylläpitäjäksi!",
-      "promoteFailed": "Käyttäjän ylentäminen epäonnistui: {{error}}",
-      "demoted": "{{callsign}} alennettu taistelijaksi!",
-      "demoteFailed": "Käyttäjän alentaminen epäonnistui: {{error}}",
+      "noCandidateFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
+      "promoted": "{{callsign}} ylennettiin ylläpitäjäksi!",
+      "promoteFailed": "Ylennys epäonnistui: {{error}}",
+      "demoted": "{{callsign}} alennettiin fighteriksi!",
+      "demoteFailed": "Alentaminen epäonnistui: {{error}}",
       "removed": "{{callsign}} poistettu järjestelmästä",
-      "removeFailed": "Käyttäjän poistaminen epäonnistui: {{error}}",
+      "removeFailed": "Poisto epäonnistui: {{error}}",
       "cannotDemoteOwn": "Et voi alentaa omaa tiliäsi",
       "cannotDeleteOwn": "Et voi poistaa omaa tiliäsi",
-      "cannotDeleteLastAdmin": "Viimeistä ylläpitäjää ei voi poistaa. Vähintään yhden ylläpitäjän on oltava olemassa."
-    }
+      "cannotDeleteLastAdmin": "Et voi poistaa viimeistä ylläpitäjää.",
+      "cannotSelectSelf": "Et voi valita omaa tiliäsi massatoimintoihin."
+    },
+    "bulkMode": "Valitse useita",
+    "exitBulkMode": "Poistu massatilasta",
+    "bulkConfirm": {
+      "title": "Vahvista massatoiminto",
+      "promoteDescription": "Olet ylentämässä {{count}} käyttäjää ylläpitäjiksi. Jatketaanko?",
+      "demoteDescription": "Olet alentamassa {{count}} käyttäjää. Jatketaanko?",
+      "removeDescription": "Olet poistamassa {{count}} käyttäjää. Tätä ei voi perua. Jatketaanko?"
+    },
+    "selected": "{{count}} valittu",
+    "promote": "Ylennä",
+    "demote": "Alenna",
+    "remove": "Poista"
   },
   "mtlsInstall": {
-    "title": "Lataa ja asenna avaimesi",
-    "description": "Asenna mTLS-varmenteesi käyttääksesi kaikkia palveluita turvallisesti. Tämä varmistaa, että vain sinä voit yhdistää identiteetilläsi.",
+    "title": "Lataa ja asenna avain",
+    "description": "Asenna mTLS-varmenteesi turvallista käyttöä varten. Tämä takaa, että ainoastaan sinä voit muodostaa yhteyden.",
     "whatIsTitle": "Mikä on mTLS?",
-    "whatIsDesc": "Käyttämällä laitteellesi asennettua mTLS-avainta palveluun yhdistämiseen voimme varmistaa, että yhteys tulee juuri sinulta. Kukaan muu ei voi esiintyä sinuna.",
-    "choosePlatform": "Valitse alustasi:",
-    "selectPlaceholder": "Valitse käyttöjärjestelmä",
+    "whatIsDesc": "Käyttämällä mTLS-avainta voimme varmistaa yhteyden lähteen. Kukaan ei voi esiintyä sinuna.",
+    "choosePlatform": "Valitse käyttöjärjestelmäsi:",
+    "selectPlaceholder": "Valitse OS",
     "instructionsTitle": "Asennusohjeet:",
-    "note": "Huomio:",
+    "note": "Huom:",
     "passwordLabel": "Varmenteen salasana:",
-    "downloadButton": "Lataa avaimesi",
+    "downloadButton": "Lataa avain",
     "downloading": "Ladataan...",
-    "navigateButton": "Siirry avaimellasi",
+    "navigateButton": "Siirry avaimella",
     "certificateDownloaded": "Varmenne ladattu onnistuneesti!",
-    "downloadFailed": "Varmenteen lataaminen epäonnistui. Yritä uudelleen.",
+    "downloadFailed": "Lataus epäonnistui. Yritä uudelleen.",
     "callsignNotFound": "Kutsutunnusta ei löytynyt",
     "os": {
       "Windows": "Windows",
@@ -459,99 +475,123 @@
     "platforms": {
       "Windows": {
         "steps": {
-          "1": "Lataa varmenteesi alla olevasta painikkeesta",
-          "2": "Kaksoisnapsauta .pfx-tiedostoa avataksesi Ohjatun varmenteen tuomisen",
-          "3": "Valitse 'Nykyinen käyttäjä' (Current User) tai 'Paikallinen tietokone' (Nykyinen käyttäjä suositeltu)",
-          "4": "Valitse 'Valitse varmennesäilö automaattisesti varmenteen tyypin perusteella'",
-          "5": "Kun pyydetään, syötä kutsutunnuksesi",
-          "6": "Napsauta 'Valmis' suorittaaksesi asennuksen loppuun",
-          "7": "Käytä 'Siirry avaimellasi' -painiketta päästäksesi palveluihin"
+          "1": "Lataa varmenteesi alla olevalla painikkeella",
+          "2": "Avaa .pfx-tiedosto tuonti-ikkunaan",
+          "3": "Valitse 'Current User' tai 'Local Machine' (suositus: Current User)",
+          "4": "Valitse 'Automatically select the certificate store'",
+          "5": "Anna kutsutunnuksesi pyydettäessä",
+          "6": "Viimeistele asennus",
+          "7": "Käytä 'Siirry avaimella' -painiketta palveluihin"
         },
         "notes": {
-          "1": "Varmenne tallennetaan Windowsin varmennesäilöön",
-          "2": "Saatat joutua käynnistämään selaimesi uudelleen jotta varmenne tunnistetaan"
+          "1": "Varmenne tallentuu Windowsin varmennevarastoon",
+          "2": "Saatat joutua käynnistämään selaimen uudelleen"
         }
       },
       "MacOS": {
         "steps": {
-          "1": "Lataa varmenteesi alla olevasta painikkeesta",
-          "2": "Kaksoisnapsauta .pfx-tiedostoa avataksesi Avainnipun (Keychain Access)",
-          "3": "Kun pyydetään, syötä kutsutunnuksesi salasanaksi",
-          "4": "Varmista, että varmenne lisättiin kirjautumisavainnippuusi",
-          "5": "Käytä 'Siirry avaimellasi' -painiketta päästäksesi palveluihin"
+          "1": "Lataa varmenteesi",
+          "2": "Avaa .pfx tiedosto Keychain Accessiin",
+          "3": "Syötä kutsutunnuksesi salasanaksi",
+          "4": "Varmista, että varmenne näkyy login-avaimiston alla",
+          "5": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "macOS asentaa varmenteen automaattisesti Avainnippuun",
-          "2": "Jos luottamuksesta kysytään, valitse 'Luota aina' (Always Trust) tälle sovellukselle"
+          "1": "macOS asentaa varmenteen automaattisesti Keychainiin",
+          "2": "Jos kysytään luottamuksesta, valitse 'Always Trust'"
         }
       },
       "Linux": {
         "steps": {
-          "1": "Lataa varmenteesi alla olevasta painikkeesta",
-          "2": "Muunna .pfx PEM-muotoon: openssl pkcs12 -in [varmenne].pfx -out [varmenne].pem -nodes",
-          "3": "Kun pyydetään, syötä kutsutunnuksesi salasanaksi",
-          "4": "Aseta varmenne selaimesi varmennehakemistoon tai järjestelmän säilöön",
-          "5": "Firefoxille: Asetukset → Tietosuoja → Varmenteet → Näytä varmenteet → Tuo",
-          "6": "Chromelle: Asetukset → Tietosuoja ja turvallisuus → Turvallisuus → Hallitse varmenteita → Tuo",
-          "7": "Käytä 'Siirry avaimellasi' -painiketta päästäksesi palveluihin"
+          "1": "Lataa varmenteesi",
+          "2": "Firefox: Asetukset → Tietosuoja → Varmenteet → Tuo",
+          "3": "Chrome: Asetukset → Tietoturva → Hallitse varmenteita → Tuo",
+          "4": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "Tarkka prosessi riippuu Linux-jakelustasi ja selaimestasi",
-          "2": "Saatat joutua käynnistämään selaimesi uudelleen varmenteen tuonnin jälkeen"
+          "1": "Tarkka prosessi riippuu jakelusta sekä selaimesta",
+          "2": "Selain täytyy ehkä käynnistää uudelleen"
         }
       },
       "Android": {
         "steps": {
-          "1": "Lataa varmenteesi alla olevasta painikkeesta",
-          "2": "Avaa Asetukset → Turvallisuus → Salaus ja tunnistetiedot → Asenna varmenne",
-          "3": "Valitse 'Varmenne' ja valitse .pfx-tiedosto",
-          "4": "Kun pyydetään, syötä kutsutunnuksesi salasanaksi",
-          "5": "Nimeä varmenne ja vahvista asennus",
-          "6": "Käytä 'Siirry avaimellasi' -painiketta päästäksesi palveluihin"
+          "1": "Lataa varmenteesi",
+          "2": "Avaa Asetukset → Turvallisuus → Salaus ja valtuutukset → Asenna varmenne",
+          "3": "Valitse pfx-tiedosto",
+          "4": "Syötä kutsutunnuksesi salasanaksi",
+          "5": "Nimeä varmenne ja hyväksy",
+          "6": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "Androidin version tulee olla 4.4 tai uudempi",
-          "2": "Varmenne lisätään järjestelmäsi luotettujen varmenteiden säilöön"
+          "1": "Vaatii Android 4.4 tai uudemman",
+          "2": "Varmenne tallennetaan järjestelmän varmennevarastoon"
         }
       },
       "iOS": {
         "steps": {
-          "1": "Lataa varmenteesi alla olevasta painikkeesta",
-          "2": "Napauta tiedostoa avataksesi se, napauta sitten 'Salli' asentaaksesi",
-          "3": "Mene Asetukset → Yleiset → VPN ja laitehallinta",
-          "4": "Napauta varmennetta kohdassa 'Ladattu profiili'",
-          "5": "Kun pyydetään, syötä kutsutunnuksesi salasanaksi",
-          "6": "Napauta 'Asenna' kahdesti vahvistaaksesi",
-          "7": "Käytä 'Siirry avaimellasi' -painiketta päästäksesi palveluihin"
+          "1": "Lataa varmenteesi",
+          "2": "Avaa tiedosto ja hyväksy asennus",
+          "3": "Siirry: Asetukset → Yleiset → VPN ja laitehallinta",
+          "4": "Avaa ladattu profiili",
+          "5": "Syötä kutsutunnuksesi",
+          "6": "Paina 'Asenna' kahdesti",
+          "7": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "iOS vaatii varmenteen luottamista ennen käyttöä",
-          "2": "Saatat nähdä kehotteen, jossa pyydetään sallimaan varmenteen asennus"
+          "1": "Varmenteelle tulee antaa luottamus ennen käyttöä",
+          "2": "Saatat saada varoituksen varmenteen asennuksesta"
         }
       }
     }
   },
   "product": {
     "loadingProducts": "Ladataan tuotteita...",
-    "failedToLoad": "Tuotteiden lataaminen epäonnistui",
-    "goHome": "Etusivulle",
-    "notFoundRedirect": "Tuotetta ei löytynyt, uudelleenohjataan...",
+    "failedToLoad": "Tuotteiden lataus epäonnistui",
+    "goHome": "Palaa etusivulle",
+    "notFoundRedirect": "Tuotetta ei löytynyt, siirrytään...",
     "loadingProduct": "Ladataan {{title}}",
     "progress": "{{progress}}%",
-    "loadingRemote": "Ladataan etäsovellusta...",
-    "remoteUnavailable": "Etäsovellus ei saatavilla kohteelle {{shortname}}. Yritä myöhemmin uudelleen."
+    "loadingRemote": "Ladataan etäresurssia...",
+    "remoteUnavailable": "Etäsovellus ei saatavilla tuotteelle \"{{shortname}}\". Yritä myöhemmin uudelleen.",
+    "loadingMarkdown": "Ladataan markdownia..."
   },
   "waitingRoom": {
     "titleShort": "Odottaa hyväksyntää",
-    "title": "Olet Odotushuoneessa!",
-    "description": "Odotat ylläpitäjäsi hyväksyntää palveluihin. Kopioi ja lähetä ylläpitäjällesi hyväksyntälinkkisi.",
-    "checkingStatus": "Tarkistetaan rekisteröinnin tilaa...",
+    "title": "Olet odotushuoneessa!",
+    "description": "Odotat ylläpitäjän hyväksyntää palveluihin. Kopioi ja lähetä ylläpitäjälle hyväksyntälinkkisi.",
+    "checkingStatus": "Tarkistetaan tilaa...",
     "yourApprovalCodeLabel": "Hyväksyntäkoodisi:",
-    "copyButton": "Kopioi hyväksyntälinkki ylläpitäjällesi",
+    "copyButton": "Kopioi hyväksyntälinkki",
     "copied": "Kopioitu!",
     "actionFailed": "Toiminto epäonnistui: {{error}}",
-    "instructionsTitle": "Odottaa hyväksyntää (ohjeet)",
-    "instructionsText": "Voit hyväksyä käyttäjäsi joko ottamalla hyväksyntäkoodin Odotushuoneen näytöltä, pyytämällä heitä toimittamaan hyväksyntäkoodin linkkinä, tai syöttämällä heidän hyväksyntäkoodinsa \"Hyväksy käyttäjiä\" -näkymässä.",
+    "instructionsTitle": "Hyväksynnän ohjeet",
+    "instructionsText": "Voit hyväksyä käyttäjän ottamalla hänen hyväksyntäkoodinsa odotushuoneen näytöltä, pyytämällä hänen hyväksyntälinkkinsä tai syöttämällä koodin “Hyväksy käyttäjiä” -näkymässä.",
     "approvedToast": "Sinut on hyväksytty!"
+  },
+  "adminTools": {
+    "navLink": "Ylläpitotyökalut",
+    "title": "Ylläpitokonsoli",
+    "toolsDesc": "Ylläpitotyökalut",
+    "description": "Hallitse tiimiäsi, käyttäjiä ja ulkoisia palveluita keskitetysti.",
+    "userManagementSection": "Käyttäjähallinta",
+    "userManagementDesc": "Hyväksy uusia käyttäjiä, hallinnoi rooleja ja hallitse pääsyoikeuksia.",
+    "externalServicesSection": "Ulkoiset palvelut",
+    "externalServicesDesc": "Käytä ja hallinnoi taktisia ja battle-log-palvelimiasi.",
+    "approveUsersDesc": "Tarkastele ja hyväksy uusia käyttäjiä",
+    "manageUsersDesc": "Hallitse käyttäjärooleja ja käyttöoikeuksia",
+    "addUsersDesc": "Luo ja hallitse kutsukoodeja",
+    "keycloakTitle": "Keycloak-hallinta",
+    "keycloakDesc": "Hallinnoi todennusta ja identiteettejä",
+    "takServerTitle": "TAK-palvelin",
+    "takServerDesc": "Hallinnoi TAK-palvelun asetuksia",
+    "blServerTitle": "Battle Log:n hallinta",
+    "blServerDesc": "Hallinnoi Battle Log -palveluita",
+    "openExternal": "Avaa ulkoinen",
+    "access": "Avaa",
+    "helpTitle": "Pikaopas",
+    "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
+    "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
+    "help3": "Keycloak – määritä todennus ja identiteetin hallinta",
+    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
   }
 }
