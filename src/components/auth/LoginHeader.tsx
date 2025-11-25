@@ -1,12 +1,12 @@
-"use client"
-import { getTheme } from "@/config/themes"
+"use client";
+import { getTheme } from "@/config/themes";
 
 interface LoginHeaderProps {
-  deployment?: string
+  deployment?: string;
 }
 
 export function LoginHeader({ deployment }: LoginHeaderProps) {
-  const theme = getTheme()
+  const theme = getTheme();
 
   return (
     <div className="text-center space-y-4 ">
@@ -18,5 +18,5 @@ export function LoginHeader({ deployment }: LoginHeaderProps) {
       </div>
       <p className="text-muted-foreground text-sm">{theme.name}</p>
     </div>
-  )
+  );
 }

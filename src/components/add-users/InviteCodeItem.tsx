@@ -47,7 +47,7 @@ export function InviteCodeItem({
       className={cn(
         "flex items-center justify-between p-5 bg-card border-2 border-border rounded-xl hover:bg-accent/50 hover:border-primary/50 transition-all",
         bulkMode && isSelected && "bg-accent border-primary",
-        invite.active !== true ? "cursor-not-allowed" : "cursor-pointer"
+        invite.active !== true ? "cursor-not-allowed" : "cursor-pointer",
       )}
     >
       <div className="flex items-center gap-4 flex-1">
@@ -61,7 +61,7 @@ export function InviteCodeItem({
                 "text-xs font-bold uppercase px-3 py-0.5 rounded-full",
                 invite.active
                   ? "text-green-600 bg-green-100 dark:bg-green-900/30"
-                  : "text-gray-500 bg-gray-100 dark:bg-gray-800"
+                  : "text-gray-500 bg-gray-100 dark:bg-gray-800",
               )}
             >
               {t(`addUsers.${invite.active ? "active" : "inactive"}`)}

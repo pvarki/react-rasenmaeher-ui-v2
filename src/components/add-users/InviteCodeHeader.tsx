@@ -48,7 +48,9 @@ export function InviteCodeHeader({
         >
           <Plus className="w-5 h-5 mr-2" />
           <span className="hidden md:inline">
-            {isCreating ? t("addUsers.creating") : t("addUsers.createNewInvite")}
+            {isCreating
+              ? t("addUsers.creating")
+              : t("addUsers.createNewInvite")}
           </span>
           <span className="md:hidden">
             {isCreating ? "..." : t("addUsers.create")}

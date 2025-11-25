@@ -89,7 +89,7 @@ export function ManageCodeDialog({
 }: ManageCodeDialogProps) {
   const { t } = useTranslation();
   const selectedInvite = inviteCodes?.find(
-    (c) => c.invitecode === selectedCode
+    (c) => c.invitecode === selectedCode,
   );
 
   return (

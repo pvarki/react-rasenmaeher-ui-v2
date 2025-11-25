@@ -104,7 +104,8 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
               onClick={() => isMobile && onClose()}
               className={cn(
                 "block px-3 py-2.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium",
-                (isAdminToolsServices || currentPath.endsWith("/admin-tools") && !currentType) &&
+                (isAdminToolsServices ||
+                  (currentPath.endsWith("/admin-tools") && !currentType)) &&
                   "bg-sidebar-accent text-sidebar-foreground",
               )}
             >

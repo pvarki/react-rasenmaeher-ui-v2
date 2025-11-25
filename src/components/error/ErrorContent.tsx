@@ -1,20 +1,30 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useNavigate } from "@tanstack/react-router"
-import { Home } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useNavigate } from "@tanstack/react-router";
+import { Home } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ErrorContentProps {
-  errorCode?: string
-  title: string
-  description: string
+  errorCode?: string;
+  title: string;
+  description: string;
 }
 
-export function ErrorContent({ errorCode, title, description }: ErrorContentProps) {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
+export function ErrorContent({
+  errorCode,
+  title,
+  description,
+}: ErrorContentProps) {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Card>
@@ -32,13 +42,19 @@ export function ErrorContent({ errorCode, title, description }: ErrorContentProp
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <CardDescription className="text-center text-sm leading-relaxed">{description}</CardDescription>
+        <CardDescription className="text-center text-sm leading-relaxed">
+          {description}
+        </CardDescription>
 
-        <Button onClick={() => navigate({ to: "/login" })} className="w-full" size="default">
+        <Button
+          onClick={() => navigate({ to: "/login" })}
+          className="w-full"
+          size="default"
+        >
           <Home className="w-4 h-4 mr-2" />
           {t("error.returnHome")}
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }

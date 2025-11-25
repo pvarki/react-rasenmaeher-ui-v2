@@ -15,12 +15,16 @@ interface UseUserManagementOptions {
   currentCallsign: string | null;
 }
 
-export function useUserManagement({ currentCallsign }: UseUserManagementOptions) {
+export function useUserManagement({
+  currentCallsign,
+}: UseUserManagementOptions) {
   const { t } = useTranslation();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [bulkMode, setBulkMode] = useState(false);
-  const [bulkAction, setBulkAction] = useState<"promote" | "demote" | "remove" | null>(null);
+  const [bulkAction, setBulkAction] = useState<
+    "promote" | "demote" | "remove" | null
+  >(null);
 
   // Confirmation states
   const [promoteConfirmOpen, setPromoteConfirmOpen] = useState(false);
@@ -39,42 +43,50 @@ export function useUserManagement({ currentCallsign }: UseUserManagementOptions)
   const promoteUserMutation = usePromoteUser({
     onSuccess: () => {
       toast.success(
-        t("manageUsers.messages.promoted", { callsign: selectedUser?.callsign })
+        t("manageUsers.messages.promoted", {
+          callsign: selectedUser?.callsign,
+        }),
       );
       setPromoteConfirmOpen(false);
       setTimeout(() => setSelectedUser(null), 150);
       refetch();
     },
     onError: (error) => {
-      toast.error(t("manageUsers.messages.promoteFailed", { error: error.message }));
+      toast.error(
+        t("manageUsers.messages.promoteFailed", { error: error.message }),
+      );
     },
   });
 
   const demoteUserMutation = useDemoteUser({
     onSuccess: () => {
       toast.success(
-        t("manageUsers.messages.demoted", { callsign: selectedUser?.callsign })
+        t("manageUsers.messages.demoted", { callsign: selectedUser?.callsign }),
       );
       setDemoteConfirmOpen(false);
       setTimeout(() => setSelectedUser(null), 150);
       refetch();
     },
     onError: (error) => {
-      toast.error(t("manageUsers.messages.demoteFailed", { error: error.message }));
+      toast.error(
+        t("manageUsers.messages.demoteFailed", { error: error.message }),
+      );
     },
   });
 
   const deleteUserMutation = useDeleteUser({
     onSuccess: () => {
       toast.error(
-        t("manageUsers.messages.removed", { callsign: selectedUser?.callsign })
+        t("manageUsers.messages.removed", { callsign: selectedUser?.callsign }),
       );
       setDeleteConfirmOpen(false);
       setTimeout(() => setSelectedUser(null), 150);
       refetch();
     },
     onError: (error) => {
-      toast.error(t("manageUsers.messages.removeFailed", { error: error.message }));
+      toast.error(
+        t("manageUsers.messages.removeFailed", { error: error.message }),
+      );
     },
   });
 
@@ -85,7 +97,7 @@ export function useUserManagement({ currentCallsign }: UseUserManagementOptions)
   const isCurrentUser = (user: User) => user.callsign === currentCallsign;
 
   const hasAdminSelected = selectedUsers.some((userCallsign) =>
-    administrators.some((admin) => admin.callsign === userCallsign)
+    administrators.some((admin) => admin.callsign === userCallsign),
   );
 
   const toggleUserSelection = (userCallsign: string) => {
@@ -96,7 +108,7 @@ export function useUserManagement({ currentCallsign }: UseUserManagementOptions)
     setSelectedUsers((prev) =>
       prev.includes(userCallsign)
         ? prev.filter((c) => c !== userCallsign)
-        : [...prev, userCallsign]
+        : [...prev, userCallsign],
     );
   };
 

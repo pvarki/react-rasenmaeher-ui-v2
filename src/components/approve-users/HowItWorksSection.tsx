@@ -12,7 +12,10 @@ interface HowItWorksSectionProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function HowItWorksSection({ open, onOpenChange }: HowItWorksSectionProps) {
+export function HowItWorksSection({
+  open,
+  onOpenChange,
+}: HowItWorksSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -24,10 +27,7 @@ export function HowItWorksSection({ open, onOpenChange }: HowItWorksSectionProps
       <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors">
         <span className="font-medium">{t("approveUsers.howItWorks")}</span>
         <ChevronDown
-          className={cn(
-            "w-5 h-5 transition-transform",
-            open && "rotate-180",
-          )}
+          className={cn("w-5 h-5 transition-transform", open && "rotate-180")}
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="px-4 pb-4 space-y-3 text-sm text-muted-foreground leading-relaxed">

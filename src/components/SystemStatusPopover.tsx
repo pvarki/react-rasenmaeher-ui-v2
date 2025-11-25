@@ -41,9 +41,7 @@ export function SystemStatusPopover({
 
   const filteredProducts = healthData
     ? Object.entries(healthData.products).filter(([product]) => {
-        return (
-          product.toLowerCase()
-        );
+        return product.toLowerCase();
       })
     : [];
 

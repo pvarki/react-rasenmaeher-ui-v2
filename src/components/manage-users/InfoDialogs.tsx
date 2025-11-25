@@ -14,7 +14,10 @@ interface WalkthroughDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function WalkthroughDialog({ open, onOpenChange }: WalkthroughDialogProps) {
+export function WalkthroughDialog({
+  open,
+  onOpenChange,
+}: WalkthroughDialogProps) {
   const { t } = useTranslation();
 
   return (
@@ -68,7 +71,10 @@ interface UserRolesInfoDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function UserRolesInfoDialog({ open, onOpenChange }: UserRolesInfoDialogProps) {
+export function UserRolesInfoDialog({
+  open,
+  onOpenChange,
+}: UserRolesInfoDialogProps) {
   const { t } = useTranslation();
 
   return (
@@ -79,7 +85,10 @@ export function UserRolesInfoDialog({ open, onOpenChange }: UserRolesInfoDialogP
             {t("manageUsers.infoModal.title", "User Roles")}
           </DialogTitle>
           <DialogDescription>
-            {t("manageUsers.infoModal.description", "Learn about different user roles")}
+            {t(
+              "manageUsers.infoModal.description",
+              "Learn about different user roles",
+            )}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -90,7 +99,7 @@ export function UserRolesInfoDialog({ open, onOpenChange }: UserRolesInfoDialogP
             <p className="text-sm text-muted-foreground">
               {t(
                 "manageUsers.infoModal.adminDesc",
-                "Administrators have access to management tools and can manage users."
+                "Administrators have access to management tools and can manage users.",
               )}
             </p>
           </div>
@@ -101,7 +110,7 @@ export function UserRolesInfoDialog({ open, onOpenChange }: UserRolesInfoDialogP
             <p className="text-sm text-muted-foreground">
               {t(
                 "manageUsers.infoModal.userDesc",
-                "Users have basic access to services."
+                "Users have basic access to services.",
               )}
             </p>
           </div>

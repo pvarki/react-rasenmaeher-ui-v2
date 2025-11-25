@@ -39,7 +39,7 @@ export function useInvitePdfExport({
         el.style.borderColor = "#000000";
         el.style.filter = "none";
         Array.from(el.children).forEach((child) =>
-          safeStyleAll(child as HTMLElement)
+          safeStyleAll(child as HTMLElement),
         );
       };
       safeStyleAll(qrClone);
