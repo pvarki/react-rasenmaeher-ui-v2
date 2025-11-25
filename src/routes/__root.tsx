@@ -31,6 +31,7 @@ import { OnboardingGuide } from "@/components/OnboardingGuide";
 import { SystemStatusPopover } from "@/components/SystemStatusPopover";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
+import FeedbackForm from "@/components/Feedbackform";
 
 export const Route = createRootRoute({
   component: RootLayoutWrapper,
@@ -122,6 +123,7 @@ function RootLayout() {
   const [userManagementOpen, setUserManagementOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [mtlsModalOpen, setMtlsModalOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
 
@@ -475,14 +477,12 @@ function RootLayout() {
                   {t("common.feedback")}
                 </p>
                 <p className="text-muted-foreground/80">
-                  <a
-                    href="https://docs.google.com/forms/d/1BXMxeTt5TtmuhX9XsiZTH2yl-Fko-NVPUumvu40TUAM/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
+                  <button
+                    onClick={() => setFeedbackOpen(true)}
+                    className="text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
                   >
                     {t("common.letDevelopersKnow")}
-                  </a>{" "}
+                  </button>{" "}
                   {t("common.whatYouThink")}
                 </p>
               </div>
@@ -497,6 +497,7 @@ function RootLayout() {
       </div>
 
       <MtlsInfoModal open={mtlsModalOpen} onOpenChange={setMtlsModalOpen} />
+      <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
       <OnboardingGuide />
     </div>
   );
