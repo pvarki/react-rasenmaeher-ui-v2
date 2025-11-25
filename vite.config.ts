@@ -27,6 +27,10 @@ export default defineConfig({
         react: { requiredVersion: "18.3.1", singleton: true },
         i18next: { requiredVersion: "25.6.2", singleton: true },
         "react-i18next": { requiredVersion: "16.3.3", singleton: true },
+        "@tanstack/react-router": {
+          requiredVersion: "1.135.2",
+          singleton: true,
+        },
       },
       runtime: "@module-federation/enhanced/runtime",
     }),

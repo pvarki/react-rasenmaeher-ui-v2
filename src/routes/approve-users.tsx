@@ -148,8 +148,6 @@ function ApproveUsersPage() {
     const code = jsQR(imageData.data, imageData.width, imageData.height);
 
     if (code) {
-      console.log("QR Code detected:", code.data);
-
       try {
         const url = new URL(code.data);
         const callsignParam = url.searchParams.get("callsign");
@@ -288,7 +286,7 @@ function ApproveUsersPage() {
               {t("approveUsers.step3End")}{" "}
               <span className="font-medium text-destructive">
                 {t("approveUsers.reject")}
-              </span>
+              </span> {" "}
               {t("approveUsers.step3End2")}
             </p>
           </CollapsibleContent>

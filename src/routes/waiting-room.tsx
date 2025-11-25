@@ -101,7 +101,7 @@ function WaitingRoomPage() {
           onClick={() => handleCopy(approvalUrl)}
           className="w-full bg-primary hover:bg-primary/90 h-11 md:h-12 text-sm md:text-base font-medium rounded-xl relative overflow-hidden"
         >
-          <span className={cn("transition-all", isCopied && "opacity-0")}>
+          <span className={cn("transition-all", isCopied && "opacity-0") + " text-xs"}>
             {t("waitingRoom.copyButton")}
           </span>
           {isCopied && (
@@ -120,7 +120,7 @@ function WaitingRoomPage() {
 
         <Collapsible open={instructionsOpen} onOpenChange={setInstructionsOpen}>
           <CollapsibleTrigger className="w-full flex items-center justify-between p-3 md:p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-            <span className="text-sm md:text-base font-medium">
+            <span className="text-xs md:text-base font-medium">
               {t("waitingRoom.instructionsTitle")}
             </span>
             <ChevronDown
