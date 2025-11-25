@@ -1,85 +1,64 @@
-"use client";
+"use client"
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown, Check, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { toast } from "sonner";
-import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
-import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
-import QRCode from "react-qr-code";
-import { useTranslation } from "react-i18next";
-
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Check } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { toast } from "sonner"
+import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus"
+import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard"
+import QRCode from "react-qr-code"
+import { useTranslation } from "react-i18next"
+import { WaitingRoomHeader } from "@/components/waiting-room/WaitingRoomHeader"
+import { ApprovalCodeDisplay } from "@/components/waiting-room/ApprovalCodeDisplay"
 export const Route = createFileRoute("/waiting-room")({
   component: WaitingRoomPage,
-});
+})
 
 function WaitingRoomPage() {
-  const navigate = useNavigate();
-  const [instructionsOpen, setInstructionsOpen] = useState(false);
-  const { isCopied, copyError, handleCopy } = useCopyToClipboard();
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const { isCopied, copyError, handleCopy } = useCopyToClipboard()
+  const { t } = useTranslation()
 
-  const callsign = localStorage.getItem("callsign") ?? undefined;
-  const approveCode = localStorage.getItem("approveCode") ?? undefined;
+  const callsign = localStorage.getItem("callsign") ?? undefined
+  const approveCode = localStorage.getItem("approveCode") ?? undefined
 
-  const protocol = window.location.protocol;
-  const hostname = window.location.hostname;
-  const port = window.location.port;
+  const protocol = window.location.protocol
+  const hostname = window.location.hostname
+  const port = window.location.port
 
-  let mtlsHostname = hostname;
+  let mtlsHostname = hostname
   if (!hostname.startsWith("mtls.")) {
-    mtlsHostname = `mtls.${hostname}`;
+    mtlsHostname = `mtls.${hostname}`
   }
 
-  const approvalUrl = `${protocol}//${mtlsHostname}${port ? `:${port}` : ""}/approve-user?callsign=${callsign ?? ""}&approvalcode=${approveCode ?? ""}`;
+  const approvalUrl = `${protocol}//${mtlsHostname}${port ? `:${port}` : ""}/approve-user?callsign=${callsign ?? ""}&approvalcode=${approveCode ?? ""}`
 
   useEffect(() => {
     if (!approveCode || !callsign) {
-      navigate({ to: "/login" });
+      navigate({ to: "/login" })
     }
-  }, [approveCode, callsign, navigate]);
+  }, [approveCode, callsign, navigate])
 
-  const [shouldPoll, setShouldPoll] = useState(true);
+  const [shouldPoll, setShouldPoll] = useState(true)
 
   const { data: enrolled, isLoading } = useOwnEnrollmentStatus({
     refetchInterval: shouldPoll ? 5000 : false,
-  });
+  })
 
   useEffect(() => {
     if (enrolled && shouldPoll) {
-      setShouldPoll(false);
-      toast.success(t("waitingRoom.approvedToast"));
-      window.location.replace("/mtls-install");
+      setShouldPoll(false)
+      toast.success(t("waitingRoom.approvedToast"))
+      window.location.replace("/mtls-install")
     }
-  }, [enrolled, shouldPoll, t]);
+  }, [enrolled, shouldPoll, t])
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 md:p-6">
-      <div className="w-full max-w-2xl space-y-6 md:space-y-8">
-        <div className="text-center space-y-3 md:space-y-4">
-          <h1 className="text-sm font-medium text-muted-foreground">
-            {t("waitingRoom.titleShort")}
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-medium text-balance">
-            {t("waitingRoom.title")}
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground text-balance max-w-lg mx-auto leading-relaxed">
-            {t("waitingRoom.description")}
-          </p>
-          {isLoading && (
-            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>{t("waitingRoom.checkingStatus")}</span>
-            </div>
-          )}
-        </div>
+      <div className="w-full max-w-2xl space-y-6 md:space-y-8 mt-8">
+        <WaitingRoomHeader isLoading={isLoading} appDesc={t("waitingRoom.description")} />
 
         <div className="flex justify-center">
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg">
@@ -87,15 +66,7 @@ function WaitingRoomPage() {
           </div>
         </div>
 
-        <div className="space-y-2 bg-card border border-border rounded-xl p-4 md:p-6 text-center">
-          <p className="font-semibold text-lg md:text-xl">{callsign}</p>
-          <p className="text-sm text-muted-foreground pt-2">
-            {t("waitingRoom.yourApprovalCodeLabel")}{" "}
-            <span className="font-mono font-bold text-foreground text-base">
-              {approveCode}
-            </span>
-          </p>
-        </div>
+        <ApprovalCodeDisplay callsign={callsign || ""} approveCode={approveCode || ""} />
 
         <Button
           onClick={() => handleCopy(approvalUrl)}
@@ -117,24 +88,7 @@ function WaitingRoomPage() {
             {t("waitingRoom.actionFailed", { error: copyError.message })}
           </span>
         )}
-
-        <Collapsible open={instructionsOpen} onOpenChange={setInstructionsOpen}>
-          <CollapsibleTrigger className="w-full flex items-center justify-between p-3 md:p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
-            <span className="text-xs md:text-base font-medium">
-              {t("waitingRoom.instructionsTitle")}
-            </span>
-            <ChevronDown
-              className={cn(
-                "w-5 h-5 transition-transform",
-                instructionsOpen && "rotate-180",
-              )}
-            />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="mt-3 p-4 md:p-6 bg-card border border-border rounded-xl space-y-3 text-sm text-muted-foreground leading-relaxed">
-            <p>{t("waitingRoom.instructionsText")}</p>
-          </CollapsibleContent>
-        </Collapsible>
       </div>
     </div>
-  );
+  )
 }
