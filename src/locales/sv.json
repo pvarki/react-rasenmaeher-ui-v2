@@ -593,5 +593,42 @@
     "help2": "Inbjudningskoder – generera och hantera koder",
     "help3": "Keycloak – konfigurera autentisering",
     "help4": "Externa tjänster – åtkomst till TAK och BL"
+  },
+  "feedbackForm": {
+    "title": "Skicka feedback",
+    "description": "Låt oss veta vad du tycker. Din feedback hjälper oss att förbättra appen.",
+    "roleLabel": "Din roll",
+    "rolePlaceholder": "Välj roll...",
+    "roles": {
+      "end_user": "Slutanvändare",
+      "developer": "Utvecklare",
+      "admin": "Administratör",
+      "maintainer": "Underhållare",
+      "other": "Annat"
+    },
+    "versionLabel": "Den version av Deploy App som du använder",
+    "osLabel": "Operativsystem",
+    "osPlaceholder": "Välj OS...",
+    "os": {
+      "linux": "Linux",
+      "windows": "Windows",
+      "macos": "macOS",
+      "android": "Android",
+      "iphone": "iPhone",
+      "other": "Annat"
+    },
+    "ratingLabel": "Hur var din upplevelse?",
+    "ratingPlaceholder": "Välj...",
+    "ratings": {
+      "excellent": "Utmärkt",
+      "good": "Bra",
+      "veryBad": "Mycket Dåligt",
+      "bad": "Dåligt"
+    },
+    "commentsLabel": "Kommentarer",
+    "commentsPlaceholder": "Dela detaljer, förslag eller problem...",
+    "send": "Skicka feedback",
+    "sending": "Skickar...",
+    "thanks": "Tack för din feedback!"
   }
 }
