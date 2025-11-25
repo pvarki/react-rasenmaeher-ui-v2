@@ -593,5 +593,42 @@
     "help2": "Invite Codes - Generate and manage user invite codes",
     "help3": "Keycloak - Configure authentication and identity management",
     "help4": "External Services - Access TAK and Business Logic servers"
+  },
+  "feedbackForm": {
+    "title": "Send feedback",
+    "description": "Let us know what you think. Your feedback helps improve the app.",
+    "roleLabel": "Your role",
+    "rolePlaceholder": "Select role...",
+    "roles": {
+      "end_user": "End user",
+      "developer": "Developer",
+      "admin": "Administrator",
+      "maintainer": "Maintainer",
+      "other": "Other"
+    },
+    "versionLabel": "The Deploy App version you are using",
+    "osLabel": "Operating system",
+    "osPlaceholder": "Select OS...",
+    "os": {
+      "linux": "Linux",
+      "windows": "Windows",
+      "macos": "macOS",
+      "android": "Android",
+      "iphone": "iPhone",
+      "other": "Other"
+    },
+    "ratingLabel": "How was your experience?",
+    "ratingPlaceholder": "Choose...",
+    "ratings": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "veryBad": "Very Bad",
+      "bad": "Bad"
+    },
+    "commentsLabel": "Comments",
+    "commentsPlaceholder": "Share details, suggestions or issues...",
+    "send": "Send feedback",
+    "sending": "Sending...",
+    "thanks": "Thanks for the feedback!"
   }
 }

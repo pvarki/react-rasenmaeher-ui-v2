@@ -593,5 +593,42 @@
     "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
     "help3": "Keycloak – määritä todennus ja identiteetin hallinta",
     "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+  },
+  "feedbackForm": {
+    "title": "Lähetä palautetta",
+    "description": "Kerro meille, mitä ajattelet. Palautteesi auttaa parantamaan sovellusta.",
+    "roleLabel": "Roolisi",
+    "rolePlaceholder": "Valitse rooli...",
+    "roles": {
+      "end_user": "Loppukäyttäjä",
+      "developer": "Kehittäjä",
+      "admin": "Ylläpitäjä",
+      "maintainer": "Huoltaja",
+      "other": "Muu"
+    },
+    "versionLabel": "Käyttämäsi Deploy App versio",
+    "osLabel": "Käyttöjärjestelmä",
+    "osPlaceholder": "Valitse käyttöjärjestelmä...",
+    "os": {
+      "linux": "Linux",
+      "windows": "Windows",
+      "macos": "macOS",
+      "android": "Android",
+      "iphone": "iPhone",
+      "other": "Muu"
+    },
+    "ratingLabel": "Miten kokemuksesi oli?",
+    "ratingPlaceholder": "Valitse...",
+    "ratings": {
+      "excellent": "Erinomainen",
+      "good": "Hyvä",
+      "veryBad": "Erittäin Huono",
+      "bad": "Huono"
+    },
+    "commentsLabel": "Kommentit",
+    "commentsPlaceholder": "Huolia, murheita, turhia toiveita...",
+    "send": "Lähetä palaute",
+    "sending": "Lähetetään...",
+    "thanks": "Kiitos palautteesta!"
   }
 }
