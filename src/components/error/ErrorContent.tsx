@@ -48,8 +48,8 @@ export function ErrorContent({
 
         <Button
           onClick={() => navigate({ to: "/login" })}
-          className="w-full"
-          size="default"
+          className="w-full bg-primary-light hover:bg-primary-light/90"
+          variant={"outline"}
         >
           <Home className="w-4 h-4 mr-2" />
           {t("error.returnHome")}

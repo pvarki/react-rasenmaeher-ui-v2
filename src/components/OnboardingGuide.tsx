@@ -256,7 +256,8 @@ export function OnboardingGuide() {
                 <Button
                   onClick={handleComplete}
                   size="sm"
-                  className="bg-primary hover:bg-primary/90"
+                  className="bg-primary-light hover:bg-primary-light/90"
+                  variant={"outline"}
                 >
                   {currentStep === relevantSteps.length - 1
                     ? t("onboarding.finish")

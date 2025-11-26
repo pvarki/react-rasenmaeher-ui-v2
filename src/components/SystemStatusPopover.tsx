@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Wifi, WifiOff, Shield, AlertTriangle } from "lucide-react";
+import { Wifi, AlertTriangle, ServerCrash, EthernetPort } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -46,32 +46,30 @@ export function SystemStatusPopover({
     : [];
 
   const overallStatus = isOnline && healthData?.all_ok;
-  const downCount = filteredProducts.filter(([, status]) => !status).length;
-  const totalCount = filteredProducts.length;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-accent/20">
+        <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-accent/20 border">
           {overallStatus ? (
             <>
-              <Wifi className="w-3 h-3 text-green-500" />
+              <EthernetPort className="w-3 h-3 text-green-500" />
               <span>{t("systemStatus.online")}</span>
             </>
           ) : (
             <>
-              <WifiOff className="w-3 h-3 text-red-500" />
+              <ServerCrash className="w-3 h-3 text-red-500" />
               <span>{t("systemStatus.offline")}</span>
             </>
           )}
         </button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-80 p-0 border border-border/50">
+      <PopoverContent className="w-80 p-0 border">
         <div className="p-4 space-y-4">
           <div className="space-y-2 pb-3 border-b border-border/30">
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-primary" />
+              <EthernetPort className="w-4 h-4 text-primary" />
               <h3 className="font-semibold text-sm text-foreground">
                 {t("systemStatus.title")}
               </h3>
@@ -81,38 +79,7 @@ export function SystemStatusPopover({
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            <div className="bg-card/60 border border-border/30 rounded-lg p-3 text-center">
-              <p className="text-2xl font-bold text-primary">{totalCount}</p>
-              <p className="text-xs text-muted-foreground">
-                {t("systemStatus.services")}
-              </p>
-            </div>
-            <div
-              className={`bg-card/60 border border-border/30 rounded-lg p-3 text-center ${totalCount - downCount === totalCount ? "border-green-500/30 bg-green-500/5" : ""}`}
-            >
-              <p className="text-2xl font-bold text-green-600">
-                {totalCount - downCount}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {t("systemStatus.active")}
-              </p>
-            </div>
-            <div
-              className={`bg-card/60 border border-border/30 rounded-lg p-3 text-center ${downCount > 0 ? "border-red-500/30 bg-red-500/5" : ""}`}
-            >
-              <p
-                className={`text-2xl font-bold ${downCount > 0 ? "text-red-600" : "text-green-600"}`}
-              >
-                {downCount}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {t("systemStatus.issues")}
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-2 pt-2">
+          <div className="space-y-2">
             {filteredProducts.length === 0 ? (
               <p className="text-xs text-muted-foreground text-center py-2">
                 {t("systemStatus.noServices")}

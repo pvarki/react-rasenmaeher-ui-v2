@@ -34,7 +34,11 @@ export function MtlsInfoModal({ open, onOpenChange }: MtlsInfoModalProps) {
           </p>
         </div>
         <DialogFooter>
-          <Button onClick={() => onOpenChange(false)} className="w-full">
+          <Button
+            onClick={() => onOpenChange(false)}
+            variant={"outline"}
+            className="w-full bg-primary-light hover:bg-primary-light/90"
+          >
             {t("modals.mtls.gotIt")}
           </Button>
         </DialogFooter>

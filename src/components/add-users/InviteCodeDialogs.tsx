@@ -56,7 +56,8 @@ export function CreateInviteDialog({
           </Button>
           <Button
             onClick={onConfirm}
-            className="flex-1 h-11 bg-primary hover:bg-primary/90"
+            variant={"outline"}
+            className="flex-1 h-11 bg-primary-light hover:bg-primary-light/90"
           >
             {t("addUsers.createModalTitle")}
           </Button>
@@ -193,7 +194,11 @@ export function WalkthroughDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={() => onOpenChange(false)} className="w-full">
+          <Button
+            onClick={() => onOpenChange(false)}
+            className="w-full bg-primary-light hover:bg-primary-light/90"
+            variant={"outline"}
+          >
             {t("addUsers.walkthrough.gotIt")}
           </Button>
         </DialogFooter>

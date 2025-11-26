@@ -69,7 +69,7 @@ export function UserManagementDialog({
           </Button>
 
           <Button
-            variant="destructive"
+            variant="outline"
             onClick={onRemove}
             className="flex-1"
             disabled={isLoading || !canRemove}
@@ -82,8 +82,9 @@ export function UserManagementDialog({
 
           {!isAdmin ? (
             <Button
+              variant={"outline"}
               onClick={onPromote}
-              className="flex-1 bg-teal-600 hover:bg-teal-700"
+              className="flex-1 bg-primary-light hover:bg-primary-light/90"
               disabled={isLoading}
             >
               {t("manageUsers.userDialog.promote")}
@@ -91,7 +92,8 @@ export function UserManagementDialog({
           ) : (
             <Button
               onClick={onDemote}
-              className="flex-1 bg-orange-600 hover:bg-orange-700"
+              variant={"outline"}
+              className="flex-1 bg-primary-light hover:bg-primary-light/90"
               disabled={isLoading || !canDemote}
               title={
                 isCurrentUser

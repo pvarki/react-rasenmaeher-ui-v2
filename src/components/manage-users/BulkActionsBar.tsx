@@ -30,7 +30,7 @@ export function BulkActionsBar({
         variant="outline"
         size="sm"
         onClick={onPromote}
-        className="bg-teal-600 hover:bg-teal-700 text-white disabled:opacity-50"
+        className="text-white disabled:opacity-50"
         disabled={hasAdminSelected}
         title={
           hasAdminSelected

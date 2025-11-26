@@ -27,12 +27,11 @@ export function ProductCard({
 
   return (
     <div
-      onClick={() => onProductClick(product)}
       className={cn(
         "group flex flex-col border border-border rounded-2xl overflow-hidden transition-all duration-300",
         isValidUser
-          ? "hover:border-primary hover:shadow-xl hover:-translate-y-1 cursor-pointer bg-card"
-          : "opacity-60 cursor-not-allowed bg-card",
+          ? "hover:border-primary hover:shadow-xl hover:-translate-y-1 bg-card"
+          : "opacity-60 bg-card",
       )}
     >
       <div className="flex flex-col flex-1 p-6">
@@ -55,7 +54,7 @@ export function ProductCard({
               variant="ghost"
               size="sm"
               className={cn(
-                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-full sm:flex-1",
+                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-full sm:flex-1 border cursor-pointer",
                 !isValidUser && "opacity-50 cursor-not-allowed",
               )}
               onClick={(e) => {
@@ -70,10 +69,12 @@ export function ProductCard({
           )}
           <Button
             size="sm"
+            onClick={() => onProductClick(product)}
+            variant={"outline"}
             className={cn(
-              "flex items-center justify-center rounded-lg font-semibold transition-all h-12 text-sm md:text-base w-full sm:flex-1",
+              "flex items-center justify-center rounded-lg font-semibold transition-all h-12 text-sm md:text-base w-full sm:flex-1 cursor-pointer",
               isValidUser
-                ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                ? "bg-primary-light hover:bg-primary-light/90 text-primary-foreground"
                 : "bg-muted text-muted-foreground cursor-not-allowed",
             )}
             disabled={!isValidUser}

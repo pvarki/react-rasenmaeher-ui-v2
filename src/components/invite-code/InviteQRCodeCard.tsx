@@ -36,8 +36,9 @@ export function InviteQRCodeCard({
       </div>
       <div className="flex flex-col sm:flex-row gap-3 w-full">
         <Button
+          variant={"outline"}
           onClick={() => handleCopy(inviteUrl)}
-          className="flex-1 bg-primary hover:bg-primary/90 h-12 text-base font-medium rounded-xl relative overflow-hidden"
+          className="flex-1 bg-primary-light hover:bg-primary-light/90 h-12 text-base font-medium rounded-xl relative overflow-hidden"
         >
           <span className={cn("transition-all", isCopied && "opacity-0")}>
             {t("inviteCode.copyInvite")}

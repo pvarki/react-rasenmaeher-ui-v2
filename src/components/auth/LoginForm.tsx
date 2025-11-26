@@ -118,7 +118,8 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
       <CardContent className="space-y-4">
         <a href={mtlsUrl} className="block">
           <Button
-            className="w-full h-14 bg-green-600 hover:bg-green-700 text-base font-semibold"
+            variant={"outline"}
+            className="w-full h-14 bg-primary-light hover:bg-primary-light/90 text-base font-semibold"
             type="button"
           >
             {t("login.certificate")}
@@ -165,7 +166,8 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
 
             <Button
               type="submit"
-              className="w-full h-14 bg-primary hover:bg-primary/90 text-base font-semibold"
+              variant={"outline"}
+              className="w-full h-14 bg-primary-light hover:bg-primary-light/90 text-base font-semibold"
               disabled={!values.code || isLoading}
             >
               {isLoading ? (

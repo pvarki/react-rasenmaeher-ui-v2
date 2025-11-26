@@ -144,9 +144,12 @@ function ManageUsersPage() {
 
       <div className="flex gap-3">
         <Button
-          variant={bulkMode ? "default" : "outline"}
+          variant={bulkMode ? "ghost" : "outline"}
           onClick={toggleBulkMode}
-          className="rounded-xl"
+          className={
+            "rounded-xl" +
+            (bulkMode ? " bg-primary-light hover:bg-primary-light/90" : "")
+          }
         >
           {bulkMode ? t("manageUsers.exitBulkMode") : t("manageUsers.bulkMode")}
         </Button>

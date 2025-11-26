@@ -43,7 +43,8 @@ export function InviteCodeHeader({
       <div className="flex flex-col md:flex-row items-center gap-3">
         <Button
           onClick={onCreateClick}
-          className="w-full md:w-auto bg-primary hover:bg-primary/90 h-12 md:h-12 px-6 font-semibold rounded-xl"
+          variant={"outline"}
+          className="w-full md:w-auto bg-primary-light hover:bg-primary-light/90 h-12 md:h-12 px-6 font-semibold rounded-xl "
           disabled={isCreating}
         >
           <Plus className="w-5 h-5 mr-2" />
@@ -62,7 +63,7 @@ export function InviteCodeHeader({
           className="w-full md:w-auto h-12 px-6 font-semibold rounded-xl"
         >
           <CheckSquare className="w-5 h-5" />
-          <span className="ml-2 hidden md:inline">
+          <span className="ml-2">
             {bulkMode ? t("addUsers.cancel") : t("addUsers.selectMultiple")}
           </span>
         </Button>

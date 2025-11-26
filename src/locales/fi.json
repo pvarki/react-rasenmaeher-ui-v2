@@ -58,7 +58,7 @@
       "description": "Mutual TLS (mTLS) -tunnistautumisen selitys",
       "paragraph1": "Käyttämällä laitteellesi asennettua mTLS-avainta palveluumme yhdistämiseen voimme varmistaa, että yhteys tulee sinulta. Kukaan muu ei voi esiintyä sinuna.",
       "paragraph2": "Samalla tavalla voit olla varma, että toisessa päässä olemme me.",
-      "paragraph3": "Kaikki Deploy Appin (Rasenmäher) palvelut salavaat liikenteensä mTLS-avaimellasi.",
+      "paragraph3": "Kaikki Deploy Appin palvelut salavaat liikenteensä mTLS-avaimellasi.",
       "gotIt": "Ymmärretty"
     }
   },
@@ -113,7 +113,7 @@
     "networkConnected": "Verkko yhdistetty",
     "networkDisconnected": "Verkko ei yhdistetty",
     "online": "Online",
-    "offline": "Offline",
+    "offline": "Huomioitavaa!",
     "justNow": "Juuri nyt",
     "minAgo": "min sitten",
     "hoursAgo": "tuntia sitten",

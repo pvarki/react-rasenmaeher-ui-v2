@@ -34,9 +34,7 @@ export function ExitConfirmDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="py-2">
-          <p className="text-muted-foreground break-all font-mono text-xs">
-            {exitUrl}
-          </p>
+          <p className="text-primary break-all font-mono text-xs">{exitUrl}</p>
         </div>
         <DialogFooter className="flex gap-2 sm:gap-2">
           <Button
@@ -46,7 +44,11 @@ export function ExitConfirmDialog({
           >
             {t("home.dialog.cancel")}
           </Button>
-          <Button onClick={onConfirm} className="flex-1">
+          <Button
+            onClick={onConfirm}
+            variant={"outline"}
+            className="flex-1 bg-primary-light hover:bg-primary-light/90"
+          >
             {t("home.dialog.continue")}
           </Button>
         </DialogFooter>

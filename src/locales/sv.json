@@ -58,7 +58,7 @@
       "description": "Förklaring av Mutual TLS (mTLS)-autentisering",
       "paragraph1": "Genom att använda en mTLS-nyckel installerad på din enhet kan vi säkerställa att anslutningen kommer från dig. Ingen annan kan låtsas vara du.",
       "paragraph2": "På samma sätt kan du vara säker på att det verkligen är vi på andra änden.",
-      "paragraph3": "Alla tjänster från Deploy App (Rasenmäher) krypterar sin trafik med din mTLS-nyckel.",
+      "paragraph3": "Alla tjänster från Deploy App krypterar sin trafik med din mTLS-nyckel.",
       "gotIt": "Förstått"
     }
   },
@@ -113,7 +113,7 @@
     "networkConnected": "Nätverk anslutet",
     "networkDisconnected": "Nätverk frånkopplat",
     "online": "Online",
-    "offline": "Offline",
+    "offline": "Nedgång",
     "justNow": "Just nu",
     "minAgo": "min sedan",
     "hoursAgo": "timmar sedan",
