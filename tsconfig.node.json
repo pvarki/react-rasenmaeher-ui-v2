@@ -22,5 +22,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "module-federation/vite-importmap-shim.ts"]
+  "include": [
+    "vite.config.ts",
+    "module-federation/vite-importmap-shim.ts",
+    "vite.config.ts",
+    "vite-env.d.ts"
+  ]
 }
