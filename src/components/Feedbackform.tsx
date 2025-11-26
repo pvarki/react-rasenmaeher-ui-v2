@@ -12,6 +12,14 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useUserType } from "@/hooks/auth/useUserType";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FeedbackFormProps {
   open: boolean;
@@ -69,51 +77,73 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
             <label className="text-xs font-medium text-muted-foreground">
               {t("feedbackForm.osLabel")}
             </label>
-            <select
-              value={os}
-              onChange={(e) => setOs(e.target.value)}
-              className={cn(
-                "h-10 rounded-md border px-3 py-1 bg-transparent text-base",
-              )}
-            >
-              <option value="">{t("feedbackForm.osPlaceholder")}</option>
-              <option value="linux">{t("feedbackForm.os.linux")}</option>
-              <option value="windows">{t("feedbackForm.os.windows")}</option>
-              <option value="macos">{t("feedbackForm.os.macos")}</option>
-              <option value="android">{t("feedbackForm.os.android")}</option>
-              <option value="iphone">{t("feedbackForm.os.iphone")}</option>
-              <option value="other">{t("feedbackForm.os.other")}</option>
-            </select>
+            <Select value={os} onValueChange={(v) => setOs(v)}>
+              <SelectTrigger
+                className={cn(
+                  "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                )}
+              >
+                <SelectValue placeholder={t("feedbackForm.osPlaceholder")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="linux">
+                  {t("feedbackForm.os.linux")}
+                </SelectItem>
+                <SelectItem value="windows">
+                  {t("feedbackForm.os.windows")}
+                </SelectItem>
+                <SelectItem value="macos">
+                  {t("feedbackForm.os.macos")}
+                </SelectItem>
+                <SelectItem value="android">
+                  {t("feedbackForm.os.android")}
+                </SelectItem>
+                <SelectItem value="iphone">
+                  {t("feedbackForm.os.iphone")}
+                </SelectItem>
+                <SelectItem value="other">
+                  {t("feedbackForm.os.other")}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="grid grid-cols-1 gap-2">
             <label className="text-xs font-medium text-muted-foreground">
               {t("feedbackForm.ratingLabel")}
             </label>
-            <select
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              className={cn(
-                "h-10 rounded-md border px-3 py-1 bg-transparent text-base",
-              )}
-            >
-              <option value="">{t("feedbackForm.ratingPlaceholder")}</option>
-              <option value="excellent">
-                {t("feedbackForm.ratings.excellent")}
-              </option>
-              <option value="good">{t("feedbackForm.ratings.good")}</option>
-              <option value="bad">{t("feedbackForm.ratings.bad")}</option>
-              <option value="very bad">
-                {t("feedbackForm.ratings.veryBad")}
-              </option>
-            </select>
+            <Select value={rating} onValueChange={(v) => setRating(v)}>
+              <SelectTrigger
+                className={cn(
+                  "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                )}
+              >
+                <SelectValue
+                  placeholder={t("feedbackForm.ratingPlaceholder")}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="excellent">
+                  {t("feedbackForm.ratings.excellent")}
+                </SelectItem>
+                <SelectItem value="good">
+                  {t("feedbackForm.ratings.good")}
+                </SelectItem>
+                <SelectItem value="bad">
+                  {t("feedbackForm.ratings.bad")}
+                </SelectItem>
+                <SelectItem value="very bad">
+                  {t("feedbackForm.ratings.veryBad")}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="grid grid-cols-1 gap-2">
             <label className="text-xs font-medium text-muted-foreground">
               {t("feedbackForm.commentsLabel")}
             </label>
-            <textarea
+            <Textarea
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               placeholder={t("feedbackForm.commentsPlaceholder")}
