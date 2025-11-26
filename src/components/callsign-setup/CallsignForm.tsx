@@ -89,7 +89,8 @@ export function CallsignForm({
           </Button>
           <Button
             type="submit"
-            className="flex-1"
+            variant={"outline"}
+            className="flex-1 bg-primary-light hover:bg-primary-light/90"
             disabled={!formik.isValid || isLoading}
           >
             {isLoading

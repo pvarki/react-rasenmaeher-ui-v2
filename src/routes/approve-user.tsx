@@ -103,7 +103,8 @@ function ApproveUserPage() {
               </Button>
               <Button
                 onClick={handleApprove}
-                className="flex-1 bg-green-600 hover:bg-green-700"
+                variant={"outline"}
+                className="flex-1 bg-primary-light hover:bg-primary-light/90"
                 disabled={approveUserMutation.isLoading || !approvalCode.trim()}
               >
                 {approveUserMutation.isLoading ? (

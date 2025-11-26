@@ -51,10 +51,11 @@ export function TypeConfirmationModal({
           <Button
             onClick={onConfirm}
             disabled={isLoading}
+            variant={"outline"}
             className={
               isDangerous
                 ? "flex-1 bg-destructive hover:bg-destructive/90"
-                : "flex-1"
+                : "flex-1 bg-primary-light hover:bg-primary-light/90"
             }
           >
             {isLoading ? t("common.confirming") : t("common.confirm")}
@@ -107,10 +108,11 @@ export function SimpleConfirmationModal({
           <Button
             onClick={onConfirm}
             disabled={isLoading}
+            variant={"outline"}
             className={
               isDangerous
                 ? "flex-1 bg-destructive hover:bg-destructive/90"
-                : "flex-1"
+                : "flex-1 bg-primary-light hover:bg-primary-light/90"
             }
           >
             {isLoading ? t("common.processing") : actionText}

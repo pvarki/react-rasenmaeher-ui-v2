@@ -56,7 +56,7 @@ function HomePage() {
     if (!isValidUser) return;
 
     if (product.component.type === "link") {
-      setExitUrl("#");
+      setExitUrl(product.component.ref);
       setExitDialogOpen(true);
     } else {
       window.open(`/product/${product.shortname}`);

@@ -58,7 +58,7 @@
       "description": "Mutual TLS (mTLS) authentication explained",
       "paragraph1": "By using an mTLS key installed on your device to connect to our service, we can ensure the connection comes from you. No one else can impersonate you.",
       "paragraph2": "Likewise, you are assured that on the other end, it's us.",
-      "paragraph3": "All services from Deploy App (Rasenmäher) that you take into use encrypt their traffic with your mTLS key.",
+      "paragraph3": "All services from Deploy App that you take into use encrypt their traffic with your mTLS key.",
       "gotIt": "Got it"
     }
   },
@@ -113,7 +113,7 @@
     "networkConnected": "Network Connected",
     "networkDisconnected": "Network Disconnected",
     "online": "Online",
-    "offline": "Offline",
+    "offline": "Outage",
     "justNow": "Just now",
     "minAgo": "min ago",
     "hoursAgo": "hours ago",

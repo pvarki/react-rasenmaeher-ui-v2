@@ -19,11 +19,7 @@ export function BulkActionsBar({
   if (selectedCount === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 p-4 bg-card border border-border rounded-xl">
-      <span className="text-sm font-medium">
-        {t("addUsers.selected", { count: selectedCount })}
-      </span>
-      <div className="flex-1"></div>
+    <div className="grid md:grid-cols-3 gap-2 p-4 bg-card border border-border rounded-xl">
       <Button variant="outline" size="sm" onClick={onEnable}>
         {t("addUsers.enable")}
       </Button>

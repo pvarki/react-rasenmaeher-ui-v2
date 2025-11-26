@@ -57,7 +57,11 @@ export function WalkthroughDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={() => onOpenChange(false)} className="w-full">
+          <Button
+            onClick={() => onOpenChange(false)}
+            variant={"outline"}
+            className="w-full bg-primary-light hover:bg-primary-light/90"
+          >
             {t("manageUsers.walkthrough.gotIt")}
           </Button>
         </DialogFooter>
@@ -116,7 +120,11 @@ export function UserRolesInfoDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={() => onOpenChange(false)} className="w-full">
+          <Button
+            onClick={() => onOpenChange(false)}
+            variant={"outline"}
+            className="w-full bg-primary-light hover:bg-primary-light/90"
+          >
             {t("common.close", "Close")}
           </Button>
         </DialogFooter>

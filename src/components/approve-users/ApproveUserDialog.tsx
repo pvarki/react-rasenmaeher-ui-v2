@@ -86,7 +86,8 @@ export function ApproveUserDialog({
           </Button>
           <Button
             onClick={onApprove}
-            className="bg-green-600 hover:bg-green-700 flex-1 h-11"
+            variant={"outline"}
+            className="bg-primary-light hover:bg-primary-light/90 flex-1 h-11"
             disabled={isLoading}
           >
             {isApproving

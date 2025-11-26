@@ -76,7 +76,8 @@ function WaitingRoomPage() {
 
         <Button
           onClick={() => handleCopy(approvalUrl)}
-          className="w-full bg-primary hover:bg-primary/90 h-11 md:h-12 text-sm md:text-base font-medium rounded-xl relative overflow-hidden"
+          variant={"outline"}
+          className="w-full bg-primary-light hover:bg-primary-light/90 h-14 md:h-12 text-sm md:text-base font-medium rounded-xl relative overflow-hidden"
         >
           <span
             className={

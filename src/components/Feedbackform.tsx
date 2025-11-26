@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +20,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-
+import { getOperatingSystem } from "@/components/mtls/platformUtils";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 interface FeedbackFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -34,33 +35,52 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
   const { userType } = useUserType();
+  const { deployment } = useHealthCheck();
 
-  // Check if all required fields are filled
+  const webAddress = typeof window !== "undefined" ? window.location.href : "";
+
+  useEffect(() => {
+    const detectedOS = getOperatingSystem();
+    setOs(detectedOS.toLowerCase());
+  }, []);
+
   const isFormValid = os && rating && comments;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Using Formspark for form submission
-    fetch("https://submit-form.com/hloLGOTNT", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        role: userType,
-        os,
-        rating,
-        comments,
-        version,
-      }),
-    });
 
-    toast.success(t("feedbackForm.thanks"));
-    onOpenChange(false);
-    setOs("");
-    setRating("");
-    setComments("");
+    try {
+      const res = await fetch("https://submit-form.com/hloLGOTNT", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: userType,
+          os,
+          rating,
+          comments,
+          version,
+          webAddress,
+          deployment,
+        }),
+        redirect: "manual",
+      });
+
+      if (!res.ok && res.type !== "opaqueredirect") {
+        throw new Error("Submission failed");
+      }
+
+      toast.success(t("feedbackForm.thanks"));
+
+      onOpenChange(false);
+      setOs("");
+      setRating("");
+      setComments("");
+    } catch (err) {
+      console.error("Feedback submission error:", err);
+      toast.error("Submission failed or blocked");
+    }
+
     setIsSubmitting(false);
   };
 
@@ -165,7 +185,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
             </Button>
             <Button
               type="submit"
-              className="flex-1"
+              className="flex-1 bg-primary-light hover:bg-primary-light/90"
               disabled={isSubmitting || !isFormValid}
             >
               {isSubmitting
