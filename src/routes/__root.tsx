@@ -64,6 +64,8 @@ function RootLayout() {
   useEffect(() => {
     if (isMobile || isTablet) {
       setSidebarOpen(false);
+    } else {
+      setSidebarOpen(true);
     }
   }, [location.pathname, isMobile, isTablet]);
 
