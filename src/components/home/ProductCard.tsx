@@ -35,18 +35,28 @@ export function ProductCard({
       )}
     >
       <div className="flex flex-col flex-1 p-6">
-        <div className="mb-4">
-          <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-            {getProductShortLabel(product.title)}
-          </p>
-          <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight">
-            {getCleanProductTitle(product.title)}
-          </h3>
-        </div>
+        <div className="flex flex-col flex-1 relative pr-20 md:pr-28">
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+              {getProductShortLabel(product.title)}
+            </p>
+            <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight break-words">
+              {getCleanProductTitle(product.title)}
+            </h3>
+          </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">
-          {product.description}
-        </p>
+          <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6 break-words">
+            {product.description}
+          </p>
+
+          {product.icon && (
+            <img
+              src={product.icon}
+              alt={product.shortname}
+              className="w-13 h-13 sm:w-20 sm:h-20 lg:w-23 lg:h-23 object-contain absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+            />
+          )}
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
           {product.docs && (
@@ -54,7 +64,7 @@ export function ProductCard({
               variant="ghost"
               size="sm"
               className={cn(
-                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-full sm:flex-1 border cursor-pointer",
+                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-auto sm:flex-1",
                 !isValidUser && "opacity-50 cursor-not-allowed",
               )}
               onClick={(e) => {
