@@ -30,8 +30,8 @@ export function CallsignForm({
     callsign: yup
       .string()
       .required(t("callsignSetup.validation.required"))
+      .matches(/^[a-zA-Z0-9]*$/, t("callsignSetup.validation.pattern"))
       .min(3, t("callsignSetup.validation.min"))
-      .matches(/^[a-zA-Z0-9]{3,30}$/, t("callsignSetup.validation.pattern"))
       .max(30, t("callsignSetup.validation.max")),
   });
 
@@ -67,7 +67,7 @@ export function CallsignForm({
             value={formik.values.callsign}
             onChange={handleInputChange}
           />
-          {formik.errors.callsign && formik.touched.callsign && (
+          {formik.errors.callsign && (
             <p className="text-sm text-destructive">{formik.errors.callsign}</p>
           )}
           {errorMessage && (
