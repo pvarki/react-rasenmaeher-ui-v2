@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface WalkthroughDialogProps {
   open: boolean;
@@ -29,33 +30,35 @@ export function WalkthroughDialog({
             {t("manageUsers.walkthrough.description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("manageUsers.walkthrough.promotingTitle")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              {t("manageUsers.walkthrough.promotingDesc")}
-            </p>
+        <ScrollArea className="h-[330px] rounded-md">
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("manageUsers.walkthrough.promotingTitle")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {t("manageUsers.walkthrough.promotingDesc")}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("manageUsers.walkthrough.removingTitle")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {t("manageUsers.walkthrough.removingDesc")}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("manageUsers.walkthrough.notesTitle")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                • {t("manageUsers.walkthrough.note1")}
+                <br />• {t("manageUsers.walkthrough.note2")}
+              </p>
+            </div>
           </div>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("manageUsers.walkthrough.removingTitle")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              {t("manageUsers.walkthrough.removingDesc")}
-            </p>
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("manageUsers.walkthrough.notesTitle")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              • {t("manageUsers.walkthrough.note1")}
-              <br />• {t("manageUsers.walkthrough.note2")}
-            </p>
-          </div>
-        </div>
+        </ScrollArea>
         <DialogFooter>
           <Button
             onClick={() => onOpenChange(false)}

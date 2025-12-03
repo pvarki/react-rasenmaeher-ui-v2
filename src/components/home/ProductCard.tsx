@@ -59,24 +59,6 @@ export function ProductCard({
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
-          {product.docs && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className={cn(
-                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-auto sm:flex-1",
-                !isValidUser && "opacity-50 cursor-not-allowed",
-              )}
-              onClick={(e) => {
-                e.stopPropagation();
-                onDocsClick(product.docs, e);
-              }}
-              disabled={!isValidUser}
-            >
-              <BookOpen className="w-5 h-5 mr-2" />
-              {t("home.productCard.docs")}
-            </Button>
-          )}
           <Button
             size="sm"
             onClick={() => onProductClick(product)}
@@ -106,6 +88,24 @@ export function ProductCard({
               )}
             </span>
           </Button>
+          {product.docs && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-auto sm:flex-1",
+                !isValidUser && "opacity-50 cursor-not-allowed",
+              )}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDocsClick(product.docs, e);
+              }}
+              disabled={!isValidUser}
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              {t("home.productCard.docs")}
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { MtlsInfoModal } from "@/components/MtlsInfoModal";
-import { OnboardingGuide } from "@/components/OnboardingGuide";
 import { useTranslation } from "react-i18next";
 import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
@@ -118,13 +117,13 @@ function RootLayout() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="h-screen flex flex-col bg-background text-foreground">
       <Header
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <div className="flex-1 flex">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         {isMobile && sidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-40 top-16"
@@ -138,8 +137,8 @@ function RootLayout() {
           isMobile={isMobile}
         />
 
-        <div className="flex-1 flex flex-col min-w-0">
-          <main className="flex-1 p-4 md:p-8 overflow-auto">
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+          <main className="flex-1 p-4 md:p-8 overflow-y-auto">
             <Outlet />
           </main>
 
@@ -148,7 +147,6 @@ function RootLayout() {
       </div>
 
       <MtlsInfoModal open={mtlsModalOpen} onOpenChange={setMtlsModalOpen} />
-      <OnboardingGuide />
     </div>
   );
 }

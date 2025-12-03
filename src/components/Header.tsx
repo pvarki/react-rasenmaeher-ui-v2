@@ -132,23 +132,12 @@ export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
               className="w-8 h-8 shrink-0"
             />
           ) : (
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-              style={{ backgroundColor: themeConfig.sidebarLogo?.bgColor }}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                className="w-5 h-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0">
+              <span>
+                {themeConfig.name
+                  ? themeConfig.name.charAt(0).toUpperCase()
+                  : "P"}
+              </span>
             </div>
           )}
           <div className="flex flex-col text-xs leading-tight min-w-0">

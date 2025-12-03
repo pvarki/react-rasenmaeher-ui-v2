@@ -1,0 +1,14 @@
+{
+  "name": "PVARKI",
+  "short_name": "Deploy App",
+  "description": "Rasse-teema",
+  "background_color": "#1a1a1a",
+  "theme_color": "#cc66bb",
+  "icon_192": "/themes/default/icons/icon-192x192.png",
+  "icon_512": "/themes/default/icons/icon-512x512.png",
+  "logo_url": "/themes/default/assets/logo.png",
+  "favicon_url": "/themes/default/icons/favicon.ico",
+  "ASSETS_DIR": "/themes/default/assets/",
+  "screenshot_wide": "/themes/default/assets/Onboarding/ON_BOARDING_WELCOME.png",
+  "screenshot_narrow": "/themes/default/assets/Onboarding/ON_BOARDING_WELCOME.png"
+}

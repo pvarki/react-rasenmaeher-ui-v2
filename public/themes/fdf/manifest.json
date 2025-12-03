@@ -1,0 +1,14 @@
+{
+  "name": "Puolustusvoimat",
+  "short_name": "Deploy App",
+  "description": "PV-Teema",
+  "background_color": "#1a1a1a",
+  "theme_color": "#882255",
+  "icon_192": "/themes/fdf/icons/icon-192x192.png",
+  "icon_512": "/themes/fdf/icons/icon-512x512.png",
+  "logo_url": "/themes/fdf/assets/logo.png",
+  "favicon_url": "/themes/fdf/icons/favicon.ico",
+  "ASSETS_DIR": "/themes/fdf/assets/",
+  "screenshot_wide": "/themes/fdf/assets/Onboarding/ON_BOARDING_WELCOME.png",
+  "screenshot_narrow": "/themes/fdf/assets/Onboarding/ON_BOARDING_WELCOME.png"
+}

@@ -46,10 +46,8 @@ function InviteCodePage() {
       <main className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 py-8 overflow-auto">
         <div className="w-full max-w-2xl space-y-8">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h1 className="text-3xl font-bold">
-              {t("inviteCode.title", { code })}
-            </h1>
-            <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-mono">
+            <h1 className="text-3xl font-bold">{t("inviteCode.title")}</h1>
+            <span className="text-3xl bg-primary/10 text-primary px-3 py-1 rounded-full font-mono">
               {code}
             </span>
           </div>

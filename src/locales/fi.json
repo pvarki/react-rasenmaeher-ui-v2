@@ -11,7 +11,7 @@
     "admin": "Ylläpitäjä",
     "user": "Käyttäjä",
     "deployApp": "Deploy App",
-    "takServer": "TAK-palvelin",
+    "takServer": "Takserver",
     "feedback": "Palaute",
     "learnAboutMtls": "Lisätietoja mTLS:stä",
     "proudlyServedBy": "Palvelun tarjoaa ylpeänä PV-Arki.",
@@ -65,41 +65,42 @@
   "onboarding": {
     "steps": {
       "welcome": {
-        "title": "Aloita",
-        "description": "Deploy App on keskeinen toimintakeskuksesi taktisten järjestelmien ja palveluiden hallintaan ja käyttöönottoon."
+        "title": "Tervetuloa!",
+        "description": "Tämä on kotipaikkasi kaiken hallintaan. Käynnistä sovelluksia, tarkista järjestelmän tila ja pidä tiimisi organisoituna."
       },
       "products": {
-        "title": "Pääsy tehtäväsovelluksiin",
-        "description": "Pääse tehtäväsovelluksiin ja muodosta suojatut yhteydet mTLS-suojattujen kanavien kautta."
-      },
-      "credentials": {
-        "title": "Valmiit käyttöoikeudet",
-        "description": "Todennustodistuksesi on asennettu ja vahvistettu. Voit toimia heti täydellä käyttöoikeudella."
+        "title": "Sovelluksesi",
+        "description": "Käynnistä Team Awareness Kit ja muut tarvitsemasi sovellukset. Kaikki on valmiina kun sinä olet."
       },
       "users": {
-        "title": "Hallitse käyttäjätilejä",
-        "description": "Hallitse käyttäjien pääsyä, anna ylläpitäjäoikeuksia ja poista epäaktiiviset käyttäjät."
+        "title": "Tiimin Jäsenet",
+        "description": "Katso kuka on tiimissäsi, hyväksy uusia jäseniä ja hallinnoi kaikkien pääsyä. Pidä asiat turvassa ja järjestyksessä."
       },
       "invite": {
-        "title": "Lisää uusia operaattoreita",
-        "description": "Luo turvallisia kutsu- tai QR-koodeja, joilla uudet jäsenet voidaan liittää verkkoosi."
+        "title": "Kutsu Ihmisiä",
+        "description": "Tuo uusia ihmisiä tiimiisi turvallisilla kutsukodeilla tai QR-koodeilla. Jaa ne miten sinulle parhaiten sopii."
       },
       "health": {
-        "title": "Järjestelmän tila",
-        "description": "Tarkastele järjestelmän tilaa ja varmista, että kaikki palvelut toimivat tehtäväparametrien mukaisesti."
+        "title": "Järjestelmän Tila",
+        "description": "Näe miten kaikki toimii yhdellä silmäyksellä. Tarkista ovatko järjestelmäsi kunnossa ja onko verkkosi yhteydessä."
       },
       "instructions": {
-        "title": "Taktiset ohjeet",
-        "description": "Avaa pikaoppaat, käyttöönotto-ohjeet ja käyttömuistiinpanot kaikille käytössä oleville järjestelmille."
+        "title": "Ohje & Oppaat",
+        "description": "Tarvitsetko apua aloittamiseen? Löydä vaiheittaiset oppaat ja vinkit Modular Äppien parhaan hyödyn saamiseksi."
       }
     },
-    "completion": "Onboarding valmis!",
-    "completionDesc": "Olet valmis toimimaan täydellä kapasiteetilla.",
+    "completion": "Perehdyttäminen valmis!",
+    "completionDesc": "Olet valmis ja voit nyt työskennellä täysillä teholla.",
     "step": "Vaihe",
     "of": "/",
-    "skipAll": "Ohita kaikki",
     "finish": "Valmis",
-    "next": "Seuraava"
+    "next": "Seuraava",
+    "back": "Takaisin",
+    "title": "Deploy App -sovelluksen perehdyttäminen",
+    "progressSaved": "Perehdyttämisen edistyminen on tallennettu.",
+    "review": "Tarkista perehdyttäminen",
+    "imageMissing": "Kuva ei ole saatavilla",
+    "clickToEnlarge": "Klikkaa suurentaaksesi"
   },
   "systemStatus": {
     "title": "Järjestelmän tila",
@@ -312,14 +313,14 @@
     "productCard": {
       "docs": "DOKUMENTIT",
       "launch": "KÄYNNISTÄ",
-      "open": "AVAA"
+      "open": "SIIRRY"
     },
     "greetingMorning": "Hyvää huomenta, {{name}}",
     "greetingAfternoon": "Hyvää iltapäivää, {{name}}",
     "greetingEvening": "Hyvää iltaa, {{name}}"
   },
   "inviteCode": {
-    "title": "Kutsukoodi {{code}}",
+    "title": "Kutsukoodi",
     "backToInvites": "Takaisin kutsukoodeihin",
     "copyInvite": "Kopioi kutsulinkki",
     "copied": "Kopioitu!",
@@ -582,10 +583,10 @@
     "addUsersDesc": "Luo ja hallitse kutsukoodeja",
     "keycloakTitle": "Keycloak-hallinta",
     "keycloakDesc": "Hallinnoi todennusta ja identiteettejä",
-    "takServerTitle": "TAK-palvelin",
-    "takServerDesc": "Hallinnoi TAK-palvelun asetuksia",
-    "blServerTitle": "Battle Log:n hallinta",
-    "blServerDesc": "Hallinnoi Battle Log -palveluita",
+    "takServerTitle": "Takserverin hallinta",
+    "takServerDesc": "Hallinnoi Takserverin asetuksia",
+    "blServerTitle": "Battlelogin hallinta",
+    "blServerDesc": "Hallinnoi Battlelogin palveluita",
     "openExternal": "Avaa ulkoinen",
     "access": "Avaa",
     "helpTitle": "Pikaopas",

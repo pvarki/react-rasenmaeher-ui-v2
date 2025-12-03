@@ -11,7 +11,7 @@
     "admin": "Admin",
     "user": "Användare",
     "deployApp": "Deploy App",
-    "takServer": "TAK-server",
+    "takServer": "Takserver",
     "feedback": "Feedback",
     "learnAboutMtls": "Läs om mTLS",
     "proudlyServedBy": "Stolt tillhandahållen av PV-Arki.",
@@ -65,41 +65,42 @@
   "onboarding": {
     "steps": {
       "welcome": {
-        "title": "Kom igång",
-        "description": "Deploy App är ditt centrala nav för att hantera och starta alla taktiska system och tjänster."
+        "title": "Välkommen!",
+        "description": "Detta är din hemmaplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
       },
       "products": {
-        "title": "Tillgång till missionsappar",
-        "description": "Få tillgång till missionsapplikationer och skapa säkra anslutningar via mTLS-skyddade kanaler."
-      },
-      "credentials": {
-        "title": "Behörigheter klara",
-        "description": "Dina autentiseringscertifikat är installerade och verifierade. Du kan operera med full åtkomst direkt."
+        "title": "Dina Appar",
+        "description": "Starta Team Awareness Kit och andra appar du behöver. Allt är redo när du är."
       },
       "users": {
-        "title": "Kontrollera användarkonton",
-        "description": "Kontrollera åtkomst, tilldela adminroller och ta bort inaktiva konton."
+        "title": "Teammedlemmar",
+        "description": "Se vilka som är i ditt team, godkänn nya medlemmar och hantera allas åtkomst. Håll saker säkra och organiserade."
       },
       "invite": {
-        "title": "Lägg till nya operatörer",
-        "description": "Skapa säkra inbjudnings- eller QR-koder för att ansluta nya teammedlemmar."
+        "title": "Bjud In Personer",
+        "description": "Ta med nya personer till ditt team med säkra inbjudningskoder eller QR-koder. Dela dem hur som fungerar bäst för dig."
       },
       "health": {
         "title": "Systemstatus",
-        "description": "Visa systemets status och säkerställ att alla tjänster körs inom operationsparametrarna."
+        "description": "Se hur allt fungerar med en blick. Kolla om dina system är friska och ditt nätverk är anslutet."
       },
       "instructions": {
-        "title": "Taktiska guider",
-        "description": "Öppna snabbguider, distributionssteg och anteckningar för alla system i drift."
+        "title": "Hjälp & Guider",
+        "description": "Behöver du hjälp att komma igång? Hitta steg-för-steg-guider och tips för att få ut det mesta av Modular Apps."
       }
     },
-    "completion": "Onboarding slutförd!",
-    "completionDesc": "Du är redo att arbeta med full kapacitet.",
+    "completion": "Introduktionen är slutförd!",
+    "completionDesc": "Du är redo och kan nu arbeta i full kapacitet.",
     "step": "Steg",
     "of": "av",
-    "skipAll": "Hoppa över alla",
     "finish": "Slutför",
-    "next": "Nästa"
+    "next": "Nästa",
+    "back": "Tillbaka",
+    "title": "Introduktion till Deploy App",
+    "progressSaved": "Dina introduktionsframsteg har sparats.",
+    "review": "Granska introduktion",
+    "imageMissing": "Bild inte tillgänglig",
+    "clickToEnlarge": "Klicka för att förstora"
   },
   "systemStatus": {
     "title": "Systemstatus",
@@ -319,7 +320,7 @@
     "greetingEvening": "God kväll, {{name}}"
   },
   "inviteCode": {
-    "title": "Inbjudningskod {{code}}",
+    "title": "Inbjudningskod",
     "backToInvites": "Tillbaka till inbjudningar",
     "copyInvite": "Kopiera inbjudningslänk",
     "copied": "Kopierad!",
@@ -582,8 +583,8 @@
     "addUsersDesc": "Skapa och hantera inbjudningskoder",
     "keycloakTitle": "Keycloak-hantering",
     "keycloakDesc": "Hantera autentisering och identiteter",
-    "takServerTitle": "TAK-server",
-    "takServerDesc": "Hantera konfiguration",
+    "takServerTitle": "Takserver",
+    "takServerDesc": "Hantera Takserver-konfiguration",
     "blServerTitle": "Battle log-server",
     "blServerDesc": "Hantera konfiguration",
     "openExternal": "Öppna extern",

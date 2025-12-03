@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
-
+import { ScrollArea } from "@/components/ui/scroll-area";
 interface InviteCode {
   invitecode: string;
   active: boolean;
@@ -157,42 +157,44 @@ export function WalkthroughDialog({
             {t("addUsers.walkthrough.description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("addUsers.walkthrough.step1Title")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              {t("addUsers.walkthrough.step1Description")}
-            </p>
+        <ScrollArea className="h-[330px] rounded-md">
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step1Title")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {t("addUsers.walkthrough.step1Description")}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step2Title")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {t("addUsers.walkthrough.step2Description")}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.step3Title")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {t("addUsers.walkthrough.step3Description")}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm">
+                {t("addUsers.walkthrough.managingTitle")}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                • {t("addUsers.walkthrough.managingBullet1")}
+                <br />• {t("addUsers.walkthrough.managingBullet2")}
+                <br />• {t("addUsers.walkthrough.managingBullet3")}
+              </p>
+            </div>
           </div>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("addUsers.walkthrough.step2Title")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              {t("addUsers.walkthrough.step2Description")}
-            </p>
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("addUsers.walkthrough.step3Title")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              {t("addUsers.walkthrough.step3Description")}
-            </p>
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-semibold text-sm">
-              {t("addUsers.walkthrough.managingTitle")}
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              • {t("addUsers.walkthrough.managingBullet1")}
-              <br />• {t("addUsers.walkthrough.managingBullet2")}
-              <br />• {t("addUsers.walkthrough.managingBullet3")}
-            </p>
-          </div>
-        </div>
+        </ScrollArea>
         <DialogFooter>
           <Button
             onClick={() => onOpenChange(false)}

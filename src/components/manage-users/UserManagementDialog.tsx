@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useTranslation } from "react-i18next";
 import type { User } from "@/hooks/api/useUserManagement";
 
@@ -40,7 +43,7 @@ export function UserManagementDialog({
 
   return (
     <Dialog open={!!user} onOpenChange={() => onOpenChange(false)}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>{t("manageUsers.userDialog.title")}</DialogTitle>
           <DialogDescription>
@@ -50,15 +53,17 @@ export function UserManagementDialog({
             </span>
           </DialogDescription>
         </DialogHeader>
-        <div className="py-4">
-          <p className="text-sm text-muted-foreground">
-            {t("manageUsers.userDialog.currentRole")}{" "}
-            <span className="font-medium text-foreground capitalize">
-              {isAdmin ? t("common.admin") : t("common.user")}
-            </span>
-          </p>
-        </div>
-        <DialogFooter className="flex-row gap-2 sm:justify-between">
+        <ScrollArea className="flex-1 px-6">
+          <div className="py-4">
+            <p className="text-sm text-muted-foreground">
+              {t("manageUsers.userDialog.currentRole")}{" "}
+              <span className="font-medium text-foreground capitalize">
+                {isAdmin ? t("common.admin") : t("common.user")}
+              </span>
+            </p>
+          </div>
+        </ScrollArea>
+        <DialogFooter className="flex-row gap-2 sm:justify-between pt-4 border-t">
           <Button
             variant="ghost"
             onClick={() => onOpenChange(false)}
@@ -71,7 +76,7 @@ export function UserManagementDialog({
           <Button
             variant="outline"
             onClick={onRemove}
-            className="flex-1"
+            className="flex-1 bg-transparent"
             disabled={isLoading || !canRemove}
             title={
               isCurrentUser ? t("manageUsers.tooltips.cannotRemove") : undefined

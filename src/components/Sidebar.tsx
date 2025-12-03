@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ChevronDown, Globe } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
@@ -20,6 +20,8 @@ import {
 import { User, UserSearch as UserStar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
+import { getCleanProductTitle } from "@/components/home/productUtils";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -32,13 +34,19 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
   const { userType } = useUserType();
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
-
   const { callsign } = useUserType();
+  const { data: products = [] } = useGetProductDescriptions(currentLanguage);
 
   // Get current path with search params
   const currentPath = location.pathname;
   const searchParams = new URLSearchParams(location.search);
   const currentType = searchParams.get("type");
+
+  // Check if we're on product pages
+  const isProductPage = currentPath.startsWith("/product/");
+  const currentProductShortname = isProductPage
+    ? currentPath.split("/")[2]
+    : null;
 
   // Check if we're on admin-tools with specific type
   const isAdminToolsServices =
@@ -57,6 +65,22 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
   const [userManagementOpen, setUserManagementOpen] = useState(
     isAdminToolsSection || isAdminToolsUsers,
   );
+
+  const [deployappsOpen, setDeployappsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isAdminToolsSection && !isAdminToolsUsers) {
+      setUserManagementOpen(false);
+    } else {
+      setUserManagementOpen(true);
+    }
+  }, [currentPath, currentType, isAdminToolsSection, isAdminToolsUsers]);
+
+  useEffect(() => {
+    if (!isProductPage) {
+      setDeployappsOpen(false);
+    }
+  }, [isProductPage]);
 
   return (
     <aside
@@ -77,22 +101,79 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
       )}
     >
       <nav className="flex-1 p-4 space-y-6 overflow-y-auto">
-        <div className="space-y-1">
-          <h3 className="text-xs font-semibold text-sidebar-foreground/50 mb-3 px-3 uppercase tracking-wider">
-            {t("common.navigation")}
-          </h3>
-          <Link
-            to="/"
-            onClick={() => isMobile && onClose()}
-            className={cn(
-              "block px-3 py-2.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium",
-              location.pathname === "/" &&
-                "bg-sidebar-accent text-sidebar-foreground",
+        {products.length > 0 ? (
+          <div className="space-y-1">
+            <h3 className="text-xs font-semibold text-sidebar-foreground/50 mb-3 px-3 uppercase tracking-wider">
+              {t("common.navigation")}
+            </h3>
+            <div
+              className={cn(
+                "flex items-center justify-between px-3 py-2.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium",
+                location.pathname === "/" &&
+                  "bg-sidebar-accent text-sidebar-foreground",
+              )}
+            >
+              <Link
+                to="/"
+                onClick={() => {
+                  if (isMobile) onClose();
+                }}
+                className="flex-1 text-left"
+              >
+                {t("common.home")}
+              </Link>
+              <button
+                onClick={() => setDeployappsOpen(!deployappsOpen)}
+                className="p-1 hover:bg-sidebar-accent rounded transition-colors"
+              >
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 transition-transform",
+                    deployappsOpen && "rotate-180",
+                  )}
+                />
+              </button>
+            </div>
+
+            {deployappsOpen && (
+              <div className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3">
+                {products.map((product) => (
+                  <Link
+                    key={product.shortname}
+                    to="#"
+                    onClick={() => {
+                      window.open(`/product/${product.shortname}`);
+                    }}
+                    className={cn(
+                      "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
+                      currentProductShortname === product.shortname &&
+                        "bg-sidebar-accent text-sidebar-foreground font-medium",
+                    )}
+                  >
+                    {getCleanProductTitle(product.title)}
+                  </Link>
+                ))}
+              </div>
             )}
-          >
-            {t("common.home")}
-          </Link>
-        </div>
+          </div>
+        ) : (
+          <div className="space-y-1">
+            <h3 className="text-xs font-semibold text-sidebar-foreground/50 mb-3 px-3 uppercase tracking-wider">
+              {t("common.navigation")}
+            </h3>
+            <Link
+              to="/"
+              onClick={() => isMobile && onClose()}
+              className={cn(
+                "block px-3 py-2.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium",
+                location.pathname === "/" &&
+                  "bg-sidebar-accent text-sidebar-foreground",
+              )}
+            >
+              {t("common.home")}
+            </Link>
+          </div>
+        )}
 
         {userType === "admin" && (
           <div className="space-y-1">
@@ -143,17 +224,6 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
             {userManagementOpen && (
               <div className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3">
                 <Link
-                  to="/approve-users"
-                  onClick={() => isMobile && onClose()}
-                  className={cn(
-                    "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
-                    location.pathname === "/approve-users" &&
-                      "bg-sidebar-accent text-sidebar-foreground font-medium",
-                  )}
-                >
-                  {t("common.approveUsers")}
-                </Link>
-                <Link
                   to="/manage-users"
                   onClick={() => isMobile && onClose()}
                   className={cn(
@@ -174,6 +244,17 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   )}
                 >
                   {t("common.addUsers")}
+                </Link>
+                <Link
+                  to="/approve-users"
+                  onClick={() => isMobile && onClose()}
+                  className={cn(
+                    "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
+                    location.pathname === "/approve-users" &&
+                      "bg-sidebar-accent text-sidebar-foreground font-medium",
+                  )}
+                >
+                  {t("common.approveUsers")}
                 </Link>
               </div>
             )}
@@ -201,7 +282,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild disabled={true}>
-            <button className="w-full flex items-center gap-3 px-2 hover:bg-sidebar-accent/80 rounded-lg transition-colors py-2">
+            <button className="w-full flex items-center gap-3 px-2 rounded-lg transition-colors py-2">
               <div className="w-9 h-9 bg-sidebar-accent rounded-full flex items-center justify-center shrink-0">
                 <svg
                   viewBox="0 0 24 24"

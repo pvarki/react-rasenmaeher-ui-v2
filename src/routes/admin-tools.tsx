@@ -133,12 +133,6 @@ function AdminToolsPage() {
       titleKey: "common.userManagement",
       items: [
         {
-          icon: Shield,
-          titleKey: "common.approveUsers",
-          descKey: "adminTools.approveUsersDesc",
-          action: { type: "navigate", to: "/approve-users" },
-        },
-        {
           icon: Users,
           titleKey: "common.manageUsers",
           descKey: "adminTools.manageUsersDesc",
@@ -149,6 +143,12 @@ function AdminToolsPage() {
           titleKey: "common.addUsers",
           descKey: "adminTools.addUsersDesc",
           action: { type: "navigate", to: "/add-users" },
+        },
+        {
+          icon: Shield,
+          titleKey: "common.approveUsers",
+          descKey: "adminTools.approveUsersDesc",
+          action: { type: "navigate", to: "/approve-users" },
         },
       ],
     },
