@@ -40,7 +40,7 @@ WORKDIR /app
 COPY . /app
 
 # Set the VITE_ASSET_SET environment variable during the build
-ARG VITE_ASSET_SET=neutral
+ARG VITE_ASSET_SET=default
 ENV VITE_ASSET_SET=$VITE_ASSET_SET
 
 # Set release tag so we can show our deployment version to users
