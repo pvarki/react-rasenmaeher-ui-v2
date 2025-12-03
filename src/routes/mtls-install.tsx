@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useGetCertificate } from "@/hooks/api/useGetCertificate";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useTranslation } from "react-i18next";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { MtlsInstructions } from "@/components/mtls/MtlsInstructions";
 import { MtlsCallsignDisplay } from "@/components/mtls/MtlsCallsignDisplay";
 import { MtlsExplanationCard } from "@/components/mtls/MtlsExplanationCard";
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/mtls-install")({
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
 
   const [callsign, setCallsign] = useState("");
   const [selectedOS, setSelectedOS] = useState("");
@@ -71,9 +73,47 @@ function MtlsInstallPage() {
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Windows;
 
+  if (isMobile) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <div className="flex justify-between items-center p-6 border-b border-border">
+          <div></div>
+          <LanguageSwitcher />
+        </div>
+
+        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
+          <div className="w-full max-w-6xl space-y-8 py-8">
+            <MtlsPageHeader deployment={deployment} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
+              <div className="lg:col-span-1 space-y-6">
+                <PlatformSelector
+                  value={osToShow}
+                  onValueChange={setSelectedOS}
+                />
+                <MtlsCallsignDisplay callsign={callsign} />
+                <MtlsActionButtons
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  mtlsUrl={mtlsUrl}
+                  disabled={!callsign}
+                />
+              </div>
+
+              <div className="lg:col-span-2 space-y-6">
+                <MtlsExplanationCard />
+                <MtlsInstructions instructions={platformInstructions} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4 md:p-6">
-      <div className="w-full max-w-3xl space-y-6 md:space-y-8 py-8">
+    <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4">
+      <div className="w-full max-w-3xl space-y-6 py-8">
         <div className="absolute top-4 right-4">
           <LanguageSwitcher />
         </div>

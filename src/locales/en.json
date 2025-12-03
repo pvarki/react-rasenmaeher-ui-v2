@@ -11,7 +11,7 @@
     "admin": "Admin",
     "user": "User",
     "deployApp": "Deploy App",
-    "takServer": "TAK Server",
+    "takServer": "Takserver",
     "feedback": "Feedback",
     "learnAboutMtls": "Learn about mTLS",
     "proudlyServedBy": "Proudly served by PV-Arki.",
@@ -65,41 +65,42 @@
   "onboarding": {
     "steps": {
       "welcome": {
-        "title": "Get Started",
-        "description": "Deploy App is your central operations hub for managing and launching all tactical systems and services."
+        "title": "Welcome!",
+        "description": "This is your home base for managing everything. Launch apps, check system status, and keep your team organized—all in one place."
       },
       "products": {
-        "title": "Access Mission Apps",
-        "description": "Access mission applications and establish secure connections through mTLS-protected channels."
-      },
-      "credentials": {
-        "title": "Credentials Ready",
-        "description": "Your authentication certificates are installed and verified. You can operate immediately with full access."
+        "title": "Your Apps",
+        "description": "Launch the Team Awareness Kit and other apps you need. Everything's ready to go when you are."
       },
       "users": {
-        "title": "Control User Accounts",
-        "description": "Control user access, assign admin roles, and remove inactive accounts to keep the roster accurate."
+        "title": "Team Members",
+        "description": "See who's on your team, approve new members, and manage everyone's access. Keep things secure and organized."
       },
       "invite": {
-        "title": "Add New Operators",
-        "description": "Issue secure invite or QR codes to onboard new team members into your operational network."
+        "title": "Invite People",
+        "description": "Bring new people onto your team with secure invite codes or QR codes. Share them however works best for you."
       },
       "health": {
         "title": "System Status",
-        "description": "View live system metrics and verify all services are running within mission parameters."
+        "description": "See how everything's running at a glance. Check if your systems are healthy and your network is connected."
       },
       "instructions": {
-        "title": "Tactical Guides",
-        "description": "Access quick-reference manuals, deployment steps, and usage notes for every system in service."
+        "title": "Help & Guides",
+        "description": "Need help getting started? Find step-by-step guides and tips for making the most of Modular Apps."
       }
     },
     "completion": "Onboarding Completed!",
     "completionDesc": "You're all set and ready to operate at full capacity.",
     "step": "Step",
     "of": "of",
-    "skipAll": "Skip All",
     "finish": "Finish",
-    "next": "Next"
+    "next": "Next",
+    "back": "Back",
+    "title": "Onboard to Deploy App",
+    "progressSaved": "Your onboarding progress has been saved.",
+    "review": "Review onboarding",
+    "imageMissing": "Image not available",
+    "clickToEnlarge": "Click to enlarge"
   },
   "systemStatus": {
     "title": "System Status",
@@ -319,7 +320,7 @@
     "greetingEvening": "Good evening, {{name}}"
   },
   "inviteCode": {
-    "title": "Invite Code {{code}}",
+    "title": "Invite Code",
     "backToInvites": "Back to Invites",
     "copyInvite": "Copy invite link",
     "copied": "Copied!",
@@ -582,17 +583,17 @@
     "addUsersDesc": "Create and manage invite codes for new users",
     "keycloakTitle": "Keycloak Management",
     "keycloakDesc": "Manage authentication and user identities",
-    "takServerTitle": "TAK Server",
-    "takServerDesc": "Manage TAK service configuration",
-    "blServerTitle": "Battle Log Server",
-    "blServerDesc": "Manage Battle Log and integration services",
+    "takServerTitle": "Takserver",
+    "takServerDesc": "Manage Takserver configuration",
+    "blServerTitle": "Battlelog Server",
+    "blServerDesc": "Manage Battlelog and integration services",
     "openExternal": "Open External",
     "access": "Access",
     "helpTitle": "Quick Help",
     "help1": "User Management - Approve, promote, demote, or remove users",
     "help2": "Invite Codes - Generate and manage user invite codes",
     "help3": "Keycloak - Configure authentication and identity management",
-    "help4": "External Services - Access TAK and Business Logic servers"
+    "help4": "External Services - Access Takserver and Battlelog servers"
   },
   "feedbackForm": {
     "title": "Send feedback",
