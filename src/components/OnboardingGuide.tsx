@@ -126,7 +126,7 @@ const preloadImage = (src: string): Promise<void> => {
 };
 
 export function OnboardingGuide() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [completed, setCompleted] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
