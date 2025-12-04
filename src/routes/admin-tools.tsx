@@ -16,9 +16,9 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { KeycloakManageModal } from "@/components/KeycloakManageModal";
-import { useGetAdminProductDescriptions } from "@/hooks/api/useGetAdminProductDescriptions";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetAdminProductDescriptions } from "@/hooks/api/useGetAdminProductDescriptions";
 
 type AdminToolsSearch = {
   type?: "users" | "services" | "all";
@@ -45,7 +45,8 @@ interface MenuItem {
   action:
     | { type: "navigate"; to: string; search?: Record<string, unknown> }
     | { type: "external"; url: string }
-    | { type: "modal"; modal: string };
+    | { type: "modal"; modal: string }
+    | { type: "product"; shortname: string };
 }
 
 interface MenuSection {
@@ -123,17 +124,30 @@ function AdminToolsPage() {
     useGetAdminProductDescriptions(currentLanguage);
 
   // Build dynamic menu items from admin product descriptions
-  const adminProductItems: MenuItem[] = (adminProductDescriptions ?? [])
-    .filter((product) => product.component.type === "link")
-    .map((product) => ({
-      icon: ExternalLink,
-      title: product.title,
-      description: product.description,
-      action: {
-        type: "external" as const,
-        url: product.component.ref,
-      },
-    }));
+  const adminProductItems: MenuItem[] = (adminProductDescriptions ?? []).map(
+    (product) => {
+      if (product.component.type === "link") {
+        return {
+          icon: ExternalLink,
+          title: product.title,
+          description: product.description,
+          action: {
+            type: "external" as const,
+            url: product.component.ref,
+          },
+        };
+      }
+      return {
+        icon: ExternalLink,
+        title: product.title,
+        description: product.description,
+        action: {
+          type: "product" as const,
+          shortname: product.shortname,
+        },
+      };
+    },
+  );
 
   const typeSelectorItems: MenuItem[] = [
     {
@@ -203,6 +217,8 @@ function AdminToolsPage() {
       if (item.action.modal === "keycloak") {
         setKeycloakModalOpen(true);
       }
+    } else if (item.action.type === "product") {
+      window.open(`/product/${item.action.shortname}`);
     }
   };
 
