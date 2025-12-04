@@ -39,9 +39,9 @@ COPY ./docker/entrypoint.sh /docker-entrypoint.sh
 WORKDIR /app
 COPY . /app
 
-# Set the VITE_ASSET_SET environment variable during the build
-ARG VITE_ASSET_SET=default
-ENV VITE_ASSET_SET=$VITE_ASSET_SET
+# Set the VITE_THEME environment variable during the build
+ARG VITE_THEME=default
+ENV VITE_THEME=$VITE_THEME
 
 # Set release tag so we can show our deployment version to users
 ARG VITE_RELEASE_TAG=Developing

@@ -11,11 +11,14 @@ import {
   Shield,
   FileText,
   Server,
-  Map,
   KeyRound,
   type LucideIcon,
+  ExternalLink,
 } from "lucide-react";
 import { KeycloakManageModal } from "@/components/KeycloakManageModal";
+import { useGetAdminProductDescriptions } from "@/hooks/api/useGetAdminProductDescriptions";
+import { useLanguage } from "@/hooks/useLanguage";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type AdminToolsSearch = {
   type?: "users" | "services" | "all";
@@ -35,8 +38,10 @@ export const Route = createFileRoute("/admin-tools")({
 
 interface MenuItem {
   icon: LucideIcon;
-  titleKey: string;
-  descKey: string;
+  titleKey?: string;
+  descKey?: string;
+  title?: string;
+  description?: string;
   action:
     | { type: "navigate"; to: string; search?: Record<string, unknown> }
     | { type: "external"; url: string }
@@ -53,9 +58,23 @@ interface AdminToolCardProps {
   onAction: (item: MenuItem) => void;
 }
 
+function AdminToolCardSkeleton() {
+  return (
+    <div className="flex items-center gap-6 p-6 w-full border border-border rounded-2xl bg-card">
+      <Skeleton className="w-16 h-16 rounded-xl opacity-50 animate-pulse" />
+      <div className="flex flex-col flex-1 gap-2">
+        <Skeleton className="h-6 w-32 opacity-50 animate-pulse" />
+        <Skeleton className="h-4 w-48 opacity-50 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
 function AdminToolCard({ item, onAction }: AdminToolCardProps) {
   const { t } = useTranslation();
   const Icon = item.icon;
+  const title = item.title ?? (item.titleKey ? t(item.titleKey) : "");
+  const description = item.description ?? (item.descKey ? t(item.descKey) : "");
 
   const content = (
     <>
@@ -63,8 +82,8 @@ function AdminToolCard({ item, onAction }: AdminToolCardProps) {
         <Icon className="w-8 h-8 text-primary" />
       </div>
       <div className="flex flex-col">
-        <h3 className="font-semibold text-xl mb-1">{t(item.titleKey)}</h3>
-        <p className="text-sm text-muted-foreground">{t(item.descKey)}</p>
+        <h3 className="font-semibold text-xl mb-1">{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
     </>
   );
@@ -98,13 +117,24 @@ function AdminToolsPage() {
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
   const { type } = Route.useSearch();
   const [keycloakModalOpen, setKeycloakModalOpen] = useState(false);
+  const { currentLanguage } = useLanguage();
 
-  // Build service URLs based on current domain
-  const currentDomain = window.location.hostname.replace(/^mtls\./, "");
-  const blUrl = `https://bl.${currentDomain}:4626/`;
-  const takUrl = `https://tak.${currentDomain}:8443/`;
+  const { data: adminProductDescriptions, isLoading: isLoadingProducts } =
+    useGetAdminProductDescriptions(currentLanguage);
 
-  // Menu configuration
+  // Build dynamic menu items from admin product descriptions
+  const adminProductItems: MenuItem[] = (adminProductDescriptions ?? [])
+    .filter((product) => product.component.type === "link")
+    .map((product) => ({
+      icon: ExternalLink,
+      title: product.title,
+      description: product.description,
+      action: {
+        type: "external" as const,
+        url: product.component.ref,
+      },
+    }));
+
   const typeSelectorItems: MenuItem[] = [
     {
       icon: Users,
@@ -155,18 +185,7 @@ function AdminToolsPage() {
     {
       titleKey: "adminTools.toolsDesc",
       items: [
-        {
-          icon: Server,
-          titleKey: "adminTools.blServerTitle",
-          descKey: "adminTools.blServerDesc",
-          action: { type: "external", url: blUrl },
-        },
-        {
-          icon: Map,
-          titleKey: "adminTools.takServerTitle",
-          descKey: "adminTools.takServerDesc",
-          action: { type: "external", url: takUrl },
-        },
+        ...adminProductItems,
         {
           icon: KeyRound,
           titleKey: "adminTools.keycloakTitle",
@@ -266,13 +285,22 @@ function AdminToolsPage() {
             </h2>
 
             <div className="grid gap-4">
-              {section.items.map((item) => (
-                <AdminToolCard
-                  key={item.titleKey}
-                  item={item}
-                  onAction={handleAction}
-                />
-              ))}
+              {section.titleKey === "adminTools.toolsDesc" &&
+              isLoadingProducts ? (
+                <>
+                  <AdminToolCardSkeleton />
+                  <AdminToolCardSkeleton />
+                  <AdminToolCardSkeleton />
+                </>
+              ) : (
+                section.items.map((item) => (
+                  <AdminToolCard
+                    key={item.titleKey ?? item.title}
+                    item={item}
+                    onAction={handleAction}
+                  />
+                ))
+              )}
             </div>
           </div>
         ))}
