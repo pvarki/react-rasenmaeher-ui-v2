@@ -1,7 +1,7 @@
 "use client";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { useGetProductInstructions } from "@/hooks/api/useGetProductInstructions";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import {
 } from "@/components/product/ProductLoadingStates";
 import { ProductHeader } from "@/components/product/ProductHeader";
 import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
-import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
+import { RemoteComponentKeepAlive } from "@/components/product/RemoteComponentKeepAlive";
 
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
@@ -76,8 +76,6 @@ function ProductPage() {
     return <ProductLoading message={t("product.notFoundRedirect")} />;
   }
 
-  const Remote = lazy(() => loadRemoteComponent(shortname));
-
   return (
     <div className="fixed inset-0 z-50 bg-background flex flex-col">
       <ProductHeader title={product.title} onClose={handleClose} />
@@ -85,19 +83,16 @@ function ProductPage() {
       <div className="flex-1 overflow-auto p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           {product.component.type === "component" ? (
-            <Suspense
+            <RemoteComponentKeepAlive
+              shortname={shortname}
+              data={instructionsData?.data || {}}
+              onNavigate={navigate}
               fallback={
                 <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
                   {t("product.loadingRemote")}
                 </div>
               }
-            >
-              <Remote
-                data={instructionsData?.data || {}}
-                shortname={shortname}
-                onNavigate={navigate}
-              />
-            </Suspense>
+            />
           ) : product.component.type === "markdown" ? (
             <MarkdownRenderer
               content={markdownContent}

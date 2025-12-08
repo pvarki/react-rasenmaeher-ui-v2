@@ -41,8 +41,10 @@ export function useGetProductInstructions(
     ["productInstructions", product],
     () => getProductInstructions(product),
     {
+      staleTime: 1000 * 60 * 5, // 5 minutes - don't refetch if data is fresh
+      refetchOnMount: false, // Don't refetch when component mounts if data exists
+      refetchOnWindowFocus: false, // Don't refetch when window regains focus
       ...options,
-      staleTime: 1000 * 60 * 5, // 5 minutes
     },
   );
 }
