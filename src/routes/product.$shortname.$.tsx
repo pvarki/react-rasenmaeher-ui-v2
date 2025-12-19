@@ -62,6 +62,12 @@ function ProductPage() {
 
   const handleClose = () => {
     window.close();
+    // Browsers prevent closing manually opened tabs for security; navigate to home if close failed
+    setTimeout(() => {
+      if (!window.closed) {
+        navigate({ to: "/" });
+      }
+    }, 100);
   };
 
   if (productsLoading) {
