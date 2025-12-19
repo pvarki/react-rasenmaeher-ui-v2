@@ -5,7 +5,21 @@ import fi from "@/locales/fi.json";
 import sv from "@/locales/sv.json";
 import { getLocalizedValue } from "./localization";
 
-const savedLanguage = localStorage.getItem("language") || "en";
+const supportedLanguages = ["en", "fi", "sv"];
+
+const getUserLanguage = (): string => {
+  const saved = localStorage.getItem("language");
+  if (saved && supportedLanguages.includes(saved)) {
+    return saved;
+  }
+  const browserLang = navigator.language?.split("-")[0];
+  if (browserLang && supportedLanguages.includes(browserLang)) {
+    return browserLang;
+  }
+  return "fi";
+};
+
+const savedLanguage = getUserLanguage();
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -14,7 +28,7 @@ i18n.use(initReactI18next).init({
     sv: { translation: sv },
   },
   lng: savedLanguage,
-  fallbackLng: "en",
+  fallbackLng: "fi",
   interpolation: {
     escapeValue: false,
   },
