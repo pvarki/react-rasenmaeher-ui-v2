@@ -2,7 +2,7 @@
   "common": {
     "language": "Språk",
     "home": "Hem",
-    "navigation": "Navigation",
+    "navigation": "Navigering",
     "administrators": "Administratörer",
     "userManagement": "Användarhantering",
     "approveUsers": "Godkänn användare",
@@ -12,27 +12,35 @@
     "user": "Användare",
     "deployApp": "Deploy App",
     "takServer": "Takserver",
-    "feedback": "Feedback",
-    "learnAboutMtls": "Läs om mTLS",
-    "proudlyServedBy": "Stolt tillhandahållen av PV-Arki.",
-    "releasedUnder": "Släppt under GNU GPLv3 av TAK Product Center.",
-    "viewSource": "Visa källkod",
+    "feedback": "Återkoppling",
+    "learnAboutMtls": "Lär dig om mTLS",
+    "proudlyServedBy": "Stolt serverad av PV-Arki.",
+    "releasedUnder": "Utgiven under GNU GPLv3 av TAK Product Center.",
+    "viewSource": "Visa källa",
     "letDevelopersKnow": "Låt utvecklarna veta",
     "whatYouThink": "vad du tycker",
     "allRightsReserved": "Alla rättigheter förbehållna.",
     "copyright": "© 2025 PV-Arki. Alla rättigheter förbehållna.",
-    "rmUi": "RM-UI, logotyp och bakgrundsbilder © PV-Arki",
+    "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
     "authenticating": "Autentiserar...",
-    "adminConsole": "Admin-konsol",
-    "forbiddenAdminAccess": "403 Förbjudet: Administratörsbehörighet krävs",
+    "adminConsole": "Administrationskonsol",
+    "forbiddenAdminAccess": "403 Förbjuden: Administratörsåtkomst krävs",
     "cancel": "Avbryt",
     "confirm": "Bekräfta",
     "confirming": "Bekräftar...",
     "processing": "Bearbetar...",
-    "type": "Skriv",
+    "type": "Typ",
     "toConfirm": "för att bekräfta",
     "typeConfirmPlaceholder": "Skriv \"{text}\" för att bekräfta",
-    "managing": "Hanterar"
+    "managing": "Hanterar",
+    "step": "Steg",
+    "of": "av",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "finish": "Avsluta",
+    "help": "Hjälp",
+    "imageNotAvailable": "Bilden är inte tillgänglig",
+    "clickToEnlarge": "Klicka för att förstora"
   },
   "pages": {
     "login": "Logga in",
@@ -132,6 +140,51 @@
     "codeRequired": "Kod krävs",
     "codeInvalid": "Ogiltigt kodformat",
     "codeNotValid": "Ogiltig kod"
+  },
+  "loginGuide": {
+    "title": "Inloggningsguide",
+    "steps": {
+      "welcome": {
+        "title": "Välkommen",
+        "description": "Välj din autentiseringsmetod för att komma åt systemet."
+      },
+      "methods": {
+        "title": "Autentiseringsalternativ",
+        "description": "Certifikat: Använd ditt installerade mTLS-certifikat. Kod: Ange din tillfälliga åtkomstkod."
+      }
+    }
+  },
+  "mtlsGuide": {
+    "title": "mTLS-certifikatguide",
+    "steps": {
+      "intro": {
+        "title": "Säker anslutning",
+        "description": "mTLS säkerställer att både du och servern verifierar identitet. Installera certifikatet för säker åtkomst."
+      },
+      "platform": {
+        "title": "Välj din plattform",
+        "description": "Välj ditt operativsystem från rullgardinsmenyn. Installationsinstruktionerna anpassas automatiskt för att visa rätt steg för Windows, macOS, Linux, Android eller iOS."
+      },
+      "download": {
+        "title": "Ladda ner certifikat",
+        "description": "Klicka på 'Ladda ner certifikat' för att få ditt personliga mTLS-certifikat. Håll filen säker."
+      },
+      "install": {
+        "title": "Installation",
+        "description": "Följ de plattformsspecifika stegen nedan för att installera ditt certifikat."
+      },
+      "navigate": {
+        "title": "Få tillgång till säkra tjänster",
+        "description": "När det är installerat, klicka på 'Navigera till tjänster' för att komma åt den säkra domänen. Din webbläsare kommer att använda ditt nyinstallerade certifikat för att autentisera automatiskt. Du är nu redo att använda alla taktiska tjänster!"
+      }
+    },
+    "androidWarning": {
+      "title": "Android-användare:",
+      "description": "När du laddar ner certifikatet visas en popup som frågar efter ett lösenord. Använd din anropssignal som lösenord."
+    },
+    "installSteps": {
+      "title": "Installationssteg"
+    }
   },
   "approveUsers": {
     "title": "Godkänn användare",
@@ -516,16 +569,16 @@
       },
       "Android": {
         "steps": {
-          "1": "Ladda ner certifikatet",
-          "2": "Auktorisering → Installera certifikat",
-          "3": "Välj .pfx-filen",
-          "4": "Ange din anropssignal",
-          "5": "Namnge certifikatet",
-          "6": "Fortsätt med nyckeln"
+          "1": "Ladda ner ditt certifikat",
+          "2": "Din enhet öppnar installationsfönstret automatiskt",
+          "3": "Ange din inbjudningskod som lösenord",
+          "4": "Välj 'VPN- och appanvändningscertifikat' som certifikatets användningsområde",
+          "5": "Ändra inte certifikatets namn och tryck på 'OK'",
+          "6": "Gå vidare till tjänsterna med nyckeln"
         },
         "notes": {
-          "1": "Android 4.4 eller senare krävs",
-          "2": "Certifikatet läggs till i systemets certifikatlager"
+          "1": "Kräver Android 4.4 eller senare",
+          "2": "Certifikatet lagras i systemets certifikatlager"
         }
       },
       "iOS": {

@@ -20,6 +20,9 @@ import {
 } from "@/components/mtls/platformUtils";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { LanguageSwitcher } from "@/components/auth/LanguageSwitcher";
+import { HelpCircle } from "lucide-react";
+import { MtlsGuide } from "@/components/guides";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/mtls-install")({
   component: MtlsInstallPage,
@@ -33,6 +36,7 @@ function MtlsInstallPage() {
   const [callsign, setCallsign] = useState("");
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
+  const [showGuide, setShowGuide] = useState(false);
   const { deployment } = useHealthCheck();
 
   useEffect(() => {
@@ -47,6 +51,10 @@ function MtlsInstallPage() {
       setCallsign(userCallsign);
     }
   }, [userCallsign]);
+
+  useEffect(() => {
+    setShowGuide(true);
+  }, []);
 
   const osToShow = selectedOS || userOS;
 
@@ -71,70 +79,93 @@ function MtlsInstallPage() {
   };
 
   const platformInstructions =
-    PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Windows;
+    PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;
 
   if (isMobile) {
     return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <div className="flex justify-between items-center p-6 border-b border-border">
-          <div></div>
-          <LanguageSwitcher />
-        </div>
+      <>
+        <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
 
-        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
-          <div className="w-full max-w-6xl space-y-8 py-8">
-            <MtlsPageHeader deployment={deployment} />
+        <div className="min-h-screen flex flex-col bg-background">
+          <div className="flex justify-between items-center p-6 border-b border-border">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowGuide(true)}
+              aria-label={t("common.help")}
+            >
+              <HelpCircle className="w-5 h-5" />
+            </Button>
+            <LanguageSwitcher />
+          </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
-              <div className="lg:col-span-1 space-y-6">
-                <PlatformSelector
-                  value={osToShow}
-                  onValueChange={setSelectedOS}
-                />
-                <MtlsCallsignDisplay callsign={callsign} />
-                <MtlsActionButtons
-                  onDownload={handleDownloadKey}
-                  isDownloading={getCertificateMutation.isLoading}
-                  mtlsUrl={mtlsUrl}
-                  disabled={!callsign}
-                />
-              </div>
+          <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
+            <div className="w-full max-w-6xl space-y-8 py-8">
+              <MtlsPageHeader deployment={deployment} />
 
-              <div className="lg:col-span-2 space-y-6">
-                <MtlsExplanationCard />
-                <MtlsInstructions instructions={platformInstructions} />
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
+                <div className="lg:col-span-1 space-y-6">
+                  <PlatformSelector
+                    value={osToShow}
+                    onValueChange={setSelectedOS}
+                  />
+                  <MtlsCallsignDisplay callsign={callsign} />
+                  <MtlsActionButtons
+                    onDownload={handleDownloadKey}
+                    isDownloading={getCertificateMutation.isLoading}
+                    mtlsUrl={mtlsUrl}
+                    disabled={!callsign}
+                  />
+                </div>
+
+                <div className="lg:col-span-2 space-y-6">
+                  <MtlsExplanationCard />
+                  <MtlsInstructions instructions={platformInstructions} />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4">
-      <div className="w-full max-w-3xl space-y-6 py-8">
-        <div className="absolute top-4 right-4">
-          <LanguageSwitcher />
+    <>
+      <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
+
+      <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4">
+        <div className="w-full max-w-3xl space-y-6 py-8">
+          <div className="absolute top-4 right-4 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowGuide(true)}
+              aria-label={t("common.help")}
+            >
+              <HelpCircle className="w-5 h-5" />
+            </Button>
+            <LanguageSwitcher />
+          </div>
+
+          <MtlsPageHeader deployment={deployment} />
+
+          <MtlsExplanationCard />
+
+          <PlatformSelector value={osToShow} onValueChange={setSelectedOS} />
+
+          <MtlsInstructions instructions={platformInstructions} />
+
+          <MtlsCallsignDisplay callsign={callsign} />
+
+          <MtlsActionButtons
+            onDownload={handleDownloadKey}
+            isDownloading={getCertificateMutation.isLoading}
+            mtlsUrl={mtlsUrl}
+            disabled={!callsign}
+          />
         </div>
-
-        <MtlsPageHeader deployment={deployment} />
-
-        <MtlsExplanationCard />
-
-        <PlatformSelector value={osToShow} onValueChange={setSelectedOS} />
-
-        <MtlsInstructions instructions={platformInstructions} />
-
-        <MtlsCallsignDisplay callsign={callsign} />
-
-        <MtlsActionButtons
-          onDownload={handleDownloadKey}
-          isDownloading={getCertificateMutation.isLoading}
-          mtlsUrl={mtlsUrl}
-          disabled={!callsign}
-        />
       </div>
-    </div>
+    </>
   );
 }
