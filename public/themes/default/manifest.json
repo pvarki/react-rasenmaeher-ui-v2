@@ -3,7 +3,7 @@
   "short_name": "Deploy App",
   "description": "Rasse-teema",
   "background_color": "#1a1a1a",
-  "theme_color": "#cc66bb",
+  "theme_color": "#ff6b1a",
   "icon_192": "/themes/default/icons/icon-192x192.png",
   "icon_512": "/themes/default/icons/icon-512x512.png",
   "logo_url": "/themes/default/assets/logo.png",
