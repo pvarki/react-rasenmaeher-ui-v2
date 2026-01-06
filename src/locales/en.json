@@ -32,7 +32,15 @@
     "type": "Type",
     "toConfirm": "to confirm",
     "typeConfirmPlaceholder": "Type \"{text}\" to confirm",
-    "managing": "Managing"
+    "managing": "Managing",
+    "step": "Step",
+    "of": "of",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "help": "Help",
+    "imageNotAvailable": "Image not available",
+    "clickToEnlarge": "Click to enlarge"
   },
   "pages": {
     "login": "Login",
@@ -132,6 +140,51 @@
     "codeRequired": "Code is required",
     "codeInvalid": "Code format is invalid",
     "codeNotValid": "Code is invalid"
+  },
+  "loginGuide": {
+    "title": "Login Guide",
+    "steps": {
+      "welcome": {
+        "title": "Welcome",
+        "description": "Choose your authentication method to access the system."
+      },
+      "methods": {
+        "title": "Authentication Options",
+        "description": "Certificate login: Use your installed mTLS certificate. Code login: Enter your temporary access code."
+      }
+    }
+  },
+  "mtlsGuide": {
+    "title": "mTLS Certificate Guide",
+    "steps": {
+      "intro": {
+        "title": "Secure Connection",
+        "description": "mTLS ensures both you and the server verify identity. Install the certificate for secure access."
+      },
+      "platform": {
+        "title": "Select Your Platform",
+        "description": "Choose your operating system from the dropdown menu. The installation instructions will automatically adjust to show the correct steps for Windows, macOS, Linux, Android, or iOS."
+      },
+      "download": {
+        "title": "Download Certificate",
+        "description": "Click 'Download Certificate' to get your personal mTLS certificate. Keep this file secure."
+      },
+      "install": {
+        "title": "Installation",
+        "description": "Follow the platform-specific steps below to install your certificate."
+      },
+      "navigate": {
+        "title": "Access Secure Services",
+        "description": "Once installed, click 'Navigate to Services' to access the secure domain. Your browser will use your newly installed certificate to authenticate automatically. You're now ready to use all tactical services!"
+      }
+    },
+    "androidWarning": {
+      "title": "Android Users:",
+      "description": "When you download the certificate, a popup will appear asking for a password. Use your callsign as the password."
+    },
+    "installSteps": {
+      "title": "Installation Steps"
+    }
   },
   "approveUsers": {
     "title": "Approve Users",
@@ -516,16 +569,16 @@
       },
       "Android": {
         "steps": {
-          "1": "Download your certificate using the button below",
-          "2": "Open Settings → Security → Encryption and credentials → Install a certificate",
-          "3": "Select 'Certificate' and choose the .pfx file",
-          "4": "When prompted, enter your callsign as the password",
-          "5": "Name the certificate and confirm installation",
-          "6": "Use the 'Navigate with your key' button to access services"
+          "1": "Download your certificate",
+          "2": "Your device will automatically open the installation window",
+          "3": "Enter your invitation code as the password",
+          "4": "Select 'VPN and app usage certificate' as the certificate purpose",
+          "5": "Do not change the certificate name and press 'OK'",
+          "6": "Proceed to the services using the key"
         },
         "notes": {
-          "1": "Android must be running version 4.4 or later",
-          "2": "The certificate will be added to your system's trusted certificate store"
+          "1": "Requires Android 4.4 or newer",
+          "2": "The certificate is stored in the system certificate store"
         }
       },
       "iOS": {

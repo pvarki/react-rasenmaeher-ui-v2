@@ -1,38 +1,46 @@
 {
   "common": {
     "language": "Kieli",
-    "home": "Etusivu",
+    "home": "Koti",
     "navigation": "Navigaatio",
     "administrators": "Ylläpitäjät",
-    "userManagement": "Käyttäjähallinta",
+    "userManagement": "Käyttäjien hallinta",
     "approveUsers": "Hyväksy käyttäjiä",
-    "manageUsers": "Hallinnoi käyttäjiä",
+    "manageUsers": "Hallitse käyttäjiä",
     "addUsers": "Lisää käyttäjiä",
     "admin": "Ylläpitäjä",
     "user": "Käyttäjä",
     "deployApp": "Deploy App",
     "takServer": "Takserver",
     "feedback": "Palaute",
-    "learnAboutMtls": "Lisätietoja mTLS:stä",
-    "proudlyServedBy": "Palvelun tarjoaa ylpeänä PV-Arki.",
+    "learnAboutMtls": "Opi mTLS:stä",
+    "proudlyServedBy": "Ylpeydellä palvelun takana PV-Arki.",
     "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä TAK Product Centerin toimesta.",
     "viewSource": "Näytä lähdekoodi",
     "letDevelopersKnow": "Kerro kehittäjille",
     "whatYouThink": "mitä ajattelet",
     "allRightsReserved": "Kaikki oikeudet pidätetään.",
     "copyright": "© 2025 PV-Arki. Kaikki oikeudet pidätetään.",
-    "rmUi": "RM-UI, logo ja taustakuvat © PV-Arki",
-    "authenticating": "Tunnistautuu...",
-    "adminConsole": "Ylläpitokonsoli",
-    "forbiddenAdminAccess": "403 Kielletty: Ylläpitäjän oikeudet vaaditaan",
+    "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
+    "authenticating": "Autentikoidaan...",
+    "adminConsole": "Ylläpitäjän konsoli",
+    "forbiddenAdminAccess": "403 Kielletty: Ylläpitäjäoikeudet vaaditaan",
     "cancel": "Peruuta",
     "confirm": "Vahvista",
     "confirming": "Vahvistetaan...",
     "processing": "Käsitellään...",
-    "type": "Kirjoita",
+    "type": "Tyyppi",
     "toConfirm": "vahvistaaksesi",
     "typeConfirmPlaceholder": "Kirjoita \"{text}\" vahvistaaksesi",
-    "managing": "Hallinnoi"
+    "managing": "Hallitaan",
+    "step": "Vaihe",
+    "of": "/",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "finish": "Valmis",
+    "help": "Apua",
+    "imageNotAvailable": "Kuva ei saatavilla",
+    "clickToEnlarge": "Klikkaa suurentaaksesi"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -132,6 +140,51 @@
     "codeRequired": "Koodi vaaditaan",
     "codeInvalid": "Koodin muoto on virheellinen",
     "codeNotValid": "Koodi on virheellinen"
+  },
+  "loginGuide": {
+    "title": "Kirjautumisopas",
+    "steps": {
+      "welcome": {
+        "title": "Tervetuloa",
+        "description": "Valitse tunnistautumistapa päästäksesi järjestelmään."
+      },
+      "methods": {
+        "title": "Tunnistautumisvaihtoehdot",
+        "description": "Varmenne: Käytä asennettua mTLS-varmennetta. Koodi: Syötä väliaikainen pääsykoodisi."
+      }
+    }
+  },
+  "mtlsGuide": {
+    "title": "mTLS-varmenteen opas",
+    "steps": {
+      "intro": {
+        "title": "Turvallinen yhteys",
+        "description": "mTLS varmistaa että sekä sinä että palvelin vahvistatte henkilöllisyyden. Asenna varmenne turvalliseen käyttöön."
+      },
+      "platform": {
+        "title": "Valitse alustasi",
+        "description": "Valitse käyttöjärjestelmäsi pudotusvalikosta. Asennusohjeet mukautuvat automaattisesti näyttämään oikeat vaiheet Windowsille, macOS:lle, Linuxille, Androidille tai iOS:lle."
+      },
+      "download": {
+        "title": "Lataa varmenne",
+        "description": "Klikkaa 'Lataa varmenne' saadaksesi henkilökohtaisen mTLS-varmenteesi. Pidä tämä tiedosto turvassa."
+      },
+      "install": {
+        "title": "Asennus",
+        "description": "Seuraa alla olevia alustasi koskevia asennusohjeita."
+      },
+      "navigate": {
+        "title": "Käytä turvallisia palveluita",
+        "description": "Kun asennus on valmis, klikkaa 'Siirry palveluihin' päästäksesi turvalliseen verkkotunnukseen. Selaimesi käyttää juuri asennettua varmennettasi automaattiseen tunnistautumiseen. Olet nyt valmis käyttämään kaikkia taktisia palveluita!"
+      }
+    },
+    "androidWarning": {
+      "title": "Android-käyttäjät:",
+      "description": "Kun lataat varmenteen, ponnahdusikkuna kysyy salasanaa. Käytä kutsutunnustasi salasanana."
+    },
+    "installSteps": {
+      "title": "Asennusohjeet"
+    }
   },
   "approveUsers": {
     "title": "Hyväksy käyttäjiä",
@@ -368,7 +421,7 @@
     }
   },
   "manageUsers": {
-    "title": "Hallinnoi käyttäjiä",
+    "title": "Hallitse käyttäjiä",
     "description": "Hallitse käyttäjiä tässä näkymässä.",
     "adminHighlight": "Ylläpitäjät",
     "fighterHighlight": "Fighterit",
@@ -516,11 +569,11 @@
       },
       "Android": {
         "steps": {
-          "1": "Lataa varmenteesi",
-          "2": "Avaa Asetukset → Turvallisuus → Salaus ja valtuutukset → Asenna varmenne",
-          "3": "Valitse pfx-tiedosto",
-          "4": "Syötä kutsutunnuksesi salasanaksi",
-          "5": "Nimeä varmenne ja hyväksy",
+          "1": "Lataa varmenteesi laitteellesi",
+          "2": "Laitteesi avaa asennusikkunan automaattisesti",
+          "3": "Syötä salasanaksi kutsutunnuksesi",
+          "4": "Valitse 'VPN ja sovelluskäytön varmenne' varmenteen käyttötarkoitukseksi",
+          "5": "Älä vaihda varmenteen nimeä ja paina 'OK'",
           "6": "Siirry palveluihin avaimella"
         },
         "notes": {
@@ -571,7 +624,7 @@
   },
   "adminTools": {
     "navLink": "Ylläpitotyökalut",
-    "title": "Ylläpitokonsoli",
+    "title": "Ylläpitäjän konsoli",
     "toolsDesc": "Ylläpitotyökalut",
     "description": "Hallitse tiimiäsi, käyttäjiä ja ulkoisia palveluita keskitetysti.",
     "userManagementSection": "Käyttäjähallinta",
