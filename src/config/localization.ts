@@ -10,7 +10,6 @@ let runtimeConfig: LocalizationConfig = {};
 
 export function setRuntimeLocalization(config: LocalizationConfig) {
   runtimeConfig = deepMerge(runtimeConfig, config);
-  console.log("Runtime localization updated:", runtimeConfig);
 }
 
 function deepMerge(

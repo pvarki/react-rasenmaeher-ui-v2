@@ -113,13 +113,18 @@ function manifestPlugin(env: Record<string, string>): Plugin {
     return {
       id: "/",
       name: themeManifest.name || themeName,
-      short_name: themeManifest.short_name || themeName,
+      short_name: env.SERVER_DOMAIN || themeManifest.short_name,
       description: themeManifest.description || "",
       start_url: "/",
       scope: "/",
       display: "standalone",
-      background_color: themeManifest.background_color || "#1a1a1a",
-      theme_color: themeManifest.theme_color || "#cc66bb",
+      ...(themeManifest.background_color && {
+        background_color: themeManifest.background_color,
+      }),
+
+      ...(themeManifest.theme_color && {
+        theme_color: themeManifest.theme_color,
+      }),
       orientation: "portrait-primary",
       display_override: ["window-controls-overlay", "standalone", "minimal-ui"],
       icons: [

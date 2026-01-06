@@ -7,8 +7,13 @@
     <title id="deployment-title"></title>
     <link rel="icon" />
     <script>
-      // Get the deployment name (FQDN) from the window location
-      const deploymentName = window.location.hostname;
+      // Extract the deployment name from the hostname
+      const hostnameUrl = new URL(window.location.href);
+
+      // Strip optional "mtls." prefix and extract deployment name
+      const deploymentName = hostnameUrl.hostname
+        .replace("mtls.", "")
+        .split(".")[0];
 
       // Set the deployment name as the title
       document.getElementById("deployment-title").innerText = deploymentName;
