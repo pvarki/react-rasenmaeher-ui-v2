@@ -13,6 +13,7 @@ import {
 import { ProductHeader } from "@/components/product/ProductHeader";
 import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
 import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
+import { useUserType } from "@/hooks/auth/useUserType";
 
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
@@ -25,6 +26,7 @@ function ProductPage() {
   const [markdownContent, setMarkdownContent] = useState("");
   const [markdownLoading, setMarkdownLoading] = useState(false);
   const { currentLanguage } = useLanguage();
+  const { callsign } = useUserType();
 
   const {
     data: products = [],
@@ -100,6 +102,10 @@ function ProductPage() {
             >
               <Remote
                 data={instructionsData?.data || {}}
+                meta={{
+                  theme: import.meta.env.VITE_THEME,
+                  callsign: callsign,
+                }}
                 shortname={shortname}
                 onNavigate={navigate}
               />
