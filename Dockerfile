@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.26 --activate
 
 SHELL ["/bin/bash", "-lc"]
 
