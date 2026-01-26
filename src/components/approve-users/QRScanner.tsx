@@ -120,7 +120,7 @@ export function QRScanner({
       <DrawerTrigger asChild>
         <Button
           variant="outline"
-          className="flex-1 rounded-xl bg-transparent h-14 text-base font-semibold"
+          className="flex-1 rounded-xl bg-transparent h-14 text-base font-semibold cursor-pointer"
         >
           <Camera className="w-4 h-4 mr-2" />
           {t("approveUsers.scanQRCode")}
@@ -171,7 +171,7 @@ export function QRScanner({
             <Button
               variant="outline"
               onClick={() => setIsScannerOpen(false)}
-              className="w-full h-11 md:h-12"
+              className="w-full h-11 md:h-12 cursor-pointer"
             >
               {t("approveUsers.close")}
             </Button>
