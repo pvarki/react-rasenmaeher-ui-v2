@@ -32,7 +32,7 @@ export function WaitingUsersList({
       onOpenChange={onOpenChange}
       className="border border-border rounded-xl overflow-hidden"
     >
-      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors">
+      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer">
         <span className="font-medium">
           {t("approveUsers.waitingUsers")} ({users.length})
         </span>
@@ -50,12 +50,13 @@ export function WaitingUsersList({
             users.map((user) => (
               <div
                 key={user.callsign}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-accent/50 transition-colors group"
+                onClick={() => onUserClick(user.callsign)}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-accent/50 transition-colors group cursor-pointer"
               >
                 <span className="font-medium">{user.callsign}</span>
                 <button
                   onClick={() => onUserClick(user.callsign)}
-                  className="p-2 hover:bg-accent rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                  className="p-2 hover:bg-accent rounded-lg transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
                 >
                   <MoreVertical className="w-4 h-4" />
                 </button>

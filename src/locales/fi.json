@@ -244,7 +244,7 @@
     "active": "aktiivinen",
     "inactive": "ei aktiivinen",
     "createdBy": "{{creator}} loi tämän koodin {{date}}",
-    "createdByYou": "Luoit tämän koodin {{date}}",
+    "createdByYou": "Loit tämän koodin {{date}}",
     "forbidden": "403 Kielletty: Ylläpitäjän oikeudet vaaditaan",
     "noCallsign": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "createModalTitle": "Luo uusi kutsukoodi",

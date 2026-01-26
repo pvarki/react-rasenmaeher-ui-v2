@@ -24,14 +24,14 @@ export function HowItWorksSection({
       onOpenChange={onOpenChange}
       className="border border-border rounded-xl overflow-hidden"
     >
-      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors">
+      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer">
         <span className="font-medium">{t("approveUsers.howItWorks")}</span>
         <ChevronDown
           className={cn("w-5 h-5 transition-transform", open && "rotate-180")}
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="px-4 pb-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
-        <p>
+        <p className="pt-2">
           <span className="text-primary font-semibold">1.</span>{" "}
           {t("approveUsers.step1")}{" "}
           <span className="font-medium text-foreground">
