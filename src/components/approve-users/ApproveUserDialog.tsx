@@ -67,7 +67,7 @@ export function ApproveUserDialog({
         </div>
         <DialogFooter className="flex gap-2 flex-col sm:flex-row">
           <Button
-            variant="ghost"
+            variant="outline"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
             className="flex-1 h-11"
