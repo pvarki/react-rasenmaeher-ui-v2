@@ -19,6 +19,19 @@ export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const remoteComponentCache = new Map<string, React.ComponentType<any>>();
+
+function getRemoteComponent(shortname: string) {
+  if (!remoteComponentCache.has(shortname)) {
+    remoteComponentCache.set(
+      shortname,
+      lazy(() => loadRemoteComponent(shortname))
+    );
+  }
+  return remoteComponentCache.get(shortname)!;
+}
+
 function ProductPage() {
   const { t } = useTranslation();
   const { shortname } = Route.useParams();
@@ -84,7 +97,7 @@ function ProductPage() {
     return <ProductLoading message={t("product.notFoundRedirect")} />;
   }
 
-  const Remote = lazy(() => loadRemoteComponent(shortname));
+  const Remote = getRemoteComponent(shortname);
 
   return (
     <div className="fixed inset-0 z-50 bg-background flex flex-col">
