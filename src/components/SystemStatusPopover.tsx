@@ -10,7 +10,8 @@ import {
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
+  DrawerDescription,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useHealthCheck } from "@/hooks/api/useHealthCheck";
@@ -145,20 +146,19 @@ export function SystemStatusPopover({
     </div>
   );
 
-  // Mobile: use Drawer
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader />
-          <div className="px-4 pb-6">{statusContent}</div>
+          <DrawerTitle className="sr-only" />
+          <DrawerDescription className="sr-only" />
+          <div className="px-4 pb-6 mt-6.5">{statusContent}</div>
         </DrawerContent>
       </Drawer>
     );
   }
 
-  // Desktop: use Popover
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{triggerButton}</PopoverTrigger>

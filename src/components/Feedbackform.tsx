@@ -7,6 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -22,6 +30,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { getOperatingSystem } from "@/components/mtls/platformUtils";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { useIsMobile } from "@/hooks/use-mobile";
 interface FeedbackFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -36,6 +45,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const { t } = useTranslation();
   const { userType } = useUserType();
   const { deployment } = useHealthCheck();
+  const isMobile = useIsMobile();
 
   const webAddress = typeof window !== "undefined" ? window.location.href : "";
 
@@ -73,7 +83,6 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
       toast.success(t("feedbackForm.thanks"));
 
       onOpenChange(false);
-      setOs("");
       setRating("");
       setComments("");
     } catch (err) {
@@ -83,6 +92,89 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
 
     setIsSubmitting(false);
   };
+
+  if (isMobile) {
+    return (
+      <Drawer open={open} onOpenChange={onOpenChange}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>{t("feedbackForm.title")}</DrawerTitle>
+            <DrawerDescription>
+              {t("feedbackForm.description")}
+            </DrawerDescription>
+          </DrawerHeader>
+
+          <form onSubmit={handleSubmit} className="space-y-4 px-4">
+            <div className="grid grid-cols-1 gap-2">
+              <label className="text-xs font-medium text-muted-foreground">
+                {t("feedbackForm.ratingLabel")}
+              </label>
+              <Select value={rating} onValueChange={(v) => setRating(v)}>
+                <SelectTrigger
+                  className={cn(
+                    "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                  )}
+                >
+                  <SelectValue
+                    placeholder={t("feedbackForm.ratingPlaceholder")}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="excellent">
+                    {t("feedbackForm.ratings.excellent")}
+                  </SelectItem>
+                  <SelectItem value="good">
+                    {t("feedbackForm.ratings.good")}
+                  </SelectItem>
+                  <SelectItem value="bad">
+                    {t("feedbackForm.ratings.bad")}
+                  </SelectItem>
+                  <SelectItem value="very bad">
+                    {t("feedbackForm.ratings.veryBad")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              <label className="text-xs font-medium text-muted-foreground">
+                {t("feedbackForm.commentsLabel")}
+              </label>
+              <Textarea
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
+                placeholder={t("feedbackForm.commentsPlaceholder")}
+                className={cn(
+                  "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
+                )}
+              />
+            </div>
+          </form>
+
+          <DrawerFooter className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+              disabled={isSubmitting}
+              type="button"
+              className="flex-1"
+            >
+              {t("common.cancel")}
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              className="flex-1 bg-primary-light hover:bg-primary-light/90 px-4 py-3"
+              disabled={isSubmitting || !isFormValid}
+            >
+              {isSubmitting
+                ? t("feedbackForm.sending")
+                : t("feedbackForm.send")}
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -95,47 +187,12 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="grid grid-cols-1 gap-2">
             <label className="text-xs font-medium text-muted-foreground">
-              {t("feedbackForm.osLabel")}
-            </label>
-            <Select value={os} onValueChange={(v) => setOs(v)}>
-              <SelectTrigger
-                className={cn(
-                  "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
-                )}
-              >
-                <SelectValue placeholder={t("feedbackForm.osPlaceholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="linux">
-                  {t("feedbackForm.os.linux")}
-                </SelectItem>
-                <SelectItem value="windows">
-                  {t("feedbackForm.os.windows")}
-                </SelectItem>
-                <SelectItem value="macos">
-                  {t("feedbackForm.os.macos")}
-                </SelectItem>
-                <SelectItem value="android">
-                  {t("feedbackForm.os.android")}
-                </SelectItem>
-                <SelectItem value="iphone">
-                  {t("feedbackForm.os.iphone")}
-                </SelectItem>
-                <SelectItem value="other">
-                  {t("feedbackForm.os.other")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-1 gap-2">
-            <label className="text-xs font-medium text-muted-foreground">
               {t("feedbackForm.ratingLabel")}
             </label>
             <Select value={rating} onValueChange={(v) => setRating(v)}>
               <SelectTrigger
                 className={cn(
-                  "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                  "h-16 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
                 )}
               >
                 <SelectValue

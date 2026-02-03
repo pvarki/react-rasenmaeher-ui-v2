@@ -13,6 +13,8 @@ export function getOperatingSystem(): string {
     return "Windows";
   } else if (/Android/.test(userAgent)) {
     return "Android";
+  } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    return "iOS";
   } else if (/Linux/.test(platform)) {
     return "Linux";
   }

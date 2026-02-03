@@ -14,6 +14,7 @@ import {
 } from "@/config/asset-loader";
 import { setRuntimeLocalization } from "@/config/localization";
 import { UserTypeFetcher } from "./hooks/auth/userTypeFetcher";
+import { BrowserGuard } from "@/components/BrowserGuard";
 
 const initializeApp = async () => {
   const themeName = getActiveThemeName();
@@ -55,16 +56,27 @@ const initializeApp = async () => {
     <React.StrictMode>
       <I18nextProvider i18n={i18n}>
         <QueryClientProvider client={queryClient}>
-          <UserTypeFetcher>
-            <App />
-            <Toaster position="top-center" richColors />
-          </UserTypeFetcher>
+          <BrowserGuard>
+            <UserTypeFetcher>
+              <App />
+              <Toaster position="top-center" richColors />
+            </UserTypeFetcher>
+          </BrowserGuard>
         </QueryClientProvider>
       </I18nextProvider>
     </React.StrictMode>,
   );
 };
 
-initializeApp().catch((error) => {
-  console.error("Failed to initialize app:", error);
-});
+// Ensure DOM is ready before initializing
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    initializeApp().catch((error) => {
+      console.error("Failed to initialize app:", error);
+    });
+  });
+} else {
+  initializeApp().catch((error) => {
+    console.error("Failed to initialize app:", error);
+  });
+}

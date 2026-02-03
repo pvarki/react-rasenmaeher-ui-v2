@@ -20,7 +20,7 @@
     "letDevelopersKnow": "Let developers know",
     "whatYouThink": "what you think",
     "allRightsReserved": "All rights reserved.",
-    "copyright": "© 2025 PV-Arki. All rights reserved.",
+    "copyright": "© 2026 PV-Arki. All rights reserved.",
     "rmUi": "RM-UI, Logo, and Background Images © PV-Arki",
     "authenticating": "Authenticating...",
     "adminConsole": "Admin Console",
@@ -597,6 +597,24 @@
         }
       }
     }
+  },
+  "browserGuard": {
+    "title": "Browser not supported",
+    "subtitle": "Use a compatible browser to continue",
+    "currentBrowser": "Current browser: {{browser}}",
+    "whyNotSupported": "Why doesn't this browser work?",
+    "inAppExplanation": "Embedded browsers (e.g., Facebook, Instagram) do not support required security features.",
+    "privacyExplanation": "Privacy-focused browsers, block mTLS authentication.",
+    "iosExplanation": "On iOS, only Safari supports the necessary security features. Other browsers won't work.",
+    "unknownExplanation": "This browser has not been tested with the application.",
+    "supportedBrowsers": "Compatible browsers",
+    "importantNote": "Note",
+    "securityRequirement": "The application requires browsers that support mTLS certificates to ensure security.",
+    "refreshNote": "Download a compatible browser and reopen the page.",
+    "continueAtRisk": "Continue at your own risk",
+    "riskWarning": "Warning: Things may break if you continue with an unsupported browser.",
+    "confirmRisk": "Are you sure? The application may not work correctly!",
+    "confirmButton": "Yes, I understand the risks"
   },
   "product": {
     "loadingProducts": "Loading products...",
