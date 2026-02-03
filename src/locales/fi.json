@@ -20,7 +20,7 @@
     "letDevelopersKnow": "Kerro kehittäjille",
     "whatYouThink": "mitä ajattelet",
     "allRightsReserved": "Kaikki oikeudet pidätetään.",
-    "copyright": "© 2025 PV-Arki. Kaikki oikeudet pidätetään.",
+    "copyright": "© 2026 PV-Arki. Kaikki oikeudet pidätetään.",
     "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
     "authenticating": "Autentikoidaan...",
     "adminConsole": "Ylläpitäjän konsoli",
@@ -597,6 +597,24 @@
         }
       }
     }
+  },
+  "browserGuard": {
+    "title": "Selain ei ole tuettu",
+    "subtitle": "Käytä yhteensopivaa selainta jatkaaksesi",
+    "currentBrowser": "Käytössä oleva selain: {{browser}}",
+    "whyNotSupported": "Miksi tämä selain ei toimi?",
+    "inAppExplanation": "Sisäiset selaimet (esim. Facebook, Instagram) eivät tue tarvittavia turvaominaisuuksia.",
+    "privacyExplanation": "Yksityisyyttä painottavat selaimet, estävät mTLS-todennuksen.",
+    "iosExplanation": "iOS:llä vain Safari tukee tarvittavia turvaominaisuuksia. Muut selaimet eivät toimi.",
+    "unknownExplanation": "Tätä selainta ei ole testattu sovelluksen kanssa.",
+    "supportedBrowsers": "Yhteensopivat selaimet",
+    "importantNote": "Huomio",
+    "securityRequirement": "Sovellus vaatii selaimia, jotka tukevat mTLS-varmenteita turvallisuuden takaamiseksi.",
+    "refreshNote": "Lataa yhteensopiva selain ja avaa sivu uudelleen.",
+    "continueAtRisk": "Jatka omalla vastuulla",
+    "riskWarning": "Varoitus: Asiat voivat mennä rikki, jos jatkat tukemattomalla selaimella.",
+    "confirmRisk": "Oletko varma? Sovellus ei välttämättä toimi oikein!",
+    "confirmButton": "Kyllä, ymmärrän riskit"
   },
   "product": {
     "loadingProducts": "Ladataan tuotteita...",

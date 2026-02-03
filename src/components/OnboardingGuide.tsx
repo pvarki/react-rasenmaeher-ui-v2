@@ -1,10 +1,20 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, ChevronLeft, RotateCcw, ImageOff } from "lucide-react";
+import { ChevronRight, ChevronLeft, ImageOff, BookOpen } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
@@ -195,7 +205,16 @@ export function OnboardingGuide() {
       `${deploymentHash}-onboarding-steps-${callsign}-${userType}`,
     );
 
-    if (lastRole && lastRole !== userType && userType === "admin") {
+    const adminOnboardingSeen = localStorage.getItem(
+      `${deploymentHash}-onboarding-${callsign}-admin`,
+    );
+
+    if (
+      lastRole &&
+      lastRole !== userType &&
+      userType === "admin" &&
+      !adminOnboardingSeen
+    ) {
       const adminSteps = ONBOARDING_STEPS.filter((step) =>
         step.roles.includes("admin"),
       );
@@ -300,6 +319,13 @@ export function OnboardingGuide() {
         duration: 2000,
       });
     }
+
+    // Prevent any click events from propagating when closing
+    if (!newOpen) {
+      setTimeout(() => {
+        document.body.style.pointerEvents = "";
+      }, 100);
+    }
   };
 
   const handleComplete = () => {
@@ -342,15 +368,20 @@ export function OnboardingGuide() {
   const imageUrl = getOnboardingImage(step, isMobile, false);
   const enlargedImageUrl = getOnboardingImage(step, isMobile, false);
 
-  if (canReview && !open && !reviewMode) {
+  const deploymentHash = hashString(deployment);
+  const hasSeenOnboarding =
+    localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-user`) ||
+    localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-admin`);
+
+  if ((canReview || hasSeenOnboarding) && !open && !reviewMode) {
     return (
       <button
         onClick={handleReviewClick}
-        className="fixed bottom-6 right-6 p-3 rounded-full bg-primary-light hover:bg-primary-light/90 shadow-lg transition-all z-40 hover:scale-110"
+        className="fixed bottom-6 right-6 p-3 rounded-full bg-primary-light hover:bg-primary-light/90 shadow-lg transition-all z-40 hover:scale-110 focus:outline-none focus:ring-0"
         title={t("onboarding.review") || "Review onboarding"}
         aria-label={t("onboarding.review")}
       >
-        <RotateCcw className="w-5 h-5" />
+        <BookOpen className="w-5 h-5" />
       </button>
     );
   }
@@ -371,12 +402,13 @@ export function OnboardingGuide() {
 
           <div
             className={cn(
-              "relative rounded-lg overflow-hidden border border-border aspect-video w-full shadow-md",
+              "relative rounded-lg overflow-hidden border border-border aspect-video w-full shadow-md outline-none focus:outline-none",
               !imageError && !imageLoading && "cursor-pointer group",
             )}
             onClick={() =>
               !imageError && !imageLoading && setImageEnlarged(true)
             }
+            tabIndex={-1}
           >
             {imageLoading && !imageError && (
               <div className="w-full h-full flex flex-col items-center justify-center bg-muted/30 text-muted-foreground">
@@ -431,7 +463,9 @@ export function OnboardingGuide() {
           variant="outline"
           onClick={handlePrev}
           disabled={currentStep === 0}
-          className="flex-1 h-12 bg-transparent"
+          className="flex-1 h-12 bg-transparent focus:outline-none focus:ring-0 focus-visible:ring-0"
+          tabIndex={-1}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           <ChevronLeft className="w-4 h-4 mr-2" />
           {t("onboarding.back") || "Back"}
@@ -440,7 +474,9 @@ export function OnboardingGuide() {
         <Button
           onClick={handleComplete}
           variant={"outline"}
-          className="flex-1 h-12 bg-primary-light hover:bg-primary-light/90 text-primary-light-foreground"
+          className="flex-1 h-12 bg-primary-light hover:bg-primary-light/90 text-primary-light-foreground focus:outline-none focus:ring-0 focus-visible:ring-0"
+          tabIndex={-1}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           {currentStep === relevantSteps.length - 1
             ? t("onboarding.finish")
@@ -463,8 +499,10 @@ export function OnboardingGuide() {
       <DialogContent
         className="max-w-none! w-[95vw]! h-[95vh]! p-0 bg-black/95 border-none shadow-none flex items-center justify-center"
         onClick={() => setImageEnlarged(false)}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogTitle className="sr-only">{t(step.title)}</DialogTitle>
+        <DialogDescription className="sr-only" />
         <img
           src={enlargedImageUrl}
           alt={t(step.title)}
@@ -479,7 +517,11 @@ export function OnboardingGuide() {
       <>
         {enlargedImageModal}
         <Drawer open={open} onOpenChange={handleOpenChange}>
-          <DrawerContent className="flex flex-col max-h-[95vh] bg-background border-t">
+          <DrawerContent className="flex flex-col max-h-[95vh] bg-background border-t focus:outline-none focus-visible:outline-none">
+            <DrawerTitle className="sr-only">
+              {t("onboarding.title") || "Onboarding Guide"}
+            </DrawerTitle>
+            <DrawerDescription className="sr-only" />
             {contentComponent}
           </DrawerContent>
         </Drawer>
@@ -494,7 +536,11 @@ export function OnboardingGuide() {
         <DialogTitle className="sr-only">
           {t("onboarding.title") || "Onboarding Guide"}
         </DialogTitle>
-        <DialogContent className="flex flex-col max-h-[90vh] w-full max-w-2xl bg-background">
+        <DialogContent className="flex flex-col max-h-[90vh] w-full max-w-2xl bg-background focus:outline-none focus-visible:outline-none">
+          <DialogTitle className="sr-only">
+            {t("onboarding.title") || "Onboarding Guide"}
+          </DialogTitle>
+          <DialogDescription className="sr-only" />
           {contentComponent}
         </DialogContent>
       </Dialog>

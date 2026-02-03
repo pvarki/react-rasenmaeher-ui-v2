@@ -129,7 +129,7 @@ function ManageUsersPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 flex-1 mt-4">
           <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
         </div>
         <Button

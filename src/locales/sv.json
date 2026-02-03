@@ -20,7 +20,7 @@
     "letDevelopersKnow": "Låt utvecklarna veta",
     "whatYouThink": "vad du tycker",
     "allRightsReserved": "Alla rättigheter förbehållna.",
-    "copyright": "© 2025 PV-Arki. Alla rättigheter förbehållna.",
+    "copyright": "© 2026 PV-Arki. Alla rättigheter förbehållna.",
     "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
     "authenticating": "Autentiserar...",
     "adminConsole": "Administrationskonsol",
@@ -597,6 +597,24 @@
         }
       }
     }
+  },
+  "browserGuard": {
+    "title": "Webbläsare stöds inte",
+    "subtitle": "Använd en kompatibel webbläsare för att fortsätta",
+    "currentBrowser": "Använd webbläsare: {{browser}}",
+    "whyNotSupported": "Varför fungerar inte denna webbläsare?",
+    "inAppExplanation": "Inbäddade webbläsare (t.ex. Facebook, Instagram) stöder inte nödvändiga säkerhetsfunktioner.",
+    "privacyExplanation": "Integritetsfokuserade webbläsare, förhindrar mTLS-autentisering.",
+    "iosExplanation": "På iOS stöder endast Safari nödvändiga säkerhetsfunktioner. Andra webbläsare fungerar inte.",
+    "unknownExplanation": "Denna webbläsare har inte testats med applikationen.",
+    "supportedBrowsers": "Kompatibla webbläsare",
+    "importantNote": "Viktigt",
+    "securityRequirement": "Applikationen kräver webbläsare som stöder mTLS-certifikat för att säkerställa säkerhet.",
+    "refreshNote": "Ladda ner en kompatibel webbläsare och öppna sidan igen.",
+    "continueAtRisk": "Fortsätt på egen risk",
+    "riskWarning": "Varning: Saker kan gå sönder om du fortsätter med en webbläsare som inte stöds.",
+    "confirmRisk": "Är du säker? Applikationen kanske inte fungerar korrekt!",
+    "confirmButton": "Ja, jag förstår riskerna"
   },
   "product": {
     "loadingProducts": "Laddar produkter...",
