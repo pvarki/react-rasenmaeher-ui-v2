@@ -40,7 +40,8 @@
     "finish": "Avsluta",
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
-    "clickToEnlarge": "Klicka för att förstora"
+    "clickToEnlarge": "Klicka för att förstora",
+    "footer": "Öppna sidfot"
   },
   "pages": {
     "login": "Logga in",
@@ -74,7 +75,7 @@
     "steps": {
       "welcome": {
         "title": "Välkommen!",
-        "description": "Detta är din hemmaplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
+        "description": "Detta är din hemplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
       },
       "products": {
         "title": "Dina Appar",
@@ -422,15 +423,15 @@
   },
   "manageUsers": {
     "title": "Hantera användare",
-    "description": "Hantera användare här. Administratörer kan använda dessa verktyg. Fighters är grundanvändare med tjänsteåtkomst.",
+    "description": "Hantera användare här. Administratörer kan använda dessa verktyg. Krigare är grundanvändare med tjänsteåtkomst.",
     "adminHighlight": "Admins",
-    "fighterHighlight": "Fighters",
+    "fighterHighlight": "Krigare",
     "noCallsignFound": "Ingen anropssignal hittades. Logga in.",
     "forbidden": "403 Förbjudet: Adminbehörighet krävs",
     "administrators": "Administratörer",
-    "fighters": "Fighters",
+    "fighters": "Krigare",
     "noAdministrators": "Inga administratörer ännu.",
-    "noFighters": "Inga fighters ännu.",
+    "noFighters": "Inga krigare ännu.",
     "you": "Du",
     "keycloakButton": "Öppna Keycloak-hanteringskonsol",
     "walkthrough": {
@@ -468,7 +469,7 @@
       },
       "demote": {
         "title": "Degradera användare",
-        "description": "Vill du degradera {{callsign}} från administratör till fighter?",
+        "description": "Vill du degradera {{callsign}} från administratör till krigare?",
         "requiredText": "DEMOTE"
       },
       "remove": {
