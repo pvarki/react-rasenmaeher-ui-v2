@@ -40,7 +40,8 @@
     "finish": "Finish",
     "help": "Help",
     "imageNotAvailable": "Image not available",
-    "clickToEnlarge": "Click to enlarge"
+    "clickToEnlarge": "Click to enlarge",
+    "footer": "Open footer"
   },
   "pages": {
     "login": "Login",

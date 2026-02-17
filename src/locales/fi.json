@@ -40,7 +40,8 @@
     "finish": "Valmis",
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
-    "clickToEnlarge": "Klikkaa suurentaaksesi"
+    "clickToEnlarge": "Klikkaa suurentaaksesi",
+    "footer": "Avaa alatunniste"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -122,7 +123,7 @@
     "networkConnected": "Verkko yhdistetty",
     "networkDisconnected": "Verkko ei yhdistetty",
     "online": "Online",
-    "offline": "Huomioitavaa!",
+    "offline": "Katkos!",
     "justNow": "Juuri nyt",
     "minAgo": "min sitten",
     "hoursAgo": "tuntia sitten",
@@ -203,7 +204,7 @@
     "scanQRCode": "Skannaa QR-koodi",
     "noUsersWaiting": "Ei käyttäjiä odottamassa hyväksyntää",
     "scanApprovalQR": "Skannaa hyväksyntä-QR-koodi",
-    "pointCamera": "Suuntaa kamerasi odotushuoneen QR-koodiin. Hyväksyntä havaitaan automaattisesti.",
+    "pointCamera": "Osoita kamerallasi odotushuoneen QR-koodia. Hyväksyntä havaitaan automaattisesti.",
     "cameraPreview": "Kameran esikatselu näkyy tässä, kun se on käynnistetty.",
     "close": "Sulje",
     "approveUser": "Hyväksy käyttäjä",
@@ -364,7 +365,7 @@
       "continue": "Jatka"
     },
     "productCard": {
-      "docs": "DOKUMENTIT",
+      "docs": "OHJEET",
       "launch": "KÄYNNISTÄ",
       "open": "SIIRRY"
     },
@@ -424,20 +425,20 @@
     "title": "Hallitse käyttäjiä",
     "description": "Hallitse käyttäjiä tässä näkymässä.",
     "adminHighlight": "Ylläpitäjät",
-    "fighterHighlight": "Fighterit",
+    "fighterHighlight": "Taistelijat",
     "noCallsignFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "forbidden": "403 Kielletty: Ylläpito-oikeudet vaaditaan",
     "administrators": "Ylläpitäjät",
-    "fighters": "Fighterit",
+    "fighters": "Taistelijat",
     "noAdministrators": "Ei ylläpitäjiä.",
-    "noFighters": "Ei combattoreita.",
+    "noFighters": "Ei taistelijoita.",
     "you": "Sinä",
     "keycloakButton": "Avaa Keycloak-hallintakonsoli",
     "walkthrough": {
       "title": "Käyttäjähallinnan opas",
       "description": "Pikakäyttöopas tiimin hallintaan",
       "promotingTitle": "Ylennä/alennä käyttäjiä",
-      "promotingDesc": "Klikkaa käyttäjää ylentääksesi fighterin ylläpitäjäksi tai alentaaksesi ylläpitäjän fighteriksi.",
+      "promotingDesc": "Klikkaa käyttäjää ylentääksesi taistelijan ylläpitäjäksi tai alentaaksesi ylläpitäjän taistelijaksi.",
       "removingTitle": "Poista käyttäjiä",
       "removingDesc": "Käyttäjän poistaminen estää hänen pääsynsä Deploy Appiin ja kaikkiin siihen liitettyihin palveluihin.",
       "notesTitle": "Huomioitavaa",
@@ -468,7 +469,7 @@
       },
       "demote": {
         "title": "Alenna käyttäjä",
-        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä fighteriksi?",
+        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä taistelijaksi?",
         "requiredText": "DEMOTE"
       },
       "remove": {
@@ -481,7 +482,7 @@
       "noCandidateFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
       "promoted": "{{callsign}} ylennettiin ylläpitäjäksi!",
       "promoteFailed": "Ylennys epäonnistui: {{error}}",
-      "demoted": "{{callsign}} alennettiin fighteriksi!",
+      "demoted": "{{callsign}} alennettiin taistelijaksi!",
       "demoteFailed": "Alentaminen epäonnistui: {{error}}",
       "removed": "{{callsign}} poistettu järjestelmästä",
       "removeFailed": "Poisto epäonnistui: {{error}}",
