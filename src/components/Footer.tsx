@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronUp } from "lucide-react";
-import FeedbackForm from "@/components/Feedbackform";
 import {
   Drawer,
   DrawerContent,
@@ -18,7 +17,6 @@ interface FooterProps {
 
 export function Footer({ onMtlsInfoClick }: FooterProps) {
   const { t } = useTranslation();
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -39,23 +37,6 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
           >
             {t("common.learnAboutMtls")}
           </button>
-        </p>
-      </div>
-      <div className="space-y-2">
-        <p className="font-semibold text-foreground text-sm">
-          {t("common.feedback")}
-        </p>
-        <p className="text-muted-foreground/80 text-sm">
-          <button
-            onClick={() => {
-              setDrawerOpen(false);
-              setFeedbackOpen(true);
-            }}
-            className="text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
-          >
-            {t("common.letDevelopersKnow")}
-          </button>{" "}
-          {t("common.whatYouThink")}
         </p>
       </div>
       <div className="pt-2 border-t border-border">
@@ -82,7 +63,6 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
             <div className="px-4 pb-6">{footerContent}</div>
           </DrawerContent>
         </Drawer>
-        <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
         <OnboardingGuide />
       </div>
     );
@@ -93,8 +73,6 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
       <footer className="border-t border-border bg-card/50 px-8 py-6 text-xs text-muted-foreground">
         <div className="max-w-6xl mx-auto">{footerContent}</div>
       </footer>
-      <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
-
       <OnboardingGuide />
     </>
   );
