@@ -22,6 +22,7 @@ import { Route as AddUsersRouteImport } from './routes/add-users'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InviteCodeCodeRouteImport } from './routes/invite-code.$code'
 import { Route as ProductShortnameSplatRouteImport } from './routes/product.$shortname.$'
+import { Route as AdminProductShortnameSplatRouteImport } from './routes/admin-product.$shortname.$'
 
 const WaitingRoomRoute = WaitingRoomRouteImport.update({
   id: '/waiting-room',
@@ -88,6 +89,12 @@ const ProductShortnameSplatRoute = ProductShortnameSplatRouteImport.update({
   path: '/product/$shortname/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProductShortnameSplatRoute =
+  AdminProductShortnameSplatRouteImport.update({
+    id: '/admin-product/$shortname/$',
+    path: '/admin-product/$shortname/$',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
+  '/admin-product/$shortname/$': typeof AdminProductShortnameSplatRoute
   '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRoutesByTo {
@@ -117,6 +125,7 @@ export interface FileRoutesByTo {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
+  '/admin-product/$shortname/$': typeof AdminProductShortnameSplatRoute
   '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRoutesById {
@@ -133,6 +142,7 @@ export interface FileRoutesById {
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
+  '/admin-product/$shortname/$': typeof AdminProductShortnameSplatRoute
   '/product/$shortname/$': typeof ProductShortnameSplatRoute
 }
 export interface FileRouteTypes {
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
+    | '/admin-product/$shortname/$'
     | '/product/$shortname/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
+    | '/admin-product/$shortname/$'
     | '/product/$shortname/$'
   id:
     | '__root__'
@@ -180,6 +192,7 @@ export interface FileRouteTypes {
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
+    | '/admin-product/$shortname/$'
     | '/product/$shortname/$'
   fileRoutesById: FileRoutesById
 }
@@ -196,6 +209,7 @@ export interface RootRouteChildren {
   MtlsInstallRoute: typeof MtlsInstallRoute
   WaitingRoomRoute: typeof WaitingRoomRoute
   InviteCodeCodeRoute: typeof InviteCodeCodeRoute
+  AdminProductShortnameSplatRoute: typeof AdminProductShortnameSplatRoute
   ProductShortnameSplatRoute: typeof ProductShortnameSplatRoute
 }
 
@@ -292,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductShortnameSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-product/$shortname/$': {
+      id: '/admin-product/$shortname/$'
+      path: '/admin-product/$shortname/$'
+      fullPath: '/admin-product/$shortname/$'
+      preLoaderRoute: typeof AdminProductShortnameSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -308,6 +329,7 @@ const rootRouteChildren: RootRouteChildren = {
   MtlsInstallRoute: MtlsInstallRoute,
   WaitingRoomRoute: WaitingRoomRoute,
   InviteCodeCodeRoute: InviteCodeCodeRoute,
+  AdminProductShortnameSplatRoute: AdminProductShortnameSplatRoute,
   ProductShortnameSplatRoute: ProductShortnameSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -218,7 +218,7 @@ function AdminToolsPage() {
         setKeycloakModalOpen(true);
       }
     } else if (item.action.type === "product") {
-      window.open(`/product/${item.action.shortname}`);
+      window.open(`/admin-product/${item.action.shortname}`);
     }
   };
 

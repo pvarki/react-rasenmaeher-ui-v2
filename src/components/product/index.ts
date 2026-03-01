@@ -5,3 +5,4 @@ export {
   loadRemoteComponent,
   type RemoteComponentProps,
 } from "./remoteComponentLoader";
+export { loadAdminRemoteComponent } from "./adminRemoteComponentLoader";
