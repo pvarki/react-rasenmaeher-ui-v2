@@ -1,8 +1,16 @@
 import { type UseMutationOptions, useMutation } from "react-query";
 import { downloadBlob } from "../../lib/downloadBlob";
 
-async function getCertificate(callsign: string) {
+async function getCertificate({
+  callsign,
+  deployment,
+}: {
+  callsign: string;
+  deployment: string;
+}) {
   const jwt = localStorage.getItem("token");
+  const certname = callsign + "_" + deployment;
+
   if (!jwt) {
     throw new Error("No JWT found");
   }
@@ -27,7 +35,7 @@ async function getCertificate(callsign: string) {
   }
 
   const blob = await res.blob();
-  downloadBlob(blob, callsign + ".pfx");
+  downloadBlob(blob, certname + ".pfx");
 
   return blob;
 }
@@ -35,7 +43,7 @@ async function getCertificate(callsign: string) {
 type UseGetCertificateOptions = UseMutationOptions<
   Blob,
   Error,
-  string,
+  { callsign: string; deployment: string },
   unknown
 >;
 
