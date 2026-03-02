@@ -110,10 +110,16 @@ function manifestPlugin(env: Record<string, string>): Plugin {
 
     const baseUrl = `/themes/${themeName}`;
 
+    const deploymentName = env.SERVER_DOMAIN
+      ? env.SERVER_DOMAIN.replace(/^mtls\./, "").split(".")[0]
+      : undefined;
+
     return {
       id: "/",
-      name: themeManifest.name || themeName,
-      short_name: env.SERVER_DOMAIN || themeManifest.short_name,
+      name: deploymentName
+        ? `${themeManifest.name || themeName} ${deploymentName}`
+        : themeManifest.name || themeName,
+      short_name: deploymentName || undefined,
       description: themeManifest.description || "",
       start_url: "/",
       scope: "/",
