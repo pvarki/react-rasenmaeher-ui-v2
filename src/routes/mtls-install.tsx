@@ -72,7 +72,7 @@ function MtlsInstallPage() {
 
   const handleDownloadKey = () => {
     if (callsign) {
-      getCertificateMutation.mutate({callsign, deployment});
+      getCertificateMutation.mutate({ callsign, deployment });
     } else {
       toast.error(t("mtlsInstall.callsignNotFound"));
     }
