@@ -40,12 +40,12 @@ export function ProductCard({
             <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
               {getProductShortLabel(product.title)}
             </p>
-            <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight break-words">
+            <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight wrap-break-word">
               {getCleanProductTitle(product.title)}
             </h3>
           </div>
 
-          <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6 break-words">
+          <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6 wrap-break-word">
             {product.description}
           </p>
 
@@ -93,7 +93,7 @@ export function ProductCard({
               variant="ghost"
               size="sm"
               className={cn(
-                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-auto sm:flex-1",
+                "flex items-center justify-center rounded-lg hover:bg-accent/50 h-12 text-sm md:text-base font-medium w-auto sm:flex-1 cursor-pointer",
                 !isValidUser && "opacity-50 cursor-not-allowed",
               )}
               onClick={(e) => {

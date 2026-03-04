@@ -14,14 +14,13 @@
     "takServer": "Takserver",
     "feedback": "Feedback",
     "learnAboutMtls": "Learn about mTLS",
-    "proudlyServedBy": "Proudly served by PV-Arki.",
     "releasedUnder": "Released under GNU GPLv3 by TAK Product Center.",
     "viewSource": "View source",
     "letDevelopersKnow": "Let developers know",
     "whatYouThink": "what you think",
     "allRightsReserved": "All rights reserved.",
-    "copyright": "© 2026 PV-Arki. All rights reserved.",
-    "rmUi": "RM-UI, Logo, and Background Images © PV-Arki",
+    "copyright": "© 2026 PVARKI. All rights reserved.",
+    "rmUi": "RM-UI, Logo, and Background Images © PVARKI",
     "authenticating": "Authenticating...",
     "adminConsole": "Admin Console",
     "forbiddenAdminAccess": "403 Forbidden: Admin access required",
@@ -40,7 +39,9 @@
     "finish": "Finish",
     "help": "Help",
     "imageNotAvailable": "Image not available",
-    "clickToEnlarge": "Click to enlarge"
+    "clickToEnlarge": "Click to enlarge",
+    "footer": "Open footer",
+    "notNow": "Not now"
   },
   "pages": {
     "login": "Login",
@@ -113,6 +114,8 @@
   "systemStatus": {
     "title": "System Status",
     "lastUpdated": "Last updated",
+    "nextCheckIn": "Next check in",
+    "checkingNow": "Checking now",
     "services": "Services",
     "active": "Active",
     "issues": "Issues",
@@ -124,6 +127,10 @@
     "online": "Online",
     "offline": "Outage",
     "justNow": "Just now",
+    "secondsAgo": "seconds ago",
+    "secAgo": "s ago",
+    "sec": "s",
+    "min": "m",
     "minAgo": "min ago",
     "hoursAgo": "hours ago",
     "hourAgo": "hour ago"
@@ -669,6 +676,7 @@
   "feedbackForm": {
     "title": "Send feedback",
     "description": "Let us know what you think. Your feedback helps improve the app.",
+    "noFeedbackUrl": "Feedback URL not configured. Please contact support.",
     "roleLabel": "Your role",
     "rolePlaceholder": "Select role...",
     "roles": {
@@ -694,13 +702,17 @@
     "ratings": {
       "excellent": "Excellent",
       "good": "Good",
-      "veryBad": "Very Bad",
-      "bad": "Bad"
+      "bad": "Bad",
+      "veryBad": "Very Bad"
     },
     "commentsLabel": "Comments",
     "commentsPlaceholder": "Share details, suggestions or issues...",
     "send": "Send feedback",
     "sending": "Sending...",
-    "thanks": "Thanks for the feedback!"
+    "thanks": "Thanks for the feedback!",
+    "popupEyebrow": "Quick feedback",
+    "popupTitle": "How's it going?",
+    "popupDescription": "Rate your experience it takes less than 30 seconds and genuinely helps us improve.",
+    "giveFeedback": "Write feedback"
   }
 }

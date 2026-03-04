@@ -8,6 +8,21 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
+import { ExternalLink } from "lucide-react";
+import { withReturnParams } from "@/lib/utils";
+
+const SAFE_DOMAINS = ["docs.pvarki.fi", "pvarki.fi"];
+
+function isSafeDomain(url: string): boolean {
+  try {
+    const { hostname } = new URL(url);
+    return SAFE_DOMAINS.some(
+      (d) => hostname === d || hostname.endsWith(`.${d}`),
+    );
+  } catch {
+    return false;
+  }
+}
 
 interface ExitConfirmDialogProps {
   open: boolean;
@@ -23,6 +38,13 @@ export function ExitConfirmDialog({
   onConfirm,
 }: ExitConfirmDialogProps) {
   const { t } = useTranslation();
+  const safe = isSafeDomain(exitUrl);
+
+  if (open && safe) {
+    window.open(withReturnParams(exitUrl), "_blank");
+    setTimeout(() => onOpenChange(false), 0);
+    return null;
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -33,7 +55,8 @@ export function ExitConfirmDialog({
             {t("home.dialog.leaveDescription")}
           </DialogDescription>
         </DialogHeader>
-        <div className="py-2">
+        <div className="py-2 flex items-start gap-2">
+          <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
           <p className="text-primary break-all font-mono text-xs">{exitUrl}</p>
         </div>
         <DialogFooter className="flex gap-2 sm:gap-2">

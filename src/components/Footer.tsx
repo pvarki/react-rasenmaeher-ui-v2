@@ -29,7 +29,6 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
           {t("common.deployApp")}
         </p>
         <p className="text-muted-foreground/80 text-sm">
-          {t("common.proudlyServedBy")}{" "}
           <button
             onClick={() => {
               setDrawerOpen(false);
@@ -66,6 +65,16 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
     </div>
   );
 
+    const DesktopFooterContent = (
+    <div className="grid place-items-center text-center gap-4">
+      <div className="col-span-full">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          {t("common.copyright")} {t("common.rmUi")}
+        </p>
+      </div>
+    </div>
+  );
+
   if (isMobile) {
     return (
       <div>
@@ -73,7 +82,7 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
           <DrawerTrigger asChild>
             <button className="w-full py-4 flex items-center justify-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors border-t border-border bg-card/50">
               <ChevronUp className="h-3 w-3" />
-              <span>{t("common.footer", "Avaa alatunniste")}</span>
+              <span>{t("common.footer")}</span>
             </button>
           </DrawerTrigger>
           <DrawerContent>
@@ -83,7 +92,7 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
           </DrawerContent>
         </Drawer>
         <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
-        <OnboardingGuide />
+        <OnboardingGuide hideFloatingButton />
       </div>
     );
   }
@@ -91,11 +100,11 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
   return (
     <>
       <footer className="border-t border-border bg-card/50 px-8 py-6 text-xs text-muted-foreground">
-        <div className="max-w-6xl mx-auto">{footerContent}</div>
+        <div className="max-w-6xl mx-auto">{DesktopFooterContent}</div>
       </footer>
       <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
 
-      <OnboardingGuide />
+      <OnboardingGuide hideFloatingButton />
     </>
   );
 }

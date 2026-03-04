@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Wifi, AlertTriangle, ServerCrash, EthernetPort } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Wifi, AlertTriangle, ServerCrash, EthernetPort, RefreshCw } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -18,6 +18,8 @@ import { useHealthCheck } from "@/hooks/api/useHealthCheck";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+const CHECK_INTERVAL_MS = 30_000;
+
 interface SystemStatusPopoverProps {
   isOnline: boolean;
   lastSync: Date;
@@ -25,27 +27,34 @@ interface SystemStatusPopoverProps {
 
 export function SystemStatusPopover({
   isOnline,
-  lastSync,
 }: SystemStatusPopoverProps) {
   const [open, setOpen] = useState(false);
-  const { data: healthData } = useHealthCheck();
+  const [now, setNow] = useState(() => new Date());
+  const { data: healthData, dataUpdatedAt, refetch, isFetching, isLoading } = useHealthCheck();
+  const lastSync = dataUpdatedAt ? new Date(dataUpdatedAt) : new Date();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
 
-  const formatTime = (date: Date) => {
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
 
-    if (diffMins < 1) return t("systemStatus.justNow");
-    if (diffMins === 1) return `1 ${t("systemStatus.minAgo")}`;
-    if (diffMins < 60) return `${diffMins} ${t("systemStatus.minAgo")}`;
+  const nextCheckSeconds = Math.max(
+    0,
+    Math.round((CHECK_INTERVAL_MS - (now.getTime() - lastSync.getTime())) / 1000),
+  );
 
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours === 1) return `1 ${t("systemStatus.hourAgo")}`;
-    if (diffHours < 24) return `${diffHours} ${t("systemStatus.hoursAgo")}`;
+  const progressPct = Math.min(
+    100,
+    Math.round(((CHECK_INTERVAL_MS - nextCheckSeconds * 1000) / CHECK_INTERVAL_MS) * 100),
+  );
 
-    return date.toLocaleDateString();
+  const formatNextCheck = () => {
+    if (nextCheckSeconds <= 0) return t("systemStatus.checkingNow");
+    if (nextCheckSeconds < 60) return `${nextCheckSeconds}${t("systemStatus.sec", "s")}`;
+    const nextCheckMins = Math.ceil(nextCheckSeconds / 60);
+    return `${nextCheckMins}${t("systemStatus.min", "m")}`;
   };
 
   const filteredProducts = healthData
@@ -58,7 +67,12 @@ export function SystemStatusPopover({
 
   const triggerButton = (
     <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-accent/20 border">
-      {overallStatus ? (
+      {isLoading ? (
+        <>
+          <span className="w-3 h-3 rounded-full bg-gray-400 animate-pulse inline-block" />
+          <span className="text-gray-400">{t("systemStatus.checking", "Tarkistetaan...")}</span>
+        </>
+      ) : overallStatus ? (
         <>
           <EthernetPort className="w-3 h-3 text-green-500" />
           <span>{t("systemStatus.online")}</span>
@@ -75,14 +89,28 @@ export function SystemStatusPopover({
   const statusContent = (
     <div className="space-y-4">
       <div className="space-y-2 pb-3 border-b border-border/30">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <h3 className="font-semibold text-sm text-foreground">
             {t("systemStatus.title")}
           </h3>
+          <button
+            onClick={() => refetch()}
+            disabled={isFetching}
+            className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/30 transition-colors disabled:opacity-40"
+            aria-label={t("systemStatus.refresh", "Refresh")}
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isFetching ? "animate-spin" : ""}`} />
+          </button>
         </div>
         <p className="text-xs text-muted-foreground">
-          {t("systemStatus.lastUpdated")} {formatTime(lastSync)}
+          {t("systemStatus.nextCheckIn")} {formatNextCheck()}
         </p>
+        <div className="w-full h-1 rounded-full bg-border/40 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-blue-500/60 transition-all duration-1000 ease-linear"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
       </div>
 
       <div className="space-y-2">

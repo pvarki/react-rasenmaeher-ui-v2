@@ -11,9 +11,14 @@ import {
   ProductError,
 } from "@/components/product/ProductLoadingStates";
 import { ProductHeader } from "@/components/product/ProductHeader";
-import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
 import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
 import { useUserType } from "@/hooks/auth/useUserType";
+
+const MarkdownRenderer = lazy(() =>
+  import("@/components/product/MarkdownRenderer").then((m) => ({
+    default: m.MarkdownRenderer,
+  })),
+);
 
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
@@ -124,12 +129,20 @@ function ProductPage() {
               />
             </Suspense>
           ) : product.component.type === "markdown" ? (
-            <MarkdownRenderer
-              content={markdownContent}
-              isLoading={markdownLoading}
-              fallbackTitle={product.title}
-              fallbackDescription={product.description}
-            />
+            <Suspense
+              fallback={
+                <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
+                  {t("product.loadingMarkdown")}
+                </div>
+              }
+            >
+              <MarkdownRenderer
+                content={markdownContent}
+                isLoading={markdownLoading}
+                fallbackTitle={product.title}
+                fallbackDescription={product.description}
+              />
+            </Suspense>
           ) : null}
         </div>
       </div>

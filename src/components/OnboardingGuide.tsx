@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, forwardRef, useImperativeHandle } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -135,7 +135,16 @@ const preloadImage = (src: string): Promise<void> => {
   });
 };
 
-export function OnboardingGuide() {
+export interface OnboardingGuideHandle {
+  openReview: () => void;
+}
+
+interface OnboardingGuideProps {
+  hideFloatingButton?: boolean;
+}
+
+export const OnboardingGuide = forwardRef<OnboardingGuideHandle, OnboardingGuideProps>(
+function OnboardingGuide({ hideFloatingButton = false }, ref) {
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [completed, setCompleted] = useState<string[]>([]);
@@ -296,6 +305,10 @@ export function OnboardingGuide() {
     setOpen(true);
   };
 
+  useImperativeHandle(ref, () => ({
+    openReview: handleReviewClick,
+  }));
+
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     if (!newOpen && reviewMode) {
@@ -374,6 +387,7 @@ export function OnboardingGuide() {
     localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-admin`);
 
   if ((canReview || hasSeenOnboarding) && !open && !reviewMode) {
+    if (hideFloatingButton) return null;
     return (
       <button
         onClick={handleReviewClick}
@@ -459,17 +473,18 @@ export function OnboardingGuide() {
       </div>
 
       <div className="border-t px-4 py-4 flex gap-3 bg-background">
-        <Button
-          variant="outline"
-          onClick={handlePrev}
-          disabled={currentStep === 0}
-          className="flex-1 h-12 bg-transparent focus:outline-none focus:ring-0 focus-visible:ring-0"
-          tabIndex={-1}
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          {t("onboarding.back") || "Back"}
-        </Button>
+        {currentStep > 0 && (
+          <Button
+            variant="outline"
+            onClick={handlePrev}
+            className="flex-1 h-12 bg-transparent focus:outline-none focus:ring-0 focus-visible:ring-0"
+            tabIndex={-1}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            {t("onboarding.back") || "Back"}
+          </Button>
+        )}
 
         <Button
           onClick={handleComplete}
@@ -546,4 +561,4 @@ export function OnboardingGuide() {
       </Dialog>
     </>
   );
-}
+});

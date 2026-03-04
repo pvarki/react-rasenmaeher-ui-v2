@@ -14,14 +14,13 @@
     "takServer": "Takserver",
     "feedback": "Återkoppling",
     "learnAboutMtls": "Lär dig om mTLS",
-    "proudlyServedBy": "Stolt serverad av PV-Arki.",
     "releasedUnder": "Utgiven under GNU GPLv3 av TAK Product Center.",
     "viewSource": "Visa källa",
     "letDevelopersKnow": "Låt utvecklarna veta",
     "whatYouThink": "vad du tycker",
     "allRightsReserved": "Alla rättigheter förbehållna.",
-    "copyright": "© 2026 PV-Arki. Alla rättigheter förbehållna.",
-    "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
+    "copyright": "© 2026 PVARKI. Alla rättigheter förbehållna.",
+    "rmUi": "RM-UI, Logo och bakgrundsbilder © PVARKI",
     "authenticating": "Autentiserar...",
     "adminConsole": "Administrationskonsol",
     "forbiddenAdminAccess": "403 Förbjuden: Administratörsåtkomst krävs",
@@ -40,7 +39,9 @@
     "finish": "Avsluta",
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
-    "clickToEnlarge": "Klicka för att förstora"
+    "clickToEnlarge": "Klicka för att förstora",
+    "footer": "Öppna sidfot",
+    "notNow": "Inte nu"
   },
   "pages": {
     "login": "Logga in",
@@ -113,6 +114,8 @@
   "systemStatus": {
     "title": "Systemstatus",
     "lastUpdated": "Senast uppdaterad",
+    "nextCheckIn": "Nästa kontroll om",
+    "checkingNow": "Kontrollerar nu",
     "services": "Tjänster",
     "active": "Aktiv",
     "issues": "Problem",
@@ -669,6 +672,7 @@
   "feedbackForm": {
     "title": "Skicka feedback",
     "description": "Låt oss veta vad du tycker. Din feedback hjälper oss att förbättra appen.",
+    "noFeedbackUrl": "Feedback-URL är inte konfigurerad. Vänligen kontakta support.",
     "roleLabel": "Din roll",
     "rolePlaceholder": "Välj roll...",
     "roles": {
@@ -694,13 +698,17 @@
     "ratings": {
       "excellent": "Utmärkt",
       "good": "Bra",
-      "veryBad": "Mycket Dåligt",
-      "bad": "Dåligt"
+      "bad": "Dåligt",
+      "veryBad": "Mycket Dåligt"
     },
     "commentsLabel": "Kommentarer",
     "commentsPlaceholder": "Dela detaljer, förslag eller problem...",
     "send": "Skicka feedback",
     "sending": "Skickar...",
-    "thanks": "Tack för din feedback!"
+    "thanks": "Tack för din feedback!",
+    "popupEyebrow": "Snabb feedback",
+    "popupTitle": "Hur går det?",
+    "popupDescription": "Vänligen ta en minut att betygsätta din upplevelse. Det tar mindre än 30 sekunder och hjälper oss verkligen att förbättra.",
+    "giveFeedback": "Skriv feedback"
   }
 }

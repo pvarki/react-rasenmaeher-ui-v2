@@ -47,6 +47,14 @@ ENV VITE_THEME=$VITE_THEME
 ARG VITE_RELEASE_TAG=Developing
 ENV VITE_RELEASE_TAG=$VITE_RELEASE_TAG
 
+# Server domain used for dev server host / manifest
+ARG SERVER_DOMAIN=localhost
+ENV SERVER_DOMAIN=$SERVER_DOMAIN
+
+# Feedback form submission URL
+ARG VITE_FEEDBACK_URL=https://submit-form.com/hloLGOTNT
+ENV VITE_FEEDBACK_URL=$VITE_FEEDBACK_URL
+
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile \
     && chmod a+x /docker-entrypoint.sh \
     && pnpm run build \

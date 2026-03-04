@@ -34,9 +34,14 @@ import { useIsMobile } from "@/hooks/use-mobile";
 interface FeedbackFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  initialRating?: string;
 }
 
-export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
+export function FeedbackForm({
+  open,
+  onOpenChange,
+  initialRating,
+}: FeedbackFormProps) {
   const [os, setOs] = useState("");
   const [rating, setRating] = useState("");
   const [comments, setComments] = useState("");
@@ -46,6 +51,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const { userType } = useUserType();
   const { deployment } = useHealthCheck();
   const isMobile = useIsMobile();
+  const feedbackUrl = import.meta.env.VITE_FEEDBACK_URL || null;
 
   const webAddress = typeof window !== "undefined" ? window.location.href : "";
 
@@ -54,14 +60,25 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
     setOs(detectedOS.toLowerCase());
   }, []);
 
-  const isFormValid = os && rating && comments;
+  useEffect(() => {
+    if (open && initialRating) {
+      setRating(initialRating);
+    }
+  }, [open, initialRating]);
+
+  const isFormValid = os && rating && comments.trim().length > 0;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("https://submit-form.com/hloLGOTNT", {
+      if (!feedbackUrl) {
+        return toast.error(
+          "Feedback URL is not configured in this environment!",
+        );
+      }
+      const res = await fetch(feedbackUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -104,7 +121,98 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
             </DrawerDescription>
           </DrawerHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4 px-4">
+          {feedbackUrl ? (
+            <>
+              <form onSubmit={handleSubmit} className="space-y-4 px-4">
+                <div className="grid grid-cols-1 gap-2">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    {t("feedbackForm.ratingLabel")}
+                  </label>
+                  <Select value={rating} onValueChange={(v) => setRating(v)}>
+                    <SelectTrigger
+                      className={cn(
+                        "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                      )}
+                    >
+                      <SelectValue
+                        placeholder={t("feedbackForm.ratingPlaceholder")}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="excellent">
+                        {t("feedbackForm.ratings.excellent")}
+                      </SelectItem>
+                      <SelectItem value="good">
+                        {t("feedbackForm.ratings.good")}
+                      </SelectItem>
+                      <SelectItem value="bad">
+                        {t("feedbackForm.ratings.bad")}
+                      </SelectItem>
+                      <SelectItem value="very bad">
+                        {t("feedbackForm.ratings.veryBad")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    {t("feedbackForm.commentsLabel")}
+                  </label>
+                  <Textarea
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
+                    placeholder={t("feedbackForm.commentsPlaceholder")}
+                    className={cn(
+                      "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
+                    )}
+                  />
+                </div>
+              </form>
+
+              <DrawerFooter className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => onOpenChange(false)}
+                  disabled={isSubmitting}
+                  type="button"
+                  className="flex-1"
+                >
+                  {t("common.cancel")}
+                </Button>
+                <Button
+                  onClick={handleSubmit}
+                  className="flex-1 bg-primary-light hover:bg-primary-light/90 px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting || !isFormValid}
+                >
+                  {isSubmitting
+                    ? t("feedbackForm.sending")
+                    : t("feedbackForm.send")}
+                </Button>
+              </DrawerFooter>
+            </>
+          ) : (
+            <div className="p-4">
+              <p className="text-sm text-muted-foreground">
+                {t("feedbackForm.noFeedbackUrl")}
+              </p>
+            </div>
+          )}
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>{t("feedbackForm.title")}</DialogTitle>
+          <DialogDescription>{t("feedbackForm.description")}</DialogDescription>
+        </DialogHeader>
+
+        {feedbackUrl ? (
+          <form onSubmit={handleSubmit} className="space-y-4 py-4">
             <div className="grid grid-cols-1 gap-2">
               <label className="text-xs font-medium text-muted-foreground">
                 {t("feedbackForm.ratingLabel")}
@@ -112,7 +220,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
               <Select value={rating} onValueChange={(v) => setRating(v)}>
                 <SelectTrigger
                   className={cn(
-                    "h-10 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
+                    "h-16 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
                   )}
                 >
                   <SelectValue
@@ -149,108 +257,35 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
                 )}
               />
             </div>
-          </form>
 
-          <DrawerFooter className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              disabled={isSubmitting}
-              type="button"
-              className="flex-1"
-            >
-              {t("common.cancel")}
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              className="flex-1 bg-primary-light hover:bg-primary-light/90 px-4 py-3"
-              disabled={isSubmitting || !isFormValid}
-            >
-              {isSubmitting
-                ? t("feedbackForm.sending")
-                : t("feedbackForm.send")}
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    );
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle>{t("feedbackForm.title")}</DialogTitle>
-          <DialogDescription>{t("feedbackForm.description")}</DialogDescription>
-        </DialogHeader>
-
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="grid grid-cols-1 gap-2">
-            <label className="text-xs font-medium text-muted-foreground">
-              {t("feedbackForm.ratingLabel")}
-            </label>
-            <Select value={rating} onValueChange={(v) => setRating(v)}>
-              <SelectTrigger
-                className={cn(
-                  "h-16 rounded-md border px-3 py-1 bg-transparent text-base w-full text-left",
-                )}
+            <DialogFooter className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                disabled={isSubmitting}
+                type="button"
+                className="flex-1"
               >
-                <SelectValue
-                  placeholder={t("feedbackForm.ratingPlaceholder")}
-                />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="excellent">
-                  {t("feedbackForm.ratings.excellent")}
-                </SelectItem>
-                <SelectItem value="good">
-                  {t("feedbackForm.ratings.good")}
-                </SelectItem>
-                <SelectItem value="bad">
-                  {t("feedbackForm.ratings.bad")}
-                </SelectItem>
-                <SelectItem value="very bad">
-                  {t("feedbackForm.ratings.veryBad")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+                {t("common.cancel")}
+              </Button>
+              <Button
+                type="submit"
+                className="flex-1 bg-primary-light hover:bg-primary-light/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting || !isFormValid}
+              >
+                {isSubmitting
+                  ? t("feedbackForm.sending")
+                  : t("feedbackForm.send")}
+              </Button>
+            </DialogFooter>
+          </form>
+        ) : (
+          <div className="mx-auto p-2">
+            <p className="text-sm text-muted-foreground">
+              {t("feedbackForm.noFeedbackUrl")}
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 gap-2">
-            <label className="text-xs font-medium text-muted-foreground">
-              {t("feedbackForm.commentsLabel")}
-            </label>
-            <Textarea
-              value={comments}
-              onChange={(e) => setComments(e.target.value)}
-              placeholder={t("feedbackForm.commentsPlaceholder")}
-              className={cn(
-                "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
-              )}
-            />
-          </div>
-
-          <DialogFooter className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              disabled={isSubmitting}
-              type="button"
-              className="flex-1"
-            >
-              {t("common.cancel")}
-            </Button>
-            <Button
-              type="submit"
-              className="flex-1 bg-primary-light hover:bg-primary-light/90"
-              disabled={isSubmitting || !isFormValid}
-            >
-              {isSubmitting
-                ? t("feedbackForm.sending")
-                : t("feedbackForm.send")}
-            </Button>
-          </DialogFooter>
-        </form>
+        )}
       </DialogContent>
     </Dialog>
   );

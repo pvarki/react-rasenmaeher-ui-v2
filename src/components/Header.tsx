@@ -142,7 +142,7 @@ export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
           )}
           <div className="flex flex-col text-xs leading-tight min-w-0">
             <span className="font-semibold text-foreground truncate">
-              {themeConfig.name || "PV-Arki"}
+              {themeConfig.name || "PVARKI"}
             </span>
             <div className="hidden md:block">
               <BreadcrumbNav appName={themeConfig.subName || "Deploy App"} />

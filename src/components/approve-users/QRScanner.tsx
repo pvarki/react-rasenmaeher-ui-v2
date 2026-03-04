@@ -13,7 +13,7 @@ import { Camera, Scan } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
-import jsQR from "jsqr";
+import type jsQR from "jsqr";
 
 interface QRScannerProps {
   onScanSuccess: (callsign: string, approvalCode: string) => void;
@@ -31,9 +31,10 @@ export function QRScanner({
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const scanIntervalRef = useRef<number | null>(null);
+  const jsQRRef = useRef<typeof jsQR | null>(null);
 
   const scanQRCode = useCallback(() => {
-    if (!videoRef.current || !canvasRef.current) return;
+    if (!videoRef.current || !canvasRef.current || !jsQRRef.current) return;
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -46,7 +47,7 @@ export function QRScanner({
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const code = jsQR(imageData.data, imageData.width, imageData.height);
+    const code = jsQRRef.current(imageData.data, imageData.width, imageData.height);
 
     if (code) {
       try {
@@ -86,6 +87,12 @@ export function QRScanner({
 
   const startScanning = useCallback(async () => {
     try {
+      // Lazy-load jsQR on first scan
+      if (!jsQRRef.current) {
+        const { default: jsQR } = await import("jsqr");
+        jsQRRef.current = jsQR;
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: "environment",

@@ -14,14 +14,13 @@
     "takServer": "Takserver",
     "feedback": "Palaute",
     "learnAboutMtls": "Opi mTLS:stä",
-    "proudlyServedBy": "Ylpeydellä palvelun takana PV-Arki.",
     "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä TAK Product Centerin toimesta.",
     "viewSource": "Näytä lähdekoodi",
     "letDevelopersKnow": "Kerro kehittäjille",
     "whatYouThink": "mitä ajattelet",
     "allRightsReserved": "Kaikki oikeudet pidätetään.",
-    "copyright": "© 2026 PV-Arki. Kaikki oikeudet pidätetään.",
-    "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
+    "copyright": "© 2026 PVARKI. Kaikki oikeudet pidätetään.",
+    "rmUi": "RM-UI, Logo ja taustakuvat © PVARKI",
     "authenticating": "Autentikoidaan...",
     "adminConsole": "Ylläpitäjän konsoli",
     "forbiddenAdminAccess": "403 Kielletty: Ylläpitäjäoikeudet vaaditaan",
@@ -40,7 +39,9 @@
     "finish": "Valmis",
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
-    "clickToEnlarge": "Klikkaa suurentaaksesi"
+    "clickToEnlarge": "Klikkaa suurentaaksesi",
+    "footer": "Avaa alatunniste",
+    "notNow": "Ei nyt"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -113,6 +114,8 @@
   "systemStatus": {
     "title": "Järjestelmän tila",
     "lastUpdated": "Päivitetty",
+    "nextCheckIn": "Seuraava tarkistus",
+    "checkingNow": "Tarkistetaan",
     "services": "Palvelut",
     "active": "Aktiivinen",
     "issues": "Ongelmat",
@@ -669,6 +672,7 @@
   "feedbackForm": {
     "title": "Lähetä palautetta",
     "description": "Kerro meille, mitä ajattelet. Palautteesi auttaa parantamaan sovellusta.",
+    "noFeedbackUrl": "Palautelomakkeen linkkiä ei ole määritetty. Ota yhteyttä tukeen.",
     "roleLabel": "Roolisi",
     "rolePlaceholder": "Valitse rooli...",
     "roles": {
@@ -694,13 +698,17 @@
     "ratings": {
       "excellent": "Erinomainen",
       "good": "Hyvä",
-      "veryBad": "Erittäin Huono",
-      "bad": "Huono"
+      "bad": "Huono",
+      "veryBad": "Erittäin Huono"
     },
     "commentsLabel": "Kommentit",
     "commentsPlaceholder": "Huolia, murheita, turhia toiveita...",
     "send": "Lähetä palaute",
     "sending": "Lähetetään...",
-    "thanks": "Kiitos palautteesta!"
+    "thanks": "Kiitos palautteesta!",
+    "popupEyebrow": "Pikapalaute",
+    "popupTitle": "Miten menee?",
+    "popupDescription": "Kerro meille kokemuksestasi. Se vie sinulta alle 30 sekuntia ja auttaa meitä parantamaan.",
+    "giveFeedback": "Kirjoita palautetta"
   }
 }

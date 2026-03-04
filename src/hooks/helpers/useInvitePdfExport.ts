@@ -1,11 +1,6 @@
 import { useRef } from "react";
 import { toast } from "sonner";
-import html2canvas from "html2canvas-pro";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { useTranslation } from "react-i18next";
-
-pdfMake.vfs = pdfFonts.vfs;
 
 interface UseInvitePdfExportOptions {
   code: string;
@@ -25,6 +20,16 @@ export function useInvitePdfExport({
     if (!qrRef.current) return;
 
     try {
+      const [{ default: html2canvas }, { default: pdfMake }, pdfFonts] =
+        await Promise.all([
+          import("html2canvas-pro"),
+          import("pdfmake/build/pdfmake"),
+          import("pdfmake/build/vfs_fonts"),
+        ]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (pdfMake as any).vfs = (pdfFonts as any).default ?? pdfFonts;
+
       const tempContainer = document.createElement("div");
       tempContainer.style.position = "absolute";
       tempContainer.style.left = "-9999px";

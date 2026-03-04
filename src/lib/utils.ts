@@ -8,3 +8,29 @@ export function cn(
 ): string {
   return classes.filter(Boolean).join(" ");
 }
+
+// Encode a string to base64, making it URL-safe by replacing + with - and / with _,
+export function encodeToBase64(str: string): string {
+  try {
+    return btoa(unescape(encodeURIComponent(str)))
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+  } catch {
+    return str;
+  }
+}
+
+export function withReturnParams(
+  exitUrl: string,
+  label = "Deploy App",
+): string {
+  try {
+    const url = new URL(exitUrl);
+    url.searchParams.set("returnUrl", encodeToBase64(window.location.origin));
+    url.searchParams.set("returnLabel", encodeToBase64(label));
+    return url.toString();
+  } catch {
+    return exitUrl;
+  }
+}

@@ -15,6 +15,7 @@ import {
   AdminToolsSection,
   type Product,
 } from "@/components/home";
+import { withReturnParams } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -72,7 +73,11 @@ function HomePage() {
   };
 
   const handleConfirmExit = () => {
-    window.open(exitUrl, "_blank");
+    try {
+      window.open(withReturnParams(exitUrl), "_blank");
+    } catch {
+      window.open(exitUrl, "_blank");
+    }
     setExitDialogOpen(false);
     setExitUrl("");
   };

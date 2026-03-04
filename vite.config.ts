@@ -236,6 +236,78 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       target: "chrome89",
+      chunkSizeWarningLimit: 600,
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            // pdfmake & html2canvas are dynamically imported — keep them
+            // as separate lazy chunks, NOT merged into one giant chunk
+            if (id.includes("pdfmake/build/vfs_fonts")) {
+              return "pdf-fonts";
+            }
+            if (id.includes("pdfmake")) {
+              return "pdf-core";
+            }
+            if (id.includes("html2canvas")) {
+              return "html2canvas";
+            }
+            // Markdown rendering (lazy-loaded)
+            if (
+              id.includes("node_modules/react-markdown") ||
+              id.includes("node_modules/remark-") ||
+              id.includes("node_modules/rehype-") ||
+              id.includes("node_modules/unified") ||
+              id.includes("node_modules/unist-") ||
+              id.includes("node_modules/mdast-") ||
+              id.includes("node_modules/hast-") ||
+              id.includes("node_modules/micromark") ||
+              id.includes("node_modules/devlop") ||
+              id.includes("node_modules/vfile")
+            ) {
+              return "vendor-markdown";
+            }
+            // Core React runtime
+            if (
+              id.includes("node_modules/react/") ||
+              id.includes("node_modules/react-dom/") ||
+              id.includes("node_modules/scheduler/")
+            ) {
+              return "vendor-react";
+            }
+            // React Query
+            if (id.includes("node_modules/react-query")) {
+              return "vendor-react-query";
+            }
+            // Routing
+            if (id.includes("@tanstack/react-router")) {
+              return "vendor-router";
+            }
+            // i18n — split runtime from locale data
+            if (
+              id.includes("node_modules/i18next") ||
+              id.includes("node_modules/react-i18next")
+            ) {
+              return "vendor-i18n";
+            }
+            // Icons — tree-shake via individual imports
+            if (id.includes("node_modules/lucide-react")) {
+              return "vendor-icons";
+            }
+            // Radix UI primitives
+            if (id.includes("node_modules/@radix-ui")) {
+              return "vendor-radix";
+            }
+            // Form libraries
+            if (
+              id.includes("node_modules/formik") ||
+              id.includes("node_modules/yup")
+            ) {
+              return "vendor-forms";
+            }
+          },
+        },
+      },
     },
     resolve: {
       alias: {

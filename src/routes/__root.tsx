@@ -16,6 +16,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIsTablet } from "@/hooks/use-tablet";
+import { FeedbackTrigger } from "@/components/FeedbackTrigger";
 
 export const Route = createRootRoute({
   component: RootLayoutWrapper,
@@ -147,6 +148,7 @@ function RootLayout() {
       </div>
 
       <MtlsInfoModal open={mtlsModalOpen} onOpenChange={setMtlsModalOpen} />
+      <FeedbackTrigger />
     </div>
   );
 }
