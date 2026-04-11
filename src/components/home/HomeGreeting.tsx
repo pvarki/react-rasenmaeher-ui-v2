@@ -29,7 +29,10 @@ export function HomeGreeting({ callsign, isValidUser }: HomeGreetingProps) {
         {t("home.description")}
       </p>
       {!isValidUser && (
-        <p className="text-sm text-destructive font-medium flex items-center gap-2">
+        <p
+          data-testid="home-auth-required-warning"
+          className="text-sm text-destructive font-medium flex items-center gap-2"
+        >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"

@@ -27,7 +27,10 @@ export function WaitingRoomHeader({
         {appDesc || t("waitingRoom.description")}
       </p>
       {isLoading && (
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <div
+          data-testid="waiting-room-loading"
+          className="flex items-center justify-center gap-2 text-sm text-muted-foreground"
+        >
           <Loader2 className="w-4 h-4 animate-spin" />
           <span>{t("waitingRoom.checkingStatus")}</span>
         </div>

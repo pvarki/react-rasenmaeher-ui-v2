@@ -23,8 +23,12 @@ export function HowItWorksSection({
       open={open}
       onOpenChange={onOpenChange}
       className="border border-border rounded-xl overflow-hidden"
+      data-testid="how-it-works-section"
     >
-      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer">
+      <CollapsibleTrigger
+        className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer"
+        data-testid="how-it-works-toggle"
+      >
         <span className="font-medium">{t("approveUsers.howItWorks")}</span>
         <ChevronDown
           className={cn("w-5 h-5 transition-transform", open && "rotate-180")}

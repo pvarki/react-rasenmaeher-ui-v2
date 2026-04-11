@@ -101,7 +101,10 @@ function ManageUsersPage() {
 
   if (!userTypeLoading && userType !== "admin") {
     return (
-      <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
+      <div
+        data-testid="manage-users-forbidden"
+        className="max-w-4xl mx-auto space-y-6 text-center py-12"
+      >
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
           {t("manageUsers.forbidden")}
@@ -112,7 +115,10 @@ function ManageUsersPage() {
 
   if (isLoading || userTypeLoading) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div
+        data-testid="manage-users-loading"
+        className="max-w-4xl mx-auto space-y-6"
+      >
         <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -127,12 +133,17 @@ function ManageUsersPage() {
     deleteUserMutation.isLoading;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div
+      data-testid="manage-users-page"
+      data-bulk-mode={bulkMode ? "true" : "false"}
+      className="max-w-4xl mx-auto space-y-6"
+    >
       <div className="flex items-center justify-between">
         <div className="space-y-2 flex-1 mt-4">
           <h1 className="text-3xl font-bold">{t("manageUsers.title")}</h1>
         </div>
         <Button
+          data-testid="manage-users-help-button"
           variant="ghost"
           size="icon"
           onClick={() => setWalkthroughOpen(true)}
@@ -144,6 +155,7 @@ function ManageUsersPage() {
 
       <div className="flex gap-3">
         <Button
+          data-testid="manage-users-bulk-toggle"
           variant={bulkMode ? "ghost" : "outline"}
           onClick={toggleBulkMode}
           className={
@@ -166,6 +178,7 @@ function ManageUsersPage() {
       )}
 
       <UserList
+        testIdPrefix="administrators-list"
         title={t("manageUsers.administrators")}
         users={administrators}
         open={administratorsOpen}
@@ -179,6 +192,7 @@ function ManageUsersPage() {
       />
 
       <UserList
+        testIdPrefix="fighters-list"
         title={t("manageUsers.fighters")}
         users={fighters}
         open={fightersOpen}

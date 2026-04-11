@@ -115,7 +115,7 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
     <>
       <LoginGuide open={showGuide} onOpenChange={setShowGuide} />
 
-      <Card className="border-muted">
+      <Card className="border-muted" data-testid="login-card">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
@@ -130,17 +130,19 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
               onClick={() => setShowGuide(true)}
               className="shrink-0"
               aria-label={t("common.help")}
+              data-testid="login-help-button"
             >
               <HelpCircle className="w-5 h-5" />
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <a href={mtlsUrl} className="block">
+          <a href={mtlsUrl} className="block" data-testid="login-cert-link">
             <Button
               variant={"outline"}
               className="w-full h-14 bg-primary-light hover:bg-primary-light/90 text-base font-semibold"
               type="button"
+              data-testid="login-cert-button"
             >
               {t("login.certificate")}
             </Button>
@@ -171,8 +173,12 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
                   onFocus={handleInputFocus}
                   onChange={handleChange}
                   disabled={isLoading}
+                  data-testid="login-code-input"
                 />
-                <span className="text-sm text-destructive">
+                <span
+                  className="text-sm text-destructive"
+                  data-testid="login-code-error"
+                >
                   {submitCount > 0 && <ErrorMessage name="code" />}
                   {codeNotValid && <div>{t("login.codeNotValid")}</div>}
                   {isError && (
@@ -189,6 +195,7 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
                 variant={"outline"}
                 className="w-full h-14 bg-primary-light hover:bg-primary-light/90 text-base font-semibold"
                 disabled={!values.code || isLoading}
+                data-testid="login-submit-button"
               >
                 {isLoading ? (
                   <>

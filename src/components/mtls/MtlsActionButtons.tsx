@@ -18,8 +18,13 @@ export function MtlsActionButtons({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 md:gap-4 pt-4">
+    <div
+      data-testid="mtls-action-buttons"
+      className="flex flex-col md:flex-row gap-8 md:gap-4 pt-4"
+    >
       <Button
+        data-testid="mtls-download-button"
+        data-mtls-downloading={isDownloading ? "true" : "false"}
         onClick={onDownload}
         variant={"outline"}
         className="flex-1 rounded-xl bg-primary-light hover:bg-primary-light/90 w-full h-12 py-4 font-semibold"
@@ -37,8 +42,14 @@ export function MtlsActionButtons({
           </>
         )}
       </Button>
-      <a href={mtlsUrl} className="flex-1 ">
+      <a
+        data-testid="mtls-navigate-link"
+        data-mtls-url={mtlsUrl}
+        href={mtlsUrl}
+        className="flex-1 "
+      >
         <Button
+          data-testid="mtls-navigate-button"
           variant="ghost"
           className="w-full text-white h-12 rounded-xl border-2"
         >

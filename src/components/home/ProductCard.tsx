@@ -27,6 +27,9 @@ export function ProductCard({
 
   return (
     <div
+      data-testid="product-card"
+      data-product-shortname={product.shortname}
+      data-product-valid={isValidUser ? "true" : "false"}
       className={cn(
         "group flex flex-col border border-border rounded-2xl overflow-hidden transition-all duration-300",
         isValidUser
@@ -60,6 +63,7 @@ export function ProductCard({
 
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
           <Button
+            data-testid="product-card-launch-button"
             size="sm"
             onClick={() => onProductClick(product)}
             variant={"outline"}
@@ -90,6 +94,7 @@ export function ProductCard({
           </Button>
           {product.docs && (
             <Button
+              data-testid="product-card-docs-button"
               variant="ghost"
               size="sm"
               className={cn(

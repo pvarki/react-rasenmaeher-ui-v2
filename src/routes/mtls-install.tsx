@@ -86,9 +86,15 @@ function MtlsInstallPage() {
       <>
         <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
 
-        <div className="min-h-screen flex flex-col bg-background">
+        <div
+          data-testid="mtls-install-page"
+          data-mtls-layout="mobile"
+          data-mtls-os={osToShow || ""}
+          className="min-h-screen flex flex-col bg-background"
+        >
           <div className="flex justify-between items-center p-6 border-b border-border">
             <Button
+              data-testid="mtls-help-button"
               variant="ghost"
               size="icon"
               onClick={() => setShowGuide(true)}
@@ -134,10 +140,16 @@ function MtlsInstallPage() {
     <>
       <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
 
-      <div className="min-h-screen flex flex-col items-center justify-start bg-background p-4">
+      <div
+        data-testid="mtls-install-page"
+        data-mtls-layout="desktop"
+        data-mtls-os={osToShow || ""}
+        className="min-h-screen flex flex-col items-center justify-start bg-background p-4"
+      >
         <div className="w-full max-w-3xl space-y-6 py-8">
           <div className="absolute top-4 right-4 flex items-center gap-2">
             <Button
+              data-testid="mtls-help-button"
               variant="ghost"
               size="icon"
               onClick={() => setShowGuide(true)}

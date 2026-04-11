@@ -11,6 +11,7 @@ export function ProductHeader({ title, onClose }: ProductHeaderProps) {
     <div className="border-b border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between bg-card/50 backdrop-blur-sm sticky top-0 z-10">
       <h1 className="text-base md:text-lg font-semibold truncate">{title}</h1>
       <Button
+        data-testid="product-header-close-button"
         variant="ghost"
         size="icon"
         onClick={onClose}

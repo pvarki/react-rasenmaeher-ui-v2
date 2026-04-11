@@ -110,9 +110,14 @@ export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
   const themeConfig = getTheme();
 
   return (
-    <header className="bg-card border-b border-border px-4 md:px-6 h-16 flex items-center justify-between sticky top-0 z-50">
+    <header
+      data-testid="app-header"
+      data-sidebar-open={sidebarOpen ? "true" : "false"}
+      className="bg-card border-b border-border px-4 md:px-6 h-16 flex items-center justify-between sticky top-0 z-50"
+    >
       <div className="flex items-center gap-4 min-w-0">
         <button
+          data-testid="sidebar-toggle-button"
           onClick={onToggleSidebar}
           className="text-foreground hover:text-foreground/80 shrink-0 p-1.5 rounded-md hover:bg-accent transition-all duration-200"
           aria-label={sidebarOpen ? "Close menu" : "Open menu"}

@@ -21,12 +21,18 @@ export function BulkActionsBar({
   if (selectedCount === 0) return null;
 
   return (
-    <div className="flex items-center gap-2 p-4 bg-card border border-border rounded-xl">
+    <div
+      data-testid="manage-users-bulk-actions-bar"
+      data-selected-count={selectedCount}
+      data-has-admin-selected={hasAdminSelected ? "true" : "false"}
+      className="flex items-center gap-2 p-4 bg-card border border-border rounded-xl"
+    >
       <span className="text-sm font-medium">
         {t("manageUsers.selected", { count: selectedCount })}
       </span>
       <div className="flex-1" />
       <Button
+        data-testid="manage-users-bulk-promote-button"
         variant="outline"
         size="sm"
         onClick={onPromote}
@@ -41,6 +47,7 @@ export function BulkActionsBar({
         {t("manageUsers.promote")}
       </Button>
       <Button
+        data-testid="manage-users-bulk-demote-button"
         variant="outline"
         size="sm"
         onClick={onDemote}
@@ -54,7 +61,12 @@ export function BulkActionsBar({
       >
         {t("manageUsers.demote")}
       </Button>
-      <Button variant="destructive" size="sm" onClick={onRemove}>
+      <Button
+        data-testid="manage-users-bulk-remove-button"
+        variant="destructive"
+        size="sm"
+        onClick={onRemove}
+      >
         {t("manageUsers.remove")}
       </Button>
     </div>

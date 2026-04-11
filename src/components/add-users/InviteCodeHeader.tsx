@@ -35,6 +35,7 @@ export function InviteCodeHeader({
           size="icon"
           onClick={onHelpClick}
           className="shrink-0"
+          data-testid="add-users-help-button"
         >
           <HelpCircle className="w-5 h-5" />
         </Button>
@@ -46,6 +47,7 @@ export function InviteCodeHeader({
           variant={"outline"}
           className="w-full md:w-auto bg-primary-light hover:bg-primary-light/90 h-12 md:h-12 px-6 font-semibold rounded-xl "
           disabled={isCreating}
+          data-testid="create-invite-button"
         >
           <Plus className="w-5 h-5 mr-2" />
           <span className="hidden md:inline">
@@ -61,6 +63,7 @@ export function InviteCodeHeader({
           variant="outline"
           onClick={onToggleBulkMode}
           className="w-full md:w-auto h-12 px-6 font-semibold rounded-xl"
+          data-testid="select-multiple-button"
         >
           <CheckSquare className="w-5 h-5" />
           <span className="ml-2">
@@ -76,6 +79,7 @@ export function InviteCodeHeader({
           value={filterText}
           onChange={(e) => onFilterChange(e.target.value)}
           className="pl-9"
+          data-testid="invite-code-filter"
         />
       </div>
     </>

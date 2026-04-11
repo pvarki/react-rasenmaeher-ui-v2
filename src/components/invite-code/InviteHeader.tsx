@@ -12,6 +12,7 @@ export function InviteHeader({ onBack }: InviteHeaderProps) {
   return (
     <div className="border-b border-border bg-card/50 px-4 md:px-8 py-3">
       <Button
+        data-testid="invite-code-back-button"
         variant="ghost"
         onClick={onBack}
         className="flex items-center gap-2 text-sm hover:bg-accent/50"

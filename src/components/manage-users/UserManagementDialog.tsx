@@ -43,7 +43,13 @@ export function UserManagementDialog({
 
   return (
     <Dialog open={!!user} onOpenChange={() => onOpenChange(false)}>
-      <DialogContent className="sm:max-w-md max-h-[90vh] flex flex-col">
+      <DialogContent
+        data-testid="user-management-dialog"
+        data-user-callsign={user?.callsign ?? ""}
+        data-user-is-admin={isAdmin ? "true" : "false"}
+        data-user-is-current={isCurrentUser ? "true" : "false"}
+        className="sm:max-w-md max-h-[90vh] flex flex-col"
+      >
         <DialogHeader>
           <DialogTitle>{t("manageUsers.userDialog.title")}</DialogTitle>
           <DialogDescription>
@@ -65,6 +71,7 @@ export function UserManagementDialog({
         </ScrollArea>
         <DialogFooter className="flex-row gap-2 sm:justify-between pt-4 border-t">
           <Button
+            data-testid="user-management-dialog-back-button"
             variant="ghost"
             onClick={() => onOpenChange(false)}
             className="flex-1"
@@ -74,6 +81,7 @@ export function UserManagementDialog({
           </Button>
 
           <Button
+            data-testid="user-management-dialog-remove-button"
             variant="outline"
             onClick={onRemove}
             className="flex-1 bg-transparent"
@@ -87,6 +95,7 @@ export function UserManagementDialog({
 
           {!isAdmin ? (
             <Button
+              data-testid="user-management-dialog-promote-button"
               variant={"outline"}
               onClick={onPromote}
               className="flex-1 bg-primary-light hover:bg-primary-light/90"
@@ -96,6 +105,7 @@ export function UserManagementDialog({
             </Button>
           ) : (
             <Button
+              data-testid="user-management-dialog-demote-button"
               onClick={onDemote}
               variant={"outline"}
               className="flex-1 bg-primary-light hover:bg-primary-light/90"

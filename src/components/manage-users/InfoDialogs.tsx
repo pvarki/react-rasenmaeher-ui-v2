@@ -23,7 +23,10 @@ export function WalkthroughDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent
+        data-testid="manage-users-walkthrough-dialog"
+        className="sm:max-w-lg"
+      >
         <DialogHeader>
           <DialogTitle>{t("manageUsers.walkthrough.title")}</DialogTitle>
           <DialogDescription>
@@ -61,6 +64,7 @@ export function WalkthroughDialog({
         </ScrollArea>
         <DialogFooter>
           <Button
+            data-testid="manage-users-walkthrough-got-it-button"
             onClick={() => onOpenChange(false)}
             variant={"outline"}
             className="w-full bg-primary-light hover:bg-primary-light/90"
@@ -86,7 +90,10 @@ export function UserRolesInfoDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        data-testid="user-roles-info-dialog"
+        className="sm:max-w-md"
+      >
         <DialogHeader>
           <DialogTitle>
             {t("manageUsers.infoModal.title", "User Roles")}
@@ -124,6 +131,7 @@ export function UserRolesInfoDialog({
         </div>
         <DialogFooter>
           <Button
+            data-testid="user-roles-info-close-button"
             onClick={() => onOpenChange(false)}
             variant={"outline"}
             className="w-full bg-primary-light hover:bg-primary-light/90"
