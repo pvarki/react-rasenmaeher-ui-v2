@@ -21,7 +21,11 @@ export function InviteQRCodeCard({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col items-center space-y-6">
+    <div
+      data-testid="invite-qr-card"
+      data-invite-url={inviteUrl}
+      className="flex flex-col items-center space-y-6"
+    >
       <div
         className="p-6 rounded-2xl shadow-lg"
         style={{ backgroundColor: "#ffffff" }}
@@ -36,6 +40,8 @@ export function InviteQRCodeCard({
       </div>
       <div className="flex flex-col sm:flex-row gap-3 w-full">
         <Button
+          data-testid="invite-copy-button"
+          data-invite-copied={isCopied ? "true" : "false"}
           variant={"outline"}
           onClick={() => handleCopy(inviteUrl)}
           className="flex-1 bg-primary-light hover:bg-primary-light/90 h-12 text-base font-medium rounded-xl relative overflow-hidden"
@@ -51,6 +57,7 @@ export function InviteQRCodeCard({
           )}
         </Button>
         <Button
+          data-testid="invite-export-pdf-button"
           onClick={onDownloadPdf}
           variant="outline"
           className="flex-1 h-12 text-base font-medium rounded-xl bg-transparent"

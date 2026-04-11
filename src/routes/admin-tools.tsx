@@ -77,6 +77,8 @@ function AdminToolCard({ item, onAction }: AdminToolCardProps) {
   const title = item.title ?? (item.titleKey ? t(item.titleKey) : "");
   const description = item.description ?? (item.descKey ? t(item.descKey) : "");
 
+  const cardKey = item.titleKey ?? item.title ?? "unknown";
+
   const content = (
     <>
       <div className="p-4 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
@@ -95,6 +97,9 @@ function AdminToolCard({ item, onAction }: AdminToolCardProps) {
   if (item.action.type === "external") {
     return (
       <a
+        data-testid="admin-tool-card"
+        data-admin-tool-key={cardKey}
+        data-admin-tool-action="external"
         href={item.action.url}
         target="_blank"
         rel="noopener noreferrer"
@@ -106,7 +111,13 @@ function AdminToolCard({ item, onAction }: AdminToolCardProps) {
   }
 
   return (
-    <a onClick={() => onAction(item)} className={className}>
+    <a
+      data-testid="admin-tool-card"
+      data-admin-tool-key={cardKey}
+      data-admin-tool-action={item.action.type}
+      onClick={() => onAction(item)}
+      className={className}
+    >
       {content}
     </a>
   );
@@ -242,7 +253,10 @@ function AdminToolsPage() {
 
   if (!userTypeLoading && userType !== "admin") {
     return (
-      <div className="w-full max-w-2xl mx-auto space-y-6 text-center py-12">
+      <div
+        data-testid="admin-tools-forbidden"
+        className="w-full max-w-2xl mx-auto space-y-6 text-center py-12"
+      >
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
           {t("adminTools.forbiddenAdminAccess")}
@@ -253,7 +267,10 @@ function AdminToolsPage() {
 
   if (userTypeLoading) {
     return (
-      <div className="w-full max-w-2xl mx-auto space-y-6">
+      <div
+        data-testid="admin-tools-loading"
+        className="w-full max-w-2xl mx-auto space-y-6"
+      >
         <h1 className="text-3xl font-bold">{t("adminTools.navLink")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -264,7 +281,10 @@ function AdminToolsPage() {
 
   if (showTypeSelector) {
     return (
-      <div className="w-full max-w-2xl mx-auto">
+      <div
+        data-testid="admin-tools-type-selector"
+        className="w-full max-w-2xl mx-auto"
+      >
         <div className="space-y-8">
           <div className="space-y-3 pt-8 text-center">
             <h1 className="text-4xl font-bold">{t("adminTools.navLink")}</h1>
@@ -273,7 +293,7 @@ function AdminToolsPage() {
             </p>
           </div>
 
-          <div className="grid gap-4">
+          <div data-testid="admin-tools-grid" className="grid gap-4">
             {typeSelectorItems.map((item) => (
               <AdminToolCard
                 key={item.titleKey}
@@ -292,15 +312,24 @@ function AdminToolsPage() {
   );
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div
+      data-testid="admin-tools-page"
+      data-admin-tools-type={type ?? "none"}
+      className="w-full max-w-2xl mx-auto"
+    >
       <div className="space-y-8">
         {visibleSections.map((section) => (
-          <div key={section.titleKey} className="space-y-4">
+          <div
+            data-testid="admin-tools-section-group"
+            data-section-key={section.titleKey}
+            key={section.titleKey}
+            className="space-y-4"
+          >
             <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               {t(section.titleKey)}
             </h2>
 
-            <div className="grid gap-4">
+            <div data-testid="admin-tools-grid" className="grid gap-4">
               {section.titleKey === "adminTools.toolsDesc" &&
               isLoadingProducts ? (
                 <>

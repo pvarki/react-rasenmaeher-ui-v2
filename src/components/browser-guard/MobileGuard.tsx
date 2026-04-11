@@ -36,7 +36,13 @@ export function MobileGuard({
 
   return (
     <>
-      <div className="min-h-screen flex flex-col bg-background">
+      <div
+        data-testid="browser-guard-mobile"
+        data-browser-name={browserInfo.browserName}
+        data-browser-type={browserInfo.browserType}
+        data-browser-os={os}
+        className="min-h-screen flex flex-col bg-background"
+      >
         <GuardHeader deployment={deployment} logoUrl={logoUrl} isMobile />
 
         <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
@@ -82,6 +88,7 @@ export function MobileGuard({
             </div>
 
             <Button
+              data-testid="browser-guard-continue-at-risk-button"
               onClick={handleContinueClick}
               variant="outline"
               className="w-full"

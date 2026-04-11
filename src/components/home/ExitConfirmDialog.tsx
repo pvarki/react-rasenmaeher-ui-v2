@@ -26,7 +26,7 @@ export function ExitConfirmDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent data-testid="exit-confirm-dialog" className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{t("home.dialog.leaveTitle")}</DialogTitle>
           <DialogDescription className="pt-2">
@@ -34,10 +34,16 @@ export function ExitConfirmDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="py-2">
-          <p className="text-primary break-all font-mono text-xs">{exitUrl}</p>
+          <p
+            data-testid="exit-confirm-url"
+            className="text-primary break-all font-mono text-xs"
+          >
+            {exitUrl}
+          </p>
         </div>
         <DialogFooter className="flex gap-2 sm:gap-2">
           <Button
+            data-testid="exit-confirm-cancel"
             variant="outline"
             onClick={() => onOpenChange(false)}
             className="flex-1"
@@ -45,6 +51,7 @@ export function ExitConfirmDialog({
             {t("home.dialog.cancel")}
           </Button>
           <Button
+            data-testid="exit-confirm-continue"
             onClick={onConfirm}
             variant={"outline"}
             className="flex-1 bg-primary-light hover:bg-primary-light/90"

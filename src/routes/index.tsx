@@ -39,7 +39,10 @@ function HomePage() {
 
   if (userTypeLoading || productsLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div
+        data-testid="home-loading"
+        className="min-h-screen flex items-center justify-center bg-background"
+      >
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-muted-foreground">{t("home.loadingServices")}</p>
@@ -79,7 +82,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="mb-12 space-y-6">
+      <div data-testid="home-page" className="mb-12 space-y-6">
         <HomeGreeting callsign={callsign} isValidUser={isValidUser} />
 
         {userType === "admin" && (
@@ -89,7 +92,10 @@ function HomePage() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        data-testid="product-grid"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         {products.map((product: Product) => (
           <ProductCard
             key={product.shortname}

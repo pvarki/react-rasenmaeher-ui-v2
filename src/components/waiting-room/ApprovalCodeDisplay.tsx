@@ -14,7 +14,12 @@ export function ApprovalCodeDisplay({
   const { t } = useTranslation();
 
   return (
-    <div className="space-y-2 bg-card border border-border rounded-xl p-4 md:p-6 text-center">
+    <div
+      data-testid="approval-code-display"
+      data-callsign={callsign}
+      data-approve-code={approveCode}
+      className="space-y-2 bg-card border border-border rounded-xl p-4 md:p-6 text-center"
+    >
       <p className="font-semibold text-lg md:text-xl">{callsign}</p>
       <p className="text-sm text-muted-foreground pt-2">
         {t("waitingRoom.yourApprovalCodeLabel")}{" "}

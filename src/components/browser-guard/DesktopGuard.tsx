@@ -23,7 +23,13 @@ export function DesktopGuard({
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div
+      data-testid="browser-guard-desktop"
+      data-browser-name={browserInfo.browserName}
+      data-browser-type={browserInfo.browserType}
+      data-browser-os={os}
+      className="min-h-screen flex flex-col bg-background"
+    >
       <GuardHeader deployment={deployment} logoUrl={logoUrl} />
 
       <div className="flex-1 flex items-center justify-center p-4">

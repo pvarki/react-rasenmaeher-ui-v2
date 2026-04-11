@@ -14,7 +14,10 @@ export function ApprovalMethodsSection() {
 
   return (
     <Collapsible open={instructionsOpen} onOpenChange={setInstructionsOpen}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
+      <CollapsibleTrigger
+        data-testid="approval-methods-toggle"
+        className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors"
+      >
         <span className="font-medium">
           {t("inviteCode.approvalMethods.title")}
         </span>

@@ -53,7 +53,7 @@ export function CallsignForm({
 
   return (
     <FormikProvider value={formik}>
-      <Form className="space-y-4">
+      <Form className="space-y-4" data-testid="callsign-form">
         <div className="space-y-2">
           <Label htmlFor="callsign">
             {t("callsignSetup.yourCallsignLabel")}
@@ -66,12 +66,18 @@ export function CallsignForm({
             className="font-mono"
             value={formik.values.callsign}
             onChange={handleInputChange}
+            data-testid="callsign-input"
           />
           {formik.errors.callsign && (
-            <p className="text-sm text-destructive">{formik.errors.callsign}</p>
+            <p
+              className="text-sm text-destructive"
+              data-testid="callsign-validation-error"
+            >
+              {formik.errors.callsign}
+            </p>
           )}
           {errorMessage && (
-            <Alert variant="destructive">
+            <Alert variant="destructive" data-testid="callsign-error-alert">
               <AlertCircle className="h-4" />
               <AlertDescription>{errorMessage}</AlertDescription>
             </Alert>
@@ -84,6 +90,7 @@ export function CallsignForm({
             variant="outline"
             onClick={onBack}
             disabled={isLoading}
+            data-testid="callsign-back-button"
           >
             {t("callsignSetup.buttons.back")}
           </Button>
@@ -92,6 +99,7 @@ export function CallsignForm({
             variant={"outline"}
             className="flex-1 bg-primary-light hover:bg-primary-light/90"
             disabled={!formik.isValid || isLoading}
+            data-testid="callsign-submit-button"
           >
             {isLoading
               ? t("callsignSetup.buttons.settingUp")

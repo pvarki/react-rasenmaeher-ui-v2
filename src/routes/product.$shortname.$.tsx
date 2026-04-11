@@ -100,7 +100,12 @@ function ProductPage() {
   const Remote = getRemoteComponent(shortname);
 
   return (
-    <div className="fixed inset-0 z-50 bg-background flex flex-col">
+    <div
+      data-testid="product-page"
+      data-product-shortname={shortname}
+      data-product-component-type={product.component.type}
+      className="fixed inset-0 z-50 bg-background flex flex-col"
+    >
       <ProductHeader title={product.title} onClose={handleClose} />
 
       <div className="flex-1 overflow-auto p-4 md:p-8">
@@ -108,7 +113,10 @@ function ProductPage() {
           {product.component.type === "component" ? (
             <Suspense
               fallback={
-                <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
+                <div
+                  data-testid="product-remote-loading"
+                  className="text-center space-y-4 py-12 text-2xl font-bold text-foreground"
+                >
                   {t("product.loadingRemote")}
                 </div>
               }

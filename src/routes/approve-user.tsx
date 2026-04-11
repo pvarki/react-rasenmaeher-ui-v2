@@ -65,7 +65,11 @@ function ApproveUserPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div
+      data-testid="approve-user-page"
+      data-callsign={callsign ?? ""}
+      className="min-h-screen flex items-center justify-center bg-background p-4"
+    >
       <div className="w-full max-w-md space-y-6">
         <Card className="w-full max-w-md">
           <CardHeader>
@@ -82,6 +86,7 @@ function ApproveUserPage() {
                 {t("approveUser.approvalCodeLabel")}
               </Label>
               <Input
+                data-testid="approve-user-code-input"
                 id="approval-code"
                 value={approvalCode}
                 onChange={(e) => setApprovalCode(e.target.value)}
@@ -94,6 +99,7 @@ function ApproveUserPage() {
 
             <div className="flex gap-2">
               <Button
+                data-testid="approve-user-cancel-button"
                 variant="outline"
                 onClick={() => navigate({ to: "/approve-users" })}
                 disabled={approveUserMutation.isLoading}
@@ -102,6 +108,7 @@ function ApproveUserPage() {
                 {t("approveUser.cancel")}
               </Button>
               <Button
+                data-testid="approve-user-approve-button"
                 onClick={handleApprove}
                 variant={"outline"}
                 className="flex-1 bg-primary-light hover:bg-primary-light/90"
