@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronDown, Globe } from "lucide-react";
+import { ChevronDown, Globe, MessageSquare } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useUserType } from "@/hooks/auth/useUserType";
@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { getCleanProductTitle } from "@/components/home/productUtils";
+import FeedbackForm from "@/components/Feedbackform";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -36,6 +37,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
   const { currentLanguage, changeLanguage } = useLanguage();
   const { callsign } = useUserType();
   const { data: products = [] } = useGetProductDescriptions(currentLanguage);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // Get current path with search params
   const currentPath = location.pathname;
@@ -84,6 +86,8 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
 
   return (
     <aside
+      data-testid="sidebar"
+      data-sidebar-open={isOpen ? "true" : "false"}
       className={cn(
         "bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col z-40",
         isMobile
@@ -114,6 +118,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
               )}
             >
               <Link
+                data-testid="sidebar-nav-home"
                 to="/"
                 onClick={() => {
                   if (isMobile) onClose();
@@ -123,6 +128,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                 {t("common.home")}
               </Link>
               <button
+                data-testid="sidebar-deployapps-toggle"
                 onClick={() => setDeployappsOpen(!deployappsOpen)}
                 className="p-1 hover:bg-sidebar-accent rounded transition-colors"
               >
@@ -136,9 +142,14 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
             </div>
 
             {deployappsOpen && (
-              <div className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3">
+              <div
+                data-testid="sidebar-deployapps-list"
+                className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3"
+              >
                 {products.map((product) => (
                   <Link
+                    data-testid="sidebar-product-link"
+                    data-product-shortname={product.shortname}
                     key={product.shortname}
                     to="#"
                     onClick={() => {
@@ -162,6 +173,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
               {t("common.navigation")}
             </h3>
             <Link
+              data-testid="sidebar-nav-home"
               to="/"
               onClick={() => isMobile && onClose()}
               className={cn(
@@ -181,6 +193,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
               {t("common.administrators")}
             </h3>
             <Link
+              data-testid="sidebar-nav-admin-tools"
               to="/admin-tools"
               onClick={() => isMobile && onClose()}
               className={cn(
@@ -200,6 +213,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
               )}
             >
               <Link
+                data-testid="sidebar-nav-user-management"
                 to="/admin-tools"
                 search={{ type: "users" }}
                 onClick={() => {
@@ -210,6 +224,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                 {t("common.userManagement")}
               </Link>
               <button
+                data-testid="sidebar-user-management-toggle"
                 onClick={() => setUserManagementOpen(!userManagementOpen)}
                 className="p-1 hover:bg-sidebar-accent rounded transition-colors"
               >
@@ -224,6 +239,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
             {userManagementOpen && (
               <div className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3">
                 <Link
+                  data-testid="sidebar-nav-manage-users"
                   to="/manage-users"
                   onClick={() => isMobile && onClose()}
                   className={cn(
@@ -235,6 +251,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   {t("common.manageUsers")}
                 </Link>
                 <Link
+                  data-testid="sidebar-nav-add-users"
                   to="/add-users"
                   onClick={() => isMobile && onClose()}
                   className={cn(
@@ -246,6 +263,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   {t("common.addUsers")}
                 </Link>
                 <Link
+                  data-testid="sidebar-nav-approve-users"
                   to="/approve-users"
                   onClick={() => isMobile && onClose()}
                   className={cn(
@@ -264,25 +282,49 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
 
       <div className="p-4 border-t border-sidebar-border bg-sidebar space-y-4">
         <div className="space-y-2">
+          <button
+            data-testid="sidebar-feedback-button"
+            onClick={() => setFeedbackOpen(true)}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium"
+          >
+            <MessageSquare className="w-4 h-4" />
+            {t("common.feedback")}
+          </button>
+        </div>
+        <div className="space-y-2">
           <label className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider px-2">
             {t("common.language")}
           </label>
           <Select value={currentLanguage} onValueChange={changeLanguage}>
-            <SelectTrigger className="h-10 bg-sidebar-accent/30 border-sidebar-accent/50">
+            <SelectTrigger
+              data-testid="sidebar-language-select-trigger"
+              className="h-10 bg-sidebar-accent/30 border-sidebar-accent/50"
+            >
               <Globe className="w-4 h-4 mr-2" />
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fi">Suomi (Finnish)</SelectItem>
-              <SelectItem value="sv">Svenska (Swedish)</SelectItem>
+              <SelectItem data-testid="sidebar-language-option-en" value="en">
+                English
+              </SelectItem>
+              <SelectItem data-testid="sidebar-language-option-fi" value="fi">
+                Suomi (Finnish)
+              </SelectItem>
+              <SelectItem data-testid="sidebar-language-option-sv" value="sv">
+                Svenska (Swedish)
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild disabled={true}>
-            <button className="w-full flex items-center gap-3 px-2 rounded-lg transition-colors py-2">
+            <button
+              data-testid="sidebar-user-info"
+              data-user-callsign={callsign || ""}
+              data-user-type={userType || ""}
+              className="w-full flex items-center gap-3 px-2 rounded-lg transition-colors py-2"
+            >
               <div className="w-9 h-9 bg-sidebar-accent rounded-full flex items-center justify-center shrink-0">
                 <svg
                   viewBox="0 0 24 24"
@@ -320,6 +362,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
           ></DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </aside>
   );
 }

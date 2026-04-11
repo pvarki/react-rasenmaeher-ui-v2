@@ -20,15 +20,22 @@ export function LanguageSwitcher() {
   ];
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" data-testid="language-switcher">
       <Globe className="w-4 h-4 text-muted-foreground" />
       <Select value={currentLanguage} onValueChange={changeLanguage}>
-        <SelectTrigger className="w-32 h-9">
+        <SelectTrigger
+          className="w-32 h-9"
+          data-testid="language-switcher-trigger"
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
           {languages.map((lang) => (
-            <SelectItem key={lang.code} value={lang.code}>
+            <SelectItem
+              key={lang.code}
+              value={lang.code}
+              data-testid={`language-option-${lang.code}`}
+            >
               {lang.label}
             </SelectItem>
           ))}

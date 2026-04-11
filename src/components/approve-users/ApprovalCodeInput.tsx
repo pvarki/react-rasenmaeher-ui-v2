@@ -26,7 +26,7 @@ export function ApprovalCodeInput({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" data-testid="approval-code-input">
       {/* Desktop: Individual character inputs */}
       <div className="hidden md:flex gap-1.5 justify-start flex-wrap">
         {codeArray.map((char, i) => (
@@ -34,6 +34,7 @@ export function ApprovalCodeInput({
             key={i}
             type="text"
             maxLength={1}
+            data-testid={`approval-code-char-${i}`}
             className={cn(
               "w-10 h-12 border-2 border-border rounded-lg text-center text-lg font-bold",
               "focus:border-primary focus:outline-none transition-colors",
@@ -108,6 +109,7 @@ export function ApprovalCodeInput({
         type="text"
         maxLength={CODE_LENGTH}
         placeholder={t("approveUsers.enterCode8Char")}
+        data-testid="approval-code-mobile-input"
         className={cn(
           "md:hidden w-full px-3 py-2 border-2 border-border rounded-lg text-center text-lg font-bold",
           "focus:border-primary focus:outline-none transition-colors",

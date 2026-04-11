@@ -31,8 +31,12 @@ export function WaitingUsersList({
       open={open}
       onOpenChange={onOpenChange}
       className="border border-border rounded-xl overflow-hidden"
+      data-testid="waiting-users-list"
     >
-      <CollapsibleTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer">
+      <CollapsibleTrigger
+        className="w-full flex items-center justify-between p-4 hover:bg-accent/30 transition-colors cursor-pointer"
+        data-testid="waiting-users-toggle"
+      >
         <span className="font-medium">
           {t("approveUsers.waitingUsers")} ({users.length})
         </span>
@@ -43,7 +47,10 @@ export function WaitingUsersList({
       <CollapsibleContent className="px-2 pb-2">
         <div className="space-y-1">
           {users.length === 0 ? (
-            <div className="p-6 text-center text-sm text-muted-foreground">
+            <div
+              className="p-6 text-center text-sm text-muted-foreground"
+              data-testid="waiting-users-empty"
+            >
               {t("approveUsers.noUsersWaiting")}
             </div>
           ) : (
@@ -52,11 +59,14 @@ export function WaitingUsersList({
                 key={user.callsign}
                 onClick={() => onUserClick(user.callsign)}
                 className="flex items-center justify-between p-3 rounded-lg hover:bg-accent/50 transition-colors group cursor-pointer"
+                data-testid="waiting-user-item"
+                data-callsign={user.callsign}
               >
                 <span className="font-medium">{user.callsign}</span>
                 <button
                   onClick={() => onUserClick(user.callsign)}
                   className="p-2 hover:bg-accent rounded-lg transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
+                  data-testid="waiting-user-menu"
                 >
                   <MoreVertical className="w-4 h-4" />
                 </button>

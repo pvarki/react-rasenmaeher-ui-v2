@@ -27,7 +27,7 @@ export function ErrorContent({
   const { t } = useTranslation();
 
   return (
-    <Card>
+    <Card data-testid="error-content" data-error-code={errorCode ?? ""}>
       <CardHeader className="text-center space-y-4">
         <div className="mx-auto w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center text-3xl">
           ⚠️
@@ -35,7 +35,10 @@ export function ErrorContent({
         <div className="space-y-2">
           <CardTitle className="text-2xl font-bold">{title}</CardTitle>
           {errorCode && (
-            <p className="text-sm text-muted-foreground font-mono bg-muted/50 rounded px-3 py-1 inline-block">
+            <p
+              className="text-sm text-muted-foreground font-mono bg-muted/50 rounded px-3 py-1 inline-block"
+              data-testid="error-code"
+            >
               Code: {errorCode.toUpperCase()}
             </p>
           )}
@@ -50,6 +53,7 @@ export function ErrorContent({
           onClick={() => navigate({ to: "/login" })}
           className="w-full bg-primary-light hover:bg-primary-light/90"
           variant={"outline"}
+          data-testid="error-return-home-button"
         >
           <Home className="w-4 h-4 mr-2" />
           {t("error.returnHome")}

@@ -1,6 +1,15 @@
 import { type UseMutationOptions, useMutation } from "react-query";
 
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 async function checkCode(code: string) {
+  if (isMock) {
+    // In mock mode, any code is valid as a user code
+    return {
+      isAdminCodeValid: false,
+      isEnrollmentCodeValid: true,
+    } as CodeCheckResult;
+  }
   const result = await Promise.all([
     checkAdminCode(code),
     checkEnrollmentCode(code),

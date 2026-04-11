@@ -19,6 +19,7 @@ interface TypeConfirmationModalProps {
   onConfirm: () => void;
   isLoading?: boolean;
   isDangerous?: boolean;
+  testId?: string;
 }
 
 export function TypeConfirmationModal({
@@ -29,18 +30,25 @@ export function TypeConfirmationModal({
   onConfirm,
   isLoading = false,
   isDangerous = false,
+  testId = "type-confirmation-modal",
 }: TypeConfirmationModalProps) {
   const { t } = useTranslation();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        data-testid={testId}
+        data-confirmation-dangerous={isDangerous ? "true" : "false"}
+        data-confirmation-loading={isLoading ? "true" : "false"}
+        className="sm:max-w-md"
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex gap-2 sm:gap-2">
           <Button
+            data-testid={`${testId}-cancel`}
             variant="ghost"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
@@ -49,6 +57,7 @@ export function TypeConfirmationModal({
             {t("common.cancel")}
           </Button>
           <Button
+            data-testid={`${testId}-confirm`}
             onClick={onConfirm}
             disabled={isLoading}
             variant={"outline"}
@@ -75,6 +84,7 @@ interface SimpleConfirmationModalProps {
   onConfirm: () => void;
   isLoading?: boolean;
   isDangerous?: boolean;
+  testId?: string;
 }
 
 export function SimpleConfirmationModal({
@@ -86,18 +96,25 @@ export function SimpleConfirmationModal({
   onConfirm,
   isLoading = false,
   isDangerous = false,
+  testId = "simple-confirmation-modal",
 }: SimpleConfirmationModalProps) {
   const { t } = useTranslation();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        data-testid={testId}
+        data-confirmation-dangerous={isDangerous ? "true" : "false"}
+        data-confirmation-loading={isLoading ? "true" : "false"}
+        className="sm:max-w-md"
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex gap-2 sm:gap-2">
           <Button
+            data-testid={`${testId}-cancel`}
             variant="ghost"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
@@ -106,6 +123,7 @@ export function SimpleConfirmationModal({
             {t("common.cancel")}
           </Button>
           <Button
+            data-testid={`${testId}-confirm`}
             onClick={onConfirm}
             disabled={isLoading}
             variant={"outline"}

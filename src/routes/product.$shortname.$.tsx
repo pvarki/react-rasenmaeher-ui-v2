@@ -15,6 +15,8 @@ import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
 import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
 import { useUserType } from "@/hooks/auth/useUserType";
 
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
 });
@@ -97,10 +99,18 @@ function ProductPage() {
     return <ProductLoading message={t("product.notFoundRedirect")} />;
   }
 
+  // Always load product integrations via Module Federation (both mock and production).
+  // In mock mode, the remoteEntry.js is pre-built from the product repo and served
+  // from public/ui/{shortname}/. In production, it's loaded from the product backend.
   const Remote = getRemoteComponent(shortname);
 
   return (
-    <div className="fixed inset-0 z-50 bg-background flex flex-col">
+    <div
+      data-testid="product-page"
+      data-product-shortname={shortname}
+      data-product-component-type={product.component.type}
+      className={`fixed inset-0 z-50 bg-background flex flex-col ${isMock ? "top-10" : ""}`}
+    >
       <ProductHeader title={product.title} onClose={handleClose} />
 
       <div className="flex-1 overflow-auto p-4 md:p-8">
@@ -108,7 +118,10 @@ function ProductPage() {
           {product.component.type === "component" ? (
             <Suspense
               fallback={
-                <div className="text-center space-y-4 py-12 text-2xl font-bold text-foreground">
+                <div
+                  data-testid="product-remote-loading"
+                  className="text-center space-y-4 py-12 text-2xl font-bold text-foreground"
+                >
                   {t("product.loadingRemote")}
                 </div>
               }

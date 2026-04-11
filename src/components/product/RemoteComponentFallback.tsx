@@ -9,6 +9,8 @@ export function RemoteComponentFallback({
 }: RemoteComponentFallbackProps) {
   return (
     <div
+      data-testid="remote-component-fallback"
+      data-remote-shortname={shortname || "unknown"}
       style={{
         border: "1px solid #ccc",
         padding: "1rem",

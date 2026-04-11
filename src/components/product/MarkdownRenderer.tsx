@@ -79,9 +79,18 @@ export function MarkdownRenderer({
   const { t } = useTranslation();
 
   return (
-    <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-primary prose-pre:bg-card prose-pre:border prose-blockquote:border-l-primary">
+    <div
+      data-testid="markdown-renderer"
+      data-markdown-state={
+        isLoading ? "loading" : content ? "ready" : "fallback"
+      }
+      className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-primary prose-pre:bg-card prose-pre:border prose-blockquote:border-l-primary"
+    >
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center py-12 space-y-4">
+        <div
+          data-testid="markdown-loading"
+          className="flex flex-col items-center justify-center py-12 space-y-4"
+        >
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
           <p className="text-sm text-muted-foreground">
             {t("product.loadingMarkdown")}

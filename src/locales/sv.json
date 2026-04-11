@@ -20,7 +20,7 @@
     "letDevelopersKnow": "Låt utvecklarna veta",
     "whatYouThink": "vad du tycker",
     "allRightsReserved": "Alla rättigheter förbehållna.",
-    "copyright": "© 2025 PV-Arki. Alla rättigheter förbehållna.",
+    "copyright": "© 2026 PV-Arki. Alla rättigheter förbehållna.",
     "rmUi": "RM-UI, Logo och bakgrundsbilder © PV-Arki",
     "authenticating": "Autentiserar...",
     "adminConsole": "Administrationskonsol",
@@ -40,7 +40,8 @@
     "finish": "Avsluta",
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
-    "clickToEnlarge": "Klicka för att förstora"
+    "clickToEnlarge": "Klicka för att förstora",
+    "footer": "Öppna sidfot"
   },
   "pages": {
     "login": "Logga in",
@@ -58,6 +59,8 @@
       "configureLogin": "Konfigurera inloggning",
       "manageAttributes": "Hantera attribut",
       "configureProviders": "Konfigurera identitetsleverantörer",
+      "mockTitle": "Demoläge / Simulering",
+      "mockDesc": "Keycloak är inte tillgängligt i demoläge. I en riktig miljö hanterar du autentisering, användare och roller från Keycloaks administrationspanel.",
       "cancelButton": "Avbryt",
       "openConsole": "Öppna konsol"
     },
@@ -74,7 +77,7 @@
     "steps": {
       "welcome": {
         "title": "Välkommen!",
-        "description": "Detta är din hemmaplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
+        "description": "Detta är din hemplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
       },
       "products": {
         "title": "Dina Appar",
@@ -139,7 +142,13 @@
     "verifying": "Verifierar...",
     "codeRequired": "Kod krävs",
     "codeInvalid": "Ogiltigt kodformat",
-    "codeNotValid": "Ogiltig kod"
+    "codeNotValid": "Ogiltig kod",
+    "mockInviteHint": "Ange vad som helst som inbjudningskod",
+    "mockAutoApproveTitle": "Automatisk godkännande i demoläge",
+    "mockAutoApproveDesc": "I en riktig miljö skulle en administratör godkänna din begäran. I demoläge godkänns du automatiskt",
+    "mockAutoApproveSeconds": " om {{count}} sekunder…",
+    "mockAutoApproveShortly": " inom kort…",
+    "continueToApp": "Fortsätt till appen"
   },
   "loginGuide": {
     "title": "Inloggningsguide",
@@ -422,15 +431,15 @@
   },
   "manageUsers": {
     "title": "Hantera användare",
-    "description": "Hantera användare här. Administratörer kan använda dessa verktyg. Fighters är grundanvändare med tjänsteåtkomst.",
+    "description": "Hantera användare här. Administratörer kan använda dessa verktyg. Krigare är grundanvändare med tjänsteåtkomst.",
     "adminHighlight": "Admins",
-    "fighterHighlight": "Fighters",
+    "fighterHighlight": "Krigare",
     "noCallsignFound": "Ingen anropssignal hittades. Logga in.",
     "forbidden": "403 Förbjudet: Adminbehörighet krävs",
     "administrators": "Administratörer",
-    "fighters": "Fighters",
+    "fighters": "Krigare",
     "noAdministrators": "Inga administratörer ännu.",
-    "noFighters": "Inga fighters ännu.",
+    "noFighters": "Inga krigare ännu.",
     "you": "Du",
     "keycloakButton": "Öppna Keycloak-hanteringskonsol",
     "walkthrough": {
@@ -468,7 +477,7 @@
       },
       "demote": {
         "title": "Degradera användare",
-        "description": "Vill du degradera {{callsign}} från administratör till fighter?",
+        "description": "Vill du degradera {{callsign}} från administratör till krigare?",
         "requiredText": "DEMOTE"
       },
       "remove": {
@@ -597,6 +606,24 @@
         }
       }
     }
+  },
+  "browserGuard": {
+    "title": "Webbläsare stöds inte",
+    "subtitle": "Använd en kompatibel webbläsare för att fortsätta",
+    "currentBrowser": "Använd webbläsare: {{browser}}",
+    "whyNotSupported": "Varför fungerar inte denna webbläsare?",
+    "inAppExplanation": "Inbäddade webbläsare (t.ex. Facebook, Instagram) stöder inte nödvändiga säkerhetsfunktioner.",
+    "privacyExplanation": "Integritetsfokuserade webbläsare, förhindrar mTLS-autentisering.",
+    "iosExplanation": "På iOS stöder endast Safari nödvändiga säkerhetsfunktioner. Andra webbläsare fungerar inte.",
+    "unknownExplanation": "Denna webbläsare har inte testats med applikationen.",
+    "supportedBrowsers": "Kompatibla webbläsare",
+    "importantNote": "Viktigt",
+    "securityRequirement": "Applikationen kräver webbläsare som stöder mTLS-certifikat för att säkerställa säkerhet.",
+    "refreshNote": "Ladda ner en kompatibel webbläsare och öppna sidan igen.",
+    "continueAtRisk": "Fortsätt på egen risk",
+    "riskWarning": "Varning: Saker kan gå sönder om du fortsätter med en webbläsare som inte stöds.",
+    "confirmRisk": "Är du säker? Applikationen kanske inte fungerar korrekt!",
+    "confirmButton": "Ja, jag förstår riskerna"
   },
   "product": {
     "loadingProducts": "Laddar produkter...",

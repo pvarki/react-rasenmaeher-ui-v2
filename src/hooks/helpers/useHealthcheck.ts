@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 const useHealthCheck = () => {
-  const [fqdn, setFqdn] = useState("");
-  const [version, setVersion] = useState("");
-  const [deployment, setDeployment] = useState("");
+  const [fqdn, setFqdn] = useState(isMock ? "mock.pvarki.fi" : "");
+  const [version, setVersion] = useState(isMock ? "0.0.0-mock" : "");
+  const [deployment, setDeployment] = useState(isMock ? "localmaeher" : "");
 
   interface HealthCheckResponse {
     dns: string;
@@ -12,6 +14,8 @@ const useHealthCheck = () => {
   }
 
   useEffect(() => {
+    if (isMock) return; // skip fetch in mock mode
+
     fetch("/api/v1/healthcheck")
       .then((response) => {
         if (!response.ok) {

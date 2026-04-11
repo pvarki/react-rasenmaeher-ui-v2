@@ -22,14 +22,17 @@ export function HomeGreeting({ callsign, isValidUser }: HomeGreetingProps) {
 
   return (
     <div className="space-y-2 md:space-y-3">
-      <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
+      <h2 className="text-2xl md:text-4xl font-bold tracking-tight mt-4">
         <span>{getGreeting()} 👋</span>
       </h2>
       <p className="text-base md:text-lg text-muted-foreground max-w-4xl">
         {t("home.description")}
       </p>
       {!isValidUser && (
-        <p className="text-sm text-destructive font-medium flex items-center gap-2">
+        <p
+          data-testid="home-auth-required-warning"
+          className="text-sm text-destructive font-medium flex items-center gap-2"
+        >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"

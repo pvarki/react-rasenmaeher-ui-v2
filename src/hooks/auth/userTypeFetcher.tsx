@@ -8,7 +8,8 @@ import {
   type ReactNode,
 } from "react";
 import { UserTypeContext } from "./userTypeContext";
-import { useNavigate } from "@tanstack/react-router";
+
+const isMock = import.meta.env.VITE_MOCK === "true";
 
 interface AuthResponse {
   type: "mtls" | "jwt";
@@ -24,8 +25,9 @@ interface ValidUserResponse {
 }
 
 export function UserTypeFetcher({ children }: { children: ReactNode }) {
-  const navigate = useNavigate();
-  const [userType, setUserType] = useState<"admin" | "user" | null>(null);
+  const [userType, setUserType] = useState<"admin" | "user" | null>(
+    isMock ? null : null,
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [authType, setAuthType] = useState<"mtls" | "jwt" | null>(null);
@@ -38,6 +40,41 @@ export function UserTypeFetcher({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // ── Mock mode: read state from sessionStorage, never call APIs ──
+    if (isMock) {
+      const raw = sessionStorage.getItem("rasse-mock-state");
+      if (raw) {
+        try {
+          const mockState = JSON.parse(raw);
+          if (mockState.isAuthenticated && mockState.currentCallsign) {
+            setAuthType("jwt");
+            setCallsign(mockState.currentCallsign);
+            setIsValidUser(true);
+            setUserType(mockState.currentRole || "admin");
+            setIsLoading(false);
+            return;
+          }
+        } catch {
+          // ignore parse errors
+        }
+      }
+      // Not authenticated in mock — redirect to login
+      setIsLoading(false);
+      setUserType(null);
+      setIsValidUser(false);
+      const currentPath = window.location.pathname;
+      if (
+        !currentPath.startsWith("/login") &&
+        !currentPath.startsWith("/waiting-room") &&
+        !currentPath.startsWith("/mtls-install") &&
+        !currentPath.startsWith("/callsign-setup")
+      ) {
+        window.location.href = "/login";
+      }
+      return;
+    }
+
+    // ── Real mode: call APIs ──
     async function fetchUserType() {
       try {
         const jwt = localStorage.getItem("token");
@@ -60,7 +97,7 @@ export function UserTypeFetcher({ children }: { children: ReactNode }) {
             !currentPath.startsWith("/waiting-room") &&
             !currentPath.startsWith("/mtls-install")
           ) {
-            navigate({ to: "/login" });
+            window.location.href = "/login";
           }
           return;
         }
@@ -110,7 +147,7 @@ export function UserTypeFetcher({ children }: { children: ReactNode }) {
               !currentPath.startsWith("/waiting-room") &&
               !currentPath.startsWith("/mtls-install")
             ) {
-              navigate({ to: "/login" });
+              window.location.href = "/login";
             }
           }
         } else {
@@ -132,7 +169,7 @@ export function UserTypeFetcher({ children }: { children: ReactNode }) {
           !currentPath.startsWith("/waiting-room") &&
           !currentPath.startsWith("/mtls-install")
         ) {
-          navigate({ to: "/login" });
+          window.location.href = "/login";
         }
       }
     }
@@ -141,7 +178,7 @@ export function UserTypeFetcher({ children }: { children: ReactNode }) {
       console.error("An error occurred while fetching user type:", err);
       setIsLoading(false);
     });
-  }, [navigate]);
+  }, []);
 
   const value = useMemo(
     () => ({

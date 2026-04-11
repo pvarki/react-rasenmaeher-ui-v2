@@ -16,6 +16,9 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIsTablet } from "@/hooks/use-tablet";
+import { MockDemoOverlay } from "@/components/MockDemoOverlay";
+
+const isMock = import.meta.env.VITE_MOCK === "true";
 
 export const Route = createRootRoute({
   component: RootLayoutWrapper,
@@ -39,8 +42,10 @@ function RootLayout() {
   useEffect(() => {
     const host = window.location.host;
     const isMtlsDomain = host.startsWith("mtls.");
+    const isMockMode = import.meta.env.VITE_MOCK === "true";
 
     if (
+      !isMockMode &&
       !userTypeLoading &&
       isValidUser &&
       !isMtlsDomain &&
@@ -97,7 +102,14 @@ function RootLayout() {
   }, [userType, userTypeLoading, isValidUser, location.pathname, navigate, t]);
 
   if (isAuthPage) {
-    return <Outlet />;
+    return (
+      <>
+        {isMock && <MockDemoOverlay />}
+        <div className={isMock ? "pt-10" : ""}>
+          <Outlet />
+        </div>
+      </>
+    );
   }
 
   if (userTypeLoading) {
@@ -117,7 +129,10 @@ function RootLayout() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background text-foreground">
+    <div
+      className={`h-screen flex flex-col bg-background text-foreground ${isMock ? "pt-10" : ""}`}
+    >
+      {isMock && <MockDemoOverlay />}
       <Header
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}

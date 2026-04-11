@@ -39,7 +39,11 @@ export function ApproveUserDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent
+        className="sm:max-w-md max-h-[90vh] overflow-y-auto"
+        data-testid="approve-user-dialog"
+        data-selected-callsign={selectedUser ?? ""}
+      >
         <DialogHeader>
           <DialogTitle>{t("approveUsers.approveUser")}</DialogTitle>
           <DialogDescription>
@@ -71,6 +75,7 @@ export function ApproveUserDialog({
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
             className="flex-1 h-11"
+            data-testid="approve-user-back-button"
           >
             {t("approveUsers.goBack")}
           </Button>
@@ -79,6 +84,7 @@ export function ApproveUserDialog({
             onClick={onReject}
             disabled={isLoading}
             className="flex-1 h-11"
+            data-testid="approve-user-reject-button"
           >
             {isRejecting
               ? t("approveUsers.rejecting")
@@ -89,6 +95,7 @@ export function ApproveUserDialog({
             variant={"outline"}
             className="bg-primary-light hover:bg-primary-light/90 flex-1 h-11"
             disabled={isLoading}
+            data-testid="approve-user-approve-button"
           >
             {isApproving
               ? t("approveUsers.approving")

@@ -27,17 +27,25 @@ export function PlatformSelector({
   ];
 
   return (
-    <div className="space-y-3">
+    <div data-testid="platform-selector" className="space-y-3">
       <label className="text-sm font-medium">
         {t("mtlsInstall.choosePlatform")}
       </label>
       <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger className="w-full md:w-80 mt-1.5">
+        <SelectTrigger
+          data-testid="platform-selector-trigger"
+          data-platform-value={value}
+          className="w-full md:w-80 mt-1.5"
+        >
           <SelectValue placeholder={t("mtlsInstall.selectPlaceholder")} />
         </SelectTrigger>
         <SelectContent>
           {osOptions.map((os) => (
-            <SelectItem key={os.value} value={os.value}>
+            <SelectItem
+              data-testid={`platform-option-${os.value.toLowerCase()}`}
+              key={os.value}
+              value={os.value}
+            >
               {os.label}
             </SelectItem>
           ))}

@@ -22,9 +22,15 @@ export function MtlsInstructions({ instructions }: MtlsInstructionsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="space-y-4 bg-card border border-border rounded-xl p-6">
+    <div
+      data-testid="mtls-instructions"
+      className="space-y-4 bg-card border border-border rounded-xl p-6"
+    >
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <CollapsibleTrigger className="w-full flex items-center justify-between hover:opacity-70 transition-opacity">
+        <CollapsibleTrigger
+          data-testid="mtls-instructions-toggle"
+          className="w-full flex items-center justify-between hover:opacity-70 transition-opacity"
+        >
           <h3 className="font-semibold text-sm">
             {t("mtlsInstall.instructionsTitle")}
           </h3>

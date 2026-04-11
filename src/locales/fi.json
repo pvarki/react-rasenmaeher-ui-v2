@@ -20,7 +20,7 @@
     "letDevelopersKnow": "Kerro kehittäjille",
     "whatYouThink": "mitä ajattelet",
     "allRightsReserved": "Kaikki oikeudet pidätetään.",
-    "copyright": "© 2025 PV-Arki. Kaikki oikeudet pidätetään.",
+    "copyright": "© 2026 PV-Arki. Kaikki oikeudet pidätetään.",
     "rmUi": "RM-UI, Logo ja taustakuvat © PV-Arki",
     "authenticating": "Autentikoidaan...",
     "adminConsole": "Ylläpitäjän konsoli",
@@ -40,7 +40,8 @@
     "finish": "Valmis",
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
-    "clickToEnlarge": "Klikkaa suurentaaksesi"
+    "clickToEnlarge": "Klikkaa suurentaaksesi",
+    "footer": "Avaa alatunniste"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -58,6 +59,8 @@
       "configureLogin": "Määritä kirjautumisasetukset",
       "manageAttributes": "Hallinnoi käyttäjätietoja",
       "configureProviders": "Määritä identiteettipalveluntarjoajat",
+      "mockTitle": "Demotila / Mallinnustila",
+      "mockDesc": "Keycloakiin ei pääse demotilassa. Oikeassa käyttöönotossa hallinnoit käyttäjiä ja käyttöoikeuksia Keycloak-hallintapaneelista.",
       "cancelButton": "Peruuta",
       "openConsole": "Avaa konsoli"
     },
@@ -122,7 +125,7 @@
     "networkConnected": "Verkko yhdistetty",
     "networkDisconnected": "Verkko ei yhdistetty",
     "online": "Online",
-    "offline": "Huomioitavaa!",
+    "offline": "Katkos!",
     "justNow": "Juuri nyt",
     "minAgo": "min sitten",
     "hoursAgo": "tuntia sitten",
@@ -139,7 +142,13 @@
     "verifying": "Vahvistetaan...",
     "codeRequired": "Koodi vaaditaan",
     "codeInvalid": "Koodin muoto on virheellinen",
-    "codeNotValid": "Koodi on virheellinen"
+    "codeNotValid": "Koodi on virheellinen",
+    "mockInviteHint": "Kirjoita mitä tahansa kutsukoodiksi",
+    "mockAutoApproveTitle": "Demotilan automaattinen hyväksyntä",
+    "mockAutoApproveDesc": "Oikeassa ympäristössä ylläpitäjä hyväksyisi pyyntösi. Demotilassa sinut hyväksytään automaattisesti",
+    "mockAutoApproveSeconds": " {{count}} sekunnin kuluttua…",
+    "mockAutoApproveShortly": " hetken kuluttua…",
+    "continueToApp": "Jatka sovellukseen"
   },
   "loginGuide": {
     "title": "Kirjautumisopas",
@@ -203,7 +212,7 @@
     "scanQRCode": "Skannaa QR-koodi",
     "noUsersWaiting": "Ei käyttäjiä odottamassa hyväksyntää",
     "scanApprovalQR": "Skannaa hyväksyntä-QR-koodi",
-    "pointCamera": "Suuntaa kamerasi odotushuoneen QR-koodiin. Hyväksyntä havaitaan automaattisesti.",
+    "pointCamera": "Osoita kamerallasi odotushuoneen QR-koodia. Hyväksyntä havaitaan automaattisesti.",
     "cameraPreview": "Kameran esikatselu näkyy tässä, kun se on käynnistetty.",
     "close": "Sulje",
     "approveUser": "Hyväksy käyttäjä",
@@ -364,7 +373,7 @@
       "continue": "Jatka"
     },
     "productCard": {
-      "docs": "DOKUMENTIT",
+      "docs": "OHJEET",
       "launch": "KÄYNNISTÄ",
       "open": "SIIRRY"
     },
@@ -424,20 +433,20 @@
     "title": "Hallitse käyttäjiä",
     "description": "Hallitse käyttäjiä tässä näkymässä.",
     "adminHighlight": "Ylläpitäjät",
-    "fighterHighlight": "Fighterit",
+    "fighterHighlight": "Taistelijat",
     "noCallsignFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "forbidden": "403 Kielletty: Ylläpito-oikeudet vaaditaan",
     "administrators": "Ylläpitäjät",
-    "fighters": "Fighterit",
+    "fighters": "Taistelijat",
     "noAdministrators": "Ei ylläpitäjiä.",
-    "noFighters": "Ei combattoreita.",
+    "noFighters": "Ei taistelijoita.",
     "you": "Sinä",
     "keycloakButton": "Avaa Keycloak-hallintakonsoli",
     "walkthrough": {
       "title": "Käyttäjähallinnan opas",
       "description": "Pikakäyttöopas tiimin hallintaan",
       "promotingTitle": "Ylennä/alennä käyttäjiä",
-      "promotingDesc": "Klikkaa käyttäjää ylentääksesi fighterin ylläpitäjäksi tai alentaaksesi ylläpitäjän fighteriksi.",
+      "promotingDesc": "Klikkaa käyttäjää ylentääksesi taistelijan ylläpitäjäksi tai alentaaksesi ylläpitäjän taistelijaksi.",
       "removingTitle": "Poista käyttäjiä",
       "removingDesc": "Käyttäjän poistaminen estää hänen pääsynsä Deploy Appiin ja kaikkiin siihen liitettyihin palveluihin.",
       "notesTitle": "Huomioitavaa",
@@ -468,7 +477,7 @@
       },
       "demote": {
         "title": "Alenna käyttäjä",
-        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä fighteriksi?",
+        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä taistelijaksi?",
         "requiredText": "DEMOTE"
       },
       "remove": {
@@ -481,7 +490,7 @@
       "noCandidateFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
       "promoted": "{{callsign}} ylennettiin ylläpitäjäksi!",
       "promoteFailed": "Ylennys epäonnistui: {{error}}",
-      "demoted": "{{callsign}} alennettiin fighteriksi!",
+      "demoted": "{{callsign}} alennettiin taistelijaksi!",
       "demoteFailed": "Alentaminen epäonnistui: {{error}}",
       "removed": "{{callsign}} poistettu järjestelmästä",
       "removeFailed": "Poisto epäonnistui: {{error}}",
@@ -597,6 +606,24 @@
         }
       }
     }
+  },
+  "browserGuard": {
+    "title": "Selain ei ole tuettu",
+    "subtitle": "Käytä yhteensopivaa selainta jatkaaksesi",
+    "currentBrowser": "Käytössä oleva selain: {{browser}}",
+    "whyNotSupported": "Miksi tämä selain ei toimi?",
+    "inAppExplanation": "Sisäiset selaimet (esim. Facebook, Instagram) eivät tue tarvittavia turvaominaisuuksia.",
+    "privacyExplanation": "Yksityisyyttä painottavat selaimet, estävät mTLS-todennuksen.",
+    "iosExplanation": "iOS:llä vain Safari tukee tarvittavia turvaominaisuuksia. Muut selaimet eivät toimi.",
+    "unknownExplanation": "Tätä selainta ei ole testattu sovelluksen kanssa.",
+    "supportedBrowsers": "Yhteensopivat selaimet",
+    "importantNote": "Huomio",
+    "securityRequirement": "Sovellus vaatii selaimia, jotka tukevat mTLS-varmenteita turvallisuuden takaamiseksi.",
+    "refreshNote": "Lataa yhteensopiva selain ja avaa sivu uudelleen.",
+    "continueAtRisk": "Jatka omalla vastuulla",
+    "riskWarning": "Varoitus: Asiat voivat mennä rikki, jos jatkat tukemattomalla selaimella.",
+    "confirmRisk": "Oletko varma? Sovellus ei välttämättä toimi oikein!",
+    "confirmButton": "Kyllä, ymmärrän riskit"
   },
   "product": {
     "loadingProducts": "Ladataan tuotteita...",

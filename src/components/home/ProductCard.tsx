@@ -4,11 +4,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Product } from "./productUtils";
-import {
-  getProductIcon,
-  getCleanProductTitle,
-  getProductShortLabel,
-} from "./productUtils";
+import { getCleanProductTitle, getProductShortLabel } from "./productUtils";
 
 interface ProductCardProps {
   product: Product;
@@ -27,6 +23,9 @@ export function ProductCard({
 
   return (
     <div
+      data-testid="product-card"
+      data-product-shortname={product.shortname}
+      data-product-valid={isValidUser ? "true" : "false"}
       className={cn(
         "group flex flex-col border border-border rounded-2xl overflow-hidden transition-all duration-300",
         isValidUser
@@ -60,6 +59,7 @@ export function ProductCard({
 
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
           <Button
+            data-testid="product-card-launch-button"
             size="sm"
             onClick={() => onProductClick(product)}
             variant={"outline"}
@@ -75,9 +75,6 @@ export function ProductCard({
               {product.component.type === "component" ||
               product.component.type === "markdown" ? (
                 <>
-                  <span className="shrink-0">
-                    {getProductIcon(product.shortname)}
-                  </span>
                   <span>{t("home.productCard.launch")}</span>
                 </>
               ) : (
@@ -90,6 +87,7 @@ export function ProductCard({
           </Button>
           {product.docs && (
             <Button
+              data-testid="product-card-docs-button"
               variant="ghost"
               size="sm"
               className={cn(

@@ -44,6 +44,10 @@ export function InviteCodeItem({
   return (
     <div
       onClick={handleClick}
+      data-testid="invite-code-item"
+      data-invite-code={invite.invitecode}
+      data-invite-active={invite.active ? "true" : "false"}
+      data-invite-selected={isSelected ? "true" : "false"}
       className={cn(
         "flex items-center justify-between p-5 bg-card border-2 border-border rounded-xl hover:bg-accent/50 hover:border-primary/50 transition-all",
         bulkMode && isSelected && "bg-accent border-primary",
@@ -53,10 +57,15 @@ export function InviteCodeItem({
       <div className="flex items-center gap-4 flex-1">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="font-mono font-bold text-lg">
+            <span
+              className="font-mono font-bold text-lg"
+              data-testid="invite-code-value"
+            >
               {invite.invitecode}
             </span>
             <span
+              data-testid="invite-code-status"
+              data-invite-status={invite.active ? "active" : "inactive"}
               className={cn(
                 "text-xs font-bold uppercase px-3 py-0.5 rounded-full",
                 invite.active
@@ -87,6 +96,7 @@ export function InviteCodeItem({
         <button
           onClick={(e) => onManageClick(invite.invitecode, e)}
           className="text-muted-foreground hover:text-foreground p-2"
+          data-testid="invite-code-manage-button"
         >
           <MoreVertical className="w-5 h-5" />
         </button>

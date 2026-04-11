@@ -31,6 +31,34 @@ RUN corepack enable && corepack prepare pnpm@10.26 --activate
 SHELL ["/bin/bash", "-lc"]
 
 
+######################################################
+# Optional: Build product integration UIs (mock mode) #
+######################################################
+FROM builder_base as integration_builder
+WORKDIR /integrations
+
+# Copy product integration UI sources (when available via build context)
+# These are only needed for mock/demo builds, not production
+COPY ./integrations/ /integrations/
+
+# Build each product integration that exists
+RUN for product_dir in /integrations/*/ui; do \
+      if [ -d "$product_dir" ] && [ -f "$product_dir/package.json" ]; then \
+        shortname=$(basename $(dirname "$product_dir")); \
+        echo "Building integration: $shortname"; \
+        cd "$product_dir" && pnpm install && pnpm build:mock || true; \
+        mkdir -p /integration_builds/$shortname; \
+        if [ -d "$product_dir/dist" ]; then \
+          cp -r "$product_dir/dist/"* /integration_builds/$shortname/; \
+        fi; \
+        if [ -f "$product_dir/public/product-manifest.json" ]; then \
+          cp "$product_dir/public/product-manifest.json" /integration_builds/$shortname/; \
+        fi; \
+      fi; \
+    done \
+    && true
+
+
 ####################################
 # Base stage for production builds #
 ####################################
@@ -46,6 +74,15 @@ ENV VITE_THEME=$VITE_THEME
 # Set release tag so we can show our deployment version to users
 ARG VITE_RELEASE_TAG=Developing
 ENV VITE_RELEASE_TAG=$VITE_RELEASE_TAG
+
+# Optionally copy pre-built integration UIs for mock builds
+ARG INCLUDE_INTEGRATIONS=false
+COPY --from=integration_builder /integration_builds/ /tmp/integration_builds/
+RUN if [ "$INCLUDE_INTEGRATIONS" = "true" ] && [ -d /tmp/integration_builds ]; then \
+      mkdir -p /app/public/ui; \
+      cp -r /tmp/integration_builds/* /app/public/ui/ 2>/dev/null || true; \
+      node /app/scripts/generate-integrations-json.js 2>/dev/null || true; \
+    fi
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile \
     && chmod a+x /docker-entrypoint.sh \
@@ -66,6 +103,11 @@ RUN chmod a+x /docker-entrypoint.sh \
     && true
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+########################
+# K8S Nginx deployment #
+########################
+FROM nginx:stable AS k8s_nginx
+COPY --from=production_build /app/dist /usr/share/nginx/html
 
 #####################################
 # Base stage for development builds #

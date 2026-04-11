@@ -29,7 +29,7 @@ export function CreateInviteDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" data-testid="create-invite-dialog">
         <DialogHeader>
           <DialogTitle>{t("addUsers.createModalTitle")}</DialogTitle>
           <DialogDescription className="pt-4 space-y-3 text-sm leading-relaxed text-left">
@@ -51,6 +51,7 @@ export function CreateInviteDialog({
             variant="outline"
             onClick={() => onOpenChange(false)}
             className="flex-1 h-11"
+            data-testid="create-invite-cancel"
           >
             {t("addUsers.cancel")}
           </Button>
@@ -58,6 +59,7 @@ export function CreateInviteDialog({
             onClick={onConfirm}
             variant={"outline"}
             className="flex-1 h-11 bg-primary-light hover:bg-primary-light/90"
+            data-testid="create-invite-confirm"
           >
             {t("addUsers.createModalTitle")}
           </Button>
@@ -95,7 +97,11 @@ export function ManageCodeDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        className="sm:max-w-md"
+        data-testid="manage-code-dialog"
+        data-invite-code={selectedCode ?? ""}
+      >
         <DialogHeader>
           <DialogTitle>{t("addUsers.manageModalTitle")}</DialogTitle>
           <DialogDescription>
@@ -111,6 +117,7 @@ export function ManageCodeDialog({
             onClick={onToggleStatus}
             className="w-full bg-transparent"
             disabled={isTogglingStatus || isDeleting}
+            data-testid="manage-code-toggle-button"
           >
             {selectedInvite?.active
               ? t("addUsers.disableCode")
@@ -121,6 +128,7 @@ export function ManageCodeDialog({
             onClick={onDelete}
             className="w-full"
             disabled={isTogglingStatus || isDeleting}
+            data-testid="manage-code-delete-button"
           >
             {isDeleting ? t("addUsers.deleting") : t("addUsers.deleteCode")}
           </Button>
@@ -128,6 +136,7 @@ export function ManageCodeDialog({
             variant="ghost"
             onClick={() => onOpenChange(false)}
             className="w-full"
+            data-testid="manage-code-cancel-button"
           >
             {t("addUsers.cancel")}
           </Button>

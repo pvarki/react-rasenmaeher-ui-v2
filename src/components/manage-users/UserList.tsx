@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import type { User } from "@/hooks/api/useUserManagement";
 
 interface UserListProps {
+  testIdPrefix?: string;
   title: string;
   users: User[];
   open: boolean;
@@ -22,6 +23,7 @@ interface UserListProps {
 }
 
 export function UserList({
+  testIdPrefix = "user-list",
   title,
   users,
   open,
@@ -36,8 +38,17 @@ export function UserList({
   const { t } = useTranslation();
 
   return (
-    <Collapsible open={open} onOpenChange={onOpenChange}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors">
+    <Collapsible
+      data-testid={testIdPrefix}
+      data-user-list-open={open ? "true" : "false"}
+      data-user-count={users.length}
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <CollapsibleTrigger
+        data-testid={`${testIdPrefix}-toggle`}
+        className="flex items-center justify-between w-full p-4 bg-card border border-border rounded-xl hover:bg-accent/30 transition-colors"
+      >
         <span className="font-medium">
           {title} ({users.length})
         </span>
@@ -47,12 +58,25 @@ export function UserList({
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2 space-y-2">
         {users.length === 0 ? (
-          <div className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center">
+          <div
+            data-testid={`${testIdPrefix}-empty`}
+            className="p-6 bg-card border border-border rounded-xl text-sm text-muted-foreground text-center"
+          >
             {emptyMessage}
           </div>
         ) : (
           users.map((user) => (
             <div
+              data-testid="user-list-item"
+              data-callsign={user.callsign}
+              data-user-selected={
+                bulkMode && selectedUsers.includes(user.callsign)
+                  ? "true"
+                  : "false"
+              }
+              data-user-current={
+                user.callsign === currentCallsign ? "true" : "false"
+              }
               key={user.callsign}
               className={cn(
                 "flex items-center gap-3 p-4 bg-card border-2 rounded-xl hover:bg-accent/50 transition-colors cursor-pointer",
