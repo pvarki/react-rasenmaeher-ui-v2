@@ -59,6 +59,8 @@
       "configureLogin": "Configure login settings",
       "manageAttributes": "Manage user attributes",
       "configureProviders": "Configure identity providers",
+      "mockTitle": "Demo / Mock mode",
+      "mockDesc": "Keycloak is not available in demo or mock builds. In a real deployment you would manage authentication, users and roles from the Keycloak administration console.",
       "cancelButton": "Cancel",
       "openConsole": "Open Console"
     },
@@ -140,7 +142,13 @@
     "verifying": "Verifying...",
     "codeRequired": "Code is required",
     "codeInvalid": "Code format is invalid",
-    "codeNotValid": "Code is invalid"
+    "codeNotValid": "Code is invalid",
+    "mockInviteHint": "Enter anything as invite code",
+    "mockAutoApproveTitle": "Demo mode automatic approval",
+    "mockAutoApproveDesc": "In a real deployment an administrator would approve your access request. In demo mode you will be approved automatically",
+    "mockAutoApproveSeconds": " in {{count}} second{{s}}…",
+    "mockAutoApproveShortly": " shortly…",
+    "continueToApp": "Continue to App"
   },
   "loginGuide": {
     "title": "Login Guide",

@@ -59,6 +59,8 @@
       "configureLogin": "Konfigurera inloggning",
       "manageAttributes": "Hantera attribut",
       "configureProviders": "Konfigurera identitetsleverantörer",
+      "mockTitle": "Demoläge / Simulering",
+      "mockDesc": "Keycloak är inte tillgängligt i demoläge. I en riktig miljö hanterar du autentisering, användare och roller från Keycloaks administrationspanel.",
       "cancelButton": "Avbryt",
       "openConsole": "Öppna konsol"
     },
@@ -140,7 +142,13 @@
     "verifying": "Verifierar...",
     "codeRequired": "Kod krävs",
     "codeInvalid": "Ogiltigt kodformat",
-    "codeNotValid": "Ogiltig kod"
+    "codeNotValid": "Ogiltig kod",
+    "mockInviteHint": "Ange vad som helst som inbjudningskod",
+    "mockAutoApproveTitle": "Automatisk godkännande i demoläge",
+    "mockAutoApproveDesc": "I en riktig miljö skulle en administratör godkänna din begäran. I demoläge godkänns du automatiskt",
+    "mockAutoApproveSeconds": " om {{count}} sekunder…",
+    "mockAutoApproveShortly": " inom kort…",
+    "continueToApp": "Fortsätt till appen"
   },
   "loginGuide": {
     "title": "Inloggningsguide",

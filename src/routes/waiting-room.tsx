@@ -3,7 +3,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
@@ -12,6 +12,9 @@ import QRCode from "react-qr-code";
 import { useTranslation } from "react-i18next";
 import { WaitingRoomHeader } from "@/components/waiting-room/WaitingRoomHeader";
 import { ApprovalCodeDisplay } from "@/components/waiting-room/ApprovalCodeDisplay";
+
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 export const Route = createFileRoute("/waiting-room")({
   component: WaitingRoomPage,
 });
@@ -43,6 +46,17 @@ function WaitingRoomPage() {
 
   const [shouldPoll, setShouldPoll] = useState(true);
 
+  // Mock-mode countdown: auto-approve is triggered after 3 polls (5s interval = ~15s)
+  const [countdown, setCountdown] = useState(isMock ? 15 : null);
+
+  useEffect(() => {
+    if (!isMock || countdown === null || countdown <= 0) return;
+    const timer = setInterval(() => {
+      setCountdown((c) => (c !== null && c > 0 ? c - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [countdown]);
+
   const { data: enrolled, isLoading } = useOwnEnrollmentStatus({
     refetchInterval: shouldPoll ? 5000 : false,
   });
@@ -62,6 +76,26 @@ function WaitingRoomPage() {
           isLoading={isLoading}
           appDesc={t("waitingRoom.description")}
         />
+
+        {isMock && (
+          <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg flex gap-3 items-start">
+            <Info className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" />
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-foreground">
+                {t("login.mockAutoApproveTitle")}
+              </p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {t("login.mockAutoApproveDesc")}
+                {countdown !== null && countdown > 0
+                  ? t("login.mockAutoApproveSeconds", {
+                      count: countdown,
+                      s: countdown !== 1 ? "s" : "",
+                    })
+                  : t("login.mockAutoApproveShortly")}
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="flex justify-center">
           <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg">

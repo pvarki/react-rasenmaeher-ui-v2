@@ -20,9 +20,11 @@ import {
 } from "@/components/mtls/platformUtils";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { LanguageSwitcher } from "@/components/auth/LanguageSwitcher";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ArrowRight } from "lucide-react";
 import { MtlsGuide } from "@/components/guides";
 import { Button } from "@/components/ui/button";
+
+const isMock = import.meta.env.VITE_MOCK === "true";
 
 export const Route = createFileRoute("/mtls-install")({
   component: MtlsInstallPage,
@@ -71,12 +73,51 @@ function MtlsInstallPage() {
   });
 
   const handleDownloadKey = () => {
+    if (isMock) {
+      toast.success("Mock Mode: Certificate installation simulated!", {
+        description:
+          "In a real deployment, your mTLS certificate would be downloaded here.",
+        duration: 4000,
+      });
+      return;
+    }
     if (callsign) {
       getCertificateMutation.mutate({ callsign, deployment });
     } else {
       toast.error(t("mtlsInstall.callsignNotFound"));
     }
   };
+
+  // In mock mode, show a simplified success page
+  if (isMock) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4">
+        <div className="absolute top-4 right-4">
+          <LanguageSwitcher />
+        </div>
+        <div className="w-full max-w-md space-y-6">
+          <MtlsPageHeader deployment={deployment} />
+          <Button
+            onClick={async () => {
+              // In mock mode, set auth state and go to home
+              if (isMock) {
+                const { getState, updateState } = await import("@/mocks/state");
+                const state = getState();
+                if (!state.isAuthenticated) {
+                  updateState({ isAuthenticated: true, currentRole: "user" });
+                }
+              }
+              window.location.href = "/";
+            }}
+            className="w-full gap-2"
+          >
+            {t("login.continueToApp")}
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;

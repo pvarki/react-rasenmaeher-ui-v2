@@ -20,8 +20,10 @@ import { FormikProvider, useFormik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { LoginGuide } from "@/components/guides";
+import { toast } from "sonner";
 
-const TOKEN_REGEX = /^[A-Z0-9]{8,}$/;
+const isMock = import.meta.env.VITE_MOCK === "true";
+const TOKEN_REGEX = isMock ? /.*/ : /^[A-Z0-9]{8,}$/;
 
 interface ApiError extends Error {
   response?: {
@@ -92,13 +94,20 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
 
   // Auto-submit when initialCode is provided via URL
   useEffect(() => {
+    if (isMock) {
+      toast.info(t("login.mockInviteHint") || "Enter anything as invite code", {
+        duration: 8000,
+        position: "top-center",
+      });
+    }
+
     if (initialCode) {
       void setFieldValue("code", initialCode, false);
       setTimeout(() => {
         checkCode(initialCode);
       }, 100);
     }
-  }, [initialCode, setFieldValue, checkCode]);
+  }, [initialCode, setFieldValue, checkCode, t]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const upperCaseValue = e.target.value.toUpperCase();
@@ -137,11 +146,17 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <a href={mtlsUrl} className="block" data-testid="login-cert-link">
+          <a
+            href={isMock ? undefined : mtlsUrl}
+            className={isMock ? "block cursor-not-allowed opacity-50" : "block"}
+            onClick={isMock ? (e) => e.preventDefault() : undefined}
+            data-testid="login-cert-link"
+          >
             <Button
               variant={"outline"}
               className="w-full h-14 bg-primary-light hover:bg-primary-light/90 text-base font-semibold"
               type="button"
+              disabled={isMock}
               data-testid="login-cert-button"
             >
               {t("login.certificate")}

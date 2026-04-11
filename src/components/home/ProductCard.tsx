@@ -4,11 +4,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Product } from "./productUtils";
-import {
-  getProductIcon,
-  getCleanProductTitle,
-  getProductShortLabel,
-} from "./productUtils";
+import { getCleanProductTitle, getProductShortLabel } from "./productUtils";
 
 interface ProductCardProps {
   product: Product;
@@ -79,9 +75,6 @@ export function ProductCard({
               {product.component.type === "component" ||
               product.component.type === "markdown" ? (
                 <>
-                  <span className="shrink-0">
-                    {getProductIcon(product.shortname)}
-                  </span>
                   <span>{t("home.productCard.launch")}</span>
                 </>
               ) : (

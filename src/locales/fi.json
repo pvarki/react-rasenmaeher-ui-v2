@@ -59,6 +59,8 @@
       "configureLogin": "Määritä kirjautumisasetukset",
       "manageAttributes": "Hallinnoi käyttäjätietoja",
       "configureProviders": "Määritä identiteettipalveluntarjoajat",
+      "mockTitle": "Demotila / Mallinnustila",
+      "mockDesc": "Keycloakiin ei pääse demotilassa. Oikeassa käyttöönotossa hallinnoit käyttäjiä ja käyttöoikeuksia Keycloak-hallintapaneelista.",
       "cancelButton": "Peruuta",
       "openConsole": "Avaa konsoli"
     },
@@ -140,7 +142,13 @@
     "verifying": "Vahvistetaan...",
     "codeRequired": "Koodi vaaditaan",
     "codeInvalid": "Koodin muoto on virheellinen",
-    "codeNotValid": "Koodi on virheellinen"
+    "codeNotValid": "Koodi on virheellinen",
+    "mockInviteHint": "Kirjoita mitä tahansa kutsukoodiksi",
+    "mockAutoApproveTitle": "Demotilan automaattinen hyväksyntä",
+    "mockAutoApproveDesc": "Oikeassa ympäristössä ylläpitäjä hyväksyisi pyyntösi. Demotilassa sinut hyväksytään automaattisesti",
+    "mockAutoApproveSeconds": " {{count}} sekunnin kuluttua…",
+    "mockAutoApproveShortly": " hetken kuluttua…",
+    "continueToApp": "Jatka sovellukseen"
   },
   "loginGuide": {
     "title": "Kirjautumisopas",

@@ -1,5 +1,7 @@
 import { useQuery, type UseQueryOptions } from "react-query";
 
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 export interface AdminProductDescription {
   shortname: string;
   title: string;
@@ -14,6 +16,11 @@ export interface AdminProductDescription {
 }
 
 async function getAdminProductDescriptions(language: string) {
+  if (isMock) {
+    const { getMockProducts } = await import("@/mocks/data/products");
+    return (await getMockProducts(language)) as AdminProductDescription[];
+  }
+
   const res = await fetch(`/api/v2/admin/descriptions/${language}`);
 
   if (!res.ok) {

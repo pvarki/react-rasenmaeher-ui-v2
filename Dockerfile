@@ -30,7 +30,6 @@ RUN corepack enable && corepack prepare pnpm@10.26 --activate
 
 SHELL ["/bin/bash", "-lc"]
 
-
 ####################################
 # Base stage for production builds #
 ####################################

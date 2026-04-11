@@ -3,20 +3,31 @@ import ReactDOM from "react-dom/client";
 import App from "./app";
 import "./index.css";
 import { Toaster } from "sonner";
-import { QueryClient, QueryClientProvider } from "react-query";
 import "@/config/i18n";
-import { I18nextProvider } from "react-i18next";
-import i18n from "@/config/i18n";
 import {
   loadCompleteTheme,
   applyThemeVariables,
   getActiveThemeName,
 } from "@/config/asset-loader";
 import { setRuntimeLocalization } from "@/config/localization";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@/config/i18n";
 import { UserTypeFetcher } from "./hooks/auth/userTypeFetcher";
 import { BrowserGuard } from "@/components/BrowserGuard";
 
+async function enableMocking() {
+  if (import.meta.env.VITE_MOCK !== "true") return;
+  const { worker } = await import("./mocks/browser");
+  await worker.start({
+    onUnhandledRequest: "bypass",
+    serviceWorker: { url: "/mockServiceWorker.js" },
+  });
+  console.log("[MOCK] MSW enabled — all API calls are mocked");
+}
+
 const initializeApp = async () => {
+  await enableMocking();
   const themeName = getActiveThemeName();
   const theme = await loadCompleteTheme(themeName);
 
@@ -42,7 +53,7 @@ const initializeApp = async () => {
   manifestLink.href = "/manifest.json";
   document.head.appendChild(manifestLink);
 
-  if ("serviceWorker" in navigator) {
+  if ("serviceWorker" in navigator && import.meta.env.VITE_MOCK !== "true") {
     try {
       await navigator.serviceWorker.register("/sw.js");
     } catch {

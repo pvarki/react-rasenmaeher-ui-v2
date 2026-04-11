@@ -1,5 +1,7 @@
 import { useQuery, type UseQueryOptions } from "react-query";
 
+const isMock = import.meta.env.VITE_MOCK === "true";
+
 export interface ProductInstructions {
   data: Record<string, unknown>;
   // Allow additional fields as needed by different products
@@ -7,6 +9,33 @@ export interface ProductInstructions {
 }
 
 async function getProductInstructions(product: string) {
+  if (isMock) {
+    if (product === "tak") {
+      return {
+        data: {
+          tak_zips: [
+            {
+              title: "ATAK Package (Mock)",
+              filename: "mock-atak.zip",
+              data: "data:application/zip;base64,UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==",
+            },
+            {
+              title: "iTAK Package (Mock)",
+              filename: "mock-itak.zip",
+              data: "data:application/zip;base64,UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==",
+            },
+            {
+              title: "Tracker Package (Mock)",
+              filename: "mock-tracker-package.zip",
+              data: "data:application/zip;base64,UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==",
+            },
+          ],
+        },
+      } as ProductInstructions;
+    }
+    return { data: {} } as ProductInstructions;
+  }
+
   const jwt = localStorage.getItem("token");
 
   const res = await fetch(`/api/v2/instructions/data/${product}`, {

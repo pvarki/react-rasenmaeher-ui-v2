@@ -26,7 +26,7 @@ function LoginPage() {
 
   useEffect(() => {
     const host = window.location.host;
-    if (host.startsWith("mtls.")) {
+    if (host.startsWith("mtls.") && import.meta.env.VITE_MOCK !== "true") {
       const nonMtlsHost = host.replace("mtls.", "");
       window.location.href = `${window.location.protocol}//${nonMtlsHost}/error?code=mtls_fail`;
     }
