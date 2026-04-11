@@ -36,3 +36,4 @@ jobs:
           tags: ghcr.io/pvarki/rmui:k8s-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: VITE_THEME=fdf
