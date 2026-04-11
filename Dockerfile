@@ -66,6 +66,11 @@ RUN chmod a+x /docker-entrypoint.sh \
     && true
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+########################
+# K8S Nginx deployment #
+########################
+FROM nginx:stable AS k8s_nginx
+COPY --from=production_build /app/dist /usr/share/nginx/html
 
 #####################################
 # Base stage for development builds #
