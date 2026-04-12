@@ -2,6 +2,18 @@ on:
   pull_request:
 
 jobs:
+  versiontag:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check version tag
+        run: |
+          curl -f https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2//main/package.json -o /tmp/main_package.json || touch /tmp/main_package.json
+          grep '"version":' package.json >/tmp/version.txt
+          grep '"version":' /tmp/main_package.json >/tmp/main_version.txt
+          diff /tmp/main_version.txt /tmp/version.txt && exit 1 || exit 0
+
   test:
     runs-on: ubuntu-latest
     permissions:
