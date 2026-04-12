@@ -10,7 +10,7 @@ import {
   ProductLoading,
   ProductError,
 } from "@/components/product/ProductLoadingStates";
-import { ProductHeader } from "@/components/product/ProductHeader";
+import { ArrowLeft } from "lucide-react";
 import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
 import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
 import { useUserType } from "@/hooks/auth/useUserType";
@@ -75,16 +75,6 @@ function ProductPage() {
     }
   }, [product, navigate, productsLoading, products]);
 
-  const handleClose = () => {
-    window.close();
-    // Browsers prevent closing manually opened tabs for security; navigate to home if close failed
-    setTimeout(() => {
-      if (!window.closed) {
-        navigate({ to: "/" });
-      }
-    }, 100);
-  };
-
   if (productsLoading) {
     return <ProductLoading message={t("product.loadingProducts")} />;
   }
@@ -104,43 +94,48 @@ function ProductPage() {
       data-testid="product-page"
       data-product-shortname={shortname}
       data-product-component-type={product.component.type}
-      className="fixed inset-0 z-50 bg-background flex flex-col"
     >
-      <ProductHeader title={product.title} onClose={handleClose} />
-
-      <div className="flex-1 overflow-auto p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
-          {product.component.type === "component" ? (
-            <Suspense
-              fallback={
-                <div
-                  data-testid="product-remote-loading"
-                  className="text-center space-y-4 py-12 text-2xl font-bold text-foreground"
-                >
-                  {t("product.loadingRemote")}
-                </div>
-              }
+      {product.component.type === "component" ? (
+        <Suspense
+          fallback={
+            <div
+              data-testid="product-remote-loading"
+              className="text-center space-y-4 py-12 text-2xl font-bold text-foreground"
             >
-              <Remote
-                data={instructionsData?.data || {}}
-                meta={{
-                  theme: import.meta.env.VITE_THEME,
-                  callsign: callsign,
-                }}
-                shortname={shortname}
-                onNavigate={navigate}
-              />
-            </Suspense>
-          ) : product.component.type === "markdown" ? (
+              {t("product.loadingRemote")}
+            </div>
+          }
+        >
+          <Remote
+            data={instructionsData?.data || {}}
+            meta={{
+              theme: import.meta.env.VITE_THEME,
+              callsign: callsign,
+            }}
+            shortname={shortname}
+            onNavigate={navigate}
+          />
+        </Suspense>
+      ) : product.component.type === "markdown" ? (
+        <div>
+          <button
+            onClick={() => navigate({ to: "/" })}
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {t("common.home")}
+          </button>
+          <h1 className="text-2xl font-bold mb-6">{product.title}</h1>
+          <div className="max-w-4xl">
             <MarkdownRenderer
               content={markdownContent}
               isLoading={markdownLoading}
               fallbackTitle={product.title}
               fallbackDescription={product.description}
             />
-          ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

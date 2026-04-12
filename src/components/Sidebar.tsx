@@ -68,7 +68,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
     isAdminToolsSection || isAdminToolsUsers,
   );
 
-  const [deployappsOpen, setDeployappsOpen] = useState(false);
+  const [deployappsOpen, setDeployappsOpen] = useState(isProductPage);
 
   useEffect(() => {
     if (!isAdminToolsSection && !isAdminToolsUsers) {
@@ -79,8 +79,8 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
   }, [currentPath, currentType, isAdminToolsSection, isAdminToolsUsers]);
 
   useEffect(() => {
-    if (!isProductPage) {
-      setDeployappsOpen(false);
+    if (isProductPage) {
+      setDeployappsOpen(true);
     }
   }, [isProductPage]);
 
@@ -151,9 +151,10 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                     data-testid="sidebar-product-link"
                     data-product-shortname={product.shortname}
                     key={product.shortname}
-                    to="#"
+                    to="/product/$shortname"
+                    params={{ shortname: product.shortname }}
                     onClick={() => {
-                      window.open(`/product/${product.shortname}`);
+                      if (isMobile) onClose();
                     }}
                     className={cn(
                       "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
