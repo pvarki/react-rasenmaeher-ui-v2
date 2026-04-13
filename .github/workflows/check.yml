@@ -9,10 +9,14 @@ jobs:
       - uses: actions/checkout@v5
       - name: Check version tag
         run: |
-          curl -f https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2//main/package.json -o /tmp/main_package.json || touch /tmp/main_package.json
-          grep '"version":' package.json >/tmp/version.txt
-          grep '"version":' /tmp/main_package.json >/tmp/main_version.txt
-          diff /tmp/main_version.txt /tmp/version.txt && exit 1 || exit 0
+          curl -fL https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2/main/package.json -o /tmp/main_package.json || touch /tmp/main_package.json
+          PR_VERSION=$(node -p "require('./package.json').version")
+          MAIN_VERSION=$(node -p "require('/tmp/main_package.json').version" 2>/dev/null || echo "")
+          if [ "$PR_VERSION" = "$MAIN_VERSION" ]; then
+            echo "::error::Version $PR_VERSION has not been bumped from main"
+            exit 1
+          fi
+          echo "Version bumped: $MAIN_VERSION -> $PR_VERSION"
 
   test:
     runs-on: ubuntu-latest
