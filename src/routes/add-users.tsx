@@ -59,7 +59,10 @@ function AddUsersPage() {
 
   if (!userTypeLoading && userType !== "admin") {
     return (
-      <div className="max-w-4xl mx-auto space-y-6 text-center py-12">
+      <div
+        data-testid="add-users-forbidden"
+        className="max-w-4xl mx-auto space-y-6 text-center py-12"
+      >
         <h1 className="text-6xl font-bold text-destructive">403</h1>
         <p className="text-xl text-muted-foreground">
           {t("addUsers.forbidden")}
@@ -70,7 +73,10 @@ function AddUsersPage() {
 
   if (isLoading || userTypeLoading) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div
+        data-testid="add-users-loading"
+        className="max-w-4xl mx-auto space-y-6"
+      >
         <h1 className="text-2xl font-bold">{t("addUsers.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -80,7 +86,7 @@ function AddUsersPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div data-testid="add-users-page" className="max-w-4xl mx-auto space-y-6">
       <InviteCodeHeader
         filterText={filterText}
         onFilterChange={setFilterText}
@@ -100,7 +106,7 @@ function AddUsersPage() {
         />
       )}
 
-      <div className="space-y-3">
+      <div data-testid="invite-code-list" className="space-y-3">
         {filteredCodes.map((invite: InviteCode) => (
           <InviteCodeItem
             key={invite.invitecode}

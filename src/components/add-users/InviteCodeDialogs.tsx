@@ -159,7 +159,10 @@ export function WalkthroughDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent
+        data-testid="add-users-walkthrough-dialog"
+        className="sm:max-w-lg"
+      >
         <DialogHeader>
           <DialogTitle>{t("addUsers.walkthrough.title")}</DialogTitle>
           <DialogDescription>
@@ -209,6 +212,7 @@ export function WalkthroughDialog({
             onClick={() => onOpenChange(false)}
             className="w-full bg-primary-light hover:bg-primary-light/90"
             variant={"outline"}
+            data-testid="add-users-walkthrough-got-it-button"
           >
             {t("addUsers.walkthrough.gotIt")}
           </Button>
