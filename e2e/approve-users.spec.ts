@@ -1,10 +1,13 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import { getMtlsUrl, gotoInteractive } from "@helpers/screenshots";
 
 test.describe("approve users page", () => {
   test.beforeEach(async ({ adminPage: page, adminMeta }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/approve-users"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(
+      page,
+      getMtlsUrl(adminMeta.base_url, "/approve-users"),
+    );
+    await expect(page.getByTestId("how-it-works-section")).toBeVisible();
   });
 
   test("renders the waiting users and help section", async ({

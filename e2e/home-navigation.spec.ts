@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import { getMtlsUrl, gotoInteractive } from "@helpers/screenshots";
 import { isInViewport, pickInViewportByTestId, clickSafe } from "@helpers/dom";
 
 async function ensureSidebarOpen(page: Page): Promise<void> {
@@ -53,8 +53,7 @@ async function openUserManagementSubmenu(page: Page): Promise<void> {
 
 test.describe("home page + sidebar navigation", () => {
   test.beforeEach(async ({ adminPage: page, adminMeta }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/"));
   });
 
   test("home page renders with greeting, product grid and admin tools nav", async ({
@@ -66,11 +65,12 @@ test.describe("home page + sidebar navigation", () => {
     await expect(page.getByTestId("admin-tools-nav-button")).toBeVisible();
 
     const grid = page.getByTestId("product-grid");
-    await expect(grid).toBeVisible();
     const cards = grid.getByTestId("product-card");
-    const cardCount = await cards.count();
-    for (let i = 0; i < cardCount; i += 1) {
-      await expect(cards.nth(i)).toHaveAttribute("data-product-valid", "true");
+
+    await expect(cards.first()).toBeVisible();
+    await expect(grid).toBeVisible();
+    for (const card of await cards.all()) {
+      await expect(card).toHaveAttribute("data-product-valid", "true");
     }
   });
 

@@ -1,13 +1,15 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import {
+  getMtlsUrl,
+  gotoInteractive,
+  waitForInteractivePage,
+} from "@helpers/screenshots";
 import { createInviteCode } from "./helpers";
 
 test.describe("invite code management", () => {
   test.beforeEach(async ({ adminPage: page, adminMeta }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/add-users"));
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/add-users"));
     await expect(page).toHaveURL(/\/add-users(\?|$)/);
-
-    await waitForInteractivePage(page);
   });
 
   test("admin can create, disable, enable and remove an invite code", async ({
@@ -16,8 +18,8 @@ test.describe("invite code management", () => {
   }) => {
     const inviteCode = await createInviteCode(page);
 
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/add-users"));
-    await waitForInteractivePage(page);
+    const addUsersUrl = getMtlsUrl(adminMeta.base_url, "/add-users");
+    await gotoInteractive(page, addUsersUrl);
 
     const filterInput = page.getByTestId("invite-code-filter");
     await expect(filterInput).toBeVisible();
@@ -72,7 +74,7 @@ test.describe("invite code management", () => {
 
     // Verify persistence across a reload.
     await page.reload();
-    await waitForInteractivePage(page);
+    await waitForInteractivePage(page, addUsersUrl);
 
     await page.getByTestId("invite-code-filter").fill(inviteCode);
     await expect(
@@ -88,8 +90,7 @@ test.describe("invite code management", () => {
   }) => {
     const createdCode = await createInviteCode(page);
 
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/add-users"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/add-users"));
 
     const filterInput = page.getByTestId("invite-code-filter");
     const allItems = page.getByTestId("invite-code-item");

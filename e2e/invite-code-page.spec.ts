@@ -1,15 +1,17 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import {
+  getMtlsUrl,
+  gotoInteractive,
+  waitForInteractivePage,
+} from "@helpers/screenshots";
 import { createInviteCode, cleanupInviteCode } from "./helpers";
 
 test.describe("invite code detail page", () => {
   let inviteCode: string;
 
   test.beforeEach(async ({ adminPage: page, adminMeta }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/add-users"));
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/add-users"));
     await expect(page).toHaveURL(/\/add-users(\?|$)/);
-
-    await waitForInteractivePage(page);
 
     inviteCode = await createInviteCode(page);
   });
@@ -40,16 +42,19 @@ test.describe("invite code detail page", () => {
 
   test("back button from the invite-code page returns to /add-users", async ({
     adminPage: page,
+    adminMeta,
   }) => {
     const backButton = page.getByTestId("invite-code-back-button");
     await expect(backButton).toBeVisible();
+    await expect(backButton).toBeEnabled();
 
-    await Promise.all([
-      page.waitForURL(/\/add-users(\?|$)/),
-      backButton.click(),
-    ]);
+    await backButton.click();
+    await page.waitForURL(/\/add-users(\?|$)/);
 
-    await waitForInteractivePage(page);
+    await waitForInteractivePage(
+      page,
+      getMtlsUrl(adminMeta.base_url, "/add-users"),
+    );
     await expect(page.getByTestId("add-users-page")).toBeVisible();
   });
 
@@ -58,7 +63,10 @@ test.describe("invite code detail page", () => {
 
     const copyButton = page.getByTestId("invite-copy-button");
     await expect(copyButton).toHaveAttribute("data-invite-copied", "false");
+    await expect(copyButton).toBeEnabled();
     await copyButton.click();
-    await expect(copyButton).toHaveAttribute("data-invite-copied", "true");
+    await expect(copyButton).toHaveAttribute("data-invite-copied", "true", {
+      timeout: 10_000,
+    });
   });
 });

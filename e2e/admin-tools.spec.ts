@@ -1,13 +1,12 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import { getMtlsUrl, gotoInteractive } from "@helpers/screenshots";
 
 test.describe("admin tools page", () => {
   test("landing shows two categories of admin tools", async ({
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/admin-tools"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/admin-tools"));
 
     const selector = page.getByTestId("admin-tools-type-selector");
     await expect(selector).toBeVisible();
@@ -21,8 +20,7 @@ test.describe("admin tools page", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/admin-tools"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(page, getMtlsUrl(adminMeta.base_url, "/admin-tools"));
 
     await page
       .getByTestId("admin-tools-type-selector")
@@ -59,10 +57,10 @@ test.describe("admin tools page", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(
+    await gotoInteractive(
+      page,
       getMtlsUrl(adminMeta.base_url, "/admin-tools?type=services"),
     );
-    await waitForInteractivePage(page);
 
     const adminToolsPage = page.getByTestId("admin-tools-page");
     await expect(adminToolsPage).toBeVisible();
@@ -92,8 +90,10 @@ test.describe("admin tools page", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/admin-tools?type=users"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(
+      page,
+      getMtlsUrl(adminMeta.base_url, "/admin-tools?type=users"),
+    );
 
     // Order: manage, add, approve.
     const firstCard = page.getByTestId("admin-tool-card").first();

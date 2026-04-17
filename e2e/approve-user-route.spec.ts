@@ -1,18 +1,22 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import {
+  getMtlsUrl,
+  gotoInteractive,
+  waitForInteractivePage,
+} from "@helpers/screenshots";
 
 test.describe("approve-user deep-link route", () => {
   test("prefills callsign and approval code from URL", async ({
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(
+    await gotoInteractive(
+      page,
       getMtlsUrl(
         adminMeta.base_url,
         "/approve-user?callsign=playwright&approvalcode=ABCD1234",
       ),
     );
-    await waitForInteractivePage(page);
 
     const approvePage = page.getByTestId("approve-user-page");
     await expect(approvePage).toBeVisible();
@@ -32,13 +36,13 @@ test.describe("approve-user deep-link route", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(
+    await gotoInteractive(
+      page,
       getMtlsUrl(
         adminMeta.base_url,
         "/approve-user?callsign=playwright&approvalcode=ABCD1234",
       ),
     );
-    await waitForInteractivePage(page);
 
     const codeInput = page.getByTestId("approve-user-code-input");
     await codeInput.fill("");
@@ -52,11 +56,10 @@ test.describe("approve-user deep-link route", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(
+    await gotoInteractive(
+      page,
       getMtlsUrl(adminMeta.base_url, "/approve-user?approvalcode=ABCD1234"),
     );
-
-    await waitForInteractivePage(page);
     await expect(page).toHaveURL(/\/approve-users(\?|$)/);
     await expect(page.getByTestId("how-it-works-section")).toBeVisible();
   });
@@ -65,18 +68,21 @@ test.describe("approve-user deep-link route", () => {
     adminPage: page,
     adminMeta,
   }) => {
-    await page.goto(
+    await gotoInteractive(
+      page,
       getMtlsUrl(
         adminMeta.base_url,
         "/approve-user?callsign=playwright&approvalcode=XYZ99999",
       ),
     );
-    await waitForInteractivePage(page);
 
     await page.getByTestId("approve-user-cancel-button").click();
 
     await expect(page).toHaveURL(/\/approve-users(\?|$)/);
-    await waitForInteractivePage(page);
+    await waitForInteractivePage(
+      page,
+      getMtlsUrl(adminMeta.base_url, "/approve-users"),
+    );
     await expect(page.getByTestId("waiting-users-list")).toBeVisible();
   });
 });

@@ -1,5 +1,5 @@
 import { test, expect, setLanguage } from "@fixtures/admin";
-import { waitForInteractivePage } from "@helpers/screenshots";
+import { gotoInteractive } from "@helpers/screenshots";
 import { pickInViewportByTestId } from "@helpers/dom";
 import type { Page } from "@playwright/test";
 const DEFAULT_CALLSIGN = "PLAYWRIGHT_USER";
@@ -68,8 +68,7 @@ test.describe("mtls-install page", () => {
       window.localStorage.setItem("callsign", callsign);
     }, DEFAULT_CALLSIGN);
 
-    await page.goto("/mtls-install");
-    await waitForInteractivePage(page);
+    await gotoInteractive(page, "/mtls-install");
     await closeMtlsGuideIfOpen(page);
   });
 
@@ -154,8 +153,7 @@ test.describe("mtls-install page", () => {
       const cleanPage = await context.newPage();
       await setLanguage(cleanPage, "en");
 
-      await cleanPage.goto("/mtls-install");
-      await waitForInteractivePage(cleanPage);
+      await gotoInteractive(cleanPage, "/mtls-install");
       await closeMtlsGuideIfOpen(cleanPage);
 
       const downloadButton = cleanPage.getByTestId("mtls-download-button");

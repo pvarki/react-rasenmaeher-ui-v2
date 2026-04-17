@@ -1,10 +1,12 @@
 import { test, expect } from "@fixtures/admin";
-import { getMtlsUrl, waitForInteractivePage } from "@helpers/screenshots";
+import { getMtlsUrl, gotoInteractive } from "@helpers/screenshots";
 
 test.describe("manage users page", () => {
   test.beforeEach(async ({ adminPage: page, adminMeta }) => {
-    await page.goto(getMtlsUrl(adminMeta.base_url, "/manage-users"));
-    await waitForInteractivePage(page);
+    await gotoInteractive(
+      page,
+      getMtlsUrl(adminMeta.base_url, "/manage-users"),
+    );
 
     await expect(page.getByTestId("manage-users-page")).toBeVisible();
     await expect(page.getByTestId("manage-users-forbidden")).toHaveCount(0);
@@ -16,6 +18,7 @@ test.describe("manage users page", () => {
     const adminsList = page.getByTestId("administrators-list");
     await expect(adminsList).toBeVisible();
     await expect(adminsList).toHaveAttribute("data-user-list-open", "true");
+    await expect(adminsList.getByTestId("user-list-item")).not.toHaveCount(0);
 
     // 1 account has "you"
     const currentUserRow = adminsList.locator(
@@ -94,9 +97,8 @@ test.describe("manage users page", () => {
   }) => {
     const currentUserRow = page
       .getByTestId("administrators-list")
-      .locator("[data-testid='user-list-item'][data-user-current='true']")
-      .first();
-    await expect(currentUserRow).toBeVisible();
+      .locator("[data-testid='user-list-item'][data-user-current='true']");
+    await expect(currentUserRow).toHaveCount(1);
     await currentUserRow.click();
 
     const dialog = page.getByTestId("user-management-dialog");
@@ -132,7 +134,9 @@ test.describe("manage users page", () => {
       page.getByTestId("manage-users-walkthrough-dialog"),
     ).toHaveCount(0);
 
-    await page.getByTestId("manage-users-help-button").click();
+    const helpButton = page.getByTestId("manage-users-help-button");
+    await expect(helpButton).toBeVisible();
+    await helpButton.click();
 
     const dialog = page.getByTestId("manage-users-walkthrough-dialog");
     await expect(dialog).toBeVisible();
