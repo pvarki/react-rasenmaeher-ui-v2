@@ -21,7 +21,7 @@ import { User, UserSearch as UserStar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
-import { getCleanProductTitle } from "@/components/home/productUtils";
+import { SidebarProductLink } from "@/components/SidebarProductLink";
 import FeedbackForm from "@/components/Feedbackform";
 
 interface SidebarProps {
@@ -147,23 +147,13 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                 className="ml-3 mt-1 space-y-1 border-l border-sidebar-border pl-3"
               >
                 {products.map((product) => (
-                  <Link
-                    data-testid="sidebar-product-link"
-                    data-product-shortname={product.shortname}
+                  <SidebarProductLink
                     key={product.shortname}
-                    to="/product/$shortname"
-                    params={{ shortname: product.shortname }}
-                    onClick={() => {
-                      if (isMobile) onClose();
-                    }}
-                    className={cn(
-                      "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
-                      currentProductShortname === product.shortname &&
-                        "bg-sidebar-accent text-sidebar-foreground font-medium",
-                    )}
-                  >
-                    {getCleanProductTitle(product.title)}
-                  </Link>
+                    product={product}
+                    isActive={currentProductShortname === product.shortname}
+                    isMobile={isMobile}
+                    onClose={onClose}
+                  />
                 ))}
               </div>
             )}
