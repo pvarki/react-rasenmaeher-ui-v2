@@ -62,7 +62,10 @@ function HomePage() {
       setExitUrl(product.component.ref);
       setExitDialogOpen(true);
     } else {
-      window.open(`/product/${product.shortname}`);
+      navigate({
+        to: "/product/$shortname",
+        params: { shortname: product.shortname },
+      });
     }
   };
 

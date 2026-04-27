@@ -28,13 +28,24 @@ function RootLayoutWrapper() {
 function RootLayout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    const saved = localStorage.getItem("sidebar-open");
+    if (saved !== null) return saved === "true";
+    return window.innerWidth >= 768;
+  });
   const [mtlsModalOpen, setMtlsModalOpen] = useState(false);
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
 
   const { userType, isLoading: userTypeLoading, isValidUser } = useUserType();
+
+  const toggleSidebar = (open: boolean) => {
+    setSidebarOpen(open);
+    if (!isMobile && !isTablet) {
+      localStorage.setItem("sidebar-open", String(open));
+    }
+  };
 
   useEffect(() => {
     const host = window.location.host;
@@ -53,18 +64,8 @@ function RootLayout() {
   }, [userTypeLoading, isValidUser, location.pathname]);
 
   useEffect(() => {
-    if (window.innerWidth >= 768) {
-      setSidebarOpen(true);
-    } else {
-      setSidebarOpen(false);
-    }
-  }, []);
-
-  useEffect(() => {
     if (isMobile || isTablet) {
       setSidebarOpen(false);
-    } else {
-      setSidebarOpen(true);
     }
   }, [location.pathname, isMobile, isTablet]);
 
@@ -74,8 +75,9 @@ function RootLayout() {
     location.pathname === "/mtls-install" ||
     location.pathname === "/callsign-setup" ||
     location.pathname === "/error" ||
-    location.pathname === "/approve-user" ||
-    location.pathname.startsWith("/product/");
+    location.pathname === "/approve-user";
+
+  const isProductPage = location.pathname.startsWith("/product/");
 
   useEffect(() => {
     if (!userTypeLoading && isValidUser) {
@@ -120,29 +122,33 @@ function RootLayout() {
     <div className="h-screen flex flex-col bg-background text-foreground">
       <Header
         sidebarOpen={sidebarOpen}
-        onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+        onToggleSidebar={() => toggleSidebar(!sidebarOpen)}
       />
 
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {isMobile && sidebarOpen && (
           <div
             className="fixed inset-0 bg-black/50 z-40 top-16"
-            onClick={() => setSidebarOpen(false)}
+            onClick={() => toggleSidebar(false)}
           />
         )}
 
         <Sidebar
           isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
+          onClose={() => toggleSidebar(false)}
           isMobile={isMobile}
         />
 
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+          <main
+            className={`flex-1 overflow-y-auto ${isProductPage ? "p-2 md:p-4" : "p-4 md:p-8"}`}
+          >
             <Outlet />
           </main>
 
-          <Footer onMtlsInfoClick={() => setMtlsModalOpen(true)} />
+          {!isProductPage && (
+            <Footer onMtlsInfoClick={() => setMtlsModalOpen(true)} />
+          )}
         </div>
       </div>
 
