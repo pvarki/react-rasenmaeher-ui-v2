@@ -36,6 +36,12 @@ Keep commit descriptions short but descriptive enough for others to understand w
 
 **Recommended reading:** [Git Best Practices](https://github.com/pvarki/markdown-pvarki-best_practises/blob/main/git.md)
 
+### Versioning
+
+Versioning is handled with [bump-my-version](https://github.com/callowayproject/bump-my-version). To increment, use `bump-my-version bump <patch/minor/major>`.
+
+You can use `bump-my-version show-bump` to see how each option would affect the version.
+
 ---
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

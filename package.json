@@ -1,7 +1,7 @@
 {
   "name": "react-rasenmaeher-ui-v2",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.0+260428",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -123,7 +123,7 @@
       "eslint --max-warnings=0",
       "prettier --write"
     ],
-    "**/*.{json,md,yml,yaml,css,scss,html,svg,toml}": [
+    "**/*.{json,md,yml,yaml,css,scss,html,svg}": [
       "prettier --write"
     ],
     "*": [
