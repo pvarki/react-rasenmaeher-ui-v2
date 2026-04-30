@@ -154,6 +154,7 @@ export function LoginGuide({ open, onOpenChange }: LoginGuideProps) {
         </Button>
 
         <Button
+          data-testid="dialog-step-forward"
           onClick={handleComplete}
           variant={"outline"}
           className="flex-1 h-12 bg-primary-light hover:bg-primary-light/90 text-primary-light-foreground"

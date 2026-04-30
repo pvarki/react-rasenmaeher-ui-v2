@@ -57,7 +57,12 @@ export function SystemStatusPopover({
   const overallStatus = isOnline && healthData?.all_ok;
 
   const triggerButton = (
-    <button className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-accent/20 border">
+    <button
+      data-testid="system-status-trigger"
+      data-system-online={overallStatus ? "true" : "false"}
+      data-network-online={isOnline ? "true" : "false"}
+      className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-accent/20 border"
+    >
       {overallStatus ? (
         <>
           <EthernetPort className="w-3 h-3 text-green-500" />

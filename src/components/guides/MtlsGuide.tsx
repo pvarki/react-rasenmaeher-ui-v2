@@ -100,7 +100,9 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
   if (isMobile === undefined) return null;
 
   const step = MTLS_GUIDE_STEPS[currentStep];
-  const progress = ((currentStep + 1) / MTLS_GUIDE_STEPS.length) * 100;
+  const totalSteps = MTLS_GUIDE_STEPS.length;
+  const isLastStep = currentStep === MTLS_GUIDE_STEPS.length - 1;
+  const progress = ((currentStep + 1) / totalSteps) * 100;
 
   const getPlatformSteps = () => {
     const platform = userOS || "Android";
@@ -133,8 +135,7 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
               <h2 className="text-xl font-bold">{t(step.title)}</h2>
             </div>
             <p className="text-xs text-muted-foreground">
-              {t("common.step")} {currentStep + 1} {t("common.of")}{" "}
-              {MTLS_GUIDE_STEPS.length}
+              {t("common.step")} {currentStep + 1} {t("common.of")} {totalSteps}
             </p>
           </div>
 
@@ -248,6 +249,7 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
       <div className="border-t px-4 py-4 space-y-4 bg-background">
         <div className="flex gap-3">
           <Button
+            data-testid="mtls-guide-back"
             variant="outline"
             onClick={handlePrev}
             disabled={currentStep === 0}
@@ -258,13 +260,14 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
           </Button>
 
           <Button
+            data-testid="dialog-step-forward"
+            data-guide-current-step-index={String(currentStep)}
+            data-guide-step-count={String(totalSteps)}
             onClick={handleComplete}
             variant={"outline"}
             className="flex-1 h-12 bg-primary-light hover:bg-primary-light/90 text-primary-light-foreground"
           >
-            {currentStep === MTLS_GUIDE_STEPS.length - 1
-              ? t("common.finish")
-              : t("common.next")}
+            {isLastStep ? t("common.finish") : t("common.next")}
             <ChevronRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
@@ -300,7 +303,10 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
       <>
         {enlargedImageModal}
         <Drawer open={open} onOpenChange={onOpenChange} dismissible={false}>
-          <DrawerContent className="flex flex-col max-h-[95vh] bg-background border-t">
+          <DrawerContent
+            data-testid="mtls-guide-dialog"
+            className="flex flex-col max-h-[95vh] bg-background border-t"
+          >
             {contentComponent}
           </DrawerContent>
         </Drawer>
@@ -315,7 +321,10 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
         <DialogTitle className="sr-only">
           {t("mtlsGuide.title") || "mTLS Certificate Guide"}
         </DialogTitle>
-        <DialogContent className="flex flex-col max-h-[90vh] w-full max-w-2xl bg-background">
+        <DialogContent
+          data-testid="mtls-guide-dialog"
+          className="flex flex-col max-h-[90vh] w-full max-w-2xl bg-background"
+        >
           {contentComponent}
         </DialogContent>
       </Dialog>
