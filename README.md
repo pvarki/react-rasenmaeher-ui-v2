@@ -53,7 +53,20 @@ Currently, two official plugins are available:
 
 #### Pre-Commit
 
-This project uses [husky](https://typicode.github.io/husky/) as a pre-commit framework. To set it up locally, run `pnpm prepare`.
+Hooks are managed via [prek](https://github.com/j178/prek) using the shared
+config from
+[pvarki/config-ci-library](https://github.com/pvarki/config-ci-library/tree/typescript-config).
+prek is included as a dev dependency, so after `pnpm install` run:
+
+```bash
+pnpm exec prek install
+```
+
+To run all hooks against every file:
+
+```bash
+pnpm exec prek run --all-files
+```
 
 ## React Compiler
 
