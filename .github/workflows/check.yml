@@ -1,53 +1,18 @@
-on:
-  pull_request:
+name: Code Quality + Standards
+on: [pull_request]
 
 jobs:
-  versiontag:
+  prek:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    name: Run Pre-Commit Checks using Prek
     steps:
-      - uses: actions/checkout@v5
-      - name: Check version tag
-        run: |
-          curl -fL https://raw.githubusercontent.com/pvarki/react-rasenmaeher-ui-v2/main/package.json -o /tmp/main_package.json || touch /tmp/main_package.json
-          PR_VERSION=$(node -p "require('./package.json').version")
-          MAIN_VERSION=$(node -p "require('/tmp/main_package.json').version" 2>/dev/null || echo "")
-          if [ "$PR_VERSION" = "$MAIN_VERSION" ]; then
-            echo "::error::Version $PR_VERSION has not been bumped from main"
-            exit 1
-          fi
-          echo "Version bumped: $MAIN_VERSION -> $PR_VERSION"
+      - uses: actions/checkout@v6
+      - uses: pvarki/config-ci-library/.github/actions/setup-typescript@main
+      - uses: j178/prek-action@v2
 
-  test:
+  bumpversion-check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
+    name: Validate .bumpversion.toml
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run lint
-        run: pnpm run lint
-
-      - name: Run prettier
-        run: pnpm run format:check
-
-      - name: Run secretlint
-        run: pnpm run lint:secrets
-
-    # TODO: add unit tests
+      - uses: actions/checkout@v6
+      - uses: pvarki/config-ci-library/.github/actions/validate-bumpversion@main
