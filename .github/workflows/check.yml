@@ -16,3 +16,43 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pvarki/config-ci-library/.github/actions/validate-bumpversion@main
+
+  docker_builds:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        theme: [default, fdf]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build k8s_nginx target (${{ matrix.theme }})
+        run: docker build --target k8s_nginx --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:k8s_nginx .
+      - name: Build production target (${{ matrix.theme }})
+        run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:production .
+
+  publish:
+    needs: [prek, bumpversion-check, docker_builds]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        theme: [default, fdf]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Publish Docker image
+        uses: pvarki/config-ci-library/.github/actions/publish-image@main
+        with:
+          product: rasenmaeher-${{ matrix.theme }}
+          component: ui
+          target: k8s_nginx
+          build-args: |
+            VITE_THEME=${{ matrix.theme }}
+          dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
+          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          acr-repo: ${{ vars.ACR_REPO }}
+          acr-username: ${{ vars.ACR_USERNAME }}
+          acr-token: ${{ secrets.ACR_TOKEN }}
