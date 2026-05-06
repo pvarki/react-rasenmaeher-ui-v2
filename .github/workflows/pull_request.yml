@@ -1,10 +1,9 @@
-name: Code Quality + Standards
 on: [pull_request]
 
 jobs:
-  prek:
+  pre-commit:
     runs-on: ubuntu-latest
-    name: Run Pre-Commit Checks using Prek
+    name: Pre-commit
     steps:
       - uses: actions/checkout@v6
       - uses: pvarki/config-ci-library/.github/actions/setup-typescript@main
@@ -19,6 +18,7 @@ jobs:
 
   docker_builds:
     runs-on: ubuntu-latest
+    name: Docker build (${{ matrix.theme }})
     strategy:
       matrix:
         theme: [default, fdf]
@@ -30,7 +30,8 @@ jobs:
         run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:production .
 
   publish:
-    needs: [prek, bumpversion-check, docker_builds]
+    name: Publish Docker image (${{ matrix.theme }})
+    needs: [pre-commit, bumpversion-check, docker_builds]
     runs-on: ubuntu-latest
     permissions:
       contents: read
