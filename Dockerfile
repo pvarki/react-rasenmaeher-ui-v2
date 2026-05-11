@@ -70,6 +70,7 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 # K8S Nginx deployment #
 ########################
 FROM nginxinc/nginx-unprivileged:stable AS k8s_nginx
+COPY ./docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production_build /app/dist /usr/share/nginx/html
 
 #####################################
