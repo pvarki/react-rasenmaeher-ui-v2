@@ -1,7 +1,7 @@
 ######################
 # Base builder image #
 ######################
-FROM node:22-bookworm as builder_base
+FROM node:24-bookworm as builder_base
 
 ENV \
   # locale
@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable && corepack prepare pnpm@10.26 --activate
+RUN corepack enable && corepack prepare pnpm@11.1.0 --activate
 
 SHELL ["/bin/bash", "-lc"]
 
@@ -79,7 +79,7 @@ FROM builder_base as devel_build
 WORKDIR /app
 COPY ./package.json ./pnpm-lock.yaml /app/
 
-RUN pnpm install --include=dev --ignore-scripts
+RUN pnpm install --ignore-scripts --frozen-lockfile
 
 
 ###########

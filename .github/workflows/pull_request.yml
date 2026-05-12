@@ -7,6 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pvarki/config-ci-library/.github/actions/setup-typescript@main
+        with:
+          node-version: "24"
+          pnpm-version: "11"
       - uses: j178/prek-action@v2
 
   bumpversion-check:
