@@ -331,8 +331,12 @@
   "error": {
     "mtls_fail": {
       "title": "Certificate Authentication Failed",
-      "description": "Your mTLS certificate could not be verified. Please ensure you have installed the correct certificate and try again.",
-      "icon": "🔐"
+      "description": "Your mTLS certificate could not be verified.",
+      "icon": "🔐",
+      "steps": {
+        "installCorrect": "Ensure you have installed the correct certificate.",
+        "restartBrowser": "Restart your browser and try again."
+      }
     },
     "unauthorized": {
       "title": "Unauthorized Access",
@@ -350,8 +354,8 @@
       "icon": "⚠️"
     },
     "returnHome": "Return Home",
-    "errorCode": "Error: {{code}}",
-    "contactSupport": "If you need further assistance, please contact support."
+    "troubleshootingSteps": "Common troubleshooting steps",
+    "errorCode": "Error: {{code}}"
   },
   "home": {
     "welcome": "Welcome to Deploy App",

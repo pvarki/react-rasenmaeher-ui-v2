@@ -331,8 +331,12 @@
   "error": {
     "mtls_fail": {
       "title": "Varmenteen todennus epäonnistui",
-      "description": "mTLS-varmenteesi vahvistus epäonnistui. Varmista, että olet asentanut oikean varmenteen ja yritä uudelleen.",
-      "icon": "🔐"
+      "description": "mTLS-varmenteesi vahvistus epäonnistui.",
+      "icon": "🔐",
+      "steps": {
+        "installCorrect": "Varmista, että olet asentanut oikean varmenteen.",
+        "restartBrowser": "Käynnistä selain uudelleen ja yritä uudestaan."
+      }
     },
     "unauthorized": {
       "title": "Luvaton pääsy",
@@ -350,8 +354,8 @@
       "icon": "⚠️"
     },
     "returnHome": "Palaa etusivulle",
-    "errorCode": "Virhe: {{code}}",
-    "contactSupport": "Tarvitessasi lisäapua ota yhteyttä tukeen."
+    "troubleshootingSteps": "Yleiset vianmääritysvaiheet",
+    "errorCode": "Virhe: {{code}}"
   },
   "home": {
     "welcome": "Tervetuloa Deploy Appiin",
