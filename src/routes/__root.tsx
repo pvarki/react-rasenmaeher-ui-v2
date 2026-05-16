@@ -57,11 +57,18 @@ function RootLayout() {
       !isMtlsDomain &&
       location.pathname === "/"
     ) {
+      const certDownloaded = localStorage.getItem("cert_downloaded") === "true";
+
+      if (!certDownloaded) {
+        navigate({ to: "/mtls-install" });
+        return;
+      }
+
       const mtlsHost = `mtls.${host}`;
       window.location.href = `${window.location.protocol}//${mtlsHost}/`;
       return;
     }
-  }, [userTypeLoading, isValidUser, location.pathname]);
+  }, [userTypeLoading, isValidUser, location.pathname, navigate]);
 
   useEffect(() => {
     if (isMobile || isTablet) {

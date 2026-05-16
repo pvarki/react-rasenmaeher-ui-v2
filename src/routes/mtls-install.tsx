@@ -37,6 +37,9 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
+  const [certDownloaded, setCertDownloaded] = useState<boolean>(
+    () => localStorage.getItem("cert_downloaded") === "true",
+  );
   const { deployment } = useHealthCheck();
 
   useEffect(() => {
@@ -62,6 +65,8 @@ function MtlsInstallPage() {
 
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
+      localStorage.setItem("cert_downloaded", "true");
+      setCertDownloaded(true);
       toast.success(t("mtlsInstall.certificateDownloaded"));
     },
     onError: (err) => {
@@ -69,6 +74,8 @@ function MtlsInstallPage() {
       toast.error(err.message || t("mtlsInstall.downloadFailed"));
     },
   });
+
+  const canNavigate = certDownloaded;
 
   const handleDownloadKey = () => {
     if (callsign) {
@@ -121,6 +128,7 @@ function MtlsInstallPage() {
                     isDownloading={getCertificateMutation.isLoading}
                     mtlsUrl={mtlsUrl}
                     disabled={!callsign}
+                    canNavigate={canNavigate}
                   />
                 </div>
 
@@ -175,6 +183,7 @@ function MtlsInstallPage() {
             isDownloading={getCertificateMutation.isLoading}
             mtlsUrl={mtlsUrl}
             disabled={!callsign}
+            canNavigate={canNavigate}
           />
         </div>
       </div>
