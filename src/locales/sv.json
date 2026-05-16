@@ -331,8 +331,12 @@
   "error": {
     "mtls_fail": {
       "title": "Certifikatsautentisering misslyckades",
-      "description": "Ditt mTLS-certifikat kunde inte verifieras. Kontrollera installationen och försök igen.",
-      "icon": "🔐"
+      "description": "Ditt mTLS-certifikat kunde inte verifieras.",
+      "icon": "🔐",
+      "steps": {
+        "installCorrect": "Se till att du har installerat rätt certifikat.",
+        "restartBrowser": "Starta om webbläsaren och försök igen."
+      }
     },
     "unauthorized": {
       "title": "Obehörig åtkomst",
@@ -350,8 +354,8 @@
       "icon": "⚠️"
     },
     "returnHome": "Tillbaka till hem",
-    "errorCode": "Fel: {{code}}",
-    "contactSupport": "Kontakta support om du behöver hjälp."
+    "troubleshootingSteps": "Vanliga felsökningssteg",
+    "errorCode": "Fel: {{code}}"
   },
   "home": {
     "welcome": "Välkommen till Deploy App",
