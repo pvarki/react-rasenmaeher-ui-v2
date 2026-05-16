@@ -7,6 +7,7 @@ interface MtlsActionButtonsProps {
   mtlsUrl: string;
   isDownloading: boolean;
   disabled: boolean;
+  canNavigate: boolean;
 }
 
 export function MtlsActionButtons({
@@ -14,6 +15,7 @@ export function MtlsActionButtons({
   mtlsUrl,
   isDownloading,
   disabled,
+  canNavigate,
 }: MtlsActionButtonsProps) {
   const { t } = useTranslation();
 
@@ -45,13 +47,19 @@ export function MtlsActionButtons({
       <a
         data-testid="mtls-navigate-link"
         data-mtls-url={mtlsUrl}
-        href={mtlsUrl}
-        className="flex-1 "
+        href={canNavigate ? mtlsUrl : undefined}
+        aria-disabled={!canNavigate}
+        tabIndex={canNavigate ? undefined : -1}
+        onClick={(e) => {
+          if (!canNavigate) e.preventDefault();
+        }}
+        className="flex-1"
       >
         <Button
           data-testid="mtls-navigate-button"
           variant="ghost"
           className="w-full text-white h-12 rounded-xl border-2"
+          disabled={!canNavigate}
         >
           {t("mtlsInstall.navigateButton")}
           <ArrowBigRightDash className="w-4 h-4 ml-2" />
