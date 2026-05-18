@@ -134,7 +134,7 @@ export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
             <img
               src={themeConfig.assets.logoUrl}
               alt="Logo"
-              className="w-8 h-8 shrink-0"
+              className="h-8 w-auto shrink-0"
             />
           ) : (
             <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0">
