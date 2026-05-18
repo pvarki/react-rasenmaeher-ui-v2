@@ -22,14 +22,15 @@ export const Route = createFileRoute("/product/$shortname/$")({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const remoteComponentCache = new Map<string, React.ComponentType<any>>();
 
-function getRemoteComponent(shortname: string) {
-  if (!remoteComponentCache.has(shortname)) {
+function getRemoteComponent(shortname: string, entry: string) {
+  const cacheKey = `${shortname}|${entry}`;
+  if (!remoteComponentCache.has(cacheKey)) {
     remoteComponentCache.set(
-      shortname,
-      lazy(() => loadRemoteComponent(shortname)),
+      cacheKey,
+      lazy(() => loadRemoteComponent(shortname, entry)),
     );
   }
-  return remoteComponentCache.get(shortname)!;
+  return remoteComponentCache.get(cacheKey)!;
 }
 
 function ProductPage() {
@@ -60,7 +61,7 @@ function ProductPage() {
       return;
     }
 
-    if (product?.component?.type === "markdown" && product.component.ref) {
+    if (product?.component?.type === "markdown") {
       setMarkdownLoading(true);
       fetch(product.component.ref)
         .then((res) => res.text())
@@ -87,7 +88,10 @@ function ProductPage() {
     return <ProductLoading message={t("product.notFoundRedirect")} />;
   }
 
-  const Remote = getRemoteComponent(shortname);
+  const Remote =
+    product.component.type === "component"
+      ? getRemoteComponent(shortname, product.component.ref)
+      : null;
 
   return (
     <div
@@ -95,7 +99,7 @@ function ProductPage() {
       data-product-shortname={shortname}
       data-product-component-type={product.component.type}
     >
-      {product.component.type === "component" ? (
+      {Remote ? (
         <Suspense
           fallback={
             <div
