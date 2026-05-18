@@ -17,7 +17,9 @@ export function GuardHeader({
         <div className="flex-1">
           <div className="text-center space-y-4 mt-2">
             <div className="flex items-center gap-2 mb-2">
-              {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 w-8" />}
+              {logoUrl && (
+                <img src={logoUrl} alt="Logo" className="h-8 w-auto" />
+              )}
               <span className="text-xs md:text-2xl font-bold">
                 {deployment}
               </span>
@@ -36,7 +38,7 @@ export function GuardHeader({
       <div className="flex-">
         <div className="text-center space-y-4 mt-2">
           <div className="flex items-center justify-center gap-2 mb-2">
-            {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 w-8" />}
+            {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 w-auto" />}
             <span className="text-xs font-bold">{deployment}</span>
           </div>
         </div>

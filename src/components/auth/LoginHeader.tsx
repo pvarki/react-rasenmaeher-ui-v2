@@ -12,7 +12,7 @@ export function LoginHeader({ deployment }: LoginHeaderProps) {
     <div className="text-center space-y-4 ">
       <div className="flex items-center justify-center gap-2 mb-2">
         {theme.assets?.logoUrl && (
-          <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-8" />
+          <img src={theme.assets.logoUrl} alt="Logo" className="h-8 w-auto" />
         )}
         <h1 className="text-2xl font-bold">{deployment}</h1>
       </div>
