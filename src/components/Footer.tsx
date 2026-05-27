@@ -9,7 +9,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { OnboardingGuide } from "./OnboardingGuide";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsCompactViewport } from "@/hooks/use-compact-viewport";
 
 interface FooterProps {
   onMtlsInfoClick: () => void;
@@ -18,7 +18,7 @@ interface FooterProps {
 export function Footer({ onMtlsInfoClick }: FooterProps) {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const isCompact = useIsCompactViewport();
 
   const footerContent = (
     <div className="space-y-4">
@@ -47,7 +47,7 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
     </div>
   );
 
-  if (isMobile) {
+  if (isCompact) {
     return (
       <div>
         <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>

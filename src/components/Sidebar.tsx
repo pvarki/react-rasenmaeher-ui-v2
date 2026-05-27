@@ -91,10 +91,10 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
       className={cn(
         "bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col z-40",
         isMobile
-          ? "fixed top-16 bottom-0 left-0 w-64"
+          ? "absolute top-0 bottom-0 left-0 w-64"
           : isOpen
             ? "relative w-64"
-            : "absolute left-0 w-64 -translate-x-full",
+            : "absolute top-0 bottom-0 left-0 w-64 -translate-x-full",
         isOpen
           ? isMobile
             ? "translate-x-0"
