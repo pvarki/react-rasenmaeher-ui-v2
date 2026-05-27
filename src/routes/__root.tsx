@@ -126,16 +126,16 @@ function RootLayout() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background text-foreground">
+    <div className="h-dvh flex flex-col bg-background text-foreground">
       <Header
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => toggleSidebar(!sidebarOpen)}
       />
 
-      <div className="flex flex-1 min-h-0 overflow-hidden">
+      <div className="flex flex-1 min-h-0 overflow-hidden relative">
         {isMobile && sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-40 top-16"
+            className="absolute inset-0 bg-black/50 z-40"
             onClick={() => toggleSidebar(false)}
           />
         )}
@@ -147,15 +147,16 @@ function RootLayout() {
         />
 
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          <main
-            className={`flex-1 overflow-y-auto ${isProductPage ? "p-2 md:p-4" : "p-4 md:p-8"}`}
-          >
-            <Outlet />
+          <main className="flex-1 overflow-y-auto flex flex-col">
+            <div
+              className={`flex-1 ${isProductPage ? "p-2 md:p-4" : "p-4 md:p-8"}`}
+            >
+              <Outlet />
+            </div>
+            {!isProductPage && (
+              <Footer onMtlsInfoClick={() => setMtlsModalOpen(true)} />
+            )}
           </main>
-
-          {!isProductPage && (
-            <Footer onMtlsInfoClick={() => setMtlsModalOpen(true)} />
-          )}
         </div>
       </div>
 
