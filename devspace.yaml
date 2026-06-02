@@ -1,0 +1,31 @@
+version: v2beta1
+name: rasenmaeher-fdf-ui
+
+images:
+  ui:
+    image: ghcr.io/pvarki/rasenmaeher-fdf-ui
+    dockerfile: ./Dockerfile
+    context: ./
+    target: dev
+    skipPush: true
+    buildKit: {}
+    buildArgs:
+      VITE_THEME: fdf
+
+pipelines:
+  dev: |-
+    build_images --all
+    start_dev --all
+
+dev:
+  app-ui:
+    labelSelector:
+      app: app-ui
+    namespace: opendefense-system
+    container: app-ui-nginx
+    devImage: ${runtime.images.ui}
+    sync:
+      - path: ./src:/app/src
+      - path: ./public:/app/public
+      - path: ./index.html:/app/index.html
+    logs: {}
