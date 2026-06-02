@@ -78,9 +78,25 @@ COPY --from=production_build /app/dist /usr/share/nginx/html
 #####################################
 FROM builder_base AS devel_build
 WORKDIR /app
-COPY ./package.json ./pnpm-lock.yaml /app/
+RUN chown node:node /app
+USER node
+COPY --chown=node:node ./package.json ./pnpm-lock.yaml /app/
 
 RUN pnpm install --ignore-scripts --frozen-lockfile
+
+
+############
+# DevSpace #
+############
+FROM devel_build AS dev
+WORKDIR /app
+COPY --chown=node:node . /app
+
+ARG VITE_THEME=default
+ENV VITE_THEME=$VITE_THEME
+
+EXPOSE 8080
+CMD ["pnpm", "exec", "vite", "--host", "0.0.0.0", "--port", "8080"]
 
 
 ###########
