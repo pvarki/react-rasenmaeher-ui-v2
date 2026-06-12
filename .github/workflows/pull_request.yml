@@ -1,4 +1,6 @@
-on: [pull_request]
+on:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   pre-commit:
@@ -20,7 +22,7 @@ jobs:
       - uses: pvarki/config-ci-library/.github/actions/validate-bumpversion@main
 
   docker_builds:
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     name: Docker build (${{ matrix.theme }})
     strategy:
       matrix:
@@ -35,7 +37,7 @@ jobs:
   publish:
     name: Publish Docker image (${{ matrix.theme }})
     needs: [pre-commit, bumpversion-check, docker_builds]
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     permissions:
       contents: read
       packages: write
