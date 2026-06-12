@@ -1,7 +1,7 @@
 ######################
 # Base builder image #
 ######################
-FROM node:24-bookworm as builder_base
+FROM node:24-bookworm AS builder_base
 
 ENV \
   # locale
@@ -34,7 +34,7 @@ SHELL ["/bin/bash", "-lc"]
 ####################################
 # Base stage for production builds #
 ####################################
-FROM builder_base as production_build
+FROM builder_base AS production_build
 COPY ./docker/entrypoint.sh /docker-entrypoint.sh
 WORKDIR /app
 COPY . /app
@@ -56,7 +56,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 #########################
 # Main production build #
 #########################
-FROM bash:latest as production
+FROM bash:latest AS production
 WORKDIR /app
 COPY --from=production_build /docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=production_build /app/dist /dist
@@ -75,7 +75,7 @@ COPY --from=production_build /app/dist /usr/share/nginx/html
 #####################################
 # Base stage for development builds #
 #####################################
-FROM builder_base as devel_build
+FROM builder_base AS devel_build
 WORKDIR /app
 COPY ./package.json ./pnpm-lock.yaml /app/
 
@@ -85,7 +85,7 @@ RUN pnpm install --ignore-scripts --frozen-lockfile
 ###########
 # Hacking #
 ###########
-FROM devel_build as devel_shell
+FROM devel_build AS devel_shell
 # Copy everything to the image
 WORKDIR /app
 COPY . /app
