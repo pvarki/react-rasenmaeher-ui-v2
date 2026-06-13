@@ -229,7 +229,10 @@ function AdminToolsPage() {
         setKeycloakModalOpen(true);
       }
     } else if (item.action.type === "product") {
-      window.open(`/product/${item.action.shortname}`);
+      navigate({
+        to: "/product/$shortname",
+        params: { shortname: item.action.shortname },
+      });
     }
   };
 
