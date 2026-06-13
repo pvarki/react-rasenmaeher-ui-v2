@@ -34,8 +34,8 @@ jobs:
       - name: Build production target (${{ matrix.theme }})
         run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:production .
 
-  publish:
-    name: Publish Docker image (${{ matrix.theme }})
+  publish_nginx:
+    name: Publish NGinx Docker image (${{ matrix.theme }})
     needs: [pre-commit, bumpversion-check, docker_builds]
     runs-on: arc-runner-set
     permissions:
@@ -54,6 +54,35 @@ jobs:
           product: rasenmaeher-${{ matrix.theme }}
           component: ui
           target: k8s_nginx
+          build-args: |
+            VITE_THEME=${{ matrix.theme }}
+          dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
+          dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          acr-repo: ${{ vars.ACR_REPO }}
+          acr-username: ${{ vars.ACR_USERNAME }}
+          acr-token: ${{ secrets.ACR_TOKEN }}
+
+  publish_files:
+    name: Publish file delivery Docker image (${{ matrix.theme }})
+    needs: [pre-commit, bumpversion-check, docker_builds]
+    runs-on: arc-runner-set
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        theme: [default, fdf]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Publish Docker image
+        uses: pvarki/config-ci-library/.github/actions/publish-image@main
+        with:
+          product: rasenmaeher-ui-${{ matrix.theme }}
+          component: worker
+          target: production
           build-args: |
             VITE_THEME=${{ matrix.theme }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
