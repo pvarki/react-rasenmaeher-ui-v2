@@ -1,5 +1,10 @@
 import path from "path";
 import fs from "fs";
+import { createRequire } from "module";
+
+const packageJson = createRequire(import.meta.url)("./package.json") as {
+  version: string;
+};
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -240,6 +245,9 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       themePlugin(env),
     ],
+    define: {
+      __APP_VERSION__: JSON.stringify(packageJson.version),
+    },
     build: {
       target: "chrome89",
     },

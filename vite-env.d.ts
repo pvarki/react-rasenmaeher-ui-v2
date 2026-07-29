@@ -5,3 +5,5 @@ declare module "vite" {
     allowedHosts?: string[];
   }
 }
+
+declare const __APP_VERSION__: string;
