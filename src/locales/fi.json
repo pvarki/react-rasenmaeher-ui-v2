@@ -412,7 +412,8 @@
       "method3": {
         "title": "Menetelmä 3: Linkkihyväksyntä",
         "description": "Pyydä käyttäjää antamaan hyväksyntälinkkinsä, jonka kautta voit hyväksyä heidät."
-      }
+      },
+      "goToApproveUsers": "Siirry käyttäjien hyväksyntään"
     },
     "pdf": {
       "title": "Deploy App",

@@ -8,6 +8,8 @@ import { InviteHeader } from "@/components/invite-code/InviteHeader";
 import { InviteQRCodeCard } from "@/components/invite-code/InviteQRCodeCard";
 import { InviteSteps } from "@/components/invite-code/InviteSteps";
 import { ApprovalMethodsSection } from "@/components/invite-code/ApprovalMethodsSection";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/invite-code/$code")({
   component: InviteCodePage,
@@ -68,6 +70,15 @@ function InviteCodePage() {
           <InviteSteps />
 
           <ApprovalMethodsSection />
+
+          <Button
+            data-testid="go-to-approve-users-button"
+            onClick={() => navigate({ to: "/approve-users" })}
+            className="w-full flex items-center justify-center gap-2"
+          >
+            {t("inviteCode.approvalMethods.goToApproveUsers")}
+            <ArrowRight className="w-4 h-4" />
+          </Button>
         </div>
       </main>
     </div>
