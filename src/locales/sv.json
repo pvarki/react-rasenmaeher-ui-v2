@@ -412,7 +412,8 @@
       "method3": {
         "title": "Metod 3: Länkgodkännande",
         "description": "Be användaren ge dig godkännandelänken så att du kan godkänna dem direkt."
-      }
+      },
+      "goToApproveUsers": "Gå till Godkänn användare"
     },
     "pdf": {
       "title": "Deploy App",

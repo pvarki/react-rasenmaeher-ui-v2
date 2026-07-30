@@ -412,7 +412,8 @@
       "method3": {
         "title": "Method 3: Link Approval",
         "description": "Ask them to provide you the approval link from their Waiting Room screen, which you can click to approve them directly."
-      }
+      },
+      "goToApproveUsers": "Go to Approve Users"
     },
     "pdf": {
       "title": "Deploy App",
