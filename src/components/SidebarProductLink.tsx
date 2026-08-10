@@ -17,7 +17,7 @@ export function SidebarProductLink({
   isMobile,
   onClose,
 }: SidebarProductLinkProps) {
-  const title = getCleanProductTitle(product.title);
+  const title = getCleanProductTitle(product.title, product.shortname);
   const handleClick = () => {
     if (isMobile) onClose();
   };

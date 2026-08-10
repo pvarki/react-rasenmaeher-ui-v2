@@ -23,19 +23,15 @@ export function getProductIcon(shortname: string): React.ReactNode {
   return iconMap[shortname.toLowerCase()] || iconMap.default;
 }
 
-export function getCleanProductTitle(title: string): string {
-  return title
-    .replace(/^TAKTAK:\s*/, "")
-    .replace(/^TAKTAK:\s?/, "")
-    .replace(/^TAK:\s*/, "")
-    .replace(/^TAK:\s?/, "");
-}
-
-export function getProductShortLabel(title: string): string {
-  const match = title.match(/^([A-Z]+):\s/);
-  if (match) {
-    const label = match[1];
-    return label.substring(0, 3);
+/**
+ * Products are inconsistent about prefixing their title with their own name
+ * (e.g. "TAK: Team Awareness Kit" vs plain "MediaMTX"). Strip the prefix when
+ * it matches the shortname so every card shows a bare product name.
+ */
+export function getCleanProductTitle(title: string, shortname: string): string {
+  const prefix = `${shortname.toLowerCase()}:`;
+  if (title.toLowerCase().startsWith(prefix)) {
+    return title.slice(prefix.length).trimStart();
   }
-  return "APP";
+  return title;
 }

@@ -373,6 +373,7 @@
       "continue": "Continue"
     },
     "productCard": {
+      "label": "APP",
       "docs": "DOCS",
       "launch": "LAUNCH",
       "open": "OPEN"

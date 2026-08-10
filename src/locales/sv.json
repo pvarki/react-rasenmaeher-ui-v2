@@ -373,6 +373,7 @@
       "continue": "Fortsätt"
     },
     "productCard": {
+      "label": "APP",
       "docs": "DOKUMENT",
       "launch": "STARTA",
       "open": "ÖPPNA"
