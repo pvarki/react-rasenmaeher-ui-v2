@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { getTheme } from "@/config/themes";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SystemStatusPopover } from "@/components/SystemStatusPopover";
-import { useState, useEffect } from "react";
 
 interface HeaderProps {
   sidebarOpen: boolean;
@@ -79,33 +78,6 @@ function BreadcrumbNav({ appName }: { appName: string }) {
   );
 }
 
-function OfflineIndicator() {
-  const [isOnline, setIsOnline] = useState(true);
-  const [lastSync, setLastSync] = useState<Date>(new Date());
-
-  useEffect(() => {
-    setIsOnline(navigator.onLine);
-
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    const syncInterval = setInterval(() => {
-      setLastSync(new Date());
-    }, 60000);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-      clearInterval(syncInterval);
-    };
-  }, []);
-
-  return <SystemStatusPopover isOnline={isOnline} lastSync={lastSync} />;
-}
-
 export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
   const themeConfig = getTheme();
 
@@ -161,7 +133,7 @@ export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
         </div>
       </div>
       <div className="flex items-center gap-2 md:gap-4 shrink-0">
-        <OfflineIndicator />
+        <SystemStatusPopover />
       </div>
     </header>
   );
