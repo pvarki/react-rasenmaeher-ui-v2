@@ -4,11 +4,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Product } from "./productUtils";
-import {
-  getProductIcon,
-  getCleanProductTitle,
-  getProductShortLabel,
-} from "./productUtils";
+import { getProductIcon, getCleanProductTitle } from "./productUtils";
 
 interface ProductCardProps {
   product: Product;
@@ -41,10 +37,10 @@ export function ProductCard({
         <div className="flex flex-col flex-1 relative pr-20 md:pr-28">
           <div className="mb-4">
             <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-              {getProductShortLabel(product.title)}
+              {t("home.productCard.label")}
             </p>
             <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight break-words">
-              {getCleanProductTitle(product.title)}
+              {getCleanProductTitle(product.title, product.shortname)}
             </h3>
           </div>
 

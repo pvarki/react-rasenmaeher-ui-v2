@@ -373,6 +373,7 @@
       "continue": "Jatka"
     },
     "productCard": {
+      "label": "SOVELLUS",
       "docs": "OHJEET",
       "launch": "KÄYNNISTÄ",
       "open": "SIIRRY"

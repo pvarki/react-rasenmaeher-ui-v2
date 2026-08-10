@@ -1,7 +1,7 @@
 {
   "name": "react-rasenmaeher-ui-v2",
   "private": true,
-  "version": "2.6.0+260810",
+  "version": "2.6.1+260811",
   "type": "module",
   "scripts": {
     "dev": "vite",
