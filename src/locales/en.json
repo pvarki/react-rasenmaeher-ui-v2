@@ -50,9 +50,7 @@
   "modals": {
     "keycloak": {
       "title": "Keycloak Management Console",
-      "description": "Open the Keycloak administration console for advanced identity inspection and troubleshooting.",
-      "whatIsKeycloak": "What is Keycloak?",
-      "whatIsKeycloakDesc": "Keycloak is the open-source identity provider behind this deployment, and the services use it for single sign-on. Users authenticate with their mTLS certificate, so there are no passwords or external identity providers to configure here.",
+      "description": "Keycloak is the identity provider behind this deployment. Users sign in with their mTLS certificate, so the console is only for inspection and troubleshooting.",
       "whatCanYouDo": "What can you do there?",
       "inspectUsers": "Inspect user accounts and their role mappings",
       "viewSessions": "View and end active sessions",

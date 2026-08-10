@@ -1,7 +1,6 @@
 export interface LocalizationConfig {
   common?: {
     copyright?: string;
-    rmUi?: string;
   };
   [key: string]: unknown;
 }

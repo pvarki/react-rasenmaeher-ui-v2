@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, TriangleAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface KeycloakManageModalProps {
@@ -26,7 +26,7 @@ export function KeycloakManageModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)_auto]">
         <DialogHeader>
           <DialogTitle>{t("modals.keycloak.title")}</DialogTitle>
           <DialogDescription>
@@ -34,26 +34,26 @@ export function KeycloakManageModal({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="py-4 space-y-4">
-          <div className="p-4 bg-muted rounded-lg space-y-2">
-            <p className="text-sm font-semibold text-foreground">
-              {t("modals.keycloak.whatIsKeycloak")}
-            </p>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {t("modals.keycloak.whatIsKeycloakDesc")}
-            </p>
-          </div>
-
-          <div className="p-4 bg-muted rounded-lg space-y-2">
+        <div className="space-y-3 overflow-y-auto">
+          <div className="p-3 bg-muted rounded-lg space-y-2">
             <p className="text-sm font-semibold text-foreground">
               {t("modals.keycloak.whatCanYouDo")}
             </p>
-            <ul className="text-xs text-muted-foreground space-y-2 list-disc list-inside">
-              <li>{t("modals.keycloak.resetPasswords")}</li>
-              <li>{t("modals.keycloak.configureLogin")}</li>
-              <li>{t("modals.keycloak.manageAttributes")}</li>
-              <li>{t("modals.keycloak.configureProviders")}</li>
+            <ul className="text-xs text-muted-foreground space-y-1.5 list-disc list-inside">
+              <li>{t("modals.keycloak.inspectUsers")}</li>
+              <li>{t("modals.keycloak.viewSessions")}</li>
+              <li>{t("modals.keycloak.manageClients")}</li>
+              <li>{t("modals.keycloak.reviewEvents")}</li>
             </ul>
+          </div>
+
+          <div className="flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+            <span className="flex items-center shrink-0 h-[1.625em] text-xs">
+              <TriangleAlert className="size-3.5 text-yellow-600 dark:text-yellow-400" />
+            </span>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {t("modals.keycloak.note")}
+            </p>
           </div>
         </div>
 
