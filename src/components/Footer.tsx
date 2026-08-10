@@ -41,7 +41,7 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
       </div>
       <div className="pt-2 border-t border-border">
         <p className="text-xs leading-relaxed text-muted-foreground/50">
-          {t("common.copyright")} <br /> {t("common.rmUi")}
+          {t("common.copyright")}
         </p>
       </div>
     </div>

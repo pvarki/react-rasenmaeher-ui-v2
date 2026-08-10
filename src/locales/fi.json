@@ -50,9 +50,7 @@
   "modals": {
     "keycloak": {
       "title": "Keycloak-hallintakonsoli",
-      "description": "Avaa Keycloakin hallintakonsoli identiteettien tarkasteluun ja vianselvitykseen.",
-      "whatIsKeycloak": "Mikä on Keycloak?",
-      "whatIsKeycloakDesc": "Keycloak on tämän ympäristön avoimen lähdekoodin identiteetintarjoaja, jota palvelut käyttävät kertakirjautumiseen. Käyttäjät tunnistautuvat mTLS-varmenteella, joten täällä ei määritetä salasanoja eikä ulkoisia tunnistautumislähteitä.",
+      "description": "Keycloak on tämän ympäristön identiteetintarjoaja. Käyttäjät tunnistautuvat mTLS-varmenteella, joten konsoli on tarkoitettu vain tarkasteluun ja vianselvitykseen.",
       "whatCanYouDo": "Mitä siellä voi tehdä?",
       "inspectUsers": "Tarkastele käyttäjätilejä ja niiden rooleja",
       "viewSessions": "Katso ja katkaise aktiiviset istunnot",

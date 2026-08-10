@@ -50,9 +50,7 @@
   "modals": {
     "keycloak": {
       "title": "Keycloak-hanteringskonsol",
-      "description": "Öppna Keycloaks administrationskonsol för granskning av identiteter och felsökning.",
-      "whatIsKeycloak": "Vad är Keycloak?",
-      "whatIsKeycloakDesc": "Keycloak är den öppna identitetsleverantören i den här miljön och tjänsterna använder den för enkel inloggning. Användarna autentiserar sig med sitt mTLS-certifikat, så det finns inga lösenord eller externa identitetsleverantörer att konfigurera här.",
+      "description": "Keycloak är identitetsleverantören i den här miljön. Användarna autentiserar sig med sitt mTLS-certifikat, så konsolen är endast för granskning och felsökning.",
       "whatCanYouDo": "Vad kan du göra där?",
       "inspectUsers": "Granska användarkonton och deras roller",
       "viewSessions": "Visa och avsluta aktiva sessioner",

@@ -20,8 +20,8 @@ pipelines:
 dev:
   app-ui:
     labelSelector:
-      app: app-ui
-    namespace: opendefense-system
+      app: rmui
+    namespace: opendefence-system
     container: app-ui-nginx
     devImage: ${runtime.images.ui}
     sync:
