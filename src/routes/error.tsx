@@ -2,6 +2,9 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { ErrorContent } from "@/components/error/ErrorContent";
+import { MtlsRestartGuide } from "@/components/error/MtlsRestartGuide";
+import { ReturnHomeButton } from "@/components/error/ReturnHomeButton";
+import { LanguageSwitcher } from "@/components/auth/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 
 interface ErrorSearch {
@@ -35,10 +38,6 @@ function ErrorView() {
           title: t("error.mtls_fail.title"),
           description: t("error.mtls_fail.description"),
           icon: t("error.mtls_fail.icon"),
-          steps: [
-            t("error.mtls_fail.steps.installCorrect"),
-            t("error.mtls_fail.steps.restartBrowser"),
-          ],
         };
       case "unauthorized":
         return {
@@ -62,17 +61,32 @@ function ErrorView() {
   };
 
   const errorDetails = getErrorDetails(code);
+  const isMtlsFailure = code === "mtls_fail";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md space-y-6">
+      <div
+        className={`w-full space-y-4 py-8 ${isMtlsFailure ? "max-w-xl" : "max-w-md"}`}
+      >
+        <div className="flex justify-end">
+          <LanguageSwitcher />
+        </div>
+
         <ErrorContent
           errorCode={code}
           title={errorDetails.title}
           description={errorDetails.description}
           icon={errorDetails.icon}
           steps={errorDetails.steps}
+          showHomeButton={!isMtlsFailure}
         />
+
+        {isMtlsFailure && (
+          <>
+            <MtlsRestartGuide />
+            <ReturnHomeButton />
+          </>
+        )}
       </div>
     </div>
   );

@@ -73,7 +73,7 @@
     "steps": {
       "welcome": {
         "title": "Välkommen!",
-        "description": "Detta är din hemplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat—allt på ett ställe."
+        "description": "Detta är din hemplan för att hantera allt. Starta appar, kolla systemstatus och håll ditt team organiserat, allt på ett ställe."
       },
       "products": {
         "title": "Dina Appar",
@@ -335,11 +335,82 @@
   "error": {
     "mtls_fail": {
       "title": "Certifikatsautentisering misslyckades",
-      "description": "Ditt mTLS-certifikat kunde inte verifieras.",
+      "description": "Tjänsten fick inget giltigt certifikat från din webbläsare och kunde därför inte bekräfta vem du är.",
       "icon": "🔐",
-      "steps": {
-        "installCorrect": "Se till att du har installerat rätt certifikat.",
-        "restartBrowser": "Starta om webbläsaren och försök igen."
+      "restart": {
+        "title": "Starta om webbläsaren så att certifikatet skickas igen",
+        "intro": "Webbläsaren erbjuder ditt certifikat bara en gång per session, så den måste stängas helt och startas om.",
+        "certificateCheckTitle": "Kontrollera först att certifikatet är installerat",
+        "certificateCheckBody": "Det räcker inte att ladda ner certifikatet. Det måste installeras på den här enheten och i den här webbläsaren. Om du bara laddade ner det, installera det först och kom sedan tillbaka hit.",
+        "summary": {
+          "1": "Stäng webbläsaren helt. Alla fönster, inte bara den här fliken.",
+          "2": "Starta webbläsaren igen och öppna adressen nedan.",
+          "3": "Välj ditt certifikat när webbläsaren frågar efter det."
+        },
+        "detailsToggle": "Steg-för-steg-instruktioner för min enhet",
+        "addressLabel": "Öppna den här adressen efter omstarten",
+        "copyAddress": "Kopiera adress",
+        "copied": "Adressen kopierad",
+        "copyFailed": "Det gick inte att kopiera adressen",
+        "tryAgain": "Försök igen",
+        "stillFailing": "Om felet återkommer efter omstarten saknas ditt certifikat eller har gått ut. Be om en ny inbjudningskod och registrera dig igen.",
+        "platforms": {
+          "Windows": {
+            "steps": {
+              "1": "Stäng alla webbläsarfönster, även de på andra skrivbord eller minimerade i aktivitetsfältet.",
+              "2": "Kontrollera meddelandefältet bredvid klockan. Om webbläsarikonen finns kvar, högerklicka på den och välj Avsluta.",
+              "3": "Starta webbläsaren igen och öppna adressen nedan.",
+              "4": "Välj ditt certifikat när webbläsaren frågar efter det."
+            },
+            "notes": {
+              "1": "Chrome och Edge frågar efter certifikatet igen i fler situationer än Firefox, så en vanlig fullständig stängning räcker oftast."
+            }
+          },
+          "MacOS": {
+            "steps": {
+              "1": "Tryck Cmd + Q i webbläsaren eller välj Avsluta i menyn. Den röda punkten stänger bara fönstret.",
+              "2": "Om det fortfarande finns en prick under webbläsarikonen i Dock, högerklicka på den och välj Avsluta.",
+              "3": "Starta webbläsaren igen och öppna adressen nedan.",
+              "4": "Välj ditt certifikat när webbläsaren frågar efter det."
+            },
+            "notes": {
+              "1": "Safari frågar efter certifikatet bara en gång per start, så att ladda om sidan hjälper inte. Webbläsaren måste avslutas helt."
+            }
+          },
+          "Linux": {
+            "steps": {
+              "1": "Stäng alla webbläsarfönster.",
+              "2": "Kontrollera systemfältet och avsluta webbläsaren därifrån om ikonen finns kvar.",
+              "3": "Starta webbläsaren igen och öppna adressen nedan.",
+              "4": "Välj ditt certifikat när webbläsaren frågar efter det."
+            },
+            "notes": {
+              "1": "När webbläsaren frågar efter certifikatet frågar den också hur länge valet ska sparas. Väljer du 'Permanent' slipper du starta om nästa gång."
+            }
+          },
+          "Android": {
+            "steps": {
+              "1": "Öppna vyn med senaste appar: svep uppåt från skärmens nederkant och håll kvar, eller tryck på fyrkantsknappen.",
+              "2": "Svep bort webbläsarens kort för att stänga den.",
+              "3": "Öppna webbläsaren igen och gå till adressen nedan.",
+              "4": "Välj ditt certifikat när du blir tillfrågad."
+            },
+            "notes": {
+              "1": "Om webbläsaren aldrig frågar efter ett certifikat är det inte installerat på enheten. Kontrollera under Inställningar → Säkerhet → Användaruppgifter; sökvägen varierar mellan tillverkare."
+            }
+          },
+          "iOS": {
+            "steps": {
+              "1": "Öppna appväxlaren: svep uppåt från skärmens nederkant och pausa, eller dubbeltryck på hemknappen.",
+              "2": "Svep bort webbläsarens kort (Safari eller Chrome) uppåt från skärmen.",
+              "3": "Vänta ett par sekunder, öppna webbläsaren igen och gå till adressen nedan.",
+              "4": "Välj ditt certifikat när iOS frågar efter det."
+            },
+            "notes": {
+              "1": "Certifikatprofilen måste vara installerad och aktiverad under Inställningar → Allmänt → VPN och enhetshantering."
+            }
+          }
+        }
       }
     },
     "unauthorized": {
@@ -672,10 +743,10 @@
     "openExternal": "Öppna extern",
     "access": "Öppna",
     "helpTitle": "Snabbhjälp",
-    "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
-    "help2": "Inbjudningskoder – generera och hantera koder",
-    "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL"
+    "help1": "Användarhantering: godkänn, befordra, degradera, ta bort",
+    "help2": "Inbjudningskoder: generera och hantera koder",
+    "help3": "Keycloak: granskning av identiteter och felsökning",
+    "help4": "Externa tjänster: åtkomst till TAK och BL"
   },
   "feedbackForm": {
     "title": "Skicka feedback",
