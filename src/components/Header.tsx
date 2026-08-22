@@ -8,6 +8,12 @@ import { SystemStatusPopover } from "@/components/SystemStatusPopover";
 interface HeaderProps {
   sidebarOpen: boolean;
   onToggleSidebar: () => void;
+  /**
+   * Collapse the header out of view to free vertical space. Only set on short
+   * viewports (landscape phones), where the 4rem header is a large slice of
+   * the screen.
+   */
+  collapsed?: boolean;
 }
 
 function BreadcrumbNav({ appName }: { appName: string }) {
@@ -78,14 +84,24 @@ function BreadcrumbNav({ appName }: { appName: string }) {
   );
 }
 
-export function Header({ sidebarOpen, onToggleSidebar }: HeaderProps) {
+export function Header({
+  sidebarOpen,
+  onToggleSidebar,
+  collapsed = false,
+}: HeaderProps) {
   const themeConfig = getTheme();
 
   return (
     <header
       data-testid="app-header"
       data-sidebar-open={sidebarOpen ? "true" : "false"}
-      className="bg-card border-b border-border px-4 md:px-6 h-16 flex items-center justify-between sticky top-0 z-50"
+      data-collapsed={collapsed ? "true" : "false"}
+      aria-hidden={collapsed}
+      className={`bg-card border-b border-border px-4 md:px-6 flex items-center justify-between sticky top-0 z-50 shrink-0 overflow-hidden transition-[height,opacity] duration-300 ease-out motion-reduce:transition-none ${
+        collapsed
+          ? "h-0 opacity-0 border-b-0 pointer-events-none"
+          : "h-16 opacity-100"
+      }`}
     >
       <div className="flex items-center gap-4 min-w-0">
         <button

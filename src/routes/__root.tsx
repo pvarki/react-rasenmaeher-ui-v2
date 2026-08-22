@@ -16,6 +16,8 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useIsTablet } from "@/hooks/use-tablet";
+import { useIsCompactViewport } from "@/hooks/use-compact-viewport";
+import { useIsScrollingDown } from "@/hooks/use-scroll-direction";
 
 export const Route = createRootRoute({
   component: RootLayoutWrapper,
@@ -37,6 +39,14 @@ function RootLayout() {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const isCompact = useIsCompactViewport();
+
+  // The shell is h-dvh/overflow-hidden, so <main> is the scroller, not the
+  // document. Collapse the header on the way down to reclaim vertical space,
+  // which matters most on landscape phones.
+  const { ref: mainRef, isScrollingDown: collapseHeader } = useIsScrollingDown(
+    isCompact && !sidebarOpen,
+  );
 
   const { userType, isLoading: userTypeLoading, isValidUser } = useUserType();
 
@@ -130,6 +140,7 @@ function RootLayout() {
       <Header
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => toggleSidebar(!sidebarOpen)}
+        collapsed={collapseHeader}
       />
 
       <div className="flex flex-1 min-h-0 overflow-hidden relative">
@@ -147,7 +158,7 @@ function RootLayout() {
         />
 
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          <main className="flex-1 overflow-y-auto flex flex-col">
+          <main ref={mainRef} className="flex-1 overflow-y-auto flex flex-col">
             <div
               className={`flex-1 ${isProductPage ? "p-2 md:p-4" : "p-4 md:p-8"}`}
             >
