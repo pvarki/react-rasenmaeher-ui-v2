@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,8 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useNavigate } from "@tanstack/react-router";
-import { Home } from "lucide-react";
+import { ReturnHomeButton } from "@/components/error/ReturnHomeButton";
 import { useTranslation } from "react-i18next";
 
 interface ErrorContentProps {
@@ -18,6 +16,7 @@ interface ErrorContentProps {
   description: string;
   icon?: string;
   steps?: string[];
+  showHomeButton?: boolean;
 }
 
 export function ErrorContent({
@@ -26,8 +25,8 @@ export function ErrorContent({
   description,
   icon,
   steps,
+  showHomeButton = true,
 }: ErrorContentProps) {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   return (
@@ -69,15 +68,7 @@ export function ErrorContent({
           </div>
         )}
 
-        <Button
-          onClick={() => navigate({ to: "/login" })}
-          className="w-full bg-primary-light hover:bg-primary-light/90"
-          variant={"outline"}
-          data-testid="error-return-home-button"
-        >
-          <Home className="w-4 h-4 mr-2" />
-          {t("error.returnHome")}
-        </Button>
+        {showHomeButton && <ReturnHomeButton />}
       </CardContent>
     </Card>
   );

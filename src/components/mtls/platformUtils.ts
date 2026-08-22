@@ -99,6 +99,57 @@ export const PLATFORM_INSTRUCTIONS: Record<string, PlatformInstructions> = {
   },
 };
 
+export const BROWSER_RESTART_INSTRUCTIONS: Record<
+  string,
+  PlatformInstructions
+> = {
+  Windows: {
+    steps: [
+      "error.mtls_fail.restart.platforms.Windows.steps.1",
+      "error.mtls_fail.restart.platforms.Windows.steps.2",
+      "error.mtls_fail.restart.platforms.Windows.steps.3",
+      "error.mtls_fail.restart.platforms.Windows.steps.4",
+    ],
+    notes: ["error.mtls_fail.restart.platforms.Windows.notes.1"],
+  },
+  MacOS: {
+    steps: [
+      "error.mtls_fail.restart.platforms.MacOS.steps.1",
+      "error.mtls_fail.restart.platforms.MacOS.steps.2",
+      "error.mtls_fail.restart.platforms.MacOS.steps.3",
+      "error.mtls_fail.restart.platforms.MacOS.steps.4",
+    ],
+    notes: ["error.mtls_fail.restart.platforms.MacOS.notes.1"],
+  },
+  Linux: {
+    steps: [
+      "error.mtls_fail.restart.platforms.Linux.steps.1",
+      "error.mtls_fail.restart.platforms.Linux.steps.2",
+      "error.mtls_fail.restart.platforms.Linux.steps.3",
+      "error.mtls_fail.restart.platforms.Linux.steps.4",
+    ],
+    notes: ["error.mtls_fail.restart.platforms.Linux.notes.1"],
+  },
+  Android: {
+    steps: [
+      "error.mtls_fail.restart.platforms.Android.steps.1",
+      "error.mtls_fail.restart.platforms.Android.steps.2",
+      "error.mtls_fail.restart.platforms.Android.steps.3",
+      "error.mtls_fail.restart.platforms.Android.steps.4",
+    ],
+    notes: ["error.mtls_fail.restart.platforms.Android.notes.1"],
+  },
+  iOS: {
+    steps: [
+      "error.mtls_fail.restart.platforms.iOS.steps.1",
+      "error.mtls_fail.restart.platforms.iOS.steps.2",
+      "error.mtls_fail.restart.platforms.iOS.steps.3",
+      "error.mtls_fail.restart.platforms.iOS.steps.4",
+    ],
+    notes: ["error.mtls_fail.restart.platforms.iOS.notes.1"],
+  },
+};
+
 export function getMtlsUrl(): string {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;

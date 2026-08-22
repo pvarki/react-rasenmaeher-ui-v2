@@ -73,7 +73,7 @@
     "steps": {
       "welcome": {
         "title": "Welcome!",
-        "description": "This is your home base for managing everything. Launch apps, check system status, and keep your team organized—all in one place."
+        "description": "This is your home base for managing everything. Launch apps, check system status, and keep your team organized, all in one place."
       },
       "products": {
         "title": "Your Apps",
@@ -270,7 +270,7 @@
       "title": "How to Add Users",
       "description": "Quick guide to inviting users",
       "step1Title": "1. Use Existing Codes",
-      "step1Description": "Click on any active invite code to view its QR code. One code can be used by multiple users - no need to create a new one each time!",
+      "step1Description": "Click on any active invite code to view its QR code. One code can be used by multiple users, no need to create a new one each time!",
       "step2Title": "2. Share the QR Code",
       "step2Description": "Show the QR code to users or share the invite link. They'll scan it to start the enrollment process.",
       "step3Title": "3. Approve Users",
@@ -335,11 +335,82 @@
   "error": {
     "mtls_fail": {
       "title": "Certificate Authentication Failed",
-      "description": "Your mTLS certificate could not be verified.",
+      "description": "The service did not receive a valid certificate from your browser, so it could not confirm who you are.",
       "icon": "🔐",
-      "steps": {
-        "installCorrect": "Ensure you have installed the correct certificate.",
-        "restartBrowser": "Restart your browser and try again."
+      "restart": {
+        "title": "Restart your browser to send the certificate again",
+        "intro": "A browser offers your certificate only once per session, so it has to be closed completely and started again.",
+        "certificateCheckTitle": "First, check that the certificate is installed",
+        "certificateCheckBody": "Downloading the certificate is not enough. It has to be installed on this device and in this browser. If you only downloaded it, install it first and then come back here.",
+        "summary": {
+          "1": "Close the browser completely. Every window, not just this tab.",
+          "2": "Start the browser again and open the address below.",
+          "3": "Pick your certificate when the browser asks for it."
+        },
+        "detailsToggle": "Step-by-step instructions for my device",
+        "addressLabel": "After the restart, open this address",
+        "copyAddress": "Copy address",
+        "copied": "Address copied",
+        "copyFailed": "Could not copy the address",
+        "tryAgain": "Try again",
+        "stillFailing": "If the error keeps coming back after a restart, your certificate is missing or has expired. Ask for a new invite code to enroll again.",
+        "platforms": {
+          "Windows": {
+            "steps": {
+              "1": "Close every browser window, including ones on other desktops or minimised to the taskbar.",
+              "2": "Check the notification area next to the clock. If a browser icon is still there, right-click it and choose Exit.",
+              "3": "Start the browser again and open the address below.",
+              "4": "Pick your certificate when the browser asks for it."
+            },
+            "notes": {
+              "1": "Chrome and Edge ask for the certificate again in more situations than Firefox, so a normal full close is usually enough."
+            }
+          },
+          "MacOS": {
+            "steps": {
+              "1": "Press Cmd + Q in the browser, or choose Quit from its menu. Clicking the red dot only closes the window.",
+              "2": "If there is still a dot under the browser icon in the Dock, right-click the icon and choose Quit.",
+              "3": "Start the browser again and open the address below.",
+              "4": "Pick your certificate when the browser asks for it."
+            },
+            "notes": {
+              "1": "Safari asks for the certificate only once per launch, so reloading the page does not help. The browser has to be quit completely."
+            }
+          },
+          "Linux": {
+            "steps": {
+              "1": "Close all browser windows.",
+              "2": "Check the system tray and quit the browser from there if its icon is still visible.",
+              "3": "Start the browser again and open the address below.",
+              "4": "Pick your certificate when the browser asks for it."
+            },
+            "notes": {
+              "1": "When the browser asks for the certificate, it also asks how long to remember the choice. Picking 'Permanently' saves you from restarting next time."
+            }
+          },
+          "Android": {
+            "steps": {
+              "1": "Open the recent apps view: swipe up from the bottom of the screen and hold, or tap the square button.",
+              "2": "Swipe the browser card away to close it.",
+              "3": "Open the browser again and go to the address below.",
+              "4": "Pick your certificate when you are asked for it."
+            },
+            "notes": {
+              "1": "If the browser never asks for a certificate, it is not installed on the device. Check Settings → Security → User credentials; the exact path varies by manufacturer."
+            }
+          },
+          "iOS": {
+            "steps": {
+              "1": "Open the app switcher: swipe up from the bottom edge and pause, or double-click the Home button.",
+              "2": "Swipe the browser card (Safari or Chrome) up and off the screen.",
+              "3": "Wait a couple of seconds, then open the browser again and go to the address below.",
+              "4": "Pick your certificate when iOS asks for it."
+            },
+            "notes": {
+              "1": "The certificate profile has to be installed and enabled under Settings → General → VPN & Device Management."
+            }
+          }
+        }
       }
     },
     "unauthorized": {
@@ -672,10 +743,10 @@
     "openExternal": "Open External",
     "access": "Access",
     "helpTitle": "Quick Help",
-    "help1": "User Management - Approve, promote, demote, or remove users",
-    "help2": "Invite Codes - Generate and manage user invite codes",
-    "help3": "Keycloak - Advanced identity inspection and troubleshooting",
-    "help4": "External Services - Access Takserver and Battlelog servers"
+    "help1": "User Management: Approve, promote, demote, or remove users",
+    "help2": "Invite Codes: Generate and manage user invite codes",
+    "help3": "Keycloak: Advanced identity inspection and troubleshooting",
+    "help4": "External Services: Access Takserver and Battlelog servers"
   },
   "feedbackForm": {
     "title": "Send feedback",

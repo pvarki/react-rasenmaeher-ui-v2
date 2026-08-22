@@ -270,7 +270,7 @@
       "title": "Näin lisäät käyttäjiä",
       "description": "Pikakäyttöopas kutsujen lähettämiseen",
       "step1Title": "1. Käytä olemassa olevia koodeja",
-      "step1Description": "Klikkaa mitä tahansa aktiivista kutsukoodia nähdäksesi sen QR-koodin. Yhtä koodia voi käyttää useampi käyttäjä – uuden luominen ei ole aina tarpeen!",
+      "step1Description": "Klikkaa mitä tahansa aktiivista kutsukoodia nähdäksesi sen QR-koodin. Yhtä koodia voi käyttää useampi käyttäjä, uuden luominen ei ole aina tarpeen!",
       "step2Title": "2. Jaa QR-koodi",
       "step2Description": "Näytä QR-koodi käyttäjälle tai jaa kutsulinkki. He skannaavat sen aloittaakseen rekisteröinnin.",
       "step3Title": "3. Hyväksy käyttäjät",
@@ -335,11 +335,82 @@
   "error": {
     "mtls_fail": {
       "title": "Varmenteen todennus epäonnistui",
-      "description": "mTLS-varmenteesi vahvistus epäonnistui.",
+      "description": "Palvelu ei saanut selaimeltasi kelvollista varmennetta, joten henkilöllisyyttäsi ei voitu varmistaa.",
       "icon": "🔐",
-      "steps": {
-        "installCorrect": "Varmista, että olet asentanut oikean varmenteen.",
-        "restartBrowser": "Käynnistä selain uudelleen ja yritä uudestaan."
+      "restart": {
+        "title": "Käynnistä selain uudelleen, jotta varmenne lähetetään uudestaan",
+        "intro": "Selain tarjoaa varmennettasi vain kerran istuntoa kohti, joten se on suljettava kokonaan ja käynnistettävä uudelleen.",
+        "certificateCheckTitle": "Tarkista ensin, että varmenne on asennettu",
+        "certificateCheckBody": "Varmenteen lataaminen ei riitä. Se on asennettava tälle laitteelle ja tähän selaimeen. Jos latasit sen vain, asenna se ensin ja tule sitten takaisin tähän.",
+        "summary": {
+          "1": "Sulje selain kokonaan. Kaikki ikkunat, ei pelkkä tämä välilehti.",
+          "2": "Käynnistä selain uudelleen ja avaa alla oleva osoite.",
+          "3": "Valitse varmenteesi, kun selain kysyy sitä."
+        },
+        "detailsToggle": "Vaiheittaiset ohjeet laitteelleni",
+        "addressLabel": "Avaa uudelleenkäynnistyksen jälkeen osoite",
+        "copyAddress": "Kopioi osoite",
+        "copied": "Osoite kopioitu",
+        "copyFailed": "Osoitteen kopiointi ei onnistunut",
+        "tryAgain": "Yritä uudelleen",
+        "stillFailing": "Jos virhe toistuu uudelleenkäynnistyksen jälkeen, varmenteesi puuttuu tai on vanhentunut. Pyydä uusi kutsukoodi ja tee liittyminen uudelleen.",
+        "platforms": {
+          "Windows": {
+            "steps": {
+              "1": "Sulje kaikki selainikkunat, myös muilla työpöydillä tai tehtäväpalkkiin pienennettynä olevat.",
+              "2": "Tarkista kellon vieressä oleva ilmoitusalue. Jos selaimen kuvake on siellä yhä, napsauta sitä hiiren oikealla painikkeella ja valitse Lopeta.",
+              "3": "Käynnistä selain uudelleen ja avaa alla oleva osoite.",
+              "4": "Valitse varmenteesi, kun selain kysyy sitä."
+            },
+            "notes": {
+              "1": "Chrome ja Edge kysyvät varmennetta uudelleen useammin kuin Firefox, joten selaimen normaali täydellinen sulkeminen yleensä riittää."
+            }
+          },
+          "MacOS": {
+            "steps": {
+              "1": "Paina selaimessa Cmd + Q tai valitse valikosta Lopeta. Punaisen pallon napsauttaminen sulkee vain ikkunan.",
+              "2": "Jos selaimen kuvakkeen alla on Dockissa yhä piste, napsauta kuvaketta hiiren oikealla painikkeella ja valitse Lopeta.",
+              "3": "Käynnistä selain uudelleen ja avaa alla oleva osoite.",
+              "4": "Valitse varmenteesi, kun selain kysyy sitä."
+            },
+            "notes": {
+              "1": "Safari kysyy varmennetta vain kerran käynnistystä kohti, joten sivun päivittäminen ei auta. Selain on suljettava kokonaan."
+            }
+          },
+          "Linux": {
+            "steps": {
+              "1": "Sulje kaikki selainikkunat.",
+              "2": "Tarkista ilmoitusalue ja sulje selain sieltä, jos sen kuvake on yhä näkyvissä.",
+              "3": "Käynnistä selain uudelleen ja avaa alla oleva osoite.",
+              "4": "Valitse varmenteesi, kun selain kysyy sitä."
+            },
+            "notes": {
+              "1": "Kun selain kysyy varmennetta, se kysyy myös kuinka pitkään valinta muistetaan. Valinta 'Pysyvästi' säästää uudelleenkäynnistykseltä seuraavalla kerralla."
+            }
+          },
+          "Android": {
+            "steps": {
+              "1": "Avaa viimeisimmät sovellukset: pyyhkäise näytön alareunasta ylös ja pidä hetki, tai paina neliöpainiketta.",
+              "2": "Sulje selain pyyhkäisemällä sen kortti pois näytöltä.",
+              "3": "Avaa selain uudelleen ja siirry alla olevaan osoitteeseen.",
+              "4": "Valitse varmenteesi, kun sitä kysytään."
+            },
+            "notes": {
+              "1": "Jos selain ei kysy varmennetta lainkaan, sitä ei ole asennettu laitteelle. Tarkista kohdasta Asetukset → Suojaus → Käyttäjän tunnistetiedot; polku vaihtelee laitevalmistajan mukaan."
+            }
+          },
+          "iOS": {
+            "steps": {
+              "1": "Avaa sovellusten vaihtaja: pyyhkäise näytön alareunasta ylös ja pysäytä liike, tai paina Koti-painiketta kahdesti.",
+              "2": "Pyyhkäise selaimen (Safari tai Chrome) kortti ylös pois näytöltä.",
+              "3": "Odota pari sekuntia, avaa selain uudelleen ja siirry alla olevaan osoitteeseen.",
+              "4": "Valitse varmenteesi, kun iOS kysyy sitä."
+            },
+            "notes": {
+              "1": "Varmenneprofiilin on oltava asennettuna ja käytössä kohdassa Asetukset → Yleiset → VPN ja laitehallinta."
+            }
+          }
+        }
       }
     },
     "unauthorized": {
@@ -672,10 +743,10 @@
     "openExternal": "Avaa ulkoinen",
     "access": "Avaa",
     "helpTitle": "Pikaopas",
-    "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
-    "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
-    "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "help1": "Käyttäjähallinta: hyväksy, ylennä, alenna tai poista käyttäjiä",
+    "help2": "Kutsukoodit: luo ja hallitse käyttäjäkoodeja",
+    "help3": "Keycloak: identiteettien tarkastelu ja vianselvitys",
+    "help4": "Ulkoiset palvelut: käytä TAK- ja BL-palvelimia"
   },
   "feedbackForm": {
     "title": "Lähetä palautetta",

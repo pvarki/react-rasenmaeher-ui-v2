@@ -8,5 +8,6 @@ export {
   getOperatingSystem,
   getMtlsUrl,
   PLATFORM_INSTRUCTIONS,
+  BROWSER_RESTART_INSTRUCTIONS,
   type PlatformInstructions,
 } from "./platformUtils";
