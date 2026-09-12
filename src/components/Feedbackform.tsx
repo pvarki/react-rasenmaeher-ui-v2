@@ -29,7 +29,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { getOperatingSystem } from "@/components/mtls/platformUtils";
-import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { useIsMobile } from "@/hooks/use-mobile";
 interface FeedbackFormProps {
   open: boolean;
@@ -40,11 +39,10 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const [os, setOs] = useState("");
   const [rating, setRating] = useState("");
   const [comments, setComments] = useState("");
-  const [version] = useState("1.0.0");
+  const [version] = useState(__APP_VERSION__);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
   const { userType } = useUserType();
-  const { deployment } = useHealthCheck();
   const isMobile = useIsMobile();
 
   const webAddress = typeof window !== "undefined" ? window.location.href : "";
@@ -61,7 +59,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("https://submit-form.com/hloLGOTNT", {
+      const res = await fetch("/api/v1/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -70,13 +68,11 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
           rating,
           comments,
           version,
-          webAddress,
-          deployment,
+          web_address: webAddress,
         }),
-        redirect: "manual",
       });
 
-      if (!res.ok && res.type !== "opaqueredirect") {
+      if (!res.ok) {
         throw new Error("Submission failed");
       }
 
