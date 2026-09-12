@@ -1,10 +1,15 @@
 import path from "path";
 import fs from "fs";
+import { createRequire } from "module";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { federation } from "@module-federation/vite";
+
+const packageJson = createRequire(import.meta.url)("./package.json") as {
+  version: string;
+};
 
 function themePlugin(env: Record<string, string>): Plugin {
   const themeName = env.VITE_THEME || "default";
@@ -240,6 +245,9 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       themePlugin(env),
     ],
+    define: {
+      __APP_VERSION__: JSON.stringify(packageJson.version),
+    },
     build: {
       target: "chrome89",
     },
