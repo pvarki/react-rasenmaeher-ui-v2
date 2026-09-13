@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { getOperatingSystem } from "@/components/mtls/platformUtils";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { useIsMobile } from "@/hooks/use-mobile";
 interface FeedbackFormProps {
   open: boolean;
@@ -43,6 +44,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
   const { userType } = useUserType();
+  const { version: deploymentVersion } = useHealthCheck();
   const isMobile = useIsMobile();
 
   const webAddress = typeof window !== "undefined" ? window.location.href : "";
@@ -145,6 +147,15 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
                 )}
               />
             </div>
+
+            <div className="grid grid-cols-1 gap-1">
+              <label className="text-xs font-medium text-muted-foreground">
+                {t("feedbackForm.versionLabel")}
+              </label>
+              <p className="font-mono text-sm text-foreground">
+                {deploymentVersion || "—"}
+              </p>
+            </div>
           </form>
 
           <DrawerFooter className="flex gap-2">
@@ -224,6 +235,15 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
                 "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
               )}
             />
+          </div>
+
+          <div className="grid grid-cols-1 gap-1">
+            <label className="text-xs font-medium text-muted-foreground">
+              {t("feedbackForm.versionLabel")}
+            </label>
+            <p className="font-mono text-sm text-foreground">
+              {deploymentVersion || "—"}
+            </p>
           </div>
 
           <DialogFooter className="flex gap-2">
