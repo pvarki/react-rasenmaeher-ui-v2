@@ -112,6 +112,7 @@
   "systemStatus": {
     "title": "Järjestelmän tila",
     "lastUpdated": "Päivitetty",
+    "version": "Versio",
     "services": "Palvelut",
     "active": "Aktiivinen",
     "issues": "Ongelmat",

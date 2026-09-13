@@ -40,11 +40,11 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
   const [os, setOs] = useState("");
   const [rating, setRating] = useState("");
   const [comments, setComments] = useState("");
-  const [version] = useState("1.0.0");
+  const [version] = useState(__APP_VERSION__);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
   const { userType } = useUserType();
-  const { deployment } = useHealthCheck();
+  const { version: deploymentVersion } = useHealthCheck();
   const isMobile = useIsMobile();
 
   const webAddress = typeof window !== "undefined" ? window.location.href : "";
@@ -61,7 +61,7 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("https://submit-form.com/hloLGOTNT", {
+      const res = await fetch("/api/v1/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -70,13 +70,11 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
           rating,
           comments,
           version,
-          webAddress,
-          deployment,
+          web_address: webAddress,
         }),
-        redirect: "manual",
       });
 
-      if (!res.ok && res.type !== "opaqueredirect") {
+      if (!res.ok) {
         throw new Error("Submission failed");
       }
 
@@ -148,6 +146,15 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
                   "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
                 )}
               />
+            </div>
+
+            <div className="grid grid-cols-1 gap-1">
+              <label className="text-xs font-medium text-muted-foreground">
+                {t("feedbackForm.versionLabel")}
+              </label>
+              <p className="font-mono text-sm text-foreground">
+                {deploymentVersion || "—"}
+              </p>
             </div>
           </form>
 
@@ -228,6 +235,15 @@ export function FeedbackForm({ open, onOpenChange }: FeedbackFormProps) {
                 "min-h-[120px] resize-y rounded-md border px-3 py-2 bg-transparent text-sm",
               )}
             />
+          </div>
+
+          <div className="grid grid-cols-1 gap-1">
+            <label className="text-xs font-medium text-muted-foreground">
+              {t("feedbackForm.versionLabel")}
+            </label>
+            <p className="font-mono text-sm text-foreground">
+              {deploymentVersion || "—"}
+            </p>
           </div>
 
           <DialogFooter className="flex gap-2">

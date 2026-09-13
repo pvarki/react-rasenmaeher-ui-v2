@@ -112,6 +112,7 @@
   "systemStatus": {
     "title": "System Status",
     "lastUpdated": "Last updated",
+    "version": "Version",
     "services": "Services",
     "active": "Active",
     "issues": "Issues",

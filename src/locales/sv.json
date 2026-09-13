@@ -112,6 +112,7 @@
   "systemStatus": {
     "title": "Systemstatus",
     "lastUpdated": "Senast uppdaterad",
+    "version": "Version",
     "services": "Tjänster",
     "active": "Aktiv",
     "issues": "Problem",
