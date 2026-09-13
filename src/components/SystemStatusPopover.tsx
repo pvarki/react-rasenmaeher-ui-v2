@@ -24,6 +24,7 @@ import {
   useHealthCheck,
   HEALTH_CHECK_STALE_AFTER_MS,
 } from "@/hooks/api/useHealthCheck";
+import useBasicHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useOnlineStatus } from "@/hooks/use-online-status";
@@ -89,6 +90,7 @@ export function SystemStatusPopover() {
     failureCount,
     refetch,
   } = useHealthCheck();
+  const { version: deploymentVersion } = useBasicHealthCheck();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const isOnline = useOnlineStatus();
@@ -172,6 +174,12 @@ export function SystemStatusPopover() {
         >
           {t("systemStatus.lastUpdated")} {formatAge()}
         </p>
+        {deploymentVersion && (
+          <p className="text-xs text-muted-foreground">
+            {t("systemStatus.version")}{" "}
+            <span className="font-mono">{deploymentVersion}</span>
+          </p>
+        )}
       </div>
 
       {isStale && (
