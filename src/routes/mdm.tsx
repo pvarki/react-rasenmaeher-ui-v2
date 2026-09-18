@@ -2,20 +2,36 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Check, Copy, Download, Smartphone } from "lucide-react";
+import { Check, ChevronDown, Copy, Download, Settings2 } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
-import { useMdmEnrollments } from "@/hooks/api/useMdmEnrollments";
-import { usePlanMdmEnrollment } from "@/hooks/api/usePlanMdmEnrollment";
+import {
+  useMdmEnrollments,
+  type MdmEnrollment,
+} from "@/hooks/api/useMdmEnrollments";
 import {
   callsignsFrom,
   usePlanMdmDevices,
 } from "@/hooks/api/usePlanMdmDevices";
-import { devicesToCsv, downloadCsv } from "@/lib/mdmExport";
 import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
+import { devicesToCsv, downloadCsv } from "@/lib/mdmExport";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export const Route = createFileRoute("/mdm")({
   component: MdmPage,
@@ -23,45 +39,120 @@ export const Route = createFileRoute("/mdm")({
 
 /** The responder answers on the plain host, not the mTLS one the admin is looking at. */
 function scepUrl(): string {
-  const host = window.location.hostname.replace(/^mtls\./, "");
-  return `https://${host}/scep`;
+  return `https://${window.location.hostname.replace(/^mtls\./, "")}/scep`;
 }
 
-function CopyField({ label, value }: { label: string; value: string }) {
+function CopyButton({ value, label }: { value: string; label: string }) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
-
-  const copy = () => {
-    navigator.clipboard.writeText(value).then(
-      () => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      },
-      () => toast.error(t("mdm.copyFailed")),
-    );
-  };
-
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex-1 min-w-0">
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p data-testid="mdm-copy-value" className="font-mono text-sm break-all">
-          {value}
-        </p>
-      </div>
-      <Button
-        data-testid="mdm-copy-button"
-        variant="ghost"
-        size="icon"
-        aria-label={t("mdm.copy")}
-        onClick={copy}
+    <Button
+      data-testid="mdm-copy-button"
+      variant="ghost"
+      size="icon"
+      aria-label={label}
+      onClick={() =>
+        navigator.clipboard.writeText(value).then(
+          () => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          },
+          () => toast.error(t("mdm.copyFailed")),
+        )
+      }
+    >
+      {copied ? (
+        <Check className="w-4 h-4 text-primary" />
+      ) : (
+        <Copy className="w-4 h-4" />
+      )}
+    </Button>
+  );
+}
+
+/** One-time MDM configuration, folded away: it is read once and never again. */
+function SetupPanel() {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const url = scepUrl();
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger asChild>
+        <Button
+          data-testid="mdm-setup-toggle"
+          variant="ghost"
+          className="w-full justify-between px-0"
+        >
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Settings2 className="w-4 h-4" />
+            {t("mdm.serviceTitle")}
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
+          />
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent
+        data-testid="mdm-setup-panel"
+        className="border border-border rounded-2xl bg-card p-4 space-y-2"
       >
-        {copied ? (
-          <Check className="w-4 h-4 text-primary" />
-        ) : (
-          <Copy className="w-4 h-4" />
-        )}
-      </Button>
+        <p className="text-sm text-muted-foreground">{t("mdm.serviceDesc")}</p>
+        <div className="flex items-center gap-2">
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-muted-foreground">{t("mdm.scepUrl")}</p>
+            <p className="font-mono text-sm break-all">{url}</p>
+          </div>
+          <CopyButton value={url} label={t("mdm.copy")} />
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+
+function DeviceTable({ devices }: { devices: MdmEnrollment[] }) {
+  const { t } = useTranslation();
+  return (
+    <div className="border border-border rounded-2xl overflow-x-auto">
+      <Table data-testid="mdm-device-table">
+        <TableHeader>
+          <TableRow>
+            <TableHead>{t("mdm.columnCallsign")}</TableHead>
+            <TableHead>{t("mdm.columnDeviceName")}</TableHead>
+            <TableHead className="text-right">
+              {t("mdm.columnStatus")}
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {devices.map((device) => (
+            <TableRow
+              data-testid="mdm-device-row"
+              data-callsign={device.callsign}
+              key={device.callsign}
+            >
+              <TableCell className="font-medium">{device.callsign}</TableCell>
+              <TableCell>
+                <div className="flex items-center gap-1">
+                  <span className="font-mono text-xs break-all">
+                    {device.deviceName}
+                  </span>
+                  <CopyButton
+                    value={device.deviceName}
+                    label={t("mdm.copyFor", { callsign: device.callsign })}
+                  />
+                </div>
+              </TableCell>
+              <TableCell className="text-right">
+                {device.state === EnrollmentState.PENDING ? (
+                  <Badge variant="secondary">{t("mdm.statusWaiting")}</Badge>
+                ) : (
+                  <Badge>{t("mdm.statusEnrolled")}</Badge>
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
@@ -69,25 +160,24 @@ function CopyField({ label, value }: { label: string; value: string }) {
 function MdmPage() {
   const { t } = useTranslation();
   const { userType, isLoading: userTypeLoading } = useUserType();
-  const [callsign, setCallsign] = useState("");
   const [prefix, setPrefix] = useState("");
-  const [count, setCount] = useState("10");
   const [from, setFrom] = useState("1");
-  const {
-    planMany,
-    progress,
-    isPlanning: isPlanningMany,
-  } = usePlanMdmDevices();
+  const [count, setCount] = useState("1");
+  const [filter, setFilter] = useState("");
+  const [lastRun, setLastRun] = useState<MdmEnrollment[]>([]);
 
   const { data: devices, isLoading, refetch } = useMdmEnrollments();
-  const { mutate: plan, isLoading: isPlanning } = usePlanMdmEnrollment({
-    onSuccess: (planned) => {
-      toast.success(t("mdm.planned", { callsign: planned.callsign }));
-      setCallsign("");
-      void refetch();
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { planMany, progress, isPlanning } = usePlanMdmDevices();
+
+  const wanted = callsignsFrom(prefix, Number(count) || 0, Number(from) || 1);
+
+  const shown = useMemo(() => {
+    const needle = filter.trim().toLowerCase();
+    const all = devices ?? [];
+    return needle
+      ? all.filter((device) => device.callsign.toLowerCase().includes(needle))
+      : all;
+  }, [devices, filter]);
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -112,132 +202,97 @@ function MdmPage() {
     );
   }
 
-  const waiting = (devices ?? []).filter(
-    (device) => device.state === EnrollmentState.PENDING,
-  );
-  const enrolled = (devices ?? []).filter(
-    (device) => device.state !== EnrollmentState.PENDING,
-  );
+  const plan = () => {
+    if (!wanted.length) {
+      return;
+    }
+    void planMany(wanted).then((result) => {
+      void refetch();
+      setLastRun(
+        result.planned.map((planned) => ({
+          ...planned,
+          state: EnrollmentState.PENDING,
+        })),
+      );
+      if (result.failed.length) {
+        toast.warning(
+          t("mdm.bulkPartial", {
+            planned: result.planned.length,
+            failed: result.failed.length,
+          }),
+        );
+      } else {
+        toast.success(t("mdm.bulkDone", { planned: result.planned.length }));
+      }
+    });
+  };
 
   return (
-    <div data-testid="mdm-page" className="max-w-4xl mx-auto space-y-8">
+    <div data-testid="mdm-page" className="max-w-4xl mx-auto space-y-6">
       <div className="space-y-2">
         <h1 className="text-2xl font-bold">{t("mdm.title")}</h1>
         <p className="text-sm text-muted-foreground">{t("mdm.subtitle")}</p>
       </div>
 
+      <SetupPanel />
+
       <section
-        data-testid="mdm-service-settings"
+        data-testid="mdm-plan"
         className="space-y-3 border border-border rounded-2xl bg-card p-6"
       >
-        <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          {t("mdm.serviceTitle")}
-        </h2>
-        <p className="text-sm text-muted-foreground">{t("mdm.serviceDesc")}</p>
-        <CopyField label={t("mdm.scepUrl")} value={scepUrl()} />
-      </section>
-
-      <section data-testid="mdm-plan" className="space-y-3">
-        <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          {t("mdm.planTitle")}
-        </h2>
-        <p className="text-sm text-muted-foreground">{t("mdm.planDesc")}</p>
+        <h2 className="font-semibold">{t("mdm.planTitle")}</h2>
         <form
-          className="flex gap-2"
+          className="flex flex-wrap items-end gap-3"
           onSubmit={(event) => {
             event.preventDefault();
-            const wanted = callsign.trim();
-            if (wanted) {
-              plan({ callsign: wanted });
-            }
+            plan();
           }}
         >
-          <Input
-            data-testid="mdm-callsign-input"
-            value={callsign}
-            onChange={(event) => setCallsign(event.target.value)}
-            placeholder={t("mdm.callsignPlaceholder")}
-            disabled={isPlanning}
-          />
+          <label className="flex-1 min-w-40 space-y-1">
+            <span className="text-xs text-muted-foreground">
+              {t("mdm.prefix")}
+            </span>
+            <Input
+              data-testid="mdm-prefix-input"
+              value={prefix}
+              onChange={(event) => setPrefix(event.target.value)}
+              placeholder={t("mdm.prefixPlaceholder")}
+              disabled={isPlanning}
+            />
+          </label>
+          <label className="w-28 space-y-1">
+            <span className="text-xs text-muted-foreground">
+              {t("mdm.from")}
+            </span>
+            <Input
+              data-testid="mdm-from-input"
+              type="number"
+              min={1}
+              value={from}
+              onChange={(event) => setFrom(event.target.value)}
+              disabled={isPlanning}
+            />
+          </label>
+          <label className="w-28 space-y-1">
+            <span className="text-xs text-muted-foreground">
+              {t("mdm.count")}
+            </span>
+            <Input
+              data-testid="mdm-count-input"
+              type="number"
+              min={1}
+              max={500}
+              value={count}
+              onChange={(event) => setCount(event.target.value)}
+              disabled={isPlanning}
+            />
+          </label>
           <Button
             data-testid="mdm-plan-button"
             type="submit"
-            disabled={isPlanning || !callsign.trim()}
+            disabled={isPlanning || !wanted.length}
           >
-            {isPlanning ? t("mdm.planning") : t("mdm.plan")}
-          </Button>
-        </form>
-      </section>
-
-      <section data-testid="mdm-plan-many" className="space-y-3">
-        <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-          {t("mdm.bulkTitle")}
-        </h2>
-        <p className="text-sm text-muted-foreground">{t("mdm.bulkDesc")}</p>
-        <form
-          className="flex flex-wrap gap-2"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const wanted = callsignsFrom(
-              prefix,
-              Number(count) || 0,
-              Number(from) || 1,
-            );
-            if (!wanted.length) {
-              return;
-            }
-            void planMany(wanted).then((result) => {
-              void refetch();
-              if (result.failed.length) {
-                toast.warning(
-                  t("mdm.bulkPartial", {
-                    planned: result.planned.length,
-                    failed: result.failed.length,
-                  }),
-                );
-              } else {
-                toast.success(
-                  t("mdm.bulkDone", { planned: result.planned.length }),
-                );
-              }
-            });
-          }}
-        >
-          <Input
-            data-testid="mdm-prefix-input"
-            className="flex-1 min-w-40"
-            value={prefix}
-            onChange={(event) => setPrefix(event.target.value)}
-            placeholder={t("mdm.prefixPlaceholder")}
-            disabled={isPlanningMany}
-          />
-          <Input
-            data-testid="mdm-from-input"
-            className="w-24"
-            type="number"
-            min={1}
-            value={from}
-            onChange={(event) => setFrom(event.target.value)}
-            aria-label={t("mdm.from")}
-            disabled={isPlanningMany}
-          />
-          <Input
-            data-testid="mdm-count-input"
-            className="w-24"
-            type="number"
-            min={1}
-            max={500}
-            value={count}
-            onChange={(event) => setCount(event.target.value)}
-            aria-label={t("mdm.count")}
-            disabled={isPlanningMany}
-          />
-          <Button
-            data-testid="mdm-plan-many-button"
-            type="submit"
-            disabled={isPlanningMany || !prefix.trim()}
-          >
-            {isPlanningMany
+            {isPlanning
               ? t("mdm.bulkProgress", {
                   done: progress.done,
                   total: progress.total,
@@ -245,98 +300,88 @@ function MdmPage() {
               : t("mdm.plan")}
           </Button>
         </form>
-        {prefix.trim() && !isPlanningMany && (
-          <p
-            data-testid="mdm-bulk-preview"
-            className="text-xs text-muted-foreground"
-          >
-            {t("mdm.bulkPreview", {
-              first: `${prefix.trim()}${Number(from) || 1}`,
-              last: `${prefix.trim()}${(Number(from) || 1) + (Number(count) || 1) - 1}`,
-            })}
-          </p>
-        )}
+        <p
+          data-testid="mdm-plan-preview"
+          className="text-xs text-muted-foreground min-h-4"
+        >
+          {wanted.length === 1
+            ? t("mdm.previewOne", { callsign: wanted[0] })
+            : wanted.length > 1
+              ? t("mdm.preview", {
+                  first: wanted[0],
+                  last: wanted[wanted.length - 1],
+                  count: wanted.length,
+                })
+              : ""}
+        </p>
         {progress.failed.length > 0 && (
-          <p data-testid="mdm-bulk-failed" className="text-xs text-destructive">
+          <p data-testid="mdm-plan-failed" className="text-xs text-destructive">
             {t("mdm.bulkFailed", {
-              callsigns: progress.failed
-                .map((failure) => failure.callsign)
-                .join(", "),
+              callsigns: progress.failed.map((f) => f.callsign).join(", "),
             })}
           </p>
         )}
       </section>
 
-      <section data-testid="mdm-waiting" className="space-y-3">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {t("mdm.waitingTitle")}
-          </h2>
-          {waiting.length > 0 && (
-            <Button
-              data-testid="mdm-export-button"
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                downloadCsv("mdm-devices.csv", devicesToCsv(waiting))
-              }
-            >
-              <Download className="w-4 h-4 mr-2" />
-              {t("mdm.export", { count: waiting.length })}
-            </Button>
-          )}
-        </div>
-        <p className="text-sm text-muted-foreground">{t("mdm.waitingDesc")}</p>
-        {waiting.length === 0 ? (
-          <p
-            data-testid="mdm-waiting-empty"
-            className="text-sm text-muted-foreground py-4"
-          >
-            {t("mdm.waitingEmpty")}
+      {lastRun.length > 0 && (
+        <section
+          data-testid="mdm-last-run"
+          className="flex flex-wrap items-center justify-between gap-3 border border-primary/40 rounded-2xl bg-primary/5 p-4"
+        >
+          <p className="text-sm">
+            {t("mdm.lastRun", { count: lastRun.length })}
           </p>
-        ) : (
-          <div className="grid gap-3">
-            {waiting.map((device) => (
-              <div
-                data-testid="mdm-waiting-item"
-                data-callsign={device.callsign}
-                key={device.callsign}
-                className="flex items-center gap-4 border border-border rounded-2xl bg-card p-4"
-              >
-                <div className="p-3 rounded-xl bg-primary/10">
-                  <Smartphone className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CopyField
-                    label={t("mdm.deviceName", { callsign: device.callsign })}
-                    value={device.deviceName}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {enrolled.length > 0 && (
-        <section data-testid="mdm-enrolled" className="space-y-3">
-          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {t("mdm.enrolledTitle")}
-          </h2>
-          <div className="grid gap-2">
-            {enrolled.map((device) => (
-              <p
-                data-testid="mdm-enrolled-item"
-                data-callsign={device.callsign}
-                key={device.callsign}
-                className="text-sm font-mono"
-              >
-                {device.callsign}
-              </p>
-            ))}
-          </div>
+          <Button
+            data-testid="mdm-export-last"
+            onClick={() =>
+              downloadCsv("mdm-devices-new.csv", devicesToCsv(lastRun))
+            }
+          >
+            <Download className="w-4 h-4 mr-2" />
+            {t("mdm.exportLast", { count: lastRun.length })}
+          </Button>
         </section>
       )}
+
+      <section data-testid="mdm-devices" className="space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-semibold">
+            {t("mdm.devicesTitle", { count: (devices ?? []).length })}
+          </h2>
+          {(devices ?? []).length > 0 && (
+            <div className="flex items-center gap-2">
+              <Input
+                data-testid="mdm-filter-input"
+                className="w-48"
+                value={filter}
+                onChange={(event) => setFilter(event.target.value)}
+                placeholder={t("mdm.filterPlaceholder")}
+              />
+              <Button
+                data-testid="mdm-export-button"
+                variant="outline"
+                onClick={() =>
+                  downloadCsv("mdm-devices.csv", devicesToCsv(shown))
+                }
+              >
+                <Download className="w-4 h-4 mr-2" />
+                {t("mdm.export", { count: shown.length })}
+              </Button>
+            </div>
+          )}
+        </div>
+        <p className="text-sm text-muted-foreground">{t("mdm.devicesDesc")}</p>
+        {shown.length === 0 ? (
+          <p
+            data-testid="mdm-devices-empty"
+            className="text-sm text-muted-foreground py-6"
+          >
+            {(devices ?? []).length === 0 ? t("mdm.empty") : t("mdm.noneMatch")}
+          </p>
+        ) : (
+          <DeviceTable devices={shown} />
+        )}
+      </section>
     </div>
   );
 }
