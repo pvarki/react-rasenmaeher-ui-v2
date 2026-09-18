@@ -93,6 +93,7 @@ function RootLayout() {
         "/manage-users",
         "/add-users",
         "/admin-tools",
+        "/mdm",
       ];
       const isAdminPath = adminPaths.some((path) =>
         location.pathname.startsWith(path),
