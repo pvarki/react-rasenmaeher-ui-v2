@@ -14,6 +14,8 @@ import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
 import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
+import { IosInstallFlow } from "@/components/mtls/IosInstallFlow";
+import { downloadProfile, profileUrl } from "@/lib/downloadProfile";
 import {
   getOperatingSystem,
   getMtlsUrl,
@@ -60,12 +62,13 @@ function MtlsInstallPage() {
     }
   }, [userCallsign]);
 
-  // The Android flow walks the user through it, so the guide would only be in the way.
+  // The guided flows walk the user through it, so the guide would only be in the way.
   useEffect(() => {
     if (!userOS) return;
-    const androidPhone =
-      userOS === "Android" && window.matchMedia("(max-width: 767px)").matches;
-    setShowGuide(!androidPhone);
+    const guidedPhone =
+      (userOS === "Android" || userOS === "iOS") &&
+      window.matchMedia("(max-width: 767px)").matches;
+    setShowGuide(!guidedPhone);
   }, [userOS]);
 
   const osToShow = selectedOS || userOS;
@@ -73,13 +76,17 @@ function MtlsInstallPage() {
   const mtlsUrl = getMtlsUrl();
 
   const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
+  const useIosFlow = isMobile && osToShow === "iOS" && !forceClassic;
+  const useStepFlow = useAndroidFlow || useIosFlow;
+  // Apple cannot import a password-less PKCS12 at all, so both get the profile instead.
+  const applePlatform = osToShow === "iOS" || osToShow === "MacOS";
 
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
       localStorage.setItem("cert_downloaded", "true");
       setCertDownloaded(true);
       setDownloadCount((n) => n + 1);
-      if (!useAndroidFlow) {
+      if (!useStepFlow) {
         toast.success(t("mtlsInstall.certificateDownloaded"));
       }
     },
@@ -92,11 +99,20 @@ function MtlsInstallPage() {
   const canNavigate = certDownloaded;
 
   const handleDownloadKey = () => {
-    if (callsign) {
-      getCertificateMutation.mutate({ callsign, deployment });
-    } else {
+    if (!callsign) {
       toast.error(t("mtlsInstall.callsignNotFound"));
+      return;
     }
+    if (applePlatform) {
+      localStorage.setItem("cert_downloaded", "true");
+      setCertDownloaded(true);
+      downloadProfile(profileUrl(callsign, deployment)).catch((err: Error) => {
+        console.error("Profile download error:", err);
+        toast.error(err.message || t("mtlsInstall.downloadFailed"));
+      });
+      return;
+    }
+    getCertificateMutation.mutate({ callsign, deployment });
   };
 
   const platformInstructions =
@@ -129,12 +145,12 @@ function MtlsInstallPage() {
           <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
             <div
               className={
-                useAndroidFlow
+                useStepFlow
                   ? "flex w-full max-w-6xl flex-1"
                   : "w-full max-w-6xl space-y-8 py-8"
               }
             >
-              {!useAndroidFlow && <MtlsPageHeader deployment={deployment} />}
+              {!useStepFlow && <MtlsPageHeader deployment={deployment} />}
 
               {useAndroidFlow ? (
                 <AndroidInstallFlow
@@ -144,6 +160,17 @@ function MtlsInstallPage() {
                   onDownload={handleDownloadKey}
                   isDownloading={getCertificateMutation.isLoading}
                   downloadCount={downloadCount}
+                  onUseOtherPlatform={() => setForceClassic(true)}
+                />
+              ) : useIosFlow ? (
+                <IosInstallFlow
+                  callsign={callsign}
+                  profileUrl={profileUrl(callsign, deployment)}
+                  mtlsUrl={mtlsUrl}
+                  onDownloaded={() => {
+                    localStorage.setItem("cert_downloaded", "true");
+                    setCertDownloaded(true);
+                  }}
                   onUseOtherPlatform={() => setForceClassic(true)}
                 />
               ) : (
