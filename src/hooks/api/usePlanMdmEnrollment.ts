@@ -14,7 +14,7 @@ export interface PlannedDevice {
   deviceName: string;
 }
 
-async function planMdmEnrollment({
+export async function planMdmEnrollment({
   callsign,
 }: {
   callsign: string;
