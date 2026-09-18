@@ -183,10 +183,6 @@
         "description": "När det är installerat, klicka på 'Navigera till tjänster' för att komma åt den säkra domänen. Din webbläsare kommer att använda ditt nyinstallerade certifikat för att autentisera automatiskt. Du är nu redo att använda alla taktiska tjänster!"
       }
     },
-    "androidWarning": {
-      "title": "Android-användare:",
-      "description": "När du laddar ner certifikatet visas en popup som frågar efter ett lösenord. Använd din anropssignal som lösenord."
-    },
     "installSteps": {
       "title": "Installationssteg"
     }
@@ -523,7 +519,6 @@
     "selectPlaceholder": "Välj OS",
     "instructionsTitle": "Installationsinstruktioner:",
     "note": "Obs:",
-    "passwordLabel": "Lösenord för certifikat:",
     "downloadButton": "Ladda ner nyckel",
     "downloading": "Laddar ner...",
     "navigateButton": "Fortsätt med nyckeln",
@@ -544,7 +539,7 @@
           "2": "Öppna .pfx-filen",
           "3": "Välj 'Current User' eller 'Local Machine'",
           "4": "Låt systemet välja lagringsplats automatiskt",
-          "5": "Ange din anropssignal när du uppmanas",
+          "5": "Lämna lösenordet tomt och klicka på Nästa",
           "6": "Slutför installationen",
           "7": "Fortsätt med nyckeln"
         },
@@ -555,15 +550,15 @@
       },
       "MacOS": {
         "steps": {
-          "1": "Ladda ner certifikatet",
-          "2": "Öppna .pfx-filen i Nyckelhanteraren",
-          "3": "Ange din anropssignal som lösenord",
-          "4": "Verifiera att certifikatet lagts till",
+          "1": "Ladda ner din profil",
+          "2": "Öppna den nedladdade .mobileconfig-filen",
+          "3": "Öppna Systeminställningar → Allmänt → Enhetshantering",
+          "4": "Välj profilen, klicka på Installera, ange ditt Mac-lösenord",
           "5": "Fortsätt med nyckeln"
         },
         "notes": {
-          "1": "macOS installerar certifikatet automatiskt",
-          "2": "Välj 'Always Trust' om du uppmanas"
+          "1": "Profilen installerar certifikatet i din inloggningsnyckelring.",
+          "2": "Profilen är osignerad, så macOS visar den som overifierad."
         }
       },
       "Linux": {
@@ -592,17 +587,16 @@
       },
       "iOS": {
         "steps": {
-          "1": "Ladda ner certifikatet",
-          "2": "Öppna filen och tillåt installation",
-          "3": "Gå till: Inställningar → Allmänt → VPN & enhetshantering",
-          "4": "Öppna nedladdad profil",
-          "5": "Ange din anropssignal",
-          "6": "Installera",
-          "7": "Fortsätt med nyckeln"
+          "1": "Ladda ner din profil",
+          "2": "Öppna Inställningar",
+          "3": "Tryck på 'Profil hämtad' högst upp",
+          "4": "Tryck på Installera, ange lösenkod, Installera igen",
+          "5": "Inom 8 minuter, annars raderar iOS den",
+          "6": "Fortsätt med nyckeln"
         },
         "notes": {
-          "1": "Certifikatet måste markeras som betrott",
-          "2": "iOS kan visa en varning"
+          "1": "Använd Safari. Andra webbläsare på iPhone kan inte installera profilen.",
+          "2": "Profilen är osignerad, så iOS visar den som overifierad."
         }
       }
     },
@@ -622,6 +616,30 @@
         "action": "GÅ TILL TJÄNSTEN"
       },
       "notAndroid": "Inte en Android-telefon?"
+    },
+    "ios": {
+      "download": {
+        "title": "Hämta ditt certifikat",
+        "action": "LADDA NER PROFIL",
+        "notSafari": "Öppna sidan i Safari. Andra webbläsare på iPhone kan inte installera den.",
+        "failed": "Nedladdningen misslyckades. Tryck igen."
+      },
+      "install": {
+        "title": "Installera den nu",
+        "steps": {
+          "1": "Öppna Inställningar",
+          "2": "Tryck på Profil hämtad, högst upp",
+          "3": "Tryck på Installera och ange lösenkoden",
+          "4": "Tryck på Installera igen vid varningen"
+        },
+        "hurry": "Gör det nu. iPhone raderar profilen efter 8 minuter.",
+        "next": "Installerad – fortsätt"
+      },
+      "done": {
+        "title": "Klart.",
+        "action": "GÅ TILL TJÄNSTEN"
+      },
+      "notIos": "Inte en iPhone?"
     }
   },
   "browserGuard": {

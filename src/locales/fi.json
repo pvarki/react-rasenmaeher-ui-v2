@@ -183,10 +183,6 @@
         "description": "Kun asennus on valmis, klikkaa 'Siirry palveluihin' päästäksesi turvalliseen verkkotunnukseen. Selaimesi käyttää juuri asennettua varmennettasi automaattiseen tunnistautumiseen. Olet nyt valmis käyttämään kaikkia taktisia palveluita!"
       }
     },
-    "androidWarning": {
-      "title": "Android-käyttäjät:",
-      "description": "Kun lataat varmenteen, ponnahdusikkuna kysyy salasanaa. Käytä kutsutunnustasi salasanana."
-    },
     "installSteps": {
       "title": "Asennusohjeet"
     }
@@ -523,7 +519,6 @@
     "selectPlaceholder": "Valitse OS",
     "instructionsTitle": "Asennusohjeet:",
     "note": "Huom:",
-    "passwordLabel": "Varmenteen salasana:",
     "downloadButton": "Lataa avain",
     "downloading": "Ladataan...",
     "navigateButton": "Siirry avaimella",
@@ -544,7 +539,7 @@
           "2": "Avaa .pfx-tiedosto tuonti-ikkunaan",
           "3": "Valitse 'Current User' tai 'Local Machine' (suositus: Current User)",
           "4": "Valitse 'Automatically select the certificate store'",
-          "5": "Anna kutsutunnuksesi pyydettäessä",
+          "5": "Jätä salasana tyhjäksi ja paina Seuraava",
           "6": "Viimeistele asennus",
           "7": "Käytä 'Siirry avaimella' -painiketta palveluihin"
         },
@@ -555,15 +550,15 @@
       },
       "MacOS": {
         "steps": {
-          "1": "Lataa varmenteesi",
-          "2": "Avaa .pfx tiedosto Keychain Accessiin",
-          "3": "Syötä kutsutunnuksesi salasanaksi",
-          "4": "Varmista, että varmenne näkyy login-avaimiston alla",
+          "1": "Lataa profiilisi",
+          "2": "Avaa ladattu .mobileconfig-tiedosto",
+          "3": "Avaa Järjestelmäasetukset → Yleiset → Laitehallinta",
+          "4": "Valitse profiili, osoita Asenna, anna Macin salasana",
           "5": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "macOS asentaa varmenteen automaattisesti Keychainiin",
-          "2": "Jos kysytään luottamuksesta, valitse 'Always Trust'"
+          "1": "Profiili asentaa varmenteen kirjautumisavainnippuusi.",
+          "2": "Profiilia ei ole allekirjoitettu, joten macOS näyttää sen varmentamattomana."
         }
       },
       "Linux": {
@@ -592,17 +587,16 @@
       },
       "iOS": {
         "steps": {
-          "1": "Lataa varmenteesi",
-          "2": "Avaa tiedosto ja hyväksy asennus",
-          "3": "Siirry: Asetukset → Yleiset → VPN ja laitehallinta",
-          "4": "Avaa ladattu profiili",
-          "5": "Syötä kutsutunnuksesi",
-          "6": "Paina 'Asenna' kahdesti",
-          "7": "Siirry palveluihin avaimella"
+          "1": "Lataa profiilisi",
+          "2": "Avaa Asetukset",
+          "3": "Napauta ylhäältä 'Profiili ladattu'",
+          "4": "Napauta Asenna, anna pääsykoodi, Asenna uudelleen",
+          "5": "8 minuutin kuluessa, muuten iOS poistaa sen",
+          "6": "Siirry palveluihin avaimella"
         },
         "notes": {
-          "1": "Varmenteelle tulee antaa luottamus ennen käyttöä",
-          "2": "Saatat saada varoituksen varmenteen asennuksesta"
+          "1": "Käytä Safaria. Muut iPhonen selaimet eivät voi asentaa profiilia.",
+          "2": "Profiilia ei ole allekirjoitettu, joten iOS näyttää sen varmentamattomana."
         }
       }
     },
@@ -622,6 +616,30 @@
         "action": "SIIRRY PALVELUUN"
       },
       "notAndroid": "Eikö laite ole Android?"
+    },
+    "ios": {
+      "download": {
+        "title": "Hae varmenteesi",
+        "action": "LATAA PROFIILI",
+        "notSafari": "Avaa tämä sivu Safarissa. Muut iPhonen selaimet eivät voi asentaa sitä.",
+        "failed": "Lataus epäonnistui. Napauta uudelleen."
+      },
+      "install": {
+        "title": "Asenna se nyt",
+        "steps": {
+          "1": "Avaa Asetukset",
+          "2": "Napauta ylhäältä kohtaa Profiili ladattu",
+          "3": "Napauta Asenna ja anna pääsykoodi",
+          "4": "Napauta varoituksessa Asenna uudelleen"
+        },
+        "hurry": "Tee se heti. iPhone poistaa profiilin 8 minuutissa.",
+        "next": "Asennettu – jatka"
+      },
+      "done": {
+        "title": "Valmis.",
+        "action": "SIIRRY PALVELUUN"
+      },
+      "notIos": "Eikö ole iPhone?"
     }
   },
   "browserGuard": {

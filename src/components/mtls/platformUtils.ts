@@ -98,7 +98,6 @@ export const PLATFORM_INSTRUCTIONS: Record<string, PlatformInstructions> = {
       "mtlsInstall.platforms.iOS.steps.4",
       "mtlsInstall.platforms.iOS.steps.5",
       "mtlsInstall.platforms.iOS.steps.6",
-      "mtlsInstall.platforms.iOS.steps.7",
     ],
     notes: [
       "mtlsInstall.platforms.iOS.notes.1",
