@@ -581,11 +581,9 @@
       "Android": {
         "steps": {
           "1": "Download your certificate",
-          "2": "Your device will automatically open the installation window",
+          "2": "Your device opens the installation window automatically",
           "3": "Enter your callsign as the password",
-          "4": "Select 'VPN and app usage certificate' as the certificate purpose",
-          "5": "Do not change the certificate name and press 'OK'",
-          "6": "Proceed to the services using the key"
+          "4": "Proceed to the services using the key"
         },
         "notes": {
           "1": "Requires Android 4.4 or newer",

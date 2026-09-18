@@ -110,7 +110,7 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
       Windows: 7,
       MacOS: 5,
       Linux: 4,
-      Android: 6,
+      Android: 4,
       iOS: 7,
     };
 

@@ -74,8 +74,6 @@ export const PLATFORM_INSTRUCTIONS: Record<string, PlatformInstructions> = {
       "mtlsInstall.platforms.Android.steps.2",
       "mtlsInstall.platforms.Android.steps.3",
       "mtlsInstall.platforms.Android.steps.4",
-      "mtlsInstall.platforms.Android.steps.5",
-      "mtlsInstall.platforms.Android.steps.6",
     ],
     notes: [
       "mtlsInstall.platforms.Android.notes.1",

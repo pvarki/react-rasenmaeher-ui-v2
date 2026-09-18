@@ -583,9 +583,7 @@
           "1": "Lataa varmenteesi laitteellesi",
           "2": "Laitteesi avaa asennusikkunan automaattisesti",
           "3": "Syötä salasanaksi kutsumanimesi",
-          "4": "Valitse 'VPN ja sovelluskäytön varmenne' varmenteen käyttötarkoitukseksi",
-          "5": "Älä vaihda varmenteen nimeä ja paina 'OK'",
-          "6": "Siirry palveluihin avaimella"
+          "4": "Siirry palveluihin avaimella"
         },
         "notes": {
           "1": "Vaatii Android 4.4 tai uudemman",
