@@ -2,20 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ArrowUp,
-  Check,
-  ChevronLeft,
-  Copy,
-  Download,
-  Loader2,
-} from "lucide-react";
+import { ArrowUp, ChevronLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
 import { cn } from "@/lib/utils";
 
 const STEP_KEY = "mtls_android_step";
-const STEPS = ["download", "password", "done"] as const;
+const STEPS = ["download", "install", "done"] as const;
 // Android opens the installer within a second; past this it is not coming.
 const DIALOG_WAIT_MS = 3500;
 
@@ -39,7 +31,6 @@ export function AndroidInstallFlow({
   onUseOtherPlatform,
 }: AndroidInstallFlowProps) {
   const { t } = useTranslation();
-  const { isCopied, handleCopy } = useCopyToClipboard();
 
   // Stored against the callsign: progress survives the system installer taking
   // over, but the next person to enrol on this device starts from the top.
@@ -145,16 +136,15 @@ export function AndroidInstallFlow({
 
       {/* The installer dialog covers the middle of the screen, so the password
           lives at the top where it stays readable behind it. */}
-      {current === "password" && (
+      {/* The installer dialogs cover the middle of the screen, so the one
+          instruction lives at the top where it stays readable behind them. */}
+      {current === "install" && (
         <>
-          <p className="text-xl font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("mtlsInstall.android.password.label")}
-          </p>
           <p
-            data-testid="android-password"
-            className="-mt-4 font-mono font-bold leading-none break-all text-[clamp(3rem,17vw,6rem)]"
+            data-testid="android-press-ok"
+            className="font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]"
           >
-            {callsign}
+            {t("mtlsInstall.android.install.title")}
           </p>
 
           {dialogMissing ? (
@@ -165,7 +155,7 @@ export function AndroidInstallFlow({
               <ArrowUp className="h-8 w-8 shrink-0 animate-bounce text-primary-light" />
               <div>
                 <p className="text-xl font-bold">
-                  {t("mtlsInstall.android.password.openDownload")}
+                  {t("mtlsInstall.android.install.openDownload")}
                 </p>
                 <p className="mt-1 font-mono text-sm break-all text-muted-foreground">
                   {fileName}
@@ -173,25 +163,10 @@ export function AndroidInstallFlow({
               </div>
             </div>
           ) : (
-            <p className="text-xl text-muted-foreground">
-              {t("mtlsInstall.android.password.hint")}
+            <p className="text-2xl text-muted-foreground">
+              {t("mtlsInstall.android.install.hint")}
             </p>
           )}
-
-          <Button
-            data-testid="android-copy-password"
-            data-copied={isCopied ? "true" : "false"}
-            onClick={() => handleCopy(callsign)}
-            variant="outline"
-            className="h-16 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-xl font-bold"
-          >
-            {isCopied ? (
-              <Check className="mr-3 h-6 w-6" />
-            ) : (
-              <Copy className="mr-3 h-6 w-6" />
-            )}
-            {t("mtlsInstall.android.password.action")}
-          </Button>
 
           <Button
             data-testid="android-next-button"
@@ -199,7 +174,7 @@ export function AndroidInstallFlow({
             variant="ghost"
             className="mt-auto h-14 w-full rounded-2xl border-2 text-lg text-white"
           >
-            {t("mtlsInstall.android.password.next")}
+            {t("mtlsInstall.android.install.next")}
           </Button>
         </>
       )}

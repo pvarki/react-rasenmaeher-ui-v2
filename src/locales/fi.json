@@ -611,11 +611,10 @@
         "title": "Hae avaimesi",
         "action": "LATAA AVAIN"
       },
-      "password": {
-        "label": "Salasana",
-        "hint": "Kirjoita se avautuneeseen ikkunaan.",
+      "install": {
+        "title": "PAINA OK",
+        "hint": "Kahdesti. Kaikki on jo valmiina.",
         "openDownload": "Avaa lataamasi tiedosto",
-        "action": "KOPIOI",
         "next": "Asennettu – jatka"
       },
       "done": {

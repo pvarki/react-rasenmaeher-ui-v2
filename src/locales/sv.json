@@ -611,11 +611,10 @@
         "title": "Hämta din nyckel",
         "action": "LADDA NER NYCKEL"
       },
-      "password": {
-        "label": "Lösenord",
-        "hint": "Skriv in det i fönstret som öppnades.",
+      "install": {
+        "title": "TRYCK OK",
+        "hint": "Två gånger. Allt är redan ifyllt.",
         "openDownload": "Öppna din nedladdning",
-        "action": "KOPIERA",
         "next": "Installerad – fortsätt"
       },
       "done": {

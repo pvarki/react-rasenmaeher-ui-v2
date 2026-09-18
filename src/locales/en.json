@@ -611,11 +611,10 @@
         "title": "Get your key",
         "action": "DOWNLOAD KEY"
       },
-      "password": {
-        "label": "Password",
-        "hint": "Type it in the window that opened.",
+      "install": {
+        "title": "PRESS OK",
+        "hint": "Twice. Everything is filled in already.",
         "openDownload": "Open your download",
-        "action": "COPY",
         "next": "Installed – continue"
       },
       "done": {
