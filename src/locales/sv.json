@@ -582,7 +582,7 @@
         "steps": {
           "1": "Ladda ner ditt certifikat",
           "2": "Din enhet öppnar installationsfönstret automatiskt",
-          "3": "Ange din inbjudningskod som lösenord",
+          "3": "Ange din anropssignal som lösenord",
           "4": "Välj 'VPN- och appanvändningscertifikat' som certifikatets användningsområde",
           "5": "Ändra inte certifikatets namn och tryck på 'OK'",
           "6": "Gå vidare till tjänsterna med nyckeln"
