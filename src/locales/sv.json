@@ -750,6 +750,16 @@
     "filterPlaceholder": "Filtrera",
     "empty": "Inga enheter planerade ännu.",
     "noneMatch": "Inget matchar filtret.",
-    "copyFor": "Kopiera namnet för {{callsign}}"
+    "copyFor": "Kopiera namnet för {{callsign}}",
+    "step1Title": "Ställ in MDM:en en gång",
+    "step1Body": "Lägg till den här miljön som SCEP-certifikatutfärdare, och en certifikatmall som namnger varje enhet. Detaljer nedan.",
+    "step2Title": "Planera enheterna här",
+    "step2Body": "En anropssignal per telefon. En anropssignal är förbrukad för gott när den använts, så planera bara det du behöver.",
+    "step3Title": "Lägg till och namnge telefonen",
+    "step3Body": "Anslut telefonen i din MDM som vanligt och ge värden namnet från tabellen. Inget mer behövs.",
+    "stepsNote": "Telefonen ber om sitt certifikat så snart den ansluter, innan du har namngett den, så det första försöket misslyckas. Det är väntat: det görs om automatiskt när värden har ett namn, och certifikatet kommer inom några minuter.",
+    "subjectTitle": "Certifikatmallens subject",
+    "subjectDesc": "Din MDM skriver dessa från värdens namnfält. Namnet bär anropssignalen och koden som bevisar att enheten var avsedd för den, så båda delarna måste nå begäran.",
+    "challengeNote": "Utmaningen finns i den här miljöns egen konfiguration, som RMSCEP_CHALLENGE. Den är ingen hemlighet, men den läses inte härifrån."
   }
 }

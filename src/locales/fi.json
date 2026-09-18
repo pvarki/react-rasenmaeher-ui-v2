@@ -750,6 +750,16 @@
     "filterPlaceholder": "Suodata",
     "empty": "Ei vielä suunniteltuja laitteita.",
     "noneMatch": "Mikään ei vastaa suodatinta.",
-    "copyFor": "Kopioi nimi kutsutunnukselle {{callsign}}"
+    "copyFor": "Kopioi nimi kutsutunnukselle {{callsign}}",
+    "step1Title": "Aseta MDM kerran",
+    "step1Body": "Lisää tämä ympäristö SCEP-varmennemyöntäjäksi ja varmennepohja, joka nimeää kunkin laitteen. Tarkemmat tiedot alla.",
+    "step2Title": "Suunnittele laitteet täällä",
+    "step2Body": "Yksi kutsutunnus puhelinta kohden. Kutsutunnus kuluu lopullisesti käytettäessä, joten suunnittele vain tarvittava määrä.",
+    "step3Title": "Lisää ja nimeä puhelin",
+    "step3Body": "Liitä puhelin MDM:ään tavalliseen tapaan ja anna sille taulukon mukainen nimi. Muuta ei tarvita.",
+    "stepsNote": "Puhelin pyytää varmennettaan heti liittyessään, ennen kuin olet nimennyt sen, joten ensimmäinen yritys epäonnistuu. Näin kuuluukin: se uusitaan automaattisesti kun laitteella on nimi, ja varmenne saapuu muutamassa minuutissa.",
+    "subjectTitle": "Varmennepohjan subject",
+    "subjectDesc": "MDM kirjoittaa nämä laitteen nimikentästä. Nimi sisältää kutsutunnuksen ja koodin, joka todistaa että laite on tarkoitettu sille, joten molempien osien on päästävä pyyntöön.",
+    "challengeNote": "Haaste on tämän ympäristön omassa konfiguraatiossa nimellä RMSCEP_CHALLENGE. Se ei ole salaisuus, mutta sitä ei lueta täältä."
   }
 }

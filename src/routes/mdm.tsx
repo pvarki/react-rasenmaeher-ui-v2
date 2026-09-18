@@ -4,7 +4,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Check, ChevronDown, Copy, Download, Settings2 } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  Copy,
+  Download,
+  Info,
+  Settings2,
+} from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
   useMdmEnrollments,
@@ -104,8 +111,65 @@ function SetupPanel() {
           </div>
           <CopyButton value={url} label={t("mdm.copy")} />
         </div>
+        <div className="space-y-1 pt-2 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            {t("mdm.subjectTitle")}
+          </p>
+          <p className="font-mono text-sm break-all">
+            CN=&lt;callsign&gt;, OU=&lt;callsign&gt;@&lt;code&gt;
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t("mdm.subjectDesc")}
+          </p>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          {t("mdm.challengeNote")}
+        </p>
       </CollapsibleContent>
     </Collapsible>
+  );
+}
+
+/** What an operator has to do, in order.
+ *
+ * On the page rather than behind a dialog: this is done rarely, the order matters, and the one
+ * step people cannot guess -- that the phone is named in the MDM AFTER it is added -- is the one
+ * that makes the difference between a working device and a puzzling one.
+ */
+function Steps() {
+  const { t } = useTranslation();
+  const steps = [
+    { title: t("mdm.step1Title"), body: t("mdm.step1Body") },
+    { title: t("mdm.step2Title"), body: t("mdm.step2Body") },
+    { title: t("mdm.step3Title"), body: t("mdm.step3Body") },
+  ];
+  return (
+    <section data-testid="mdm-steps" className="space-y-3">
+      <ol className="grid gap-3 sm:grid-cols-3">
+        {steps.map((step, index) => (
+          <li
+            data-testid="mdm-step"
+            key={step.title}
+            className="border border-border rounded-2xl bg-card p-4 space-y-1"
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+                {index + 1}
+              </span>
+              <h3 className="font-semibold text-sm">{step.title}</h3>
+            </div>
+            <p className="text-xs text-muted-foreground">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+      <p
+        data-testid="mdm-steps-note"
+        className="flex gap-2 text-xs text-muted-foreground"
+      >
+        <Info className="w-4 h-4 shrink-0 mt-px" />
+        <span>{t("mdm.stepsNote")}</span>
+      </p>
+    </section>
   );
 }
 
@@ -233,6 +297,8 @@ function MdmPage() {
         <h1 className="text-2xl font-bold">{t("mdm.title")}</h1>
         <p className="text-sm text-muted-foreground">{t("mdm.subtitle")}</p>
       </div>
+
+      <Steps />
 
       <SetupPanel />
 

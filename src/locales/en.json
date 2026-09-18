@@ -750,6 +750,16 @@
     "filterPlaceholder": "Filter",
     "empty": "No devices planned yet.",
     "noneMatch": "Nothing matches that filter.",
-    "copyFor": "Copy the name for {{callsign}}"
+    "copyFor": "Copy the name for {{callsign}}",
+    "step1Title": "Set up the MDM once",
+    "step1Body": "Add this deployment as a SCEP certificate authority, and a certificate template that names each device. Details below.",
+    "step2Title": "Plan the devices here",
+    "step2Body": "One callsign per phone. A callsign is spent for good once used, so plan what you need and no more.",
+    "step3Title": "Add and name the phone",
+    "step3Body": "Enrol the phone in your MDM as usual, then give that host the name from the table. Nothing else is needed.",
+    "stepsNote": "The phone asks for its certificate the moment it enrols, before you have named it, so the first attempt fails. That is expected: it is retried automatically once the host has a name, and the certificate arrives within a few minutes.",
+    "subjectTitle": "The certificate template's subject",
+    "subjectDesc": "Your MDM writes these from the host's name field. The name carries the callsign and the code that proves the device was meant to have it, so both parts have to reach the request.",
+    "challengeNote": "The challenge is in this deployment's own configuration, as RMSCEP_CHALLENGE. It is not a secret, but it is not read from here."
   }
 }
