@@ -610,34 +610,20 @@
     },
     "android": {
       "download": {
-        "title": "Ladda ner din nyckel",
-        "body": "En tryckning. Filen hamnar i Nedladdningar.",
-        "action": "Ladda ner nyckel"
+        "title": "Hämta din nyckel",
+        "action": "LADDA NER NYCKEL"
       },
       "password": {
-        "title": "Kopiera lösenordet",
-        "body": "Android frågar efter ett lösenord när nyckeln installeras. Lösenordet är din anropssignal. Kopiera det nu så att du kan klistra in det.",
         "label": "Lösenord",
-        "action": "Kopiera lösenord",
-        "copied": "Kopierat",
-        "next": "Jag har det, fortsätt"
-      },
-      "install": {
-        "title": "Installera nyckeln",
-        "body": "Svep ned från skärmens överkant och tryck på den färdiga nedladdningen, eller öppna Filer och tryck på den under Nedladdningar.",
-        "steps": {
-          "1": "Klistra in lösenordet när det efterfrågas.",
-          "2": "Välj 'VPN och appar' som användningsområde.",
-          "3": "Behåll det föreslagna namnet och tryck OK."
-        },
-        "troubleTitle": "Hände ingenting?",
-        "trouble": "Öppna Inställningar → Säkerhet → Fler säkerhetsinställningar → Kryptering och autentiseringsuppgifter → Installera ett certifikat → VPN- och appanvändarcertifikat, och välj filen ovan från Nedladdningar.",
-        "next": "Nyckeln installerad, fortsätt"
+        "hint": "Skriv in det i fönstret som öppnades.",
+        "openDownload": "Öppna din nedladdning",
+        "action": "KOPIERA",
+        "next": "Installerad – fortsätt"
       },
       "done": {
-        "title": "Du är klar",
-        "body": "Gå vidare till tjänsterna. Webbläsaren frågar vilket certifikat som ska användas — välj det som bär din anropssignal.",
-        "action": "Gå vidare till tjänsterna"
+        "title": "Klart.",
+        "action": "GÅ TILL TJÄNSTEN",
+        "retry": "Installerades nyckeln inte?"
       },
       "notAndroid": "Inte en Android-telefon?"
     }

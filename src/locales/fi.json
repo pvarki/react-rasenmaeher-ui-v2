@@ -610,36 +610,22 @@
     },
     "android": {
       "download": {
-        "title": "Lataa avaimesi",
-        "body": "Yksi napautus. Tiedosto tallentuu Lataukset-kansioon.",
-        "action": "Lataa avain"
+        "title": "Hae avaimesi",
+        "action": "LATAA AVAIN"
       },
       "password": {
-        "title": "Kopioi salasana",
-        "body": "Android kysyy salasanaa avainta asennettaessa. Salasana on kutsumanimesi. Kopioi se nyt, niin voit liittää sen.",
         "label": "Salasana",
-        "action": "Kopioi salasana",
-        "copied": "Kopioitu",
-        "next": "Sain sen, jatka"
-      },
-      "install": {
-        "title": "Asenna avain",
-        "body": "Pyyhkäise näytön yläreunasta alas ja napauta valmista latausta, tai avaa Tiedostot ja napauta sitä Lataukset-kansiossa.",
-        "steps": {
-          "1": "Liitä salasana, kun sitä kysytään.",
-          "2": "Valitse käyttötarkoitukseksi 'VPN ja sovellukset'.",
-          "3": "Älä vaihda ehdotettua nimeä ja napauta OK."
-        },
-        "troubleTitle": "Eikö mitään avautunut?",
-        "trouble": "Avaa Asetukset → Suojaus → Lisää suojausasetuksia → Salaus ja tunnistetiedot → Asenna varmenne → VPN- ja sovellusvarmenne, ja valitse yllä näkyvä tiedosto Lataukset-kansiosta.",
-        "next": "Avain asennettu, jatka"
+        "hint": "Kirjoita se avautuneeseen ikkunaan.",
+        "openDownload": "Avaa lataamasi tiedosto",
+        "action": "KOPIOI",
+        "next": "Asennettu – jatka"
       },
       "done": {
-        "title": "Olet valmis",
-        "body": "Jatka palveluihin. Selain kysyy, mitä varmennetta käytetään — valitse se, jonka nimessä on kutsumanimesi.",
-        "action": "Jatka palveluihin"
+        "title": "Valmista.",
+        "action": "SIIRRY PALVELUUN",
+        "retry": "Eikö avain asentunut?"
       },
-      "notAndroid": "Eikö laite ole Android-puhelin?"
+      "notAndroid": "Eikö laite ole Android?"
     }
   },
   "browserGuard": {
