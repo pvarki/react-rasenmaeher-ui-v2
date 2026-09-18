@@ -620,8 +620,7 @@
       },
       "done": {
         "title": "Valmista.",
-        "action": "SIIRRY PALVELUUN",
-        "retry": "Eikö avain asentunut?"
+        "action": "SIIRRY PALVELUUN"
       },
       "notAndroid": "Eikö laite ole Android?"
     }

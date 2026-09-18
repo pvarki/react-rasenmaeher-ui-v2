@@ -2,7 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowUp, Check, Copy, Download, Loader2 } from "lucide-react";
+import {
+  ArrowUp,
+  Check,
+  ChevronLeft,
+  Copy,
+  Download,
+  Loader2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
 import { cn } from "@/lib/utils";
@@ -61,8 +68,13 @@ export function AndroidInstallFlow({
     setStep(next);
   };
 
+  // Only the download finishing *here* advances the flow. Keying off the stored
+  // flag instead would pin the user forward: it never clears, so step zero
+  // would bounce them straight back to the password.
+  const wasDownloaded = useRef(certDownloaded);
   useEffect(() => {
-    if (certDownloaded && step === 0) go(1);
+    if (certDownloaded && !wasDownloaded.current && step === 0) go(1);
+    wasDownloaded.current = certDownloaded;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [certDownloaded, step]);
 
@@ -204,26 +216,34 @@ export function AndroidInstallFlow({
               {t("mtlsInstall.android.done.action")}
             </Button>
           </a>
-          <Button
-            data-testid="android-back-button"
-            onClick={() => go(1)}
-            variant="ghost"
-            className="text-muted-foreground"
-          >
-            {t("mtlsInstall.android.done.retry")}
-          </Button>
         </>
       )}
 
-      <Button
-        data-testid="android-other-platform"
-        variant="link"
-        size="sm"
-        className="mt-auto text-muted-foreground"
-        onClick={onUseOtherPlatform}
-      >
-        {t("mtlsInstall.android.notAndroid")}
-      </Button>
+      <div className="mt-auto flex items-center justify-between">
+        {step > 0 ? (
+          <Button
+            data-testid="android-back-button"
+            variant="link"
+            size="sm"
+            className="px-0 text-base text-muted-foreground"
+            onClick={() => go(step - 1)}
+          >
+            <ChevronLeft className="mr-1 h-5 w-5" />
+            {t("common.back")}
+          </Button>
+        ) : (
+          <span />
+        )}
+        <Button
+          data-testid="android-other-platform"
+          variant="link"
+          size="sm"
+          className="px-0 text-muted-foreground"
+          onClick={onUseOtherPlatform}
+        >
+          {t("mtlsInstall.android.notAndroid")}
+        </Button>
+      </div>
     </div>
   );
 }

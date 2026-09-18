@@ -620,8 +620,7 @@
       },
       "done": {
         "title": "Ready.",
-        "action": "GO TO THE SERVICE",
-        "retry": "Key did not install?"
+        "action": "GO TO THE SERVICE"
       },
       "notAndroid": "Not an Android phone?"
     }

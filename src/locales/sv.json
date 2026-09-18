@@ -620,8 +620,7 @@
       },
       "done": {
         "title": "Klart.",
-        "action": "GÅ TILL TJÄNSTEN",
-        "retry": "Installerades nyckeln inte?"
+        "action": "GÅ TILL TJÄNSTEN"
       },
       "notAndroid": "Inte en Android-telefon?"
     }
