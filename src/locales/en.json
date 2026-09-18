@@ -607,6 +607,39 @@
           "2": "You may see a prompt asking to allow certificate installation"
         }
       }
+    },
+    "android": {
+      "download": {
+        "title": "Download your key",
+        "body": "One tap. The file lands in your Downloads.",
+        "action": "Download key"
+      },
+      "password": {
+        "title": "Copy your password",
+        "body": "Android asks for a password while installing the key. The password is your callsign. Copy it now so you can paste it.",
+        "label": "Password",
+        "action": "Copy password",
+        "copied": "Copied",
+        "next": "I have it, continue"
+      },
+      "install": {
+        "title": "Install the key",
+        "body": "Swipe down from the top of the screen and tap the finished download, or open Files and tap it under Downloads.",
+        "steps": {
+          "1": "Paste the password when asked.",
+          "2": "Set 'Used for' to 'VPN and apps'.",
+          "3": "Keep the suggested name and tap OK."
+        },
+        "troubleTitle": "Nothing opened?",
+        "trouble": "Open Settings → Security → More security settings → Encryption & credentials → Install a certificate → VPN & app user certificate, then pick the file above from Downloads.",
+        "next": "Key installed, continue"
+      },
+      "done": {
+        "title": "You are ready",
+        "body": "Continue to the services. The browser asks which certificate to use — choose the one named after your callsign.",
+        "action": "Continue to services"
+      },
+      "notAndroid": "Not an Android phone?"
     }
   },
   "browserGuard": {
