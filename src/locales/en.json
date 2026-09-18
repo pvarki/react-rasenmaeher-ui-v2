@@ -675,7 +675,9 @@
     "help1": "User Management - Approve, promote, demote, or remove users",
     "help2": "Invite Codes - Generate and manage user invite codes",
     "help3": "Keycloak - Advanced identity inspection and troubleshooting",
-    "help4": "External Services - Access Takserver and Battlelog servers"
+    "help4": "External Services - Access Takserver and Battlelog servers",
+    "mdmTitle": "Devices",
+    "mdmDesc": "Plan callsigns for phones that enrol through your MDM"
   },
   "feedbackForm": {
     "title": "Send feedback",
@@ -713,5 +715,26 @@
     "send": "Send feedback",
     "sending": "Sending...",
     "thanks": "Thanks for the feedback!"
+  },
+  "mdm": {
+    "title": "Devices",
+    "subtitle": "Phones enrol through your MDM and come back as users of this deployment. Plan a callsign for each device here, then tell the MDM about it.",
+    "serviceTitle": "What to tell the MDM",
+    "serviceDesc": "Configure this once as a SCEP certificate authority. The challenge is in the deployment's own configuration, as RMSCEP_CHALLENGE.",
+    "scepUrl": "SCEP URL",
+    "planTitle": "Plan a device",
+    "planDesc": "A device can only enrol under a callsign planned for it here. Nothing else can claim one.",
+    "callsignPlaceholder": "Callsign, for example OTTER1",
+    "plan": "Plan",
+    "planning": "Planning...",
+    "planned": "Planned {{callsign}}",
+    "waitingTitle": "Waiting for a device",
+    "waitingDesc": "Give the device this name in your MDM. It carries the callsign and the code that proves this device was meant to have it, so copy the whole line.",
+    "waitingEmpty": "Nothing planned yet.",
+    "deviceName": "Name for {{callsign}} in the MDM",
+    "enrolledTitle": "Enrolled",
+    "copy": "Copy",
+    "copyFailed": "Could not copy",
+    "forbidden": "Only admins can manage devices"
   }
 }

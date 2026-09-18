@@ -675,7 +675,9 @@
     "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
     "help2": "Inbjudningskoder – generera och hantera koder",
     "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL"
+    "help4": "Externa tjänster – åtkomst till TAK och BL",
+    "mdmTitle": "Enheter",
+    "mdmDesc": "Planera anropssignaler för telefoner som ansluter via din MDM"
   },
   "feedbackForm": {
     "title": "Skicka feedback",
@@ -713,5 +715,26 @@
     "send": "Skicka feedback",
     "sending": "Skickar...",
     "thanks": "Tack för din feedback!"
+  },
+  "mdm": {
+    "title": "Enheter",
+    "subtitle": "Telefoner ansluter via din MDM och kommer tillbaka som användare i den här miljön. Planera en anropssignal för varje enhet här och berätta den sedan för MDM:en.",
+    "serviceTitle": "Vad MDM:en ska få veta",
+    "serviceDesc": "Detta ställs in en gång som SCEP-certifikatutfärdare. Utmaningen finns i miljöns egen konfiguration, som RMSCEP_CHALLENGE.",
+    "scepUrl": "SCEP-adress",
+    "planTitle": "Planera en enhet",
+    "planDesc": "En enhet kan bara ansluta med en anropssignal som planerats för den här. Inget annat kan ta den i anspråk.",
+    "callsignPlaceholder": "Anropssignal, till exempel OTTER1",
+    "plan": "Planera",
+    "planning": "Planerar...",
+    "planned": "Planerade {{callsign}}",
+    "waitingTitle": "Väntar på en enhet",
+    "waitingDesc": "Ge enheten det här namnet i din MDM. Det bär anropssignalen och koden som bevisar att enheten var avsedd för den, så kopiera hela raden.",
+    "waitingEmpty": "Inget planerat ännu.",
+    "deviceName": "Namn för {{callsign}} i MDM:en",
+    "enrolledTitle": "Anslutna",
+    "copy": "Kopiera",
+    "copyFailed": "Kunde inte kopiera",
+    "forbidden": "Endast administratörer kan hantera enheter"
   }
 }

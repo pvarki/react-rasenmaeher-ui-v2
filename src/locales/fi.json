@@ -675,7 +675,9 @@
     "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
     "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
     "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia",
+    "mdmTitle": "Laitteet",
+    "mdmDesc": "Suunnittele kutsutunnukset MDM:n kautta liittyville puhelimille"
   },
   "feedbackForm": {
     "title": "Lähetä palautetta",
@@ -713,5 +715,26 @@
     "send": "Lähetä palaute",
     "sending": "Lähetetään...",
     "thanks": "Kiitos palautteesta!"
+  },
+  "mdm": {
+    "title": "Laitteet",
+    "subtitle": "Puhelimet liittyvät MDM:n kautta ja palaavat tämän ympäristön käyttäjinä. Suunnittele täällä kullekin laitteelle kutsutunnus ja kerro se MDM:lle.",
+    "serviceTitle": "Mitä MDM:lle kerrotaan",
+    "serviceDesc": "Tämä asetetaan kerran SCEP-varmennemyöntäjäksi. Haaste on ympäristön omassa konfiguraatiossa nimellä RMSCEP_CHALLENGE.",
+    "scepUrl": "SCEP-osoite",
+    "planTitle": "Suunnittele laite",
+    "planDesc": "Laite voi liittyä vain sille täällä suunnitellulla kutsutunnuksella. Mikään muu ei voi ottaa sitä käyttöön.",
+    "callsignPlaceholder": "Kutsutunnus, esimerkiksi OTTER1",
+    "plan": "Suunnittele",
+    "planning": "Suunnitellaan...",
+    "planned": "Suunniteltu {{callsign}}",
+    "waitingTitle": "Odottaa laitetta",
+    "waitingDesc": "Anna laitteelle tämä nimi MDM:ssä. Se sisältää kutsutunnuksen ja koodin, joka todistaa että laite on tarkoitettu sille, joten kopioi koko rivi.",
+    "waitingEmpty": "Ei vielä suunniteltuja.",
+    "deviceName": "Nimi kutsutunnukselle {{callsign}} MDM:ssä",
+    "enrolledTitle": "Liitetyt",
+    "copy": "Kopioi",
+    "copyFailed": "Kopiointi ei onnistunut",
+    "forbidden": "Vain ylläpitäjät voivat hallita laitteita"
   }
 }
