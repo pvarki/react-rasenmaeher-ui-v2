@@ -22,6 +22,16 @@ export function getOperatingSystem(): string {
   return "Unknown";
 }
 
+// Only Safari can hand a configuration profile to the iOS installer. Chrome, Firefox and Edge
+// on iPhone are WebKit wrappers that download the file and leave the user stuck with it.
+export function isIosSafari(): boolean {
+  const ua = window.navigator.userAgent;
+  if (!/iPhone|iPad|iPod/i.test(ua)) {
+    return false;
+  }
+  return !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+}
+
 export interface PlatformInstructions {
   steps: string[];
   notes?: string[];
