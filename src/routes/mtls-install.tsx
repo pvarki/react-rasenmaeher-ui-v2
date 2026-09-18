@@ -11,7 +11,6 @@ import { MtlsInstructions } from "@/components/mtls/MtlsInstructions";
 import { MtlsCallsignDisplay } from "@/components/mtls/MtlsCallsignDisplay";
 import { MtlsExplanationCard } from "@/components/mtls/MtlsExplanationCard";
 import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
-import { LoginHeader } from "@/components/auth/LoginHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
 import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
@@ -70,11 +69,15 @@ function MtlsInstallPage() {
 
   const mtlsUrl = getMtlsUrl();
 
+  const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
+
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
       localStorage.setItem("cert_downloaded", "true");
       setCertDownloaded(true);
-      toast.success(t("mtlsInstall.certificateDownloaded"));
+      if (!useAndroidFlow) {
+        toast.success(t("mtlsInstall.certificateDownloaded"));
+      }
     },
     onError: (err) => {
       console.error("Certificate download error:", err);
@@ -94,8 +97,6 @@ function MtlsInstallPage() {
 
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;
-
-  const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
 
   if (isMobile) {
     return (
@@ -122,12 +123,14 @@ function MtlsInstallPage() {
           </div>
 
           <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
-            <div className="w-full max-w-6xl space-y-8 py-8">
-              {useAndroidFlow ? (
-                <LoginHeader deployment={deployment} />
-              ) : (
-                <MtlsPageHeader deployment={deployment} />
-              )}
+            <div
+              className={
+                useAndroidFlow
+                  ? "w-full max-w-6xl"
+                  : "w-full max-w-6xl space-y-8 py-8"
+              }
+            >
+              {!useAndroidFlow && <MtlsPageHeader deployment={deployment} />}
 
               {useAndroidFlow ? (
                 <AndroidInstallFlow
