@@ -735,6 +735,17 @@
     "enrolledTitle": "Anslutna",
     "copy": "Kopiera",
     "copyFailed": "Kunde inte kopiera",
-    "forbidden": "Endast administratörer kan hantera enheter"
+    "forbidden": "Endast administratörer kan hantera enheter",
+    "bulkTitle": "Planera många på en gång",
+    "bulkDesc": "Ett prefix, ett startnummer och hur många. Att ta hundra telefoner i bruk är normalfallet, inte undantaget.",
+    "prefixPlaceholder": "Prefix, till exempel OTTER",
+    "from": "Startnummer",
+    "count": "Hur många",
+    "bulkPreview": "Planerar {{first}} till {{last}}",
+    "bulkProgress": "{{done}} / {{total}}",
+    "bulkDone": "Planerade {{planned}} enheter",
+    "bulkPartial": "Planerade {{planned}}, {{failed}} avvisades",
+    "bulkFailed": "Redan upptaget: {{callsigns}}",
+    "export": "Exportera {{count}} som CSV"
   }
 }

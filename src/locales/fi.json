@@ -735,6 +735,17 @@
     "enrolledTitle": "Liitetyt",
     "copy": "Kopioi",
     "copyFailed": "Kopiointi ei onnistunut",
-    "forbidden": "Vain ylläpitäjät voivat hallita laitteita"
+    "forbidden": "Vain ylläpitäjät voivat hallita laitteita",
+    "bulkTitle": "Suunnittele monta kerralla",
+    "bulkDesc": "Etuliite, aloitusnumero ja lukumäärä. Sadan puhelimen käyttöönotto on tavallinen tapaus, ei poikkeus.",
+    "prefixPlaceholder": "Etuliite, esimerkiksi OTTER",
+    "from": "Aloitusnumero",
+    "count": "Lukumäärä",
+    "bulkPreview": "Suunnitellaan {{first}} - {{last}}",
+    "bulkProgress": "{{done}} / {{total}}",
+    "bulkDone": "Suunniteltu {{planned}} laitetta",
+    "bulkPartial": "Suunniteltu {{planned}}, {{failed}} hylättiin",
+    "bulkFailed": "Jo varattu: {{callsigns}}",
+    "export": "Vie {{count}} CSV-tiedostoon"
   }
 }

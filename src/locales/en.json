@@ -735,6 +735,17 @@
     "enrolledTitle": "Enrolled",
     "copy": "Copy",
     "copyFailed": "Could not copy",
-    "forbidden": "Only admins can manage devices"
+    "forbidden": "Only admins can manage devices",
+    "bulkTitle": "Plan many at once",
+    "bulkDesc": "A prefix, a starting number and how many. Standing up a hundred phones is the normal case, not the exception.",
+    "prefixPlaceholder": "Prefix, for example OTTER",
+    "from": "Starting number",
+    "count": "How many",
+    "bulkPreview": "Will plan {{first}} through {{last}}",
+    "bulkProgress": "{{done}} / {{total}}",
+    "bulkDone": "Planned {{planned}} devices",
+    "bulkPartial": "Planned {{planned}}, {{failed}} refused",
+    "bulkFailed": "Already taken: {{callsigns}}",
+    "export": "Export {{count}} as CSV"
   }
 }
