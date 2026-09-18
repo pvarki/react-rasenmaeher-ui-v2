@@ -11,8 +11,10 @@ import { MtlsInstructions } from "@/components/mtls/MtlsInstructions";
 import { MtlsCallsignDisplay } from "@/components/mtls/MtlsCallsignDisplay";
 import { MtlsExplanationCard } from "@/components/mtls/MtlsExplanationCard";
 import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
+import { LoginHeader } from "@/components/auth/LoginHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
+import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
 import {
   getOperatingSystem,
   getMtlsUrl,
@@ -37,6 +39,7 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
+  const [forceClassic, setForceClassic] = useState(false);
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
     () => localStorage.getItem("cert_downloaded") === "true",
   );
@@ -55,9 +58,13 @@ function MtlsInstallPage() {
     }
   }, [userCallsign]);
 
+  // The Android flow walks the user through it, so the guide would only be in the way.
   useEffect(() => {
-    setShowGuide(true);
-  }, []);
+    if (!userOS) return;
+    const androidPhone =
+      userOS === "Android" && window.matchMedia("(max-width: 767px)").matches;
+    setShowGuide(!androidPhone);
+  }, [userOS]);
 
   const osToShow = selectedOS || userOS;
 
@@ -88,6 +95,8 @@ function MtlsInstallPage() {
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;
 
+  const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
+
   if (isMobile) {
     return (
       <>
@@ -114,29 +123,45 @@ function MtlsInstallPage() {
 
           <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
             <div className="w-full max-w-6xl space-y-8 py-8">
-              <MtlsPageHeader deployment={deployment} />
+              {useAndroidFlow ? (
+                <LoginHeader deployment={deployment} />
+              ) : (
+                <MtlsPageHeader deployment={deployment} />
+              )}
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
-                <div className="lg:col-span-1 space-y-6">
-                  <PlatformSelector
-                    value={osToShow}
-                    onValueChange={setSelectedOS}
-                  />
-                  <MtlsCallsignDisplay callsign={callsign} />
-                  <MtlsActionButtons
-                    onDownload={handleDownloadKey}
-                    isDownloading={getCertificateMutation.isLoading}
-                    mtlsUrl={mtlsUrl}
-                    disabled={!callsign}
-                    canNavigate={canNavigate}
-                  />
-                </div>
+              {useAndroidFlow ? (
+                <AndroidInstallFlow
+                  callsign={callsign}
+                  fileName={`${callsign}_${deployment}.pfx`}
+                  mtlsUrl={mtlsUrl}
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  certDownloaded={certDownloaded}
+                  onUseOtherPlatform={() => setForceClassic(true)}
+                />
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
+                  <div className="lg:col-span-1 space-y-6">
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={setSelectedOS}
+                    />
+                    <MtlsCallsignDisplay callsign={callsign} />
+                    <MtlsActionButtons
+                      onDownload={handleDownloadKey}
+                      isDownloading={getCertificateMutation.isLoading}
+                      mtlsUrl={mtlsUrl}
+                      disabled={!callsign}
+                      canNavigate={canNavigate}
+                    />
+                  </div>
 
-                <div className="lg:col-span-2 space-y-6">
-                  <MtlsExplanationCard />
-                  <MtlsInstructions instructions={platformInstructions} />
+                  <div className="lg:col-span-2 space-y-6">
+                    <MtlsExplanationCard />
+                    <MtlsInstructions instructions={platformInstructions} />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
