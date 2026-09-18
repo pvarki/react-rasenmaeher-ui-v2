@@ -111,7 +111,7 @@ function MtlsInstallPage() {
           data-testid="mtls-install-page"
           data-mtls-layout="mobile"
           data-mtls-os={osToShow || ""}
-          className="min-h-screen flex flex-col bg-background"
+          className="min-h-dvh flex flex-col bg-background"
         >
           <div className="flex justify-between items-center p-6 border-b border-border">
             <Button
@@ -130,7 +130,7 @@ function MtlsInstallPage() {
             <div
               className={
                 useAndroidFlow
-                  ? "w-full max-w-6xl"
+                  ? "flex w-full max-w-6xl flex-1"
                   : "w-full max-w-6xl space-y-8 py-8"
               }
             >

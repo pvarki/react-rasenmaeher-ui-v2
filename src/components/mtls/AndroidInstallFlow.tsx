@@ -98,7 +98,7 @@ export function AndroidInstallFlow({
     <div
       data-testid="android-install-flow"
       data-android-step={current}
-      className="flex min-h-[70vh] flex-col gap-8"
+      className="flex flex-1 flex-col gap-8"
     >
       <div className="flex items-center gap-2">
         {STEPS.map((id, idx) => (
@@ -117,25 +117,9 @@ export function AndroidInstallFlow({
           <h2 className="text-4xl font-bold leading-tight text-balance">
             {t("mtlsInstall.android.download.title")}
           </h2>
-          <Button
-            data-testid="android-download-button"
-            onClick={onDownload}
-            variant="outline"
-            disabled={isDownloading || !callsign}
-            className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
-          >
-            {isDownloading ? (
-              <Loader2 className="mr-3 h-7 w-7 animate-spin" />
-            ) : (
-              <Download className="mr-3 h-7 w-7" />
-            )}
-            {t("mtlsInstall.android.download.action")}
-          </Button>
         </>
       )}
 
-      {/* The installer dialog covers the middle of the screen, so the password
-          lives at the top where it stays readable behind it. */}
       {/* The installer dialogs cover the middle of the screen, so the one
           instruction lives at the top where it stays readable behind them. */}
       {current === "install" && (
@@ -167,15 +151,6 @@ export function AndroidInstallFlow({
               {t("mtlsInstall.android.install.hint")}
             </p>
           )}
-
-          <Button
-            data-testid="android-next-button"
-            onClick={() => go(2)}
-            variant="ghost"
-            className="mt-auto h-14 w-full rounded-2xl border-2 text-lg text-white"
-          >
-            {t("mtlsInstall.android.install.next")}
-          </Button>
         </>
       )}
 
@@ -184,14 +159,6 @@ export function AndroidInstallFlow({
           <h2 className="text-4xl font-bold leading-tight text-balance">
             {t("mtlsInstall.android.done.title")}
           </h2>
-          <a data-testid="android-navigate-link" href={mtlsUrl}>
-            <Button
-              variant="outline"
-              className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
-            >
-              {t("mtlsInstall.android.done.action")}
-            </Button>
-          </a>
         </>
       )}
 
@@ -220,6 +187,45 @@ export function AndroidInstallFlow({
           {t("mtlsInstall.android.notAndroid")}
         </Button>
       </div>
+
+      {current === "download" && (
+        <Button
+          data-testid="android-download-button"
+          onClick={onDownload}
+          variant="outline"
+          disabled={isDownloading || !callsign}
+          className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
+        >
+          {isDownloading ? (
+            <Loader2 className="mr-3 h-7 w-7 animate-spin" />
+          ) : (
+            <Download className="mr-3 h-7 w-7" />
+          )}
+          {t("mtlsInstall.android.download.action")}
+        </Button>
+      )}
+
+      {current === "install" && (
+        <Button
+          data-testid="android-next-button"
+          onClick={() => go(2)}
+          variant="ghost"
+          className="h-16 w-full rounded-2xl border-2 text-lg text-white"
+        >
+          {t("mtlsInstall.android.install.next")}
+        </Button>
+      )}
+
+      {current === "done" && (
+        <a data-testid="android-navigate-link" href={mtlsUrl}>
+          <Button
+            variant="outline"
+            className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
+          >
+            {t("mtlsInstall.android.done.action")}
+          </Button>
+        </a>
+      )}
     </div>
   );
 }
