@@ -42,6 +42,9 @@ function MtlsInstallPage() {
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
     () => localStorage.getItem("cert_downloaded") === "true",
   );
+  // Counts completed downloads rather than tracking a flag: re-downloading has
+  // to move the Android flow on again, and the flag is already true by then.
+  const [downloadCount, setDownloadCount] = useState(0);
   const { deployment } = useHealthCheck();
 
   useEffect(() => {
@@ -75,6 +78,7 @@ function MtlsInstallPage() {
     onSuccess: () => {
       localStorage.setItem("cert_downloaded", "true");
       setCertDownloaded(true);
+      setDownloadCount((n) => n + 1);
       if (!useAndroidFlow) {
         toast.success(t("mtlsInstall.certificateDownloaded"));
       }
@@ -139,7 +143,7 @@ function MtlsInstallPage() {
                   mtlsUrl={mtlsUrl}
                   onDownload={handleDownloadKey}
                   isDownloading={getCertificateMutation.isLoading}
-                  certDownloaded={certDownloaded}
+                  downloadCount={downloadCount}
                   onUseOtherPlatform={() => setForceClassic(true)}
                 />
               ) : (

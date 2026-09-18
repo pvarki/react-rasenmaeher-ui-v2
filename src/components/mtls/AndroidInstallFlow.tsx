@@ -25,7 +25,7 @@ interface AndroidInstallFlowProps {
   mtlsUrl: string;
   onDownload: () => void;
   isDownloading: boolean;
-  certDownloaded: boolean;
+  downloadCount: number;
   onUseOtherPlatform: () => void;
 }
 
@@ -35,7 +35,7 @@ export function AndroidInstallFlow({
   mtlsUrl,
   onDownload,
   isDownloading,
-  certDownloaded,
+  downloadCount,
   onUseOtherPlatform,
 }: AndroidInstallFlowProps) {
   const { t } = useTranslation();
@@ -68,15 +68,16 @@ export function AndroidInstallFlow({
     setStep(next);
   };
 
-  // Only the download finishing *here* advances the flow. Keying off the stored
-  // flag instead would pin the user forward: it never clears, so step zero
-  // would bounce them straight back to the password.
-  const wasDownloaded = useRef(certDownloaded);
+  // Every completed download moves the flow on, including repeats. Keying off
+  // the stored cert_downloaded flag instead would pin the user forward, since
+  // it never clears once set.
+  const seenDownloads = useRef(downloadCount);
   useEffect(() => {
-    if (certDownloaded && !wasDownloaded.current && step === 0) go(1);
-    wasDownloaded.current = certDownloaded;
+    if (downloadCount === seenDownloads.current) return;
+    seenDownloads.current = downloadCount;
+    go(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [certDownloaded, step]);
+  }, [downloadCount]);
 
   useEffect(() => {
     if (step !== 1) return;
