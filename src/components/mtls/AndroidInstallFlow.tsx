@@ -82,27 +82,26 @@ export function AndroidInstallFlow({
   // tab reload stranded them. The step now only ever moves on a fact: the
   // download completing, or the user saying so.
 
-  // Leaving the browser is distinguishable from a dialog covering us: only a
-  // real app switch fires visibilitychange -> hidden. Coming back still does
-  // not prove they installed, so this only draws the eye to the next action.
-  // It must never move the step; that is what desynced the flow before.
+  // Measured: when the installer dialog opens over us the page gets no blur at
+  // all, only a focus event once it closes. Since focus can only fire if we
+  // did not have it, that event alone means the user is back from something.
+  // It never proves an install happened, so it only draws the eye to the next
+  // action and must not move the step - that is what desynced the flow before.
   const [returned, setReturned] = useState(false);
-  const wasHidden = useRef(false);
   useEffect(() => {
     if (step !== 1) {
       setReturned(false);
-      wasHidden.current = false;
       return;
     }
-    const onVisibility = () => {
-      if (document.visibilityState === "hidden") {
-        wasHidden.current = true;
-      } else if (wasHidden.current) {
-        setReturned(true);
-      }
+    const back = () => {
+      if (document.visibilityState === "visible") setReturned(true);
     };
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
+    window.addEventListener("focus", back);
+    document.addEventListener("visibilitychange", back);
+    return () => {
+      window.removeEventListener("focus", back);
+      document.removeEventListener("visibilitychange", back);
+    };
   }, [step]);
 
   const go = (next: number) => {
