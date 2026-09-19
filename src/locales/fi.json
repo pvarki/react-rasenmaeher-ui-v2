@@ -604,7 +604,7 @@
       "download": {
         "title": "Hae avaimesi",
         "action": "LATAA AVAIN",
-        "caption": "Ikkuna avautuu. Paina OK, kahdesti."
+        "caption": "Paina Lataa. Sen jälkeen avautuu ikkuna. Paina sitten OK, kahdesti."
       },
       "install": {
         "title": "PAINA OK",
@@ -615,7 +615,7 @@
       "done": {
         "title": "Valmista.",
         "action": "SIIRRY PALVELUUN",
-        "caption": "Puhelin kysyy, mitä varmennetta käytetään. Valitse omasi."
+        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK."
       },
       "notAndroid": "Eikö laite ole Android?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Valmis.",
         "action": "SIIRRY PALVELUUN",
-        "caption": "Safari kysyy, mitä varmennetta käytetään. Valitse omasi."
+        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK."
       },
       "notIos": "Eikö ole iPhone?"
     }

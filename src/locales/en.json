@@ -604,7 +604,7 @@
       "download": {
         "title": "Get your key",
         "action": "DOWNLOAD KEY",
-        "caption": "A dialog will open. Press OK, twice."
+        "caption": "Press Download. After that, a dialog opens. Then press OK, twice."
       },
       "install": {
         "title": "PRESS OK",
@@ -615,7 +615,7 @@
       "done": {
         "title": "Ready.",
         "action": "GO TO THE SERVICE",
-        "caption": "Your phone asks which certificate to use. Choose yours."
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK."
       },
       "notAndroid": "Not an Android phone?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Ready.",
         "action": "GO TO THE SERVICE",
-        "caption": "Safari asks which certificate to use. Choose yours."
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK."
       },
       "notIos": "Not an iPhone?"
     }

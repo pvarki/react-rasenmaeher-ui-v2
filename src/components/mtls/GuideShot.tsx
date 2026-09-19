@@ -23,7 +23,7 @@ export function GuideShot({ src, caption }: GuideShotProps) {
         src={src}
         alt=""
         aria-hidden="true"
-        className="h-auto max-h-[min(34vh,300px)] w-auto max-w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)]"
+        className="h-auto max-h-[min(35vh,305px)] w-auto max-w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)]"
       />
       <figcaption className="w-full shrink-0 text-center text-base leading-snug text-balance text-muted-foreground">
         {caption}

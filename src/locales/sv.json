@@ -604,7 +604,7 @@
       "download": {
         "title": "Hämta din nyckel",
         "action": "LADDA NER NYCKEL",
-        "caption": "En dialog öppnas. Tryck OK, två gånger."
+        "caption": "Tryck Ladda ner. Sedan öppnas en dialog. Tryck sedan OK, två gånger."
       },
       "install": {
         "title": "TRYCK OK",
@@ -615,7 +615,7 @@
       "done": {
         "title": "Klart.",
         "action": "GÅ TILL TJÄNSTEN",
-        "caption": "Telefonen frågar vilket certifikat som ska användas. Välj ditt."
+        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det."
       },
       "notAndroid": "Inte en Android-telefon?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Klart.",
         "action": "GÅ TILL TJÄNSTEN",
-        "caption": "Safari frågar vilket certifikat som ska användas. Välj ditt."
+        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det."
       },
       "notIos": "Inte en iPhone?"
     }

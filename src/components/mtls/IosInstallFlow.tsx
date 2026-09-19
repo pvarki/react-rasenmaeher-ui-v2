@@ -126,7 +126,7 @@ export function IosInstallFlow({
     <div
       data-testid="ios-install-flow"
       data-ios-step={current}
-      className="flex flex-1 flex-col gap-8"
+      className="flex flex-1 flex-col gap-6"
     >
       {/* Also the navigation: any step already reached stays reachable. */}
       <div className="flex items-center gap-2">

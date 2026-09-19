@@ -128,7 +128,7 @@ export function AndroidInstallFlow({
     <div
       data-testid="android-install-flow"
       data-android-step={current}
-      className="flex flex-1 flex-col gap-8"
+      className="flex flex-1 flex-col gap-6"
     >
       {/* Also the navigation: any step already reached stays reachable, so no
           sequence of taps can strand someone on the wrong screen. */}
@@ -187,11 +187,25 @@ export function AndroidInstallFlow({
           {/* Always shown, not after a delay: Samsung does not auto-open the
               download, and its installer appears over the file manager rather
               than over us, so this has to be read before the user leaves. */}
+          {/* Emphasis hands over: this is the live instruction until the user
+              has been away and come back, at which point the dialog has already
+              happened and the next action is the button below, not this. */}
           <div
             data-testid="android-open-download"
-            className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
+            data-muted={returned ? "true" : "false"}
+            className={cn(
+              "flex items-start gap-3 rounded-2xl border-2 p-4",
+              returned ? "border-border" : "border-primary-light",
+            )}
           >
-            <ArrowUp className="h-8 w-8 shrink-0 animate-bounce text-primary-light" />
+            <ArrowUp
+              className={cn(
+                "h-8 w-8 shrink-0",
+                returned
+                  ? "text-muted-foreground"
+                  : "animate-bounce text-primary-light",
+              )}
+            />
             <div>
               <p className="text-xl font-bold">
                 {t("mtlsInstall.android.install.openDownload")}
