@@ -52,6 +52,11 @@ export function AndroidInstallFlow({
   // visible behind it, so blur/focus is what tells us it opened, not
   // visibilitychange. No blur at all means the user has to open the file.
   const [dialogMissing, setDialogMissing] = useState(false);
+  // We cannot see where the system dialog sits, how big it is, or that it
+  // dims us: innerHeight, visualViewport and elementFromPoint are all
+  // unchanged while it is up. Losing focus is the only signal, so it drives
+  // both the emphasis and the second copy of the instruction.
+  const [dialogOpen, setDialogOpen] = useState(false);
   const sawDialog = useRef(false);
 
   const go = (next: number) => {
@@ -75,8 +80,10 @@ export function AndroidInstallFlow({
     const onBlur = () => {
       sawDialog.current = true;
       setDialogMissing(false);
+      setDialogOpen(true);
     };
     const onFocus = () => {
+      setDialogOpen(false);
       if (sawDialog.current) go(2);
     };
     window.addEventListener("blur", onBlur);
@@ -126,7 +133,10 @@ export function AndroidInstallFlow({
         <>
           <p
             data-testid="android-press-ok"
-            className="font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]"
+            className={cn(
+              "font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]",
+              dialogOpen && "animate-attention",
+            )}
           >
             {t("mtlsInstall.android.install.title")}
           </p>
@@ -203,6 +213,16 @@ export function AndroidInstallFlow({
           )}
           {t("mtlsInstall.android.download.action")}
         </Button>
+      )}
+
+      {current === "install" && dialogOpen && (
+        <p
+          data-testid="android-press-ok-bottom"
+          aria-hidden="true"
+          className="animate-attention text-center text-3xl font-bold"
+        >
+          {t("mtlsInstall.android.install.title")}
+        </p>
       )}
 
       {current === "install" && (
