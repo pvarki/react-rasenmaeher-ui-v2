@@ -150,84 +150,95 @@ export function IosInstallFlow({
         ))}
       </div>
 
-      {current === "download" && (
-        <>
-          <h2 className="text-4xl font-bold leading-tight text-balance">
-            {t("mtlsInstall.ios.download.title")}
-          </h2>
+      {/* The body scrolls, the footer does not. A sticky footer inside the
+          scroll area let long content slide underneath it, which hid the
+          caption - the one element carrying the meaning of the picture. */}
+      <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto">
+        {current === "download" && (
+          <>
+            <h2 className="text-4xl font-bold leading-tight text-balance">
+              {t("mtlsInstall.ios.download.title")}
+            </h2>
 
-          <GuideShot
-            src="/guide/iosstep1.webp"
-            caption={t("mtlsInstall.ios.download.caption")}
-          />
+            <GuideShot
+              src="/guide/iosstep1.webp"
+              caption={t("mtlsInstall.ios.download.caption")}
+            />
 
-          {/* Chrome and Firefox on iPhone cannot hand a profile to the installer at all. */}
-          {!isIosSafari() && (
+            {/* Chrome and Firefox on iPhone cannot hand a profile to the installer at all. */}
+            {!isIosSafari() && (
+              <div
+                data-testid="ios-not-safari"
+                className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
+              >
+                <TriangleAlert className="h-8 w-8 shrink-0 text-primary-light" />
+                <p className="text-xl font-bold">
+                  {t("mtlsInstall.ios.download.notSafari")}
+                </p>
+              </div>
+            )}
+
+            {failed && (
+              <p
+                data-testid="ios-download-failed"
+                className="text-xl font-bold"
+              >
+                {t("mtlsInstall.ios.download.failed")}
+              </p>
+            )}
+          </>
+        )}
+
+        {/* The whole list is on screen at once: the install happens in the Settings app,
+          where none of this is visible, so it has to be readable before they leave. */}
+        {current === "install" && (
+          <>
+            <h2 className="text-4xl font-bold leading-tight text-balance">
+              {t("mtlsInstall.ios.install.title")}
+            </h2>
+
+            <ol className="flex flex-col gap-3">
+              {INSTALL_STEPS.map((n, idx) => (
+                <li key={n} className="flex items-start gap-3 text-xl">
+                  <span className="font-bold text-primary-light">
+                    {idx + 1}.
+                  </span>
+                  <span>{t(`mtlsInstall.ios.install.steps.${n}`)}</span>
+                </li>
+              ))}
+            </ol>
+
             <div
-              data-testid="ios-not-safari"
+              data-testid="ios-hurry"
               className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
             >
               <TriangleAlert className="h-8 w-8 shrink-0 text-primary-light" />
               <p className="text-xl font-bold">
-                {t("mtlsInstall.ios.download.notSafari")}
+                {t("mtlsInstall.ios.install.hurry")}
               </p>
             </div>
-          )}
+          </>
+        )}
 
-          {failed && (
-            <p data-testid="ios-download-failed" className="text-xl font-bold">
-              {t("mtlsInstall.ios.download.failed")}
-            </p>
-          )}
-        </>
-      )}
+        {current === "done" && (
+          <>
+            <h2 className="text-4xl font-bold leading-tight text-balance">
+              {t("mtlsInstall.ios.done.title")}
+            </h2>
 
-      {/* The whole list is on screen at once: the install happens in the Settings app,
-          where none of this is visible, so it has to be readable before they leave. */}
-      {current === "install" && (
-        <>
-          <h2 className="text-4xl font-bold leading-tight text-balance">
-            {t("mtlsInstall.ios.install.title")}
-          </h2>
+            <GuideShot
+              src="/guide/iosstep3.webp"
+              caption={t("mtlsInstall.ios.done.caption")}
+            />
+          </>
+        )}
 
-          <ol className="flex flex-col gap-4">
-            {INSTALL_STEPS.map((n, idx) => (
-              <li key={n} className="flex items-start gap-3 text-2xl">
-                <span className="font-bold text-primary-light">{idx + 1}.</span>
-                <span>{t(`mtlsInstall.ios.install.steps.${n}`)}</span>
-              </li>
-            ))}
-          </ol>
-
-          <div
-            data-testid="ios-hurry"
-            className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
-          >
-            <TriangleAlert className="h-8 w-8 shrink-0 text-primary-light" />
-            <p className="text-xl font-bold">
-              {t("mtlsInstall.ios.install.hurry")}
-            </p>
-          </div>
-        </>
-      )}
-
-      {current === "done" && (
-        <>
-          <h2 className="text-4xl font-bold leading-tight text-balance">
-            {t("mtlsInstall.ios.done.title")}
-          </h2>
-
-          <GuideShot
-            src="/guide/iosstep3.webp"
-            caption={t("mtlsInstall.ios.done.caption")}
-          />
-        </>
-      )}
-
-      {/* The Settings path is longer than the viewport, so mt-auto alone leaves the
+        {/* The Settings path is longer than the viewport, so mt-auto alone leaves the
           action below the fold. A sticky bar keeps it under the thumb whatever the
           content height, and the list scrolls behind it. */}
-      <div className="sticky bottom-0 mt-auto flex flex-col gap-4 bg-background pb-1 pt-4">
+      </div>
+
+      <div className="flex shrink-0 flex-col gap-4 pt-2">
         <div className="flex items-center justify-between">
           {step > 0 ? (
             <Button

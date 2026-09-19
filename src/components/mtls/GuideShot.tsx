@@ -15,15 +15,17 @@ export function GuideShot({ src, caption }: GuideShotProps) {
   return (
     <figure
       data-testid="guide-shot"
-      className="flex w-full min-h-0 shrink flex-col items-center justify-center gap-4"
+      className="flex w-full min-h-0 flex-1 flex-col items-center justify-center gap-4"
     >
-      {/* Capped rather than flexed: an image carries its intrinsic height into
-          the flex basis, which pushed the action off the bottom of the screen. */}
+      {/* Capped AND flexible: the cap stops the intrinsic height pushing the
+          action off screen, and min-h-0 + flex-1 makes the picture give up room
+          when it is tight, so the caption is never the thing that gets squeezed
+          under the sticky action bar. */}
       <img
         src={src}
         alt=""
         aria-hidden="true"
-        className="h-auto max-h-[min(35vh,305px)] w-auto max-w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)]"
+        className="min-h-0 w-auto max-h-[min(42vh,380px)] max-w-full flex-1 object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.55)]"
       />
       <figcaption className="w-full shrink-0 text-center text-base leading-snug text-balance text-muted-foreground">
         {caption}

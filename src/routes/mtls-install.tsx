@@ -77,6 +77,15 @@ function MtlsInstallPage() {
 
   const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
   const useIosFlow = isMobile && osToShow === "iOS" && !forceClassic;
+
+  // The selector is the escape hatch, not a one-way door: picking a platform we
+  // have a guided flow for takes you into it, anything else keeps the classic
+  // instructions. Without clearing forceClassic, choosing Android or iOS here
+  // stranded the user in the classic layout for a platform we guide.
+  const chooseOS = (next: string) => {
+    setSelectedOS(next);
+    setForceClassic(next !== "Android" && next !== "iOS");
+  };
   const useStepFlow = useAndroidFlow || useIosFlow;
   // Apple cannot import a password-less PKCS12 at all, so both get the profile instead.
   const applePlatform = osToShow === "iOS" || osToShow === "MacOS";
@@ -146,7 +155,7 @@ function MtlsInstallPage() {
             <div
               className={
                 useStepFlow
-                  ? "flex w-full max-w-6xl flex-1"
+                  ? "flex h-full min-h-0 w-full max-w-6xl flex-1"
                   : "w-full max-w-6xl space-y-8 py-8"
               }
             >
@@ -178,7 +187,7 @@ function MtlsInstallPage() {
                   <div className="lg:col-span-1 space-y-6">
                     <PlatformSelector
                       value={osToShow}
-                      onValueChange={setSelectedOS}
+                      onValueChange={chooseOS}
                     />
                     <MtlsCallsignDisplay callsign={callsign} />
                     <MtlsActionButtons
