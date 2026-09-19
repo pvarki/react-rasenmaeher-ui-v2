@@ -127,7 +127,7 @@ function MtlsInstallPage() {
           data-testid="mtls-install-page"
           data-mtls-layout="mobile"
           data-mtls-os={osToShow || ""}
-          className="min-h-dvh flex flex-col bg-background"
+          className="h-dvh flex flex-col bg-background"
         >
           <div className="flex justify-between items-center p-6 border-b border-border">
             <Button
@@ -142,7 +142,7 @@ function MtlsInstallPage() {
             <LanguageSwitcher />
           </div>
 
-          <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
+          <div className="flex-1 min-h-0 flex flex-col items-center justify-start overflow-y-auto p-6">
             <div
               className={
                 useStepFlow

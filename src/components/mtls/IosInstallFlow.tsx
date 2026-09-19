@@ -152,72 +152,77 @@ export function IosInstallFlow({
         </h2>
       )}
 
-      <div className="mt-auto flex items-center justify-between">
-        {step > 0 ? (
+      {/* The Settings path is longer than the viewport, so mt-auto alone leaves the
+          action below the fold. A sticky bar keeps it under the thumb whatever the
+          content height, and the list scrolls behind it. */}
+      <div className="sticky bottom-0 mt-auto flex flex-col gap-4 bg-background pb-1 pt-4">
+        <div className="flex items-center justify-between">
+          {step > 0 ? (
+            <Button
+              data-testid="ios-back-button"
+              variant="link"
+              size="sm"
+              className="px-0 text-base text-muted-foreground"
+              onClick={() => go(step - 1)}
+            >
+              <ChevronLeft className="mr-1 h-5 w-5" />
+              {t("common.back")}
+            </Button>
+          ) : (
+            <span />
+          )}
           <Button
-            data-testid="ios-back-button"
+            data-testid="ios-other-platform"
             variant="link"
             size="sm"
-            className="px-0 text-base text-muted-foreground"
-            onClick={() => go(step - 1)}
+            className="px-0 text-muted-foreground"
+            onClick={onUseOtherPlatform}
           >
-            <ChevronLeft className="mr-1 h-5 w-5" />
-            {t("common.back")}
+            {t("mtlsInstall.ios.notIos")}
           </Button>
-        ) : (
-          <span />
-        )}
-        <Button
-          data-testid="ios-other-platform"
-          variant="link"
-          size="sm"
-          className="px-0 text-muted-foreground"
-          onClick={onUseOtherPlatform}
-        >
-          {t("mtlsInstall.ios.notIos")}
-        </Button>
-      </div>
+        </div>
 
-      {current === "download" && (
-        <Button
-          data-testid="ios-download-button"
-          onClick={startDownload}
-          variant="outline"
-          disabled={starting || !callsign}
-          className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
-        >
-          {starting ? (
-            <Loader2 className="mr-3 h-7 w-7 animate-spin" />
-          ) : (
-            <Download className="mr-3 h-7 w-7" />
-          )}
-          {t("mtlsInstall.ios.download.action")}
-        </Button>
-      )}
-
-      {/* Nothing observable tells us the install worked: the user is in another app for all
-          of it. So this advances on their say-so, and "done" claims nothing more than that. */}
-      {current === "install" && (
-        <Button
-          data-testid="ios-next-button"
-          onClick={() => go(2)}
-          variant="ghost"
-          className="h-16 w-full rounded-2xl border-2 text-lg text-white"
-        >
-          {t("mtlsInstall.ios.install.next")}
-        </Button>
-      )}
-
-      {current === "done" && (
-        <a data-testid="ios-navigate-link" href={mtlsUrl}>
+        {current === "download" && (
           <Button
+            data-testid="ios-download-button"
+            onClick={startDownload}
             variant="outline"
+            disabled={starting || !callsign}
             className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
           >
-            {t("mtlsInstall.ios.done.action")}
+            {starting ? (
+              <Loader2 className="mr-3 h-7 w-7 animate-spin" />
+            ) : (
+              <Download className="mr-3 h-7 w-7" />
+            )}
+            {t("mtlsInstall.ios.download.action")}
           </Button>
-        </a>
-      )}
+        )}
+
+        {/* Nothing observable tells us the install worked: the user is in another app for all
+          of it. So this advances on their say-so, and "done" claims nothing more than that. */}
+        {current === "install" && (
+          <Button
+            data-testid="ios-next-button"
+            onClick={() => go(2)}
+            variant="ghost"
+            className="h-16 w-full rounded-2xl border-2 text-lg text-white"
+          >
+            {t("mtlsInstall.ios.install.next")}
+          </Button>
+        )}
+
+        {current === "done" && (
+          <a data-testid="ios-navigate-link" href={mtlsUrl}>
+            <Button
+              variant="outline"
+              className="h-20 w-full rounded-2xl bg-primary-light hover:bg-primary-light/90 text-2xl font-bold"
+            >
+              {t("mtlsInstall.ios.done.action")}
+            </Button>
+          </a>
+        )}
+      </div>
     </div>
   );
 }
