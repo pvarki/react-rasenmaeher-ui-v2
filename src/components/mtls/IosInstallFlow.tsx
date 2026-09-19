@@ -9,6 +9,22 @@ import { downloadProfile } from "@/lib/downloadProfile";
 import { isIosSafari } from "./platformUtils";
 
 const STEP_KEY = "mtls_ios_step";
+// Storage throws outright when site data is blocked. Losing resume is
+// survivable; a render-time throw taking the flow down is not.
+const readStore = (key: string): string | null => {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+const writeStore = (key: string, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // No resume across reloads, but the flow still works in this session.
+  }
+};
 const STEPS = ["download", "install", "done"] as const;
 const INSTALL_STEPS = [1, 2, 3, 4] as const;
 
@@ -31,26 +47,37 @@ export function IosInstallFlow({
 
   // Same scoping as the Android flow: progress survives leaving for Settings,
   // but the next person to enrol on this device starts from the top.
-  const owner = callsign || localStorage.getItem("callsign") || "";
-  const [step, setStep] = useState(() => {
-    const [storedOwner, storedStep] = (
-      localStorage.getItem(STEP_KEY) ?? ""
+  const owner = callsign || readStore("callsign") || "";
+  // "<callsign>:<step>:<furthest>". Keeping the furthest step reached means no
+  // sequence of taps strands anyone: every screen they have seen stays one tap
+  // away, including the one that fetches a fresh profile.
+  const [progress, setProgress] = useState(() => {
+    const [storedOwner, storedStep, storedMax] = (
+      readStore(STEP_KEY) ?? ""
     ).split(":");
-    const parsed = Number(storedStep);
-    return storedOwner &&
-      storedOwner === localStorage.getItem("callsign") &&
-      Number.isInteger(parsed) &&
-      parsed > 0 &&
-      parsed < STEPS.length
-      ? parsed
-      : 0;
+    const cur = Number(storedStep);
+    const max = Number(storedMax);
+    const mine =
+      storedOwner &&
+      storedOwner === readStore("callsign") &&
+      Number.isInteger(cur) &&
+      cur >= 0 &&
+      cur < STEPS.length;
+    const step = mine ? cur : 0;
+    const furthest =
+      mine && Number.isInteger(max)
+        ? Math.min(Math.max(max, step), STEPS.length - 1)
+        : step;
+    return { step, furthest };
   });
+  const { step, furthest } = progress;
   const [starting, setStarting] = useState(false);
   const [failed, setFailed] = useState(false);
 
   const go = (next: number) => {
-    localStorage.setItem(STEP_KEY, `${owner}:${next}`);
-    setStep(next);
+    const reached = Math.max(furthest, next);
+    writeStore(STEP_KEY, `${owner}:${next}:${reached}`);
+    setProgress({ step: next, furthest: reached });
   };
 
   // Step forward before navigating: the write is synchronous, so the flow is already on the
@@ -78,13 +105,23 @@ export function IosInstallFlow({
       data-ios-step={current}
       className="flex flex-1 flex-col gap-8"
     >
+      {/* Also the navigation: any step already reached stays reachable. */}
       <div className="flex items-center gap-2">
         {STEPS.map((id, idx) => (
-          <div
+          <button
             key={id}
+            type="button"
+            data-testid={`ios-step-${id}`}
+            disabled={idx > furthest}
+            aria-current={idx === step ? "step" : undefined}
+            aria-label={t(`mtlsInstall.ios.${id}.title`)}
+            onClick={() => go(idx)}
             className={cn(
-              "h-1.5 flex-1 rounded-full",
-              idx <= step ? "bg-primary-light" : "bg-primary-light/20",
+              "h-6 flex-1 rounded-full disabled:cursor-default",
+              "before:block before:h-1.5 before:rounded-full before:content-['']",
+              idx <= step
+                ? "before:bg-primary-light"
+                : "before:bg-primary-light/20",
             )}
           />
         ))}
@@ -171,6 +208,21 @@ export function IosInstallFlow({
           ) : (
             <span />
           )}
+          {/* The profile self-deletes after 8 minutes, so a fresh one has to be one
+              tap away. An icon, because the flow is not getting more words. */}
+          {current === "install" && (
+            <Button
+              data-testid="ios-redownload"
+              variant="ghost"
+              size="icon"
+              aria-label={t("mtlsInstall.ios.download.action")}
+              disabled={starting}
+              onClick={startDownload}
+            >
+              <Download className="h-6 w-6" />
+            </Button>
+          )}
+
           <Button
             data-testid="ios-other-platform"
             variant="link"

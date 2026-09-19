@@ -7,6 +7,23 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const STEP_KEY = "mtls_android_step";
+// Storage throws outright when site data is blocked. Losing the ability to
+// resume is survivable; taking the whole flow down with a render-time throw is
+// not, so every access is guarded.
+const readStore = (key: string): string | null => {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+const writeStore = (key: string, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // No resume across reloads, but the flow still works in this session.
+  }
+};
 const STEPS = ["download", "install", "done"] as const;
 // Android opens the installer within a second; past this it is not coming.
 const DIALOG_WAIT_MS = 3500;
@@ -38,20 +55,30 @@ export function AndroidInstallFlow({
 
   // Stored against the callsign: progress survives the system installer taking
   // over, but the next person to enrol on this device starts from the top.
-  const owner = callsign || localStorage.getItem("callsign") || "";
-  const [step, setStep] = useState(() => {
-    const [storedOwner, storedStep] = (
-      localStorage.getItem(STEP_KEY) ?? ""
+  const owner = callsign || readStore("callsign") || "";
+  // Stored as "<callsign>:<step>:<furthest>". Keeping the furthest step means
+  // going Back is never a one-way trip: someone who has already installed can
+  // return to the end without downloading the key a second time.
+  const [progress, setProgress] = useState(() => {
+    const [storedOwner, storedStep, storedMax] = (
+      readStore(STEP_KEY) ?? ""
     ).split(":");
-    const parsed = Number(storedStep);
-    return storedOwner &&
-      storedOwner === localStorage.getItem("callsign") &&
-      Number.isInteger(parsed) &&
-      parsed > 0 &&
-      parsed < STEPS.length
-      ? parsed
-      : 0;
+    const cur = Number(storedStep);
+    const max = Number(storedMax);
+    const mine =
+      storedOwner &&
+      storedOwner === readStore("callsign") &&
+      Number.isInteger(cur) &&
+      cur >= 0 &&
+      cur < STEPS.length;
+    const step = mine ? cur : 0;
+    const furthest =
+      mine && Number.isInteger(max)
+        ? Math.min(Math.max(max, step), STEPS.length - 1)
+        : step;
+    return { step, furthest };
   });
+  const { step, furthest } = progress;
   // Deliberately no focus/blur inference. It read "something took focus", not
   // "the install happened", so any stray interruption advanced the user and a
   // tab reload stranded them. The step now only ever moves on a fact: the
@@ -59,8 +86,9 @@ export function AndroidInstallFlow({
   const [showFallback, setShowFallback] = useState(false);
 
   const go = (next: number) => {
-    localStorage.setItem(STEP_KEY, `${owner}:${next}`);
-    setStep(next);
+    const reached = Math.max(furthest, next);
+    writeStore(STEP_KEY, `${owner}:${next}:${reached}`);
+    setProgress({ step: next, furthest: reached });
   };
 
   // Every completed download moves the flow on, including repeats. Keying off
@@ -93,13 +121,24 @@ export function AndroidInstallFlow({
       data-android-step={current}
       className="flex flex-1 flex-col gap-8"
     >
+      {/* Also the navigation: any step already reached stays reachable, so no
+          sequence of taps can strand someone on the wrong screen. */}
       <div className="flex items-center gap-2">
         {STEPS.map((id, idx) => (
-          <div
+          <button
             key={id}
+            type="button"
+            data-testid={`android-step-${id}`}
+            disabled={idx > furthest}
+            aria-current={idx === step ? "step" : undefined}
+            aria-label={t(`mtlsInstall.android.${id}.title`)}
+            onClick={() => go(idx)}
             className={cn(
-              "h-1.5 flex-1 rounded-full",
-              idx <= step ? "bg-primary-light" : "bg-primary-light/20",
+              "h-6 flex-1 rounded-full disabled:cursor-default",
+              "before:block before:h-1.5 before:rounded-full before:content-['']",
+              idx <= step
+                ? "before:bg-primary-light"
+                : "before:bg-primary-light/20",
             )}
           />
         ))}
