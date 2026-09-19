@@ -27,7 +27,9 @@ const writeStore = (key: string, value: string) => {
 };
 const STEPS = ["download", "install", "done"] as const;
 // Both copies of the instruction render identically; only their position
-// differs, so whichever end the dialog leaves uncovered reads the same.
+// differs, so whichever end the dialog leaves uncovered reads the same. Only
+// one thing on the screen is ever lit: the instruction until the user comes
+// back, the continue button afterwards.
 const INSTRUCTION =
   "text-center font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]";
 
@@ -171,11 +173,11 @@ export function AndroidInstallFlow({
       {current === "install" && (
         <>
           <p
-            /* Remounted when `returned` flips so this restarts in the same
-               commit the button's animation begins: same phase, not a drift. */
-            key={`press-ok-${returned}`}
             data-testid="android-press-ok"
-            className={cn(INSTRUCTION, "animate-attention")}
+            className={cn(
+              INSTRUCTION,
+              returned ? "text-muted-foreground" : "animate-attention",
+            )}
           >
             {t("mtlsInstall.android.install.title")}
           </p>
@@ -278,10 +280,12 @@ export function AndroidInstallFlow({
           bottom and the page cannot tell which, so one is always readable. */}
       {current === "install" && (
         <p
-          key={`press-ok-bottom-${returned}`}
           data-testid="android-press-ok-bottom"
           aria-hidden="true"
-          className={cn(INSTRUCTION, "animate-attention")}
+          className={cn(
+            INSTRUCTION,
+            returned ? "text-muted-foreground" : "animate-attention",
+          )}
         >
           {t("mtlsInstall.android.install.title")}
         </p>
