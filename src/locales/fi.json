@@ -608,7 +608,7 @@
       "install": {
         "title": "PAINA OK",
         "hint": "Kahdesti.",
-        "openDownload": "Avaa lataamasi tiedosto",
+        "openDownload": "Etkö näe ikkunaa? Avaa lataamasi tiedosto",
         "next": "Asennettu – jatka"
       },
       "done": {

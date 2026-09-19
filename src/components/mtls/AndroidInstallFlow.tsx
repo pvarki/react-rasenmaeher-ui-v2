@@ -82,6 +82,29 @@ export function AndroidInstallFlow({
   // tab reload stranded them. The step now only ever moves on a fact: the
   // download completing, or the user saying so.
 
+  // Leaving the browser is distinguishable from a dialog covering us: only a
+  // real app switch fires visibilitychange -> hidden. Coming back still does
+  // not prove they installed, so this only draws the eye to the next action.
+  // It must never move the step; that is what desynced the flow before.
+  const [returned, setReturned] = useState(false);
+  const wasHidden = useRef(false);
+  useEffect(() => {
+    if (step !== 1) {
+      setReturned(false);
+      wasHidden.current = false;
+      return;
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") {
+        wasHidden.current = true;
+      } else if (wasHidden.current) {
+        setReturned(true);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [step]);
+
   const go = (next: number) => {
     const reached = Math.max(furthest, next);
     writeStore(STEP_KEY, `${owner}:${next}:${reached}`);
@@ -239,9 +262,13 @@ export function AndroidInstallFlow({
       {current === "install" && (
         <Button
           data-testid="android-next-button"
+          data-returned={returned ? "true" : "false"}
           onClick={() => go(2)}
           variant="ghost"
-          className="h-16 w-full rounded-2xl border-2 text-lg text-white"
+          className={cn(
+            "h-16 w-full rounded-2xl border-2 text-lg text-white",
+            returned && "animate-attention border-primary-light",
+          )}
         >
           {t("mtlsInstall.android.install.next")}
         </Button>

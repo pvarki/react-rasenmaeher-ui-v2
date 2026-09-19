@@ -608,7 +608,7 @@
       "install": {
         "title": "TRYCK OK",
         "hint": "Två gånger.",
-        "openDownload": "Öppna din nedladdning",
+        "openDownload": "Ser du ingen dialog? Öppna din nedladdning",
         "next": "Installerad – fortsätt"
       },
       "done": {

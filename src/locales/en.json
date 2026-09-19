@@ -608,7 +608,7 @@
       "install": {
         "title": "PRESS OK",
         "hint": "Twice.",
-        "openDownload": "Open your download",
+        "openDownload": "Don't see a dialog? Open your download",
         "next": "Installed – continue"
       },
       "done": {
