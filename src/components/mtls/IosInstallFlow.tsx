@@ -1,31 +1,18 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, Download, Loader2, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GuideShot } from "./GuideShot";
 import { cn } from "@/lib/utils";
+import { useWizardStep } from "@/hooks/mtls/useWizardStep";
+import { useReturnedFromSystem } from "@/hooks/mtls/useReturnedFromSystem";
+import { StepProgress } from "./StepProgress";
 import { downloadProfile } from "@/lib/downloadProfile";
 import { isIosSafari } from "./platformUtils";
 
 const STEP_KEY = "mtls_ios_step";
-// Storage throws outright when site data is blocked. Losing resume is
-// survivable; a render-time throw taking the flow down is not.
-const readStore = (key: string): string | null => {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-};
-const writeStore = (key: string, value: string) => {
-  try {
-    localStorage.setItem(key, value);
-  } catch {
-    // No resume across reloads, but the flow still works in this session.
-  }
-};
 const STEPS = ["download", "install", "done"] as const;
 const INSTALL_STEPS = [1, 2, 3, 4] as const;
 
@@ -48,60 +35,14 @@ export function IosInstallFlow({
 
   // Same scoping as the Android flow: progress survives leaving for Settings,
   // but the next person to enrol on this device starts from the top.
-  const owner = callsign || readStore("callsign") || "";
-  // "<callsign>:<step>:<furthest>". Keeping the furthest step reached means no
-  // sequence of taps strands anyone: every screen they have seen stays one tap
-  // away, including the one that fetches a fresh profile.
-  const [progress, setProgress] = useState(() => {
-    const [storedOwner, storedStep, storedMax] = (
-      readStore(STEP_KEY) ?? ""
-    ).split(":");
-    const cur = Number(storedStep);
-    const max = Number(storedMax);
-    const mine =
-      storedOwner &&
-      storedOwner === readStore("callsign") &&
-      Number.isInteger(cur) &&
-      cur >= 0 &&
-      cur < STEPS.length;
-    const step = mine ? cur : 0;
-    const furthest =
-      mine && Number.isInteger(max)
-        ? Math.min(Math.max(max, step), STEPS.length - 1)
-        : step;
-    return { step, furthest };
-  });
-  const { step, furthest } = progress;
+  const { step, furthest, go } = useWizardStep(
+    STEP_KEY,
+    callsign,
+    STEPS.length,
+  );
+  const returned = useReturnedFromSystem(step === 1);
   const [starting, setStarting] = useState(false);
   const [failed, setFailed] = useState(false);
-
-  // Measured: when the installer dialog opens over us the page gets no blur at
-  // all, only a focus event once it closes. Since focus can only fire if we
-  // did not have it, that event alone means the user is back from something.
-  // It never proves an install happened, so it only draws the eye to the next
-  // action and must not move the step - that is what desynced the flow before.
-  const [returned, setReturned] = useState(false);
-  useEffect(() => {
-    if (step !== 1) {
-      setReturned(false);
-      return;
-    }
-    const back = () => {
-      if (document.visibilityState === "visible") setReturned(true);
-    };
-    window.addEventListener("focus", back);
-    document.addEventListener("visibilitychange", back);
-    return () => {
-      window.removeEventListener("focus", back);
-      document.removeEventListener("visibilitychange", back);
-    };
-  }, [step]);
-
-  const go = (next: number) => {
-    const reached = Math.max(furthest, next);
-    writeStore(STEP_KEY, `${owner}:${next}:${reached}`);
-    setProgress({ step: next, furthest: reached });
-  };
 
   // Step forward before navigating: the write is synchronous, so the flow is already on the
   // install step whether or not Safari keeps this page around.
@@ -128,27 +69,14 @@ export function IosInstallFlow({
       data-ios-step={current}
       className="flex flex-1 flex-col gap-6"
     >
-      {/* Also the navigation: any step already reached stays reachable. */}
-      <div className="flex items-center gap-2">
-        {STEPS.map((id, idx) => (
-          <button
-            key={id}
-            type="button"
-            data-testid={`ios-step-${id}`}
-            disabled={idx > furthest}
-            aria-current={idx === step ? "step" : undefined}
-            aria-label={t(`mtlsInstall.ios.${id}.title`)}
-            onClick={() => go(idx)}
-            className={cn(
-              "h-6 flex-1 rounded-full disabled:cursor-default",
-              "before:block before:h-1.5 before:rounded-full before:content-['']",
-              // A solid colour, not an opacity modifier: /20 against this theme
-              // variable resolves to the full colour, so every step looked done.
-              idx <= step ? "before:bg-primary-light" : "before:bg-border",
-            )}
-          />
-        ))}
-      </div>
+      <StepProgress
+        count={STEPS.length}
+        step={step}
+        furthest={furthest}
+        onSelect={go}
+        label={(idx) => t(`mtlsInstall.ios.${STEPS[idx]}.title`)}
+        testId={(idx) => `ios-step-${STEPS[idx]}`}
+      />
 
       {/* The body scrolls, the footer does not. A sticky footer inside the
           scroll area let long content slide underneath it, which hid the

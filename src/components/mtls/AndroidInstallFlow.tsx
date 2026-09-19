@@ -1,30 +1,16 @@
 "use client";
 
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowUp, ChevronLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GuideShot } from "./GuideShot";
 import { cn } from "@/lib/utils";
+import { useWizardStep } from "@/hooks/mtls/useWizardStep";
+import { useReturnedFromSystem } from "@/hooks/mtls/useReturnedFromSystem";
+import { StepProgress } from "./StepProgress";
 
 const STEP_KEY = "mtls_android_step";
-// Storage throws outright when site data is blocked. Losing the ability to
-// resume is survivable; taking the whole flow down with a render-time throw is
-// not, so every access is guarded.
-const readStore = (key: string): string | null => {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-};
-const writeStore = (key: string, value: string) => {
-  try {
-    localStorage.setItem(key, value);
-  } catch {
-    // No resume across reloads, but the flow still works in this session.
-  }
-};
 const STEPS = ["download", "install", "done"] as const;
 // Both copies of the instruction render identically; only their position
 // differs, so whichever end the dialog leaves uncovered reads the same. Only
@@ -54,64 +40,12 @@ export function AndroidInstallFlow({
 }: AndroidInstallFlowProps) {
   const { t } = useTranslation();
 
-  // Stored against the callsign: progress survives the system installer taking
-  // over, but the next person to enrol on this device starts from the top.
-  const owner = callsign || readStore("callsign") || "";
-  // Stored as "<callsign>:<step>:<furthest>". Keeping the furthest step means
-  // going Back is never a one-way trip: someone who has already installed can
-  // return to the end without downloading the key a second time.
-  const [progress, setProgress] = useState(() => {
-    const [storedOwner, storedStep, storedMax] = (
-      readStore(STEP_KEY) ?? ""
-    ).split(":");
-    const cur = Number(storedStep);
-    const max = Number(storedMax);
-    const mine =
-      storedOwner &&
-      storedOwner === readStore("callsign") &&
-      Number.isInteger(cur) &&
-      cur >= 0 &&
-      cur < STEPS.length;
-    const step = mine ? cur : 0;
-    const furthest =
-      mine && Number.isInteger(max)
-        ? Math.min(Math.max(max, step), STEPS.length - 1)
-        : step;
-    return { step, furthest };
-  });
-  const { step, furthest } = progress;
-  // Deliberately no focus/blur inference. It read "something took focus", not
-  // "the install happened", so any stray interruption advanced the user and a
-  // tab reload stranded them. The step now only ever moves on a fact: the
-  // download completing, or the user saying so.
-
-  // Measured: when the installer dialog opens over us the page gets no blur at
-  // all, only a focus event once it closes. Since focus can only fire if we
-  // did not have it, that event alone means the user is back from something.
-  // It never proves an install happened, so it only draws the eye to the next
-  // action and must not move the step - that is what desynced the flow before.
-  const [returned, setReturned] = useState(false);
-  useEffect(() => {
-    if (step !== 1) {
-      setReturned(false);
-      return;
-    }
-    const back = () => {
-      if (document.visibilityState === "visible") setReturned(true);
-    };
-    window.addEventListener("focus", back);
-    document.addEventListener("visibilitychange", back);
-    return () => {
-      window.removeEventListener("focus", back);
-      document.removeEventListener("visibilitychange", back);
-    };
-  }, [step]);
-
-  const go = (next: number) => {
-    const reached = Math.max(furthest, next);
-    writeStore(STEP_KEY, `${owner}:${next}:${reached}`);
-    setProgress({ step: next, furthest: reached });
-  };
+  const { step, furthest, go } = useWizardStep(
+    STEP_KEY,
+    callsign,
+    STEPS.length,
+  );
+  const returned = useReturnedFromSystem(step === 1);
 
   // Every completed download moves the flow on, including repeats. Keying off
   // the stored cert_downloaded flag instead would pin the user forward, since
@@ -121,8 +55,7 @@ export function AndroidInstallFlow({
     if (downloadCount === seenDownloads.current) return;
     seenDownloads.current = downloadCount;
     go(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [downloadCount]);
+  }, [downloadCount, go]);
 
   const current = STEPS[step];
 
@@ -132,28 +65,14 @@ export function AndroidInstallFlow({
       data-android-step={current}
       className="flex flex-1 flex-col gap-6"
     >
-      {/* Also the navigation: any step already reached stays reachable, so no
-          sequence of taps can strand someone on the wrong screen. */}
-      <div className="flex items-center gap-2">
-        {STEPS.map((id, idx) => (
-          <button
-            key={id}
-            type="button"
-            data-testid={`android-step-${id}`}
-            disabled={idx > furthest}
-            aria-current={idx === step ? "step" : undefined}
-            aria-label={t(`mtlsInstall.android.${id}.title`)}
-            onClick={() => go(idx)}
-            className={cn(
-              "h-6 flex-1 rounded-full disabled:cursor-default",
-              "before:block before:h-1.5 before:rounded-full before:content-['']",
-              // A solid colour, not an opacity modifier: /20 against this theme
-              // variable resolves to the full colour, so every step looked done.
-              idx <= step ? "before:bg-primary-light" : "before:bg-border",
-            )}
-          />
-        ))}
-      </div>
+      <StepProgress
+        count={STEPS.length}
+        step={step}
+        furthest={furthest}
+        onSelect={go}
+        label={(idx) => t(`mtlsInstall.android.${STEPS[idx]}.title`)}
+        testId={(idx) => `android-step-${STEPS[idx]}`}
+      />
 
       {current === "download" && (
         <>
