@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { cn } from "@/lib/utils";
 import { getActiveThemeName } from "@/config/asset-loader";
+import { PwaInstall } from "@/components/PwaInstall";
 
 const hashString = (str: string): string => {
   let hash = 0;
@@ -455,6 +456,7 @@ export function OnboardingGuide() {
           <p className="text-xs text-muted-foreground leading-relaxed">
             {t(step.description)}
           </p>
+          {step.id === "welcome" && <PwaInstall variant="card" />}
         </div>
       </div>
 

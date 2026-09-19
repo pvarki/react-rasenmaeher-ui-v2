@@ -22,6 +22,16 @@ export function getOperatingSystem(): string {
   return "Unknown";
 }
 
+// Only Safari can hand a configuration profile to the iOS installer. Chrome, Firefox and Edge
+// on iPhone are WebKit wrappers that download the file and leave the user stuck with it.
+export function isIosSafari(): boolean {
+  const ua = window.navigator.userAgent;
+  if (!/iPhone|iPad|iPod/i.test(ua)) {
+    return false;
+  }
+  return !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+}
+
 export interface PlatformInstructions {
   steps: string[];
   notes?: string[];
@@ -74,8 +84,6 @@ export const PLATFORM_INSTRUCTIONS: Record<string, PlatformInstructions> = {
       "mtlsInstall.platforms.Android.steps.2",
       "mtlsInstall.platforms.Android.steps.3",
       "mtlsInstall.platforms.Android.steps.4",
-      "mtlsInstall.platforms.Android.steps.5",
-      "mtlsInstall.platforms.Android.steps.6",
     ],
     notes: [
       "mtlsInstall.platforms.Android.notes.1",
@@ -90,7 +98,6 @@ export const PLATFORM_INSTRUCTIONS: Record<string, PlatformInstructions> = {
       "mtlsInstall.platforms.iOS.steps.4",
       "mtlsInstall.platforms.iOS.steps.5",
       "mtlsInstall.platforms.iOS.steps.6",
-      "mtlsInstall.platforms.iOS.steps.7",
     ],
     notes: [
       "mtlsInstall.platforms.iOS.notes.1",

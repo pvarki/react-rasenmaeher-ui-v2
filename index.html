@@ -19,6 +19,13 @@
 
       // Set the deployment name as the title
       document.getElementById("deployment-title").innerText = deploymentName;
+
+      // Chrome fires this once, possibly before React mounts. Stash it so the
+      // install button can still use it later.
+      window.addEventListener("beforeinstallprompt", (event) => {
+        event.preventDefault();
+        window.deferredInstallPrompt = event;
+      });
     </script>
   </head>
   <body class="bg-background">

@@ -13,6 +13,9 @@ import { MtlsExplanationCard } from "@/components/mtls/MtlsExplanationCard";
 import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
+import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
+import { IosInstallFlow } from "@/components/mtls/IosInstallFlow";
+import { downloadProfile, profileUrl } from "@/lib/downloadProfile";
 import {
   getOperatingSystem,
   getMtlsUrl,
@@ -37,9 +40,13 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
+  const [forceClassic, setForceClassic] = useState(false);
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
     () => localStorage.getItem("cert_downloaded") === "true",
   );
+  // Counts completed downloads rather than tracking a flag: re-downloading has
+  // to move the Android flow on again, and the flag is already true by then.
+  const [downloadCount, setDownloadCount] = useState(0);
   const { deployment } = useHealthCheck();
 
   useEffect(() => {
@@ -55,19 +62,46 @@ function MtlsInstallPage() {
     }
   }, [userCallsign]);
 
+  // The guided flows walk the user through it, so the guide would only be in the way.
   useEffect(() => {
-    setShowGuide(true);
-  }, []);
+    if (!userOS) return;
+    const guidedPhone =
+      (userOS === "Android" || userOS === "iOS") &&
+      window.matchMedia("(max-width: 767px)").matches;
+    setShowGuide(!guidedPhone);
+  }, [userOS]);
 
   const osToShow = selectedOS || userOS;
 
   const mtlsUrl = getMtlsUrl();
 
+  const useAndroidFlow = isMobile && osToShow === "Android" && !forceClassic;
+  const useIosFlow = isMobile && osToShow === "iOS" && !forceClassic;
+
+  // The selector is the escape hatch, not a one-way door: picking a platform we
+  // have a guided flow for takes you into it, anything else keeps the classic
+  // instructions. Without clearing forceClassic, choosing Android or iOS here
+  // stranded the user in the classic layout for a platform we guide.
+  const guided = (os: string) => os === "Android" || os === "iOS";
+
+  // Picking a platform we guide goes to its flow; anything else falls back to
+  // the classic instructions.
+  const chooseOS = (next: string) => {
+    setSelectedOS(next);
+    setForceClassic(!guided(next));
+  };
+  const useStepFlow = useAndroidFlow || useIosFlow;
+  // Apple cannot import a password-less PKCS12 at all, so both get the profile instead.
+  const applePlatform = osToShow === "iOS" || osToShow === "MacOS";
+
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
       localStorage.setItem("cert_downloaded", "true");
       setCertDownloaded(true);
-      toast.success(t("mtlsInstall.certificateDownloaded"));
+      setDownloadCount((n) => n + 1);
+      if (!useStepFlow) {
+        toast.success(t("mtlsInstall.certificateDownloaded"));
+      }
     },
     onError: (err) => {
       console.error("Certificate download error:", err);
@@ -78,11 +112,20 @@ function MtlsInstallPage() {
   const canNavigate = certDownloaded;
 
   const handleDownloadKey = () => {
-    if (callsign) {
-      getCertificateMutation.mutate({ callsign, deployment });
-    } else {
+    if (!callsign) {
       toast.error(t("mtlsInstall.callsignNotFound"));
+      return;
     }
+    if (applePlatform) {
+      localStorage.setItem("cert_downloaded", "true");
+      setCertDownloaded(true);
+      downloadProfile(profileUrl(callsign, deployment)).catch((err: Error) => {
+        console.error("Profile download error:", err);
+        toast.error(err.message || t("mtlsInstall.downloadFailed"));
+      });
+      return;
+    }
+    getCertificateMutation.mutate({ callsign, deployment });
   };
 
   const platformInstructions =
@@ -97,7 +140,7 @@ function MtlsInstallPage() {
           data-testid="mtls-install-page"
           data-mtls-layout="mobile"
           data-mtls-os={osToShow || ""}
-          className="min-h-screen flex flex-col bg-background"
+          className="h-dvh flex flex-col bg-background"
         >
           <div className="flex justify-between items-center p-6 border-b border-border">
             <Button
@@ -112,31 +155,72 @@ function MtlsInstallPage() {
             <LanguageSwitcher />
           </div>
 
-          <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto p-6">
-            <div className="w-full max-w-6xl space-y-8 py-8">
-              <MtlsPageHeader deployment={deployment} />
+          <div className="flex-1 min-h-0 flex flex-col items-center justify-start overflow-y-auto p-6">
+            <div
+              className={
+                useStepFlow
+                  ? "flex h-full min-h-0 w-full max-w-6xl flex-1"
+                  : "w-full max-w-6xl space-y-8 py-8"
+              }
+            >
+              {!useStepFlow && <MtlsPageHeader deployment={deployment} />}
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
-                <div className="lg:col-span-1 space-y-6">
-                  <PlatformSelector
-                    value={osToShow}
-                    onValueChange={setSelectedOS}
-                  />
-                  <MtlsCallsignDisplay callsign={callsign} />
-                  <MtlsActionButtons
-                    onDownload={handleDownloadKey}
-                    isDownloading={getCertificateMutation.isLoading}
-                    mtlsUrl={mtlsUrl}
-                    disabled={!callsign}
-                    canNavigate={canNavigate}
-                  />
-                </div>
+              {useAndroidFlow ? (
+                <AndroidInstallFlow
+                  callsign={callsign}
+                  fileName={`${callsign}_${deployment}.pfx`}
+                  mtlsUrl={mtlsUrl}
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  downloadCount={downloadCount}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.android.notAndroid")}
+                    />
+                  }
+                />
+              ) : useIosFlow ? (
+                <IosInstallFlow
+                  callsign={callsign}
+                  profileUrl={profileUrl(callsign, deployment)}
+                  mtlsUrl={mtlsUrl}
+                  onDownloaded={() => {
+                    localStorage.setItem("cert_downloaded", "true");
+                    setCertDownloaded(true);
+                  }}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.ios.notIos")}
+                    />
+                  }
+                />
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
+                  <div className="lg:col-span-1 space-y-6">
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                    />
+                    <MtlsCallsignDisplay callsign={callsign} />
+                    <MtlsActionButtons
+                      onDownload={handleDownloadKey}
+                      isDownloading={getCertificateMutation.isLoading}
+                      mtlsUrl={mtlsUrl}
+                      disabled={!callsign}
+                      canNavigate={canNavigate}
+                    />
+                  </div>
 
-                <div className="lg:col-span-2 space-y-6">
-                  <MtlsExplanationCard />
-                  <MtlsInstructions instructions={platformInstructions} />
+                  <div className="lg:col-span-2 space-y-6">
+                    <MtlsExplanationCard />
+                    <MtlsInstructions instructions={platformInstructions} />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

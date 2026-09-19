@@ -12,13 +12,11 @@ import {
   ImageOff,
   Smartphone,
   Monitor,
-  AlertCircle,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { getOperatingSystem } from "@/components/mtls/platformUtils";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface MtlsGuideStep {
   id: string;
@@ -26,7 +24,6 @@ interface MtlsGuideStep {
   description: string;
   image?: string;
   showPlatformInstructions?: boolean;
-  androidWarning?: boolean;
 }
 
 const MTLS_GUIDE_STEPS: MtlsGuideStep[] = [
@@ -39,7 +36,6 @@ const MTLS_GUIDE_STEPS: MtlsGuideStep[] = [
     id: "download",
     title: "mtlsGuide.steps.download.title",
     description: "mtlsGuide.steps.download.description",
-    androidWarning: true,
   },
   {
     id: "install",
@@ -110,8 +106,8 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
       Windows: 7,
       MacOS: 5,
       Linux: 4,
-      Android: 6,
-      iOS: 7,
+      Android: 4,
+      iOS: 6,
     };
 
     const count = stepCounts[platform] || 4;
@@ -191,17 +187,6 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
           <p className="text-sm text-muted-foreground leading-relaxed">
             {t(step.description)}
           </p>
-
-          {step.androidWarning && userOS === "Android" && (
-            <Alert className="border-orange-500/50 bg-orange-500/10">
-              <AlertCircle className="h-4 w-4 text-orange-500" />
-              <AlertDescription className="text-sm text-foreground">
-                <strong>{t("mtlsGuide.androidWarning.title")}</strong>
-                <br />
-                {t("mtlsGuide.androidWarning.description")}
-              </AlertDescription>
-            </Alert>
-          )}
 
           {step.showPlatformInstructions && (
             <div className="rounded-lg border border-border bg-muted p-4 space-y-3">

@@ -183,10 +183,6 @@
         "description": "Once installed, click 'Navigate to Services' to access the secure domain. Your browser will use your newly installed certificate to authenticate automatically. You're now ready to use all tactical services!"
       }
     },
-    "androidWarning": {
-      "title": "Android Users:",
-      "description": "When you download the certificate, a popup will appear asking for a password. Use your callsign as the password."
-    },
     "installSteps": {
       "title": "Installation Steps"
     }
@@ -523,7 +519,6 @@
     "selectPlaceholder": "Select your OS",
     "instructionsTitle": "Installation Instructions:",
     "note": "Note:",
-    "passwordLabel": "Password for certificate:",
     "downloadButton": "Download your key",
     "downloading": "Downloading...",
     "navigateButton": "Navigate with your key",
@@ -544,7 +539,7 @@
           "2": "Double-click the .pfx file to open the Certificate Import Wizard",
           "3": "Select 'Current User' or 'Local Machine' (Current User is recommended)",
           "4": "Choose 'Automatically select the certificate store based on the type of certificate'",
-          "5": "When prompted, enter your callsign",
+          "5": "Leave the password empty and click Next",
           "6": "Click 'Finish' to complete the installation",
           "7": "Use the 'Navigate with your key' button to access services"
         },
@@ -555,15 +550,15 @@
       },
       "MacOS": {
         "steps": {
-          "1": "Download your certificate using the button below",
-          "2": "Double-click the .pfx file to open Keychain Access",
-          "3": "When prompted, enter your callsign as the password",
-          "4": "Verify the certificate was added to your login Keychain",
-          "5": "Use the 'Navigate with your key' button to access services"
+          "1": "Download your profile",
+          "2": "Open the downloaded .mobileconfig file",
+          "3": "Open System Settings → General → Device Management",
+          "4": "Select the profile, click Install, enter your Mac password",
+          "5": "Continue with your key"
         },
         "notes": {
-          "1": "macOS will automatically install the certificate to Keychain",
-          "2": "If prompted about trust, select 'Always Trust' for this application"
+          "1": "The profile installs the certificate into your login keychain.",
+          "2": "The profile is unsigned, so macOS shows it as Unverified."
         }
       },
       "Linux": {
@@ -581,11 +576,9 @@
       "Android": {
         "steps": {
           "1": "Download your certificate",
-          "2": "Your device will automatically open the installation window",
-          "3": "Enter your invitation code as the password",
-          "4": "Select 'VPN and app usage certificate' as the certificate purpose",
-          "5": "Do not change the certificate name and press 'OK'",
-          "6": "Proceed to the services using the key"
+          "2": "Your device opens the installation window automatically",
+          "3": "Enter your callsign as the password",
+          "4": "Proceed to the services using the key"
         },
         "notes": {
           "1": "Requires Android 4.4 or newer",
@@ -594,19 +587,63 @@
       },
       "iOS": {
         "steps": {
-          "1": "Download your certificate using the button below",
-          "2": "Tap the file to open it, then tap 'Allow' to install",
-          "3": "Go to Settings → General → VPN & Device Management",
-          "4": "Tap the certificate under 'Downloaded Profile'",
-          "5": "When prompted, enter your callsign as the password",
-          "6": "Tap 'Install' twice to confirm",
-          "7": "Use the 'Navigate with your key' button to access services"
+          "1": "Download your profile",
+          "2": "Open the Settings app",
+          "3": "Tap 'Profile Downloaded' at the top",
+          "4": "Tap Install, enter your passcode, Install again",
+          "5": "Within 8 minutes, or iOS deletes it",
+          "6": "Continue with your key"
         },
         "notes": {
-          "1": "iOS requires the certificate to be trusted before use",
-          "2": "You may see a prompt asking to allow certificate installation"
+          "1": "Use Safari. Other browsers on iPhone cannot install the profile.",
+          "2": "The profile is unsigned, so iOS shows it as Unverified."
         }
       }
+    },
+    "android": {
+      "download": {
+        "title": "Get your key",
+        "action": "DOWNLOAD KEY",
+        "caption": "Press Download. After that, a dialog opens. Then press OK, twice."
+      },
+      "install": {
+        "title": "PRESS OK",
+        "hint": "Twice.",
+        "openDownload": "Don't see a dialog? Open your download",
+        "next": "Installed – continue"
+      },
+      "done": {
+        "title": "Ready.",
+        "action": "GO TO THE SERVICE",
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK. Now go in."
+      },
+      "notAndroid": "Not an Android phone?"
+    },
+    "ios": {
+      "download": {
+        "title": "Get your certificate",
+        "action": "DOWNLOAD PROFILE",
+        "notSafari": "Open this page in Safari. Other browsers on iPhone cannot install it.",
+        "failed": "Download failed. Tap again.",
+        "caption": "Press Download. After downloading, go to Settings. It will say Profile Downloaded. Then tap that."
+      },
+      "install": {
+        "title": "Now install it",
+        "steps": {
+          "1": "Open the Settings app",
+          "2": "Tap Profile Downloaded, near the top",
+          "3": "Tap Install, enter your passcode",
+          "4": "Tap Install again on the warning"
+        },
+        "hurry": "Do it now. iPhone deletes the profile after 8 minutes.",
+        "next": "Installed – continue"
+      },
+      "done": {
+        "title": "Ready.",
+        "action": "GO TO THE SERVICE",
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK. Now go in."
+      },
+      "notIos": "Not an iPhone?"
     }
   },
   "browserGuard": {
@@ -713,5 +750,11 @@
     "send": "Send feedback",
     "sending": "Sending...",
     "thanks": "Thanks for the feedback!"
+  },
+  "pwa": {
+    "callToAction": "Install the app to your home screen so you can always easily navigate to it.",
+    "install": "Install app",
+    "installToHomeScreen": "Install to home screen",
+    "iosSteps": "Tap the Share button in Safari, then choose \"Add to Home Screen\"."
   }
 }
