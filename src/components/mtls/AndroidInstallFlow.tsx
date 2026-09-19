@@ -52,16 +52,11 @@ export function AndroidInstallFlow({
       ? parsed
       : 0;
   });
-  // The installer is a separate activity: it steals focus but leaves this page
-  // visible behind it, so blur/focus is what tells us it opened, not
-  // visibilitychange. No blur at all means the user has to open the file.
-  const [dialogMissing, setDialogMissing] = useState(false);
-  // We cannot see where the system dialog sits, how big it is, or that it
-  // dims us: innerHeight, visualViewport and elementFromPoint are all
-  // unchanged while it is up. Losing focus is the only signal, so it drives
-  // both the emphasis and the second copy of the instruction.
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const sawDialog = useRef(false);
+  // Deliberately no focus/blur inference. It read "something took focus", not
+  // "the install happened", so any stray interruption advanced the user and a
+  // tab reload stranded them. The step now only ever moves on a fact: the
+  // download completing, or the user saying so.
+  const [showFallback, setShowFallback] = useState(false);
 
   const go = (next: number) => {
     localStorage.setItem(STEP_KEY, `${owner}:${next}`);
@@ -79,28 +74,15 @@ export function AndroidInstallFlow({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downloadCount]);
 
+  // The installer usually opens within a second. Past that, offer the manual
+  // route as well - additive, never a branch, so a wrong guess cannot mislead.
   useEffect(() => {
-    if (step !== 1) return;
-    const onBlur = () => {
-      sawDialog.current = true;
-      setDialogMissing(false);
-      setDialogOpen(true);
-    };
-    const onFocus = () => {
-      setDialogOpen(false);
-      if (sawDialog.current) go(2);
-    };
-    window.addEventListener("blur", onBlur);
-    window.addEventListener("focus", onFocus);
-    const timer = setTimeout(() => {
-      if (!sawDialog.current) setDialogMissing(true);
-    }, DIALOG_WAIT_MS);
-    return () => {
-      window.removeEventListener("blur", onBlur);
-      window.removeEventListener("focus", onFocus);
-      clearTimeout(timer);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (step !== 1) {
+      setShowFallback(false);
+      return;
+    }
+    const timer = setTimeout(() => setShowFallback(true), DIALOG_WAIT_MS);
+    return () => clearTimeout(timer);
   }, [step]);
 
   const current = STEPS[step];
@@ -137,12 +119,16 @@ export function AndroidInstallFlow({
         <>
           <p
             data-testid="android-press-ok"
-            className={cn(INSTRUCTION, dialogOpen && "animate-attention")}
+            className={cn(INSTRUCTION, "animate-attention")}
           >
             {t("mtlsInstall.android.install.title")}
           </p>
 
-          {dialogMissing ? (
+          <p className="text-2xl text-muted-foreground">
+            {t("mtlsInstall.android.install.hint")}
+          </p>
+
+          {showFallback && (
             <div
               data-testid="android-open-download"
               className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
@@ -157,10 +143,6 @@ export function AndroidInstallFlow({
                 </p>
               </div>
             </div>
-          ) : (
-            <p className="text-2xl text-muted-foreground">
-              {t("mtlsInstall.android.install.hint")}
-            </p>
           )}
         </>
       )}
@@ -216,7 +198,9 @@ export function AndroidInstallFlow({
         </Button>
       )}
 
-      {current === "install" && dialogOpen && (
+      {/* Repeated at the other end: OEMs anchor the dialog top, centre or
+          bottom and the page cannot tell which, so one is always readable. */}
+      {current === "install" && (
         <p
           data-testid="android-press-ok-bottom"
           aria-hidden="true"
