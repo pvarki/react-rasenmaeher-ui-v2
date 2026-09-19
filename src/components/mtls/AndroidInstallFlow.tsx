@@ -25,8 +25,6 @@ const writeStore = (key: string, value: string) => {
   }
 };
 const STEPS = ["download", "install", "done"] as const;
-// Android opens the installer within a second; past this it is not coming.
-const DIALOG_WAIT_MS = 3500;
 // Both copies of the instruction render identically; only their position
 // differs, so whichever end the dialog leaves uncovered reads the same.
 const INSTRUCTION =
@@ -83,7 +81,6 @@ export function AndroidInstallFlow({
   // "the install happened", so any stray interruption advanced the user and a
   // tab reload stranded them. The step now only ever moves on a fact: the
   // download completing, or the user saying so.
-  const [showFallback, setShowFallback] = useState(false);
 
   const go = (next: number) => {
     const reached = Math.max(furthest, next);
@@ -101,17 +98,6 @@ export function AndroidInstallFlow({
     go(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downloadCount]);
-
-  // The installer usually opens within a second. Past that, offer the manual
-  // route as well - additive, never a branch, so a wrong guess cannot mislead.
-  useEffect(() => {
-    if (step !== 1) {
-      setShowFallback(false);
-      return;
-    }
-    const timer = setTimeout(() => setShowFallback(true), DIALOG_WAIT_MS);
-    return () => clearTimeout(timer);
-  }, [step]);
 
   const current = STEPS[step];
 
@@ -167,22 +153,23 @@ export function AndroidInstallFlow({
             {t("mtlsInstall.android.install.hint")}
           </p>
 
-          {showFallback && (
-            <div
-              data-testid="android-open-download"
-              className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
-            >
-              <ArrowUp className="h-8 w-8 shrink-0 animate-bounce text-primary-light" />
-              <div>
-                <p className="text-xl font-bold">
-                  {t("mtlsInstall.android.install.openDownload")}
-                </p>
-                <p className="mt-1 font-mono text-sm break-all text-muted-foreground">
-                  {fileName}
-                </p>
-              </div>
+          {/* Always shown, not after a delay: Samsung does not auto-open the
+              download, and its installer appears over the file manager rather
+              than over us, so this has to be read before the user leaves. */}
+          <div
+            data-testid="android-open-download"
+            className="flex items-start gap-3 rounded-2xl border-2 border-primary-light p-4"
+          >
+            <ArrowUp className="h-8 w-8 shrink-0 animate-bounce text-primary-light" />
+            <div>
+              <p className="text-xl font-bold">
+                {t("mtlsInstall.android.install.openDownload")}
+              </p>
+              <p className="mt-1 font-mono text-sm break-all text-muted-foreground">
+                {fileName}
+              </p>
             </div>
-          )}
+          </div>
         </>
       )}
 
