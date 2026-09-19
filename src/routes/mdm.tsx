@@ -11,13 +11,11 @@ import {
   type MdmEnrollment,
 } from "@/hooks/api/useMdmEnrollments";
 import { useMdmSettings } from "@/hooks/api/useMdmSettings";
-import {
-  callsignsFrom,
-  usePlanMdmDevices,
-} from "@/hooks/api/usePlanMdmDevices";
+import { usePlanMdmDevices } from "@/hooks/api/usePlanMdmDevices";
 import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
 import { devicesToCsv, downloadCsv } from "@/lib/mdmExport";
 import { ConnectionDialog } from "@/components/mdm/ConnectionDialog";
+import { Composer } from "@/components/mdm/Composer";
 import { CopyLine } from "@/components/mdm/CopyLine";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -71,118 +69,6 @@ function HowItWorks({ onConnection }: { onConnection: () => void }) {
         {t("mdm.connectionTitle")}
       </Button>
     </div>
-  );
-}
-
-function Composer({
-  onPlan,
-  isPlanning,
-  progress,
-  onCancel,
-}: {
-  onPlan: (callsigns: string[]) => void;
-  isPlanning: boolean;
-  progress: { done: number; total: number };
-  onCancel: () => void;
-}) {
-  const { t } = useTranslation();
-  const [prefix, setPrefix] = useState("");
-  const [from, setFrom] = useState("1");
-  const [count, setCount] = useState("1");
-  const wanted = callsignsFrom(prefix, Number(count) || 0, Number(from) || 1);
-
-  return (
-    <form
-      data-testid="mdm-composer"
-      className="rounded-2xl border border-border bg-card p-5 space-y-4"
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (wanted.length) {
-          onPlan(wanted);
-        }
-      }}
-    >
-      <div className="flex flex-wrap items-end gap-3">
-        <label className="flex-1 min-w-40 space-y-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("mdm.prefix")}
-          </span>
-          <Input
-            data-testid="mdm-prefix-input"
-            autoFocus
-            value={prefix}
-            onChange={(event) => setPrefix(event.target.value)}
-            placeholder={t("mdm.prefixPlaceholder")}
-            disabled={isPlanning}
-          />
-        </label>
-        <label className="w-24 space-y-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("mdm.from")}
-          </span>
-          <Input
-            data-testid="mdm-from-input"
-            type="number"
-            min={1}
-            value={from}
-            onChange={(event) => setFrom(event.target.value)}
-            disabled={isPlanning}
-          />
-        </label>
-        <label className="w-24 space-y-1.5">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("mdm.count")}
-          </span>
-          <Input
-            data-testid="mdm-count-input"
-            type="number"
-            min={1}
-            max={500}
-            value={count}
-            onChange={(event) => setCount(event.target.value)}
-            disabled={isPlanning}
-          />
-        </label>
-      </div>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p
-          data-testid="mdm-plan-preview"
-          className="text-xs text-muted-foreground"
-        >
-          {wanted.length === 1
-            ? t("mdm.previewOne", { callsign: wanted[0] })
-            : wanted.length > 1
-              ? t("mdm.preview", {
-                  first: wanted[0],
-                  last: wanted[wanted.length - 1],
-                  count: wanted.length,
-                })
-              : t("mdm.previewNone")}
-        </p>
-        <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={onCancel}
-            disabled={isPlanning}
-          >
-            {t("mdm.cancel")}
-          </Button>
-          <Button
-            data-testid="mdm-plan-button"
-            type="submit"
-            disabled={isPlanning || !wanted.length}
-          >
-            {isPlanning
-              ? t("mdm.bulkProgress", {
-                  done: progress.done,
-                  total: progress.total,
-                })
-              : t("mdm.plan")}
-          </Button>
-        </div>
-      </div>
-    </form>
   );
 }
 

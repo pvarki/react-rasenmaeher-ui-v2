@@ -17,18 +17,6 @@ const IDLE: BulkProgress = { done: 0, total: 0, planned: [], failed: [] };
  * while it happens. */
 const AT_ONCE = 4;
 
-export function callsignsFrom(
-  prefix: string,
-  count: number,
-  from: number,
-): string[] {
-  const clean = prefix.trim();
-  if (!clean || count < 1) {
-    return [];
-  }
-  return Array.from({ length: count }, (_, index) => `${clean}${from + index}`);
-}
-
 /** Plan many devices at once, reporting progress and surviving the ones that fail
  *
  * A callsign already taken is the ordinary failure here, not an exceptional one: names get

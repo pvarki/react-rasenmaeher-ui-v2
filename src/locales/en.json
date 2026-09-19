@@ -760,6 +760,14 @@
     "columnDeviceName": "Name in the MDM",
     "columnStatus": "Status",
     "statusWaiting": "Waiting",
-    "statusEnrolled": "Enrolled"
+    "statusEnrolled": "Enrolled",
+    "modeOne": "One",
+    "modeSeries": "Series",
+    "modeList": "List",
+    "callsign": "Callsign",
+    "callsignPlaceholder": "KORPPI",
+    "listPlaceholder": "KORPPI\nKIRVES\nHAUKKA",
+    "chooseFile": "Choose a file",
+    "listHint": "One per line, or a CSV. Only the first column is read."
   }
 }

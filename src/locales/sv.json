@@ -760,6 +760,14 @@
     "columnDeviceName": "Namn i MDM:en",
     "columnStatus": "Status",
     "statusWaiting": "Väntar",
-    "statusEnrolled": "Ansluten"
+    "statusEnrolled": "Ansluten",
+    "modeOne": "En",
+    "modeSeries": "Serie",
+    "modeList": "Lista",
+    "callsign": "Anropssignal",
+    "callsignPlaceholder": "KORPPI",
+    "listPlaceholder": "KORPPI\nKIRVES\nHAUKKA",
+    "chooseFile": "Välj en fil",
+    "listHint": "En per rad, eller en CSV. Bara första kolumnen läses."
   }
 }

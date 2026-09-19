@@ -760,6 +760,14 @@
     "columnDeviceName": "Nimi MDM:ssä",
     "columnStatus": "Tila",
     "statusWaiting": "Odottaa",
-    "statusEnrolled": "Liitetty"
+    "statusEnrolled": "Liitetty",
+    "modeOne": "Yksi",
+    "modeSeries": "Sarja",
+    "modeList": "Lista",
+    "callsign": "Kutsutunnus",
+    "callsignPlaceholder": "KORPPI",
+    "listPlaceholder": "KORPPI\nKIRVES\nHAUKKA",
+    "chooseFile": "Valitse tiedosto",
+    "listHint": "Yksi riviä kohden tai CSV. Vain ensimmäinen sarake luetaan."
   }
 }
