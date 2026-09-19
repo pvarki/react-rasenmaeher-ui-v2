@@ -625,7 +625,7 @@
         "action": "LADDA NER PROFIL",
         "notSafari": "Öppna sidan i Safari. Andra webbläsare på iPhone kan inte installera den.",
         "failed": "Nedladdningen misslyckades. Tryck igen.",
-        "caption": "I Inställningar står Profil hämtad. Tryck på den."
+        "caption": "Tryck Ladda ner. Gå sedan till Inställningar. Där står Profil hämtad. Tryck på den."
       },
       "install": {
         "title": "Installera den nu",

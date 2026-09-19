@@ -625,7 +625,7 @@
         "action": "DOWNLOAD PROFILE",
         "notSafari": "Open this page in Safari. Other browsers on iPhone cannot install it.",
         "failed": "Download failed. Tap again.",
-        "caption": "Settings will say Profile Downloaded. Tap it."
+        "caption": "Press Download. After downloading, go to Settings. It will say Profile Downloaded. Then tap that."
       },
       "install": {
         "title": "Now install it",

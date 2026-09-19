@@ -625,7 +625,7 @@
         "action": "LATAA PROFIILI",
         "notSafari": "Avaa tämä sivu Safarissa. Muut iPhonen selaimet eivät voi asentaa sitä.",
         "failed": "Lataus epäonnistui. Napauta uudelleen.",
-        "caption": "Asetuksiin tulee Profiili ladattu. Napauta sitä."
+        "caption": "Paina Lataa. Latauksen jälkeen mene Asetuksiin. Siellä lukee Profiili ladattu. Napauta sitä."
       },
       "install": {
         "title": "Asenna se nyt",
