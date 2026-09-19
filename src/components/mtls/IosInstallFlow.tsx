@@ -57,6 +57,9 @@ export function IosInstallFlow({
       // No profile means no install, so go back and let them try again.
       go(0);
       setFailed(true);
+    } finally {
+      // Also clears on success: the re-download button on the install step
+      // stays live, since the profile expires in eight minutes.
       setStarting(false);
     }
   };
