@@ -109,6 +109,12 @@
     "imageMissing": "Kuva ei ole saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi"
   },
+  "pwa": {
+    "callToAction": "Asenna sovellus aloitusnäytöllesi, niin löydät sen aina helposti.",
+    "install": "Asenna sovellus",
+    "installToHomeScreen": "Asenna aloitusnäytölle",
+    "iosSteps": "Napauta Safarissa Jaa-painiketta ja valitse \"Lisää Koti-valikkoon\"."
+  },
   "systemStatus": {
     "title": "Järjestelmän tila",
     "lastUpdated": "Päivitetty",

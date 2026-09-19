@@ -109,6 +109,12 @@
     "imageMissing": "Bild inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora"
   },
+  "pwa": {
+    "callToAction": "Installera appen på din hemskärm så att du alltid hittar den enkelt.",
+    "install": "Installera appen",
+    "installToHomeScreen": "Installera på hemskärmen",
+    "iosSteps": "Tryck på Dela-knappen i Safari och välj \"Lägg till på hemskärmen\"."
+  },
   "systemStatus": {
     "title": "Systemstatus",
     "lastUpdated": "Senast uppdaterad",

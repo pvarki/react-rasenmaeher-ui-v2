@@ -109,6 +109,12 @@
     "imageMissing": "Image not available",
     "clickToEnlarge": "Click to enlarge"
   },
+  "pwa": {
+    "callToAction": "Install the app to your home screen so you can always easily navigate to it.",
+    "install": "Install app",
+    "installToHomeScreen": "Install to home screen",
+    "iosSteps": "Tap the Share button in Safari, then choose \"Add to Home Screen\"."
+  },
   "systemStatus": {
     "title": "System Status",
     "lastUpdated": "Last updated",
