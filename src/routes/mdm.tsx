@@ -4,33 +4,24 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import {
-  Check,
-  ChevronDown,
-  Copy,
-  Download,
-  Info,
-  Settings2,
-} from "lucide-react";
+import { Download, Plus, Settings2, Smartphone } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
   useMdmEnrollments,
   type MdmEnrollment,
 } from "@/hooks/api/useMdmEnrollments";
+import { useMdmSettings } from "@/hooks/api/useMdmSettings";
 import {
   callsignsFrom,
   usePlanMdmDevices,
 } from "@/hooks/api/usePlanMdmDevices";
 import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
 import { devicesToCsv, downloadCsv } from "@/lib/mdmExport";
+import { ConnectionDialog } from "@/components/mdm/ConnectionDialog";
+import { CopyLine } from "@/components/mdm/CopyLine";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import {
   Table,
   TableBody,
@@ -44,145 +35,167 @@ export const Route = createFileRoute("/mdm")({
   component: MdmPage,
 });
 
-/** The responder answers on the plain host, not the mTLS one the admin is looking at. */
-function scepUrl(): string {
-  return `https://${window.location.hostname.replace(/^mtls\./, "")}/scep`;
-}
-
-function CopyButton({ value, label }: { value: string; label: string }) {
-  const { t } = useTranslation();
-  const [copied, setCopied] = useState(false);
-  return (
-    <Button
-      data-testid="mdm-copy-button"
-      variant="ghost"
-      size="icon"
-      aria-label={label}
-      onClick={() =>
-        navigator.clipboard.writeText(value).then(
-          () => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-          },
-          () => toast.error(t("mdm.copyFailed")),
-        )
-      }
-    >
-      {copied ? (
-        <Check className="w-4 h-4 text-primary" />
-      ) : (
-        <Copy className="w-4 h-4" />
-      )}
-    </Button>
-  );
-}
-
-/** One-time MDM configuration, folded away: it is read once and never again. */
-function SetupPanel() {
-  const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const url = scepUrl();
-  return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger asChild>
-        <Button
-          data-testid="mdm-setup-toggle"
-          variant="ghost"
-          className="w-full justify-between px-0"
-        >
-          <span className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Settings2 className="w-4 h-4" />
-            {t("mdm.serviceTitle")}
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-          />
-        </Button>
-      </CollapsibleTrigger>
-      <CollapsibleContent
-        data-testid="mdm-setup-panel"
-        className="border border-border rounded-2xl bg-card p-4 space-y-2"
-      >
-        <p className="text-sm text-muted-foreground">{t("mdm.serviceDesc")}</p>
-        <div className="flex items-center gap-2">
-          <div className="flex-1 min-w-0">
-            <p className="text-xs text-muted-foreground">{t("mdm.scepUrl")}</p>
-            <p className="font-mono text-sm break-all">{url}</p>
-          </div>
-          <CopyButton value={url} label={t("mdm.copy")} />
-        </div>
-        <div className="space-y-1 pt-2 border-t border-border">
-          <p className="text-xs text-muted-foreground">
-            {t("mdm.subjectTitle")}
-          </p>
-          <p className="font-mono text-sm break-all">
-            CN=&lt;callsign&gt;, OU=&lt;callsign&gt;@&lt;code&gt;
-          </p>
-          <p className="text-xs text-muted-foreground">
-            {t("mdm.subjectDesc")}
-          </p>
-        </div>
-        <p className="text-xs text-muted-foreground">
-          {t("mdm.challengeNote")}
-        </p>
-      </CollapsibleContent>
-    </Collapsible>
-  );
-}
-
-/** What an operator has to do, in order.
+/** The three things to do, said once, where they are needed: in the empty state.
  *
- * On the page rather than behind a dialog: this is done rarely, the order matters, and the one
- * step people cannot guess -- that the phone is named in the MDM AFTER it is added -- is the one
- * that makes the difference between a working device and a puzzling one.
+ * Not permanent furniture. An operator who has done this before does not need to be told again,
+ * and a page that explains itself forever reads as documentation rather than as a tool.
  */
-function Steps() {
+function HowItWorks({ onConnection }: { onConnection: () => void }) {
   const { t } = useTranslation();
-  const steps = [
-    { title: t("mdm.step1Title"), body: t("mdm.step1Body") },
-    { title: t("mdm.step2Title"), body: t("mdm.step2Body") },
-    { title: t("mdm.step3Title"), body: t("mdm.step3Body") },
-  ];
+  const steps = [t("mdm.step1"), t("mdm.step2"), t("mdm.step3")];
   return (
-    <section data-testid="mdm-steps" className="space-y-3">
-      <ol className="grid gap-3 sm:grid-cols-3">
+    <div
+      data-testid="mdm-how-it-works"
+      className="rounded-2xl border border-dashed border-border px-6 py-10 text-center"
+    >
+      <Smartphone className="w-8 h-8 mx-auto text-muted-foreground/60" />
+      <h2 className="mt-4 text-lg font-semibold">{t("mdm.emptyTitle")}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{t("mdm.emptyBody")}</p>
+      <ol className="mt-6 mx-auto max-w-md space-y-3 text-left">
         {steps.map((step, index) => (
-          <li
-            data-testid="mdm-step"
-            key={step.title}
-            className="border border-border rounded-2xl bg-card p-4 space-y-1"
-          >
-            <div className="flex items-center gap-2">
-              <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-                {index + 1}
-              </span>
-              <h3 className="font-semibold text-sm">{step.title}</h3>
-            </div>
-            <p className="text-xs text-muted-foreground">{step.body}</p>
+          <li key={step} className="flex gap-3 text-sm">
+            <span className="flex items-center justify-center shrink-0 w-5 h-5 mt-px rounded-full bg-muted text-xs font-medium">
+              {index + 1}
+            </span>
+            <span className="text-muted-foreground">{step}</span>
           </li>
         ))}
       </ol>
-      <p
-        data-testid="mdm-steps-note"
-        className="flex gap-2 text-xs text-muted-foreground"
+      <Button
+        data-testid="mdm-empty-connection"
+        variant="outline"
+        className="mt-6"
+        onClick={onConnection}
       >
-        <Info className="w-4 h-4 shrink-0 mt-px" />
-        <span>{t("mdm.stepsNote")}</span>
-      </p>
-    </section>
+        <Settings2 className="w-4 h-4 mr-2" />
+        {t("mdm.connectionTitle")}
+      </Button>
+    </div>
+  );
+}
+
+function Composer({
+  onPlan,
+  isPlanning,
+  progress,
+  onCancel,
+}: {
+  onPlan: (callsigns: string[]) => void;
+  isPlanning: boolean;
+  progress: { done: number; total: number };
+  onCancel: () => void;
+}) {
+  const { t } = useTranslation();
+  const [prefix, setPrefix] = useState("");
+  const [from, setFrom] = useState("1");
+  const [count, setCount] = useState("1");
+  const wanted = callsignsFrom(prefix, Number(count) || 0, Number(from) || 1);
+
+  return (
+    <form
+      data-testid="mdm-composer"
+      className="rounded-2xl border border-border bg-card p-5 space-y-4"
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (wanted.length) {
+          onPlan(wanted);
+        }
+      }}
+    >
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="flex-1 min-w-40 space-y-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            {t("mdm.prefix")}
+          </span>
+          <Input
+            data-testid="mdm-prefix-input"
+            autoFocus
+            value={prefix}
+            onChange={(event) => setPrefix(event.target.value)}
+            placeholder={t("mdm.prefixPlaceholder")}
+            disabled={isPlanning}
+          />
+        </label>
+        <label className="w-24 space-y-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            {t("mdm.from")}
+          </span>
+          <Input
+            data-testid="mdm-from-input"
+            type="number"
+            min={1}
+            value={from}
+            onChange={(event) => setFrom(event.target.value)}
+            disabled={isPlanning}
+          />
+        </label>
+        <label className="w-24 space-y-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            {t("mdm.count")}
+          </span>
+          <Input
+            data-testid="mdm-count-input"
+            type="number"
+            min={1}
+            max={500}
+            value={count}
+            onChange={(event) => setCount(event.target.value)}
+            disabled={isPlanning}
+          />
+        </label>
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p
+          data-testid="mdm-plan-preview"
+          className="text-xs text-muted-foreground"
+        >
+          {wanted.length === 1
+            ? t("mdm.previewOne", { callsign: wanted[0] })
+            : wanted.length > 1
+              ? t("mdm.preview", {
+                  first: wanted[0],
+                  last: wanted[wanted.length - 1],
+                  count: wanted.length,
+                })
+              : t("mdm.previewNone")}
+        </p>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={onCancel}
+            disabled={isPlanning}
+          >
+            {t("mdm.cancel")}
+          </Button>
+          <Button
+            data-testid="mdm-plan-button"
+            type="submit"
+            disabled={isPlanning || !wanted.length}
+          >
+            {isPlanning
+              ? t("mdm.bulkProgress", {
+                  done: progress.done,
+                  total: progress.total,
+                })
+              : t("mdm.plan")}
+          </Button>
+        </div>
+      </div>
+    </form>
   );
 }
 
 function DeviceTable({ devices }: { devices: MdmEnrollment[] }) {
   const { t } = useTranslation();
   return (
-    <div className="border border-border rounded-2xl overflow-x-auto">
+    <div className="rounded-2xl border border-border overflow-x-auto">
       <Table data-testid="mdm-device-table">
         <TableHeader>
           <TableRow>
-            <TableHead>{t("mdm.columnCallsign")}</TableHead>
+            <TableHead className="w-40">{t("mdm.columnCallsign")}</TableHead>
             <TableHead>{t("mdm.columnDeviceName")}</TableHead>
-            <TableHead className="text-right">
+            <TableHead className="w-28 text-right">
               {t("mdm.columnStatus")}
             </TableHead>
           </TableRow>
@@ -195,16 +208,8 @@ function DeviceTable({ devices }: { devices: MdmEnrollment[] }) {
               key={device.callsign}
             >
               <TableCell className="font-medium">{device.callsign}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-1">
-                  <span className="font-mono text-xs break-all">
-                    {device.deviceName}
-                  </span>
-                  <CopyButton
-                    value={device.deviceName}
-                    label={t("mdm.copyFor", { callsign: device.callsign })}
-                  />
-                </div>
+              <TableCell className="py-2">
+                <CopyLine label="" value={device.deviceName} />
               </TableCell>
               <TableCell className="text-right">
                 {device.state === EnrollmentState.PENDING ? (
@@ -224,16 +229,14 @@ function DeviceTable({ devices }: { devices: MdmEnrollment[] }) {
 function MdmPage() {
   const { t } = useTranslation();
   const { userType, isLoading: userTypeLoading } = useUserType();
-  const [prefix, setPrefix] = useState("");
-  const [from, setFrom] = useState("1");
-  const [count, setCount] = useState("1");
+  const [composing, setComposing] = useState(false);
+  const [connectionOpen, setConnectionOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [lastRun, setLastRun] = useState<MdmEnrollment[]>([]);
 
   const { data: devices, isLoading, refetch } = useMdmEnrollments();
+  const { data: settings } = useMdmSettings();
   const { planMany, progress, isPlanning } = usePlanMdmDevices();
-
-  const wanted = callsignsFrom(prefix, Number(count) || 0, Number(from) || 1);
 
   const shown = useMemo(() => {
     const needle = filter.trim().toLowerCase();
@@ -258,7 +261,7 @@ function MdmPage() {
   if (isLoading || userTypeLoading) {
     return (
       <div data-testid="mdm-loading" className="max-w-4xl mx-auto space-y-6">
-        <h1 className="text-2xl font-bold">{t("mdm.title")}</h1>
+        <h1 className="text-2xl font-semibold">{t("mdm.title")}</h1>
         <div className="flex items-center justify-center py-12">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
@@ -266,12 +269,10 @@ function MdmPage() {
     );
   }
 
-  const plan = () => {
-    if (!wanted.length) {
-      return;
-    }
-    void planMany(wanted).then((result) => {
+  const plan = (callsigns: string[]) => {
+    void planMany(callsigns).then((result) => {
       void refetch();
+      setComposing(false);
       setLastRun(
         result.planned.map((planned) => ({
           ...planned,
@@ -291,114 +292,71 @@ function MdmPage() {
     });
   };
 
+  const total = (devices ?? []).length;
+
   return (
     <div data-testid="mdm-page" className="max-w-4xl mx-auto space-y-6">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-bold">{t("mdm.title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("mdm.subtitle")}</p>
-      </div>
-
-      <Steps />
-
-      <SetupPanel />
-
-      <section
-        data-testid="mdm-plan"
-        className="space-y-3 border border-border rounded-2xl bg-card p-6"
-      >
-        <h2 className="font-semibold">{t("mdm.planTitle")}</h2>
-        <form
-          className="flex flex-wrap items-end gap-3"
-          onSubmit={(event) => {
-            event.preventDefault();
-            plan();
-          }}
-        >
-          <label className="flex-1 min-w-40 space-y-1">
-            <span className="text-xs text-muted-foreground">
-              {t("mdm.prefix")}
-            </span>
-            <Input
-              data-testid="mdm-prefix-input"
-              value={prefix}
-              onChange={(event) => setPrefix(event.target.value)}
-              placeholder={t("mdm.prefixPlaceholder")}
-              disabled={isPlanning}
-            />
-          </label>
-          <label className="w-28 space-y-1">
-            <span className="text-xs text-muted-foreground">
-              {t("mdm.from")}
-            </span>
-            <Input
-              data-testid="mdm-from-input"
-              type="number"
-              min={1}
-              value={from}
-              onChange={(event) => setFrom(event.target.value)}
-              disabled={isPlanning}
-            />
-          </label>
-          <label className="w-28 space-y-1">
-            <span className="text-xs text-muted-foreground">
-              {t("mdm.count")}
-            </span>
-            <Input
-              data-testid="mdm-count-input"
-              type="number"
-              min={1}
-              max={500}
-              value={count}
-              onChange={(event) => setCount(event.target.value)}
-              disabled={isPlanning}
-            />
-          </label>
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {t("mdm.title")}
+          </h1>
+          <p className="text-sm text-muted-foreground">{t("mdm.subtitle")}</p>
+        </div>
+        <div className="flex items-center gap-2">
           <Button
-            data-testid="mdm-plan-button"
-            type="submit"
-            disabled={isPlanning || !wanted.length}
+            data-testid="mdm-connection-button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setConnectionOpen(true)}
           >
-            {isPlanning
-              ? t("mdm.bulkProgress", {
-                  done: progress.done,
-                  total: progress.total,
-                })
-              : t("mdm.plan")}
+            <Settings2 className="w-4 h-4 mr-2" />
+            {t("mdm.connection")}
           </Button>
-        </form>
-        <p
-          data-testid="mdm-plan-preview"
-          className="text-xs text-muted-foreground min-h-4"
-        >
-          {wanted.length === 1
-            ? t("mdm.previewOne", { callsign: wanted[0] })
-            : wanted.length > 1
-              ? t("mdm.preview", {
-                  first: wanted[0],
-                  last: wanted[wanted.length - 1],
-                  count: wanted.length,
-                })
-              : ""}
-        </p>
-        {progress.failed.length > 0 && (
-          <p data-testid="mdm-plan-failed" className="text-xs text-destructive">
-            {t("mdm.bulkFailed", {
-              callsigns: progress.failed.map((f) => f.callsign).join(", "),
-            })}
-          </p>
-        )}
-      </section>
+          {!composing && (
+            <Button
+              data-testid="mdm-add-button"
+              onClick={() => setComposing(true)}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {t("mdm.add")}
+            </Button>
+          )}
+        </div>
+      </header>
+
+      {composing && (
+        <Composer
+          onPlan={plan}
+          isPlanning={isPlanning}
+          progress={progress}
+          onCancel={() => setComposing(false)}
+        />
+      )}
 
       {lastRun.length > 0 && (
-        <section
+        <div
           data-testid="mdm-last-run"
-          className="flex flex-wrap items-center justify-between gap-3 border border-primary/40 rounded-2xl bg-primary/5 p-4"
+          className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-primary/5 border border-primary/30 px-5 py-4"
         >
-          <p className="text-sm">
-            {t("mdm.lastRun", { count: lastRun.length })}
-          </p>
+          <div className="space-y-1">
+            <p className="text-sm">
+              {t("mdm.lastRun", { count: lastRun.length })}
+            </p>
+            {progress.failed.length > 0 && (
+              <p
+                data-testid="mdm-plan-failed"
+                className="text-xs text-muted-foreground"
+              >
+                {t("mdm.bulkFailed", {
+                  callsigns: progress.failed.map((f) => f.callsign).join(", "),
+                })}
+              </p>
+            )}
+          </div>
           <Button
             data-testid="mdm-export-last"
+            size="sm"
             onClick={() =>
               downloadCsv("mdm-devices-new.csv", devicesToCsv(lastRun))
             }
@@ -406,48 +364,59 @@ function MdmPage() {
             <Download className="w-4 h-4 mr-2" />
             {t("mdm.exportLast", { count: lastRun.length })}
           </Button>
-        </section>
+        </div>
       )}
 
-      <section data-testid="mdm-devices" className="space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-semibold">
-            {t("mdm.devicesTitle", { count: (devices ?? []).length })}
-          </h2>
-          {(devices ?? []).length > 0 && (
-            <div className="flex items-center gap-2">
-              <Input
-                data-testid="mdm-filter-input"
-                className="w-48"
-                value={filter}
-                onChange={(event) => setFilter(event.target.value)}
-                placeholder={t("mdm.filterPlaceholder")}
-              />
-              <Button
-                data-testid="mdm-export-button"
-                variant="outline"
-                onClick={() =>
-                  downloadCsv("mdm-devices.csv", devicesToCsv(shown))
-                }
-              >
-                <Download className="w-4 h-4 mr-2" />
-                {t("mdm.export", { count: shown.length })}
-              </Button>
+      {total === 0 && !composing ? (
+        <HowItWorks onConnection={() => setConnectionOpen(true)} />
+      ) : (
+        total > 0 && (
+          <section data-testid="mdm-devices" className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-muted-foreground">
+                {t("mdm.devicesDesc")}
+              </p>
+              <div className="flex items-center gap-2">
+                <Input
+                  data-testid="mdm-filter-input"
+                  className="w-44 h-9"
+                  value={filter}
+                  onChange={(event) => setFilter(event.target.value)}
+                  placeholder={t("mdm.filterPlaceholder")}
+                />
+                <Button
+                  data-testid="mdm-export-button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    downloadCsv("mdm-devices.csv", devicesToCsv(shown))
+                  }
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  {t("mdm.export", { count: shown.length })}
+                </Button>
+              </div>
             </div>
-          )}
-        </div>
-        <p className="text-sm text-muted-foreground">{t("mdm.devicesDesc")}</p>
-        {shown.length === 0 ? (
-          <p
-            data-testid="mdm-devices-empty"
-            className="text-sm text-muted-foreground py-6"
-          >
-            {(devices ?? []).length === 0 ? t("mdm.empty") : t("mdm.noneMatch")}
-          </p>
-        ) : (
-          <DeviceTable devices={shown} />
-        )}
-      </section>
+            {shown.length === 0 ? (
+              <p
+                data-testid="mdm-devices-empty"
+                className="text-sm text-muted-foreground py-6"
+              >
+                {t("mdm.noneMatch")}
+              </p>
+            ) : (
+              <DeviceTable devices={shown} />
+            )}
+          </section>
+        )
+      )}
+
+      <ConnectionDialog
+        open={connectionOpen}
+        onOpenChange={setConnectionOpen}
+        scepUrl={settings?.scepUrl ?? ""}
+        challenge={settings?.challenge ?? ""}
+      />
     </div>
   );
 }
