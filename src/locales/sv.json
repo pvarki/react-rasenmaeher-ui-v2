@@ -607,7 +607,7 @@
       },
       "install": {
         "title": "TRYCK OK",
-        "hint": "Två gånger. Allt är redan ifyllt.",
+        "hint": "Två gånger.",
         "openDownload": "Öppna din nedladdning",
         "next": "Installerad – fortsätt"
       },

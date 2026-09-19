@@ -10,6 +10,10 @@ const STEP_KEY = "mtls_android_step";
 const STEPS = ["download", "install", "done"] as const;
 // Android opens the installer within a second; past this it is not coming.
 const DIALOG_WAIT_MS = 3500;
+// Both copies of the instruction render identically; only their position
+// differs, so whichever end the dialog leaves uncovered reads the same.
+const INSTRUCTION =
+  "text-center font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]";
 
 interface AndroidInstallFlowProps {
   callsign: string;
@@ -133,10 +137,7 @@ export function AndroidInstallFlow({
         <>
           <p
             data-testid="android-press-ok"
-            className={cn(
-              "font-bold leading-none text-[clamp(2.5rem,13vw,4.5rem)]",
-              dialogOpen && "animate-attention",
-            )}
+            className={cn(INSTRUCTION, dialogOpen && "animate-attention")}
           >
             {t("mtlsInstall.android.install.title")}
           </p>
@@ -219,7 +220,7 @@ export function AndroidInstallFlow({
         <p
           data-testid="android-press-ok-bottom"
           aria-hidden="true"
-          className="animate-attention text-center text-3xl font-bold"
+          className={cn(INSTRUCTION, "animate-attention")}
         >
           {t("mtlsInstall.android.install.title")}
         </p>

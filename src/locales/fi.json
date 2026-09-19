@@ -607,7 +607,7 @@
       },
       "install": {
         "title": "PAINA OK",
-        "hint": "Kahdesti. Kaikki on jo valmiina.",
+        "hint": "Kahdesti.",
         "openDownload": "Avaa lataamasi tiedosto",
         "next": "Asennettu – jatka"
       },

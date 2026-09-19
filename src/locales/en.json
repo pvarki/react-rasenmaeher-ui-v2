@@ -607,7 +607,7 @@
       },
       "install": {
         "title": "PRESS OK",
-        "hint": "Twice. Everything is filled in already.",
+        "hint": "Twice.",
         "openDownload": "Open your download",
         "next": "Installed – continue"
       },
