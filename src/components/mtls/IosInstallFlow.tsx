@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, Download, Loader2, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GuideShot } from "./GuideShot";
 import { cn } from "@/lib/utils";
 import { downloadProfile } from "@/lib/downloadProfile";
 import { isIosSafari } from "./platformUtils";
@@ -155,6 +156,11 @@ export function IosInstallFlow({
             {t("mtlsInstall.ios.download.title")}
           </h2>
 
+          <GuideShot
+            src="/guide/iosstep1.webp"
+            caption={t("mtlsInstall.ios.download.caption")}
+          />
+
           {/* Chrome and Firefox on iPhone cannot hand a profile to the installer at all. */}
           {!isIosSafari() && (
             <div
@@ -206,9 +212,16 @@ export function IosInstallFlow({
       )}
 
       {current === "done" && (
-        <h2 className="text-4xl font-bold leading-tight text-balance">
-          {t("mtlsInstall.ios.done.title")}
-        </h2>
+        <>
+          <h2 className="text-4xl font-bold leading-tight text-balance">
+            {t("mtlsInstall.ios.done.title")}
+          </h2>
+
+          <GuideShot
+            src="/guide/iosstep3.webp"
+            caption={t("mtlsInstall.ios.done.caption")}
+          />
+        </>
       )}
 
       {/* The Settings path is longer than the viewport, so mt-auto alone leaves the

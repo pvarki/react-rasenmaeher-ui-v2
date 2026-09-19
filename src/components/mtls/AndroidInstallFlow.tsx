@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowUp, ChevronLeft, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GuideShot } from "./GuideShot";
 import { cn } from "@/lib/utils";
 
 const STEP_KEY = "mtls_android_step";
@@ -157,6 +158,11 @@ export function AndroidInstallFlow({
           <h2 className="text-4xl font-bold leading-tight text-balance">
             {t("mtlsInstall.android.download.title")}
           </h2>
+
+          <GuideShot
+            src="/guide/androidstep1.webp"
+            caption={t("mtlsInstall.android.download.caption")}
+          />
         </>
       )}
 
@@ -203,6 +209,11 @@ export function AndroidInstallFlow({
           <h2 className="text-4xl font-bold leading-tight text-balance">
             {t("mtlsInstall.android.done.title")}
           </h2>
+
+          <GuideShot
+            src="/guide/androidstep3.webp"
+            caption={t("mtlsInstall.android.done.caption")}
+          />
         </>
       )}
 

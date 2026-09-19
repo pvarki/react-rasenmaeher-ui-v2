@@ -109,12 +109,6 @@
     "imageMissing": "Bild inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora"
   },
-  "pwa": {
-    "callToAction": "Installera appen på din hemskärm så att du alltid hittar den enkelt.",
-    "install": "Installera appen",
-    "installToHomeScreen": "Installera på hemskärmen",
-    "iosSteps": "Tryck på Dela-knappen i Safari och välj \"Lägg till på hemskärmen\"."
-  },
   "systemStatus": {
     "title": "Systemstatus",
     "lastUpdated": "Senast uppdaterad",
@@ -609,7 +603,8 @@
     "android": {
       "download": {
         "title": "Hämta din nyckel",
-        "action": "LADDA NER NYCKEL"
+        "action": "LADDA NER NYCKEL",
+        "caption": "En dialog öppnas. Tryck OK, två gånger."
       },
       "install": {
         "title": "TRYCK OK",
@@ -619,7 +614,8 @@
       },
       "done": {
         "title": "Klart.",
-        "action": "GÅ TILL TJÄNSTEN"
+        "action": "GÅ TILL TJÄNSTEN",
+        "caption": "Telefonen frågar vilket certifikat som ska användas. Välj ditt."
       },
       "notAndroid": "Inte en Android-telefon?"
     },
@@ -628,7 +624,8 @@
         "title": "Hämta ditt certifikat",
         "action": "LADDA NER PROFIL",
         "notSafari": "Öppna sidan i Safari. Andra webbläsare på iPhone kan inte installera den.",
-        "failed": "Nedladdningen misslyckades. Tryck igen."
+        "failed": "Nedladdningen misslyckades. Tryck igen.",
+        "caption": "I Inställningar står Profil hämtad. Tryck på den."
       },
       "install": {
         "title": "Installera den nu",
@@ -643,7 +640,8 @@
       },
       "done": {
         "title": "Klart.",
-        "action": "GÅ TILL TJÄNSTEN"
+        "action": "GÅ TILL TJÄNSTEN",
+        "caption": "Safari frågar vilket certifikat som ska användas. Välj ditt."
       },
       "notIos": "Inte en iPhone?"
     }

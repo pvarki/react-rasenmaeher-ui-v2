@@ -109,12 +109,6 @@
     "imageMissing": "Image not available",
     "clickToEnlarge": "Click to enlarge"
   },
-  "pwa": {
-    "callToAction": "Install the app to your home screen so you can always easily navigate to it.",
-    "install": "Install app",
-    "installToHomeScreen": "Install to home screen",
-    "iosSteps": "Tap the Share button in Safari, then choose \"Add to Home Screen\"."
-  },
   "systemStatus": {
     "title": "System Status",
     "lastUpdated": "Last updated",
@@ -609,7 +603,8 @@
     "android": {
       "download": {
         "title": "Get your key",
-        "action": "DOWNLOAD KEY"
+        "action": "DOWNLOAD KEY",
+        "caption": "A dialog will open. Press OK, twice."
       },
       "install": {
         "title": "PRESS OK",
@@ -619,7 +614,8 @@
       },
       "done": {
         "title": "Ready.",
-        "action": "GO TO THE SERVICE"
+        "action": "GO TO THE SERVICE",
+        "caption": "Your phone asks which certificate to use. Choose yours."
       },
       "notAndroid": "Not an Android phone?"
     },
@@ -628,7 +624,8 @@
         "title": "Get your certificate",
         "action": "DOWNLOAD PROFILE",
         "notSafari": "Open this page in Safari. Other browsers on iPhone cannot install it.",
-        "failed": "Download failed. Tap again."
+        "failed": "Download failed. Tap again.",
+        "caption": "Settings will say Profile Downloaded. Tap it."
       },
       "install": {
         "title": "Now install it",
@@ -643,7 +640,8 @@
       },
       "done": {
         "title": "Ready.",
-        "action": "GO TO THE SERVICE"
+        "action": "GO TO THE SERVICE",
+        "caption": "Safari asks which certificate to use. Choose yours."
       },
       "notIos": "Not an iPhone?"
     }

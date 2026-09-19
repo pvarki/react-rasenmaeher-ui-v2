@@ -109,12 +109,6 @@
     "imageMissing": "Kuva ei ole saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi"
   },
-  "pwa": {
-    "callToAction": "Asenna sovellus aloitusnäytöllesi, niin löydät sen aina helposti.",
-    "install": "Asenna sovellus",
-    "installToHomeScreen": "Asenna aloitusnäytölle",
-    "iosSteps": "Napauta Safarissa Jaa-painiketta ja valitse \"Lisää Koti-valikkoon\"."
-  },
   "systemStatus": {
     "title": "Järjestelmän tila",
     "lastUpdated": "Päivitetty",
@@ -609,7 +603,8 @@
     "android": {
       "download": {
         "title": "Hae avaimesi",
-        "action": "LATAA AVAIN"
+        "action": "LATAA AVAIN",
+        "caption": "Ikkuna avautuu. Paina OK, kahdesti."
       },
       "install": {
         "title": "PAINA OK",
@@ -619,7 +614,8 @@
       },
       "done": {
         "title": "Valmista.",
-        "action": "SIIRRY PALVELUUN"
+        "action": "SIIRRY PALVELUUN",
+        "caption": "Puhelin kysyy, mitä varmennetta käytetään. Valitse omasi."
       },
       "notAndroid": "Eikö laite ole Android?"
     },
@@ -628,7 +624,8 @@
         "title": "Hae varmenteesi",
         "action": "LATAA PROFIILI",
         "notSafari": "Avaa tämä sivu Safarissa. Muut iPhonen selaimet eivät voi asentaa sitä.",
-        "failed": "Lataus epäonnistui. Napauta uudelleen."
+        "failed": "Lataus epäonnistui. Napauta uudelleen.",
+        "caption": "Asetuksiin tulee Profiili ladattu. Napauta sitä."
       },
       "install": {
         "title": "Asenna se nyt",
@@ -643,7 +640,8 @@
       },
       "done": {
         "title": "Valmis.",
-        "action": "SIIRRY PALVELUUN"
+        "action": "SIIRRY PALVELUUN",
+        "caption": "Safari kysyy, mitä varmennetta käytetään. Valitse omasi."
       },
       "notIos": "Eikö ole iPhone?"
     }
