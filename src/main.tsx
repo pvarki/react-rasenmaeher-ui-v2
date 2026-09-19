@@ -15,6 +15,7 @@ import {
 import { setRuntimeLocalization } from "@/config/localization";
 import { UserTypeFetcher } from "./hooks/auth/userTypeFetcher";
 import { BrowserGuard } from "@/components/BrowserGuard";
+import { attachManifest } from "@/config/pwa-manifest";
 
 const initializeApp = async () => {
   const themeName = getActiveThemeName();
@@ -36,11 +37,7 @@ const initializeApp = async () => {
     favicon.href = faviconUrl;
   }
 
-  // Manifest is now served statically via Vite plugin
-  const manifestLink = document.createElement("link");
-  manifestLink.rel = "manifest";
-  manifestLink.href = "/manifest.json";
-  document.head.appendChild(manifestLink);
+  await attachManifest();
 
   if ("serviceWorker" in navigator) {
     try {

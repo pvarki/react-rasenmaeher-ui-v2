@@ -116,9 +116,7 @@ function manifestPlugin(env: Record<string, string>): Plugin {
 
     return {
       id: "/",
-      name: deploymentName
-        ? `${themeManifest.name || themeName} ${deploymentName}`
-        : themeManifest.name || themeName,
+      name: deploymentName || themeManifest.name || themeName,
       short_name: deploymentName || themeManifest.short_name,
       description: themeManifest.description || "",
       start_url: "/",
