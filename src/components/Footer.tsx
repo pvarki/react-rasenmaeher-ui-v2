@@ -9,6 +9,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { OnboardingGuide } from "./OnboardingGuide";
+import { PwaInstall } from "@/components/PwaInstall";
 import { useIsCompactViewport } from "@/hooks/use-compact-viewport";
 
 interface FooterProps {
@@ -38,6 +39,7 @@ export function Footer({ onMtlsInfoClick }: FooterProps) {
             {t("common.learnAboutMtls")}
           </button>
         </p>
+        <PwaInstall variant="link" />
       </div>
       <div className="pt-2 border-t border-border">
         <p className="text-xs leading-relaxed text-muted-foreground/50">
