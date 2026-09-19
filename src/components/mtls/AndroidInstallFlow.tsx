@@ -166,6 +166,9 @@ export function AndroidInstallFlow({
       {current === "install" && (
         <>
           <p
+            /* Remounted when `returned` flips so this restarts in the same
+               commit the button's animation begins: same phase, not a drift. */
+            key={`press-ok-${returned}`}
             data-testid="android-press-ok"
             className={cn(INSTRUCTION, "animate-attention")}
           >
@@ -251,6 +254,7 @@ export function AndroidInstallFlow({
           bottom and the page cannot tell which, so one is always readable. */}
       {current === "install" && (
         <p
+          key={`press-ok-bottom-${returned}`}
           data-testid="android-press-ok-bottom"
           aria-hidden="true"
           className={cn(INSTRUCTION, "animate-attention")}
