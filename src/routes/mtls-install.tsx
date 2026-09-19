@@ -82,9 +82,13 @@ function MtlsInstallPage() {
   // have a guided flow for takes you into it, anything else keeps the classic
   // instructions. Without clearing forceClassic, choosing Android or iOS here
   // stranded the user in the classic layout for a platform we guide.
+  const guided = (os: string) => os === "Android" || os === "iOS";
+
+  // Picking a platform we guide goes to its flow; anything else falls back to
+  // the classic instructions.
   const chooseOS = (next: string) => {
     setSelectedOS(next);
-    setForceClassic(next !== "Android" && next !== "iOS");
+    setForceClassic(!guided(next));
   };
   const useStepFlow = useAndroidFlow || useIosFlow;
   // Apple cannot import a password-less PKCS12 at all, so both get the profile instead.
@@ -169,7 +173,13 @@ function MtlsInstallPage() {
                   onDownload={handleDownloadKey}
                   isDownloading={getCertificateMutation.isLoading}
                   downloadCount={downloadCount}
-                  onUseOtherPlatform={() => setForceClassic(true)}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.android.notAndroid")}
+                    />
+                  }
                 />
               ) : useIosFlow ? (
                 <IosInstallFlow
@@ -180,7 +190,13 @@ function MtlsInstallPage() {
                     localStorage.setItem("cert_downloaded", "true");
                     setCertDownloaded(true);
                   }}
-                  onUseOtherPlatform={() => setForceClassic(true)}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.ios.notIos")}
+                    />
+                  }
                 />
               ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">

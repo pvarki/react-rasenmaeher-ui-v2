@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, Download, Loader2, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,7 @@ interface IosInstallFlowProps {
   profileUrl: string;
   mtlsUrl: string;
   onDownloaded: () => void;
-  onUseOtherPlatform: () => void;
+  platformPicker: ReactNode;
 }
 
 export function IosInstallFlow({
@@ -42,7 +42,7 @@ export function IosInstallFlow({
   profileUrl,
   mtlsUrl,
   onDownloaded,
-  onUseOtherPlatform,
+  platformPicker,
 }: IosInstallFlowProps) {
   const { t } = useTranslation();
 
@@ -142,9 +142,9 @@ export function IosInstallFlow({
             className={cn(
               "h-6 flex-1 rounded-full disabled:cursor-default",
               "before:block before:h-1.5 before:rounded-full before:content-['']",
-              idx <= step
-                ? "before:bg-primary-light"
-                : "before:bg-primary-light/20",
+              // A solid colour, not an opacity modifier: /20 against this theme
+              // variable resolves to the full colour, so every step looked done.
+              idx <= step ? "before:bg-primary-light" : "before:bg-border",
             )}
           />
         ))}
@@ -268,16 +268,7 @@ export function IosInstallFlow({
               <Download className="h-6 w-6" />
             </Button>
           )}
-
-          <Button
-            data-testid="ios-other-platform"
-            variant="link"
-            size="sm"
-            className="px-0 text-muted-foreground"
-            onClick={onUseOtherPlatform}
-          >
-            {t("mtlsInstall.ios.notIos")}
-          </Button>
+          {platformPicker}
         </div>
 
         {current === "download" && (

@@ -615,7 +615,7 @@
       "done": {
         "title": "Ready.",
         "action": "GO TO THE SERVICE",
-        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK."
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK. Now go in."
       },
       "notAndroid": "Not an Android phone?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Ready.",
         "action": "GO TO THE SERVICE",
-        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK."
+        "caption": "Your certificate is your identity to your unit's apps. When prompted to use it, tap OK. Now go in."
       },
       "notIos": "Not an iPhone?"
     }

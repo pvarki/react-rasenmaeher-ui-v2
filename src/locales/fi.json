@@ -615,7 +615,7 @@
       "done": {
         "title": "Valmista.",
         "action": "SIIRRY PALVELUUN",
-        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK."
+        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK. Mene nyt sisään."
       },
       "notAndroid": "Eikö laite ole Android?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Valmis.",
         "action": "SIIRRY PALVELUUN",
-        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK."
+        "caption": "Varmenteesi on henkilöllisyytesi yksikkösi sovelluksiin. Kun sitä pyydetään, paina OK. Mene nyt sisään."
       },
       "notIos": "Eikö ole iPhone?"
     }

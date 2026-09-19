@@ -615,7 +615,7 @@
       "done": {
         "title": "Klart.",
         "action": "GÅ TILL TJÄNSTEN",
-        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det."
+        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det. Gå in nu."
       },
       "notAndroid": "Inte en Android-telefon?"
     },
@@ -641,7 +641,7 @@
       "done": {
         "title": "Klart.",
         "action": "GÅ TILL TJÄNSTEN",
-        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det."
+        "caption": "Ditt certifikat är din identitet för enhetens appar. Tryck OK när du ombeds använda det. Gå in nu."
       },
       "notIos": "Inte en iPhone?"
     }
