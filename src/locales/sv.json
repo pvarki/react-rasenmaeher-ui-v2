@@ -750,5 +750,11 @@
     "send": "Skicka feedback",
     "sending": "Skickar...",
     "thanks": "Tack för din feedback!"
+  },
+  "pwa": {
+    "callToAction": "Installera appen på din hemskärm så att du alltid hittar den enkelt.",
+    "install": "Installera appen",
+    "installToHomeScreen": "Installera på hemskärmen",
+    "iosSteps": "Tryck på Dela-knappen i Safari och välj \"Lägg till på hemskärmen\"."
   }
 }

@@ -750,5 +750,11 @@
     "send": "Send feedback",
     "sending": "Sending...",
     "thanks": "Thanks for the feedback!"
+  },
+  "pwa": {
+    "callToAction": "Install the app to your home screen so you can always easily navigate to it.",
+    "install": "Install app",
+    "installToHomeScreen": "Install to home screen",
+    "iosSteps": "Tap the Share button in Safari, then choose \"Add to Home Screen\"."
   }
 }

@@ -750,5 +750,11 @@
     "send": "Lähetä palaute",
     "sending": "Lähetetään...",
     "thanks": "Kiitos palautteesta!"
+  },
+  "pwa": {
+    "callToAction": "Asenna sovellus aloitusnäytöllesi, niin löydät sen aina helposti.",
+    "install": "Asenna sovellus",
+    "installToHomeScreen": "Asenna aloitusnäytölle",
+    "iosSteps": "Napauta Safarissa Jaa-painiketta ja valitse \"Lisää Koti-valikkoon\"."
   }
 }
