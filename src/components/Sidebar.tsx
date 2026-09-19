@@ -59,6 +59,7 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
     "/approve-users",
     "/manage-users",
     "/add-users",
+    "/mdm",
   ].includes(currentPath);
 
   // Auto-open dropdown when on admin-tools or related pages
@@ -264,6 +265,18 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   )}
                 >
                   {t("common.approveUsers")}
+                </Link>
+                <Link
+                  data-testid="sidebar-nav-mdm"
+                  to="/mdm"
+                  onClick={() => isMobile && onClose()}
+                  className={cn(
+                    "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
+                    location.pathname === "/mdm" &&
+                      "bg-sidebar-accent text-sidebar-foreground font-medium",
+                  )}
+                >
+                  {t("common.mdm")}
                 </Link>
               </div>
             )}

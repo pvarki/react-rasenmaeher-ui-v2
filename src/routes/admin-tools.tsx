@@ -12,6 +12,7 @@ import {
   FileText,
   Server,
   KeyRound,
+  Smartphone,
   type LucideIcon,
   ExternalLink,
 } from "lucide-react";
@@ -204,6 +205,12 @@ function AdminToolsPage() {
           titleKey: "common.approveUsers",
           descKey: "adminTools.approveUsersDesc",
           action: { type: "navigate", to: "/approve-users" },
+        },
+        {
+          icon: Smartphone,
+          titleKey: "adminTools.mdmTitle",
+          descKey: "adminTools.mdmDesc",
+          action: { type: "navigate", to: "/mdm" },
         },
       ],
     },
