@@ -255,18 +255,6 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   {t("common.addUsers")}
                 </Link>
                 <Link
-                  data-testid="sidebar-nav-mdm"
-                  to="/mdm"
-                  onClick={() => isMobile && onClose()}
-                  className={cn(
-                    "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
-                    location.pathname === "/mdm" &&
-                      "bg-sidebar-accent text-sidebar-foreground font-medium",
-                  )}
-                >
-                  {t("common.mdm")}
-                </Link>
-                <Link
                   data-testid="sidebar-nav-approve-users"
                   to="/approve-users"
                   onClick={() => isMobile && onClose()}
@@ -277,6 +265,18 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
                   )}
                 >
                   {t("common.approveUsers")}
+                </Link>
+                <Link
+                  data-testid="sidebar-nav-mdm"
+                  to="/mdm"
+                  onClick={() => isMobile && onClose()}
+                  className={cn(
+                    "block px-3 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent/60 rounded-lg transition-colors",
+                    location.pathname === "/mdm" &&
+                      "bg-sidebar-accent text-sidebar-foreground font-medium",
+                  )}
+                >
+                  {t("common.mdm")}
                 </Link>
               </div>
             )}
