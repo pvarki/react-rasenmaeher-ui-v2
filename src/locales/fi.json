@@ -429,6 +429,10 @@
       "footer": "Deploy App",
       "downloadSuccess": "PDF ladattu onnistuneesti!",
       "downloadFailure": "PDF:n vienti epäonnistui. Yritä uudelleen."
+    },
+    "guides": {
+      "label": "Näytä ohjeet automaattisesti",
+      "description": "Kun tämä on pois, tällä koodilla liittyvillä ohjeet eivät avaudu itsestään. Info-napeista ne saa silti auki."
     }
   },
   "manageUsers": {
@@ -713,5 +717,8 @@
     "send": "Lähetä palaute",
     "sending": "Lähetetään...",
     "thanks": "Kiitos palautteesta!"
+  },
+  "guides": {
+    "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"
   }
 }

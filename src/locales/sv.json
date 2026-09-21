@@ -429,6 +429,10 @@
       "footer": "Deploy App",
       "downloadSuccess": "PDF hämtad!",
       "downloadFailure": "Export av PDF misslyckades."
+    },
+    "guides": {
+      "label": "Visa guider automatiskt",
+      "description": "Stäng av detta så startar de som ansluter med den här koden utan att guider öppnas av sig själva. De kan fortfarande öppnas via info-knapparna."
     }
   },
   "manageUsers": {
@@ -713,5 +717,8 @@
     "send": "Skicka feedback",
     "sending": "Skickar...",
     "thanks": "Tack för din feedback!"
+  },
+  "guides": {
+    "disableAutoOpen": "Visa inte guider automatiskt för mig"
   }
 }
