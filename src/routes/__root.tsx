@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { withGuidePreference } from "@/hooks/useGuidePreferences";
 import { MtlsInfoModal } from "@/components/MtlsInfoModal";
 import { useTranslation } from "react-i18next";
 import { Sidebar } from "@/components/Sidebar";
@@ -65,7 +66,11 @@ function RootLayout() {
       }
 
       const mtlsHost = `mtls.${host}`;
-      window.location.href = `${window.location.protocol}//${mtlsHost}/`;
+      // mtls.* is a separate origin with its own localStorage, so carry the
+      // guide choice across rather than losing it on the hop.
+      window.location.href = withGuidePreference(
+        `${window.location.protocol}//${mtlsHost}/`,
+      );
       return;
     }
   }, [userTypeLoading, isValidUser, location.pathname, navigate]);

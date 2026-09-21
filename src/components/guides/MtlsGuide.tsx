@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslation } from "react-i18next";
+import { DisableGuidesButton } from "@/components/guides/DisableGuidesButton";
 import { cn } from "@/lib/utils";
 import { getOperatingSystem } from "@/components/mtls/platformUtils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -275,6 +276,10 @@ export function MtlsGuide({ open, onOpenChange }: MtlsGuideProps) {
             style={{ width: `${progress}%` }}
           />
         </div>
+
+        {currentStep === 0 && (
+          <DisableGuidesButton onDismiss={() => onOpenChange(false)} />
+        )}
       </div>
     </>
   );

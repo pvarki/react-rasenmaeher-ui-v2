@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
+import { DisableGuidesButton } from "@/components/guides/DisableGuidesButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface WalkthroughDialogProps {
@@ -62,6 +63,7 @@ export function WalkthroughDialog({
             </div>
           </div>
         </ScrollArea>
+        <DisableGuidesButton onDismiss={() => onOpenChange(false)} />
         <DialogFooter>
           <Button
             data-testid="manage-users-walkthrough-got-it-button"

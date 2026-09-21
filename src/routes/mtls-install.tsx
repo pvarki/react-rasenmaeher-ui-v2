@@ -4,6 +4,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useGetCertificate } from "@/hooks/api/useGetCertificate";
+import {
+  useGuidePreferences,
+  withGuidePreference,
+} from "@/hooks/useGuidePreferences";
 import { useUserType } from "@/hooks/auth/useUserType";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -37,6 +41,7 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
+  const { autoOpen } = useGuidePreferences();
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
     () => localStorage.getItem("cert_downloaded") === "true",
   );
@@ -56,12 +61,13 @@ function MtlsInstallPage() {
   }, [userCallsign]);
 
   useEffect(() => {
-    setShowGuide(true);
-  }, []);
+    // The help button still opens this; only the uninvited appearance stops.
+    if (autoOpen) setShowGuide(true);
+  }, [autoOpen]);
 
   const osToShow = selectedOS || userOS;
 
-  const mtlsUrl = getMtlsUrl();
+  const mtlsUrl = withGuidePreference(getMtlsUrl());
 
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {

@@ -429,6 +429,10 @@
       "footer": "Deploy App",
       "downloadSuccess": "PDF downloaded successfully!",
       "downloadFailure": "Failed to export PDF. Please try again."
+    },
+    "guides": {
+      "label": "Show guides automatically",
+      "description": "Turn this off and people joining with this code start without guides opening by themselves. They can still open them from the info buttons."
     }
   },
   "manageUsers": {
@@ -713,5 +717,8 @@
     "send": "Send feedback",
     "sending": "Sending...",
     "thanks": "Thanks for the feedback!"
+  },
+  "guides": {
+    "disableAutoOpen": "Do not show me guides automatically"
   }
 }

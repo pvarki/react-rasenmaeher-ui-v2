@@ -8,6 +8,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
+import { DisableGuidesButton } from "@/components/guides/DisableGuidesButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 interface InviteCode {
   invitecode: string;
@@ -204,6 +205,7 @@ export function WalkthroughDialog({
             </div>
           </div>
         </ScrollArea>
+        <DisableGuidesButton onDismiss={() => onOpenChange(false)} />
         <DialogFooter>
           <Button
             onClick={() => onOpenChange(false)}

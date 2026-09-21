@@ -9,6 +9,8 @@ import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 
 interface LoginSearch {
   code?: string;
+  /** "off" on an invite link whose creator does not want guides popping up. */
+  guides?: string;
 }
 
 export const Route = createFileRoute("/login")({
@@ -16,6 +18,7 @@ export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): LoginSearch => {
     return {
       code: (search.code as string) || undefined,
+      guides: (search.guides as string) || undefined,
     };
   },
 });
