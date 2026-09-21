@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-const KEY = "guides.autoOpen";
+const STORAGE_NAME = "guides.autoOpen";
 /** localStorage "storage" events do not fire in the tab that wrote the value. */
 const CHANGED = "guides.autoOpen.changed";
 
 function read(): boolean {
   try {
-    return localStorage.getItem(KEY) !== "off";
+    return localStorage.getItem(STORAGE_NAME) !== "off";
   } catch {
     // A browser refusing storage should still show the guides.
     return true;
@@ -15,7 +15,7 @@ function read(): boolean {
 
 function write(enabled: boolean): void {
   try {
-    localStorage.setItem(KEY, enabled ? "on" : "off");
+    localStorage.setItem(STORAGE_NAME, enabled ? "on" : "off");
   } catch {
     // Not being able to remember the choice is not a reason to break the page.
   }
@@ -46,9 +46,7 @@ export const GUIDES_PARAM = "guides";
  */
 export function applyGuidePreferenceFromUrl(): void {
   try {
-    const value = new URLSearchParams(window.location.search).get(
-      GUIDES_PARAM,
-    );
+    const value = new URLSearchParams(window.location.search).get(GUIDES_PARAM);
     if (value === "off") {
       write(false);
     }
