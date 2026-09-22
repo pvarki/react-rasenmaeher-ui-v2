@@ -20,14 +20,20 @@ interface DisableGuidesButtonProps {
  * opened. This is the one place the choice is offered, so that an admin
  * onboarding a group can say "press that button" on the first screen.
  *
- * The help buttons keep working afterwards.
+ * The help buttons keep working afterwards. Renders nothing once guides are
+ * already off, so a guide opened by hand does not offer to turn off something
+ * that is off.
  */
 export function DisableGuidesButton({
   onDismiss,
   className,
 }: DisableGuidesButtonProps) {
   const { t } = useTranslation();
-  const { disableAutoOpen } = useGuidePreferences();
+  const { autoOpen, disableAutoOpen } = useGuidePreferences();
+
+  if (!autoOpen) {
+    return null;
+  }
 
   return (
     <Button
