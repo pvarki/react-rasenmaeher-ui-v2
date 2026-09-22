@@ -1,0 +1,5 @@
+[tools]
+node = "24"
+pnpm = "11.1.0"
+kubectl = "latest"
+tilt = "latest"

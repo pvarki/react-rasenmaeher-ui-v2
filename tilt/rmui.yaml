@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmui
+  namespace: opendefence-system
+  labels:
+    app: rmui
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rmui
+  template:
+    metadata:
+      labels:
+        app: rmui
+    spec:
+      containers:
+        - name: rmui
+          image: rmui
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+            failureThreshold: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmui
+  namespace: opendefence-system
+  labels:
+    app: rmui
+spec:
+  selector:
+    app: rmui
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
