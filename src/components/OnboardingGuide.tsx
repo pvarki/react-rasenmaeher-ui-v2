@@ -463,13 +463,7 @@ export function OnboardingGuide() {
         </div>
       </div>
 
-      {currentStep === 0 && (
-        <div className="border-t px-4 pt-3 pb-1 bg-background">
-          <DisableGuidesButton onDismiss={() => handleOpenChange(false)} />
-        </div>
-      )}
-
-      <div className="border-t-0 px-4 pb-4 flex gap-3 bg-background">
+      <div className="border-t px-4 pt-4 pb-4 flex gap-3 bg-background">
         <Button
           variant="outline"
           onClick={handlePrev}
@@ -502,6 +496,13 @@ export function OnboardingGuide() {
           style={{ width: `${progress}%` }}
         />
       </div>
+
+      {currentStep === 0 && (
+        <DisableGuidesButton
+          className="px-4 pt-3"
+          onDismiss={() => handleOpenChange(false)}
+        />
+      )}
     </>
   );
 
