@@ -197,8 +197,6 @@ export function OnboardingGuide() {
 
   useEffect(() => {
     if (!callsign || !userType || !deployment) return;
-    // The help button still opens this; only the uninvited appearance stops.
-    if (!autoOpen) return;
 
     const deploymentHash = hashString(deployment);
     const storageKey = `${deploymentHash}-onboarding-${callsign}-${userType}`;
@@ -228,12 +226,15 @@ export function OnboardingGuide() {
         newAdminSteps.filter((id) => !["users", "invite"].includes(id)),
       );
       setCurrentStep(adminSteps.findIndex((step) => step.id === "users"));
-      setOpen(true);
-      localStorage.setItem(roleChangeKey, userType);
+      // The help button still opens this; only the uninvited appearance stops.
+      if (autoOpen) {
+        setOpen(true);
+        localStorage.setItem(roleChangeKey, userType);
+      }
       return;
     }
 
-    if (!seenOnboarding && lastRole !== userType) {
+    if (!seenOnboarding && lastRole !== userType && autoOpen) {
       setOpen(true);
       localStorage.setItem(roleChangeKey, userType);
     }
@@ -378,7 +379,8 @@ export function OnboardingGuide() {
     localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-user`) ||
     localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-admin`);
 
-  if ((canReview || hasSeenOnboarding) && !open && !reviewMode) {
+  // With auto-opening off this button is the only way in, so it always shows.
+  if ((canReview || hasSeenOnboarding || !autoOpen) && !open && !reviewMode) {
     return (
       <button
         onClick={handleReviewClick}
