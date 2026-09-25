@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronDown, Globe, MessageSquare } from "lucide-react";
+import { ChevronDown, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useUserType } from "@/hooks/auth/useUserType";
@@ -22,7 +22,6 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useGetProductDescriptions } from "@/hooks/api/useGetProductDescriptions";
 import { SidebarProductLink } from "@/components/SidebarProductLink";
-import FeedbackForm from "@/components/Feedbackform";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -37,7 +36,6 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
   const { currentLanguage, changeLanguage } = useLanguage();
   const { callsign } = useUserType();
   const { data: products = [] } = useGetProductDescriptions(currentLanguage);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // Get current path with search params
   const currentPath = location.pathname;
@@ -271,16 +269,6 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
         )}
         <div className="mt-auto pt-4 border-t border-sidebar-border space-y-4">
           <div className="space-y-2">
-            <button
-              data-testid="sidebar-feedback-button"
-              onClick={() => setFeedbackOpen(true)}
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-lg transition-colors font-medium"
-            >
-              <MessageSquare className="w-4 h-4" />
-              {t("common.feedback")}
-            </button>
-          </div>
-          <div className="space-y-2">
             <label className="text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider px-2">
               {t("common.language")}
             </label>
@@ -354,7 +342,6 @@ export function Sidebar({ isOpen, onClose, isMobile }: SidebarProps) {
           </DropdownMenu>
         </div>
       </nav>
-      <FeedbackForm open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </aside>
   );
 }
