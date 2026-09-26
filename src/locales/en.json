@@ -125,7 +125,8 @@
     "verifying": "Verifying...",
     "codeRequired": "Code is required",
     "codeInvalid": "Code format is invalid",
-    "codeNotValid": "Code is invalid"
+    "codeNotValid": "Code is invalid",
+    "verifyFailed": "Could not verify the code. Please try again."
   },
   "loginGuide": {
     "title": "Login Guide",
@@ -278,7 +279,6 @@
   },
   "callsignSetup": {
     "title": "Setup Your Callsign",
-    "usingAdmin": "Using admin code: {{code}}",
     "usingInvite": "Using invite code: {{code}}",
     "yourCallsignLabel": "Your Callsign",
     "callsignPlaceholder": "Enter your callsign",
@@ -290,7 +290,8 @@
     },
     "errors": {
       "alreadyInUse": "Callsign is already in use",
-      "unexpected": "An unexpected error occurred"
+      "unexpected": "An unexpected error occurred",
+      "inviteInvalid": "Invite code is no longer valid"
     },
     "buttons": {
       "back": "Back",

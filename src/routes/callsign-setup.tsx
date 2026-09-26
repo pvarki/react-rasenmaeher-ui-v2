@@ -1,8 +1,5 @@
-"use client";
-
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { useLoginCodeStore } from "@/store/LoginCodeStore";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -10,66 +7,65 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "@/components/auth/LanguageSwitcher";
-import useHealthCheck from "@/hooks/helpers/useHealthcheck";
-import { LoginHeader } from "@/components/auth/LoginHeader";
-import { CallsignForm } from "@/components/callsign-setup";
-import { useCallsignSetup } from "@/hooks/auth/useCallsignSetup";
+import { CallsignForm } from "@/components/callsign-setup/CallsignForm";
+import { EnrollmentLayout } from "@/components/enrollment/EnrollmentLayout";
+import { useEnroll } from "@/hooks/api/enrollment/useEnroll";
+import { ApiError } from "@/lib/api";
+
+const ERROR_KEYS: Record<number, string> = {
+  404: "callsignSetup.errors.inviteInvalid",
+  409: "callsignSetup.errors.alreadyInUse",
+  422: "callsignSetup.validation.pattern",
+};
+
+const errorKey = (error: Error) =>
+  (error instanceof ApiError && ERROR_KEYS[error.status]) ||
+  "callsignSetup.errors.unexpected";
 
 export const Route = createFileRoute("/callsign-setup")({
   component: CallsignSetupPage,
+  validateSearch: (search: Record<string, unknown>): { code: string } => ({
+    code: typeof search.code === "string" ? search.code : "",
+  }),
+  beforeLoad: ({ search }) => {
+    if (!search.code) throw redirect({ to: "/login" });
+  },
 });
 
 function CallsignSetupPage() {
   const navigate = useNavigate();
-  const { code, codeType } = useLoginCodeStore();
-  const { deployment } = useHealthCheck();
+  const { code } = Route.useSearch();
   const { t } = useTranslation();
 
-  const { errorMessage, isLoading, submitCallsign, clearError } =
-    useCallsignSetup({
-      code: code || "",
-      codeType,
-    });
-
-  useEffect(() => {
-    if (!code || !codeType) {
-      navigate({ to: "/login" });
-    }
-  }, [code, codeType, navigate]);
+  const {
+    mutate: enroll,
+    isPending,
+    error,
+  } = useEnroll({
+    onSuccess: (status) =>
+      navigate({ to: status.approved ? "/mtls-install" : "/waiting-room" }),
+  });
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <div className="absolute top-4 right-4">
-        <LanguageSwitcher />
-      </div>
-      <div className="w-full max-w-md space-y-8">
-        <LoginHeader deployment={deployment} />
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-3">
-            <CardTitle className="text-2xl font-bold text-center">
-              {t("callsignSetup.title")}
-            </CardTitle>
-            <CardDescription className="text-center">
-              {codeType === "admin"
-                ? t("callsignSetup.usingAdmin", { code })
-                : t("callsignSetup.usingInvite", { code })}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CallsignForm
-              onSubmit={submitCallsign}
-              onBack={() => navigate({ to: "/login" })}
-              errorMessage={errorMessage}
-              onErrorClear={clearError}
-              isLoading={isLoading}
-            />
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <EnrollmentLayout>
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-3">
+          <CardTitle className="text-2xl font-bold text-center">
+            {t("callsignSetup.title")}
+          </CardTitle>
+          <CardDescription className="text-center">
+            {t("callsignSetup.usingInvite", { code })}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CallsignForm
+            onSubmit={(callsign) => enroll({ code, callsign })}
+            onBack={() => navigate({ to: "/login" })}
+            error={error ? t(errorKey(error)) : undefined}
+            isPending={isPending}
+          />
+        </CardContent>
+      </Card>
+    </EnrollmentLayout>
   );
 }
-
-export default CallsignSetupPage;

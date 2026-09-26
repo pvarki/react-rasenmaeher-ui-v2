@@ -125,7 +125,8 @@
     "verifying": "Vahvistetaan...",
     "codeRequired": "Koodi vaaditaan",
     "codeInvalid": "Koodin muoto on virheellinen",
-    "codeNotValid": "Koodi on virheellinen"
+    "codeNotValid": "Koodi on virheellinen",
+    "verifyFailed": "Koodin tarkistus epäonnistui. Yritä uudelleen."
   },
   "loginGuide": {
     "title": "Kirjautumisopas",
@@ -278,7 +279,6 @@
   },
   "callsignSetup": {
     "title": "Aseta kutsutunnuksesi",
-    "usingAdmin": "Ylläpitokoodi käytössä: {{code}}",
     "usingInvite": "Kutsukoodi käytössä: {{code}}",
     "yourCallsignLabel": "Kutsutunnuksesi",
     "callsignPlaceholder": "Syötä kutsutunnus",
@@ -290,7 +290,8 @@
     },
     "errors": {
       "alreadyInUse": "Kutsutunnus on jo käytössä",
-      "unexpected": "Odottamaton virhe"
+      "unexpected": "Odottamaton virhe",
+      "inviteInvalid": "Kutsukoodi ei ole enää voimassa"
     },
     "buttons": {
       "back": "Takaisin",

@@ -125,7 +125,8 @@
     "verifying": "Verifierar...",
     "codeRequired": "Kod krävs",
     "codeInvalid": "Ogiltigt kodformat",
-    "codeNotValid": "Ogiltig kod"
+    "codeNotValid": "Ogiltig kod",
+    "verifyFailed": "Koden kunde inte verifieras. Försök igen."
   },
   "loginGuide": {
     "title": "Inloggningsguide",
@@ -278,7 +279,6 @@
   },
   "callsignSetup": {
     "title": "Ställ in din anropssignal",
-    "usingAdmin": "Administratörskod används: {{code}}",
     "usingInvite": "Inbjudningskod används: {{code}}",
     "yourCallsignLabel": "Din anropssignal",
     "callsignPlaceholder": "Ange anropssignal",
@@ -290,7 +290,8 @@
     },
     "errors": {
       "alreadyInUse": "Anropssignal används redan",
-      "unexpected": "Ett oväntat fel inträffade"
+      "unexpected": "Ett oväntat fel inträffade",
+      "inviteInvalid": "Inbjudningskoden är inte längre giltig"
     },
     "buttons": {
       "back": "Tillbaka",
