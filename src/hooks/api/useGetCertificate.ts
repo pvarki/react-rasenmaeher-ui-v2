@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { downloadBlob } from "../../lib/downloadBlob";
 
 async function getCertificate({
@@ -40,13 +40,11 @@ async function getCertificate({
   return blob;
 }
 
-type UseGetCertificateOptions = UseMutationOptions<
-  Blob,
-  Error,
-  { callsign: string; deployment: string },
-  unknown
+type UseGetCertificateOptions = Omit<
+  UseMutationOptions<Blob, Error, { callsign: string; deployment: string }>,
+  "mutationFn"
 >;
 
 export function useGetCertificate(options?: UseGetCertificateOptions) {
-  return useMutation(getCertificate, options);
+  return useMutation({ mutationFn: getCertificate, ...options });
 }

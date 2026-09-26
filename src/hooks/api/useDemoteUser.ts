@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface DemoteUserResponse {
   success: boolean;
@@ -25,13 +25,11 @@ async function demoteUser({ callsign }: { callsign: string }) {
   }
 }
 
-type UseDemoteUserOptions = UseMutationOptions<
-  void,
-  Error,
-  { callsign: string },
-  unknown
+type UseDemoteUserOptions = Omit<
+  UseMutationOptions<void, Error, { callsign: string }>,
+  "mutationFn"
 >;
 
 export function useDemoteUser(options?: UseDemoteUserOptions) {
-  return useMutation(demoteUser, options);
+  return useMutation({ mutationFn: demoteUser, ...options });
 }

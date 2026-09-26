@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 async function checkCode(code: string) {
   const result = await Promise.all([
@@ -46,13 +46,11 @@ interface CodeCheckResult {
   isEnrollmentCodeValid: boolean;
   isAdminCodeValid: boolean;
 }
-type UseCheckInviteCodeOptions = UseMutationOptions<
-  CodeCheckResult,
-  Error,
-  string,
-  unknown
+type UseCheckInviteCodeOptions = Omit<
+  UseMutationOptions<CodeCheckResult, Error, string>,
+  "mutationFn"
 >;
 
 export function useCheckCode(options?: UseCheckInviteCodeOptions) {
-  return useMutation(checkCode, options);
+  return useMutation({ mutationFn: checkCode, ...options });
 }

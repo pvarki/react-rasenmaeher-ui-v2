@@ -67,7 +67,7 @@ export function LoginForm({ mtlsUrl, initialCode }: LoginFormProps) {
 
   const {
     mutate: checkCode,
-    isLoading,
+    isPending: isLoading,
     isError,
     error,
   } = useCheckCode({

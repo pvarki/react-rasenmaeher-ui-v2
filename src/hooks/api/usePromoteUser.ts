@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface PromoteUserResponse {
   success: boolean;
@@ -25,13 +25,11 @@ async function promoteUser({ callsign }: { callsign: string }) {
   }
 }
 
-type UsePromoteUserOptions = UseMutationOptions<
-  void,
-  Error,
-  { callsign: string },
-  unknown
+type UsePromoteUserOptions = Omit<
+  UseMutationOptions<void, Error, { callsign: string }>,
+  "mutationFn"
 >;
 
 export function usePromoteUser(options?: UsePromoteUserOptions) {
-  return useMutation(promoteUser, options);
+  return useMutation({ mutationFn: promoteUser, ...options });
 }

@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface ApproveUserResponse {
   success: boolean;
@@ -32,13 +32,11 @@ async function approveUser({
   }
 }
 
-type useApproveUserOptions = UseMutationOptions<
-  void,
-  Error,
-  { callsign: string; approvalCode: string },
-  unknown
+type UseApproveUserOptions = Omit<
+  UseMutationOptions<void, Error, { callsign: string; approvalCode: string }>,
+  "mutationFn"
 >;
 
-export function useApproveUser(options?: useApproveUserOptions) {
-  return useMutation(approveUser, options);
+export function useApproveUser(options?: UseApproveUserOptions) {
+  return useMutation({ mutationFn: approveUser, ...options });
 }

@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface RejectUserResponse {
   success: boolean;
@@ -38,13 +38,11 @@ async function rejectUser({ callsign }: { callsign: string }) {
   return data;
 }
 
-type UseRejectUserOptions = UseMutationOptions<
-  RejectUserResponse,
-  Error,
-  { callsign: string },
-  unknown
+type UseRejectUserOptions = Omit<
+  UseMutationOptions<RejectUserResponse, Error, { callsign: string }>,
+  "mutationFn"
 >;
 
 export function useRejectUser(options?: UseRejectUserOptions) {
-  return useMutation(rejectUser, options);
+  return useMutation({ mutationFn: rejectUser, ...options });
 }

@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface Response {
   callsign: string;
@@ -39,13 +39,15 @@ async function initEnrollment({
   return data;
 }
 
-type UseInitEnrollmentOptions = UseMutationOptions<
-  Response,
-  StatusCodeError,
-  { callsign: string; invite_code: string },
-  unknown
+type UseInitEnrollmentOptions = Omit<
+  UseMutationOptions<
+    Response,
+    StatusCodeError,
+    { callsign: string; invite_code: string }
+  >,
+  "mutationFn"
 >;
 
 export function useInitEnrollment(options?: UseInitEnrollmentOptions) {
-  return useMutation(initEnrollment, options);
+  return useMutation({ mutationFn: initEnrollment, ...options });
 }

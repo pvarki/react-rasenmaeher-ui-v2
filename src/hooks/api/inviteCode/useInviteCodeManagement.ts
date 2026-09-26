@@ -222,11 +222,11 @@ export function useInviteCodeManagement() {
     userType,
     callsign,
     // Mutations loading states
-    isCreating: createInviteCodeMutation.isLoading,
-    isDeleting: deleteInviteCodeMutation.isLoading,
+    isCreating: createInviteCodeMutation.isPending,
+    isDeleting: deleteInviteCodeMutation.isPending,
     isTogglingStatus:
-      deactivateInviteCodeMutation.isLoading ||
-      reactivateInviteCodeMutation.isLoading,
+      deactivateInviteCodeMutation.isPending ||
+      reactivateInviteCodeMutation.isPending,
     // Handlers
     handleCreateInvite,
     handleDeleteCode,

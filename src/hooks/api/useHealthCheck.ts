@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryOptions } from "react-query";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 
 export interface HealthCheckResponse {
   all_ok: boolean;
@@ -41,12 +41,14 @@ async function getHealthCheck() {
 }
 
 type UseHealthCheckOptions = Omit<
-  UseQueryOptions<HealthCheckResponse, Error, HealthCheckResponse, string[]>,
+  UseQueryOptions<HealthCheckResponse, Error>,
   "queryKey" | "queryFn"
 >;
 
 export function useHealthCheck(options?: UseHealthCheckOptions) {
-  return useQuery(["healthCheck"], () => getHealthCheck(), {
+  return useQuery({
+    queryKey: ["healthCheck"],
+    queryFn: getHealthCheck,
     refetchInterval: HEALTH_CHECK_INTERVAL_MS,
     // Keep the interval authoritative: long retry chains would hide failures
     // behind a query that never settles.

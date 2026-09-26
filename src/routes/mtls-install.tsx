@@ -131,7 +131,7 @@ function MtlsInstallPage() {
                   <MtlsCallsignDisplay callsign={callsign} />
                   <MtlsActionButtons
                     onDownload={handleDownloadKey}
-                    isDownloading={getCertificateMutation.isLoading}
+                    isDownloading={getCertificateMutation.isPending}
                     mtlsUrl={mtlsUrl}
                     disabled={!callsign}
                     canNavigate={canNavigate}
@@ -186,7 +186,7 @@ function MtlsInstallPage() {
 
           <MtlsActionButtons
             onDownload={handleDownloadKey}
-            isDownloading={getCertificateMutation.isLoading}
+            isDownloading={getCertificateMutation.isPending}
             mtlsUrl={mtlsUrl}
             disabled={!callsign}
             canNavigate={canNavigate}

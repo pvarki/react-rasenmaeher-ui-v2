@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface CreateInviteCodeResponse {
   invite_code: string;
@@ -20,13 +20,11 @@ async function createInviteCode() {
   return data.invite_code;
 }
 
-type UseCreateInviteCodeOptions = UseMutationOptions<
-  string,
-  Error,
-  undefined,
-  unknown
+type UseCreateInviteCodeOptions = Omit<
+  UseMutationOptions<string, Error, void>,
+  "mutationFn"
 >;
 
 export function useCreateInviteCode(options?: UseCreateInviteCodeOptions) {
-  return useMutation(createInviteCode, options);
+  return useMutation({ mutationFn: createInviteCode, ...options });
 }

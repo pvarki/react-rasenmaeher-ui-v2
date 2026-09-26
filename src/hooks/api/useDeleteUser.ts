@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface DeleteUserResponse {
   invite_code: string;
@@ -21,8 +21,11 @@ async function deleteUser(callsign: string) {
   return data.invite_code;
 }
 
-type UseDeleteUserOptions = UseMutationOptions<string, Error, string, unknown>;
+type UseDeleteUserOptions = Omit<
+  UseMutationOptions<string, Error, string>,
+  "mutationFn"
+>;
 
 export function useDeleteUser(options?: UseDeleteUserOptions) {
-  return useMutation(deleteUser, options);
+  return useMutation({ mutationFn: deleteUser, ...options });
 }

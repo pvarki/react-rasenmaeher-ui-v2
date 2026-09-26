@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryOptions } from "react-query";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 
 export interface ProductInstructions {
   data: Record<string, unknown>;
@@ -26,23 +26,19 @@ async function getProductInstructions(product: string) {
   return data as ProductInstructions;
 }
 
-type UseGetProductInstructionsOptions = UseQueryOptions<
-  ProductInstructions,
-  Error,
-  ProductInstructions,
-  string[]
+type UseGetProductInstructionsOptions = Omit<
+  UseQueryOptions<ProductInstructions, Error>,
+  "queryKey" | "queryFn"
 >;
 
 export function useGetProductInstructions(
   product: string,
   options?: UseGetProductInstructionsOptions,
 ) {
-  return useQuery(
-    ["productInstructions", product],
-    () => getProductInstructions(product),
-    {
-      ...options,
-      staleTime: 1000 * 60 * 5, // 5 minutes
-    },
-  );
+  return useQuery({
+    queryKey: ["productInstructions", product],
+    queryFn: () => getProductInstructions(product),
+    ...options,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 }

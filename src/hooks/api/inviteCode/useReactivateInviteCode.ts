@@ -1,4 +1,4 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface ReactivateInviteCodeResponse {
   success: boolean;
@@ -27,14 +27,13 @@ async function ReactivateInviteCode(inviteCode: string) {
   return data;
 }
 
-type UseReactivateInviteCodeOptions = UseMutationOptions<
-  ReactivateInviteCodeResponse,
-  Error,
-  string
+type UseReactivateInviteCodeOptions = Omit<
+  UseMutationOptions<ReactivateInviteCodeResponse, Error, string>,
+  "mutationFn"
 >;
 
 export function useReactivateInviteCode(
   options?: UseReactivateInviteCodeOptions,
 ) {
-  return useMutation(ReactivateInviteCode, options);
+  return useMutation({ mutationFn: ReactivateInviteCode, ...options });
 }

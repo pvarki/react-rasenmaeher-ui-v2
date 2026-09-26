@@ -1,4 +1,4 @@
-import { type UseQueryOptions, useQuery } from "react-query";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 
 interface EnrollmentStatusResponse {
   have_i_been_accepted: boolean;
@@ -25,15 +25,17 @@ async function getEnrollmentStatus() {
   return data.have_i_been_accepted;
 }
 
-type UseOwnEnrollmentStatusOptions = UseQueryOptions<
-  boolean,
-  Error,
-  boolean,
-  "enrollmentStatus"
+type UseOwnEnrollmentStatusOptions = Omit<
+  UseQueryOptions<boolean, Error>,
+  "queryKey" | "queryFn"
 >;
 
 export function useOwnEnrollmentStatus(
   options?: UseOwnEnrollmentStatusOptions,
 ) {
-  return useQuery("enrollmentStatus", getEnrollmentStatus, options);
+  return useQuery({
+    queryKey: ["enrollmentStatus"],
+    queryFn: getEnrollmentStatus,
+    ...options,
+  });
 }

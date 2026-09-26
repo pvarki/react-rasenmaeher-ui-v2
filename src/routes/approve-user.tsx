@@ -93,7 +93,7 @@ function ApproveUserPage() {
                 placeholder={t("approveUser.approvalCodePlaceholder")}
                 onKeyDown={(e) => e.key === "Enter" && handleApprove()}
                 autoFocus
-                disabled={approveUserMutation.isLoading}
+                disabled={approveUserMutation.isPending}
               />
             </div>
 
@@ -102,7 +102,7 @@ function ApproveUserPage() {
                 data-testid="approve-user-cancel-button"
                 variant="outline"
                 onClick={() => navigate({ to: "/approve-users" })}
-                disabled={approveUserMutation.isLoading}
+                disabled={approveUserMutation.isPending}
                 className="flex-1"
               >
                 {t("approveUser.cancel")}
@@ -112,9 +112,9 @@ function ApproveUserPage() {
                 onClick={handleApprove}
                 variant={"outline"}
                 className="flex-1 bg-primary-light hover:bg-primary-light/90"
-                disabled={approveUserMutation.isLoading || !approvalCode.trim()}
+                disabled={approveUserMutation.isPending || !approvalCode.trim()}
               >
-                {approveUserMutation.isLoading ? (
+                {approveUserMutation.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     {t("approveUser.approving")}

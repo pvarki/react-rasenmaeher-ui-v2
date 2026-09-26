@@ -1,14 +1,12 @@
-import { type UseMutationOptions, useMutation } from "react-query";
+import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 
 interface Response {
   jwt: string;
 }
 
-type UseCheckInviteCodeOptions = UseMutationOptions<
-  string,
-  Error,
-  { callsign: string; code: string },
-  unknown
+type UseCheckInviteCodeOptions = Omit<
+  UseMutationOptions<string, Error, { callsign: string; code: string }>,
+  "mutationFn"
 >;
 
 async function loginAsAdmin({
@@ -70,5 +68,5 @@ async function createCallsign(callsign: string, jwt: string) {
 }
 
 export function useLoginAsAdmin(options?: UseCheckInviteCodeOptions) {
-  return useMutation(loginAsAdmin, options);
+  return useMutation({ mutationFn: loginAsAdmin, ...options });
 }

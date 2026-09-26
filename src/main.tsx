@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./app";
 import "./index.css";
 import { Toaster } from "sonner";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/config/i18n";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/config/i18n";

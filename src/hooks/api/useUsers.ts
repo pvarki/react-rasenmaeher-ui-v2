@@ -1,4 +1,4 @@
-import { type UseQueryOptions, useQuery } from "react-query";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 
 interface User {
   callsign: string;
@@ -27,13 +27,11 @@ async function getUsers() {
   return data.callsign_list;
 }
 
-type UseEnrolledUsersOptions = UseQueryOptions<
-  User[],
-  Error,
-  User[],
-  "enrollmentList"
+type UseEnrolledUsersOptions = Omit<
+  UseQueryOptions<User[], Error>,
+  "queryKey" | "queryFn"
 >;
 
 export function useUsers(options?: UseEnrolledUsersOptions) {
-  return useQuery("enrollmentList", () => getUsers(), options);
+  return useQuery({ queryKey: ["users"], queryFn: getUsers, ...options });
 }

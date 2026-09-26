@@ -1,4 +1,4 @@
-import { type UseQueryOptions, useQuery } from "react-query";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 
 export interface InviteCodeItem {
   invitecode: string;
@@ -28,21 +28,15 @@ async function getInviteCodeList() {
   return data.pools;
 }
 
-type UseInviteCodeOptions = UseQueryOptions<
-  InviteCodeItem[],
-  Error,
-  InviteCodeItem[],
-  "inviteCodeList"
+type UseInviteCodeOptions = Omit<
+  UseQueryOptions<InviteCodeItem[], Error>,
+  "queryKey" | "queryFn"
 >;
 
 export function useInviteCodeList(options?: UseInviteCodeOptions) {
-  return useQuery("inviteCodeList", () => getInviteCodeList(), {
+  return useQuery({
+    queryKey: ["inviteCodeList"],
+    queryFn: getInviteCodeList,
     ...options,
-    onSuccess: (data) => {
-      console.log("Fetched invite code list:", data);
-      if (options?.onSuccess) {
-        options.onSuccess(data);
-      }
-    },
   });
 }

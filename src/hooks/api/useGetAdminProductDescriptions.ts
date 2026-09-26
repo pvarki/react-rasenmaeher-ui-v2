@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryOptions } from "react-query";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 
 export interface AdminProductDescription {
   shortname: string;
@@ -25,12 +25,7 @@ async function getAdminProductDescriptions(language: string) {
 }
 
 type UseGetAdminProductDescriptionsOptions = Omit<
-  UseQueryOptions<
-    AdminProductDescription[],
-    Error,
-    AdminProductDescription[],
-    string[]
-  >,
+  UseQueryOptions<AdminProductDescription[], Error>,
   "queryKey" | "queryFn"
 >;
 
@@ -38,9 +33,9 @@ export function useGetAdminProductDescriptions(
   language: string,
   options?: UseGetAdminProductDescriptionsOptions,
 ) {
-  return useQuery(
-    ["adminProductDescriptions", language],
-    () => getAdminProductDescriptions(language),
-    options,
-  );
+  return useQuery({
+    queryKey: ["adminProductDescriptions", language],
+    queryFn: () => getAdminProductDescriptions(language),
+    ...options,
+  });
 }

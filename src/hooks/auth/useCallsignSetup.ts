@@ -30,7 +30,7 @@ export function useCallsignSetup({ code, codeType }: UseCallsignSetupOptions) {
 
   const clearError = () => setErrorMessage("");
 
-  const { mutate: loginAsAdmin, isLoading: isLoadingAdmin } = useLoginAsAdmin({
+  const { mutate: loginAsAdmin, isPending: isLoadingAdmin } = useLoginAsAdmin({
     onSuccess: (jwt, variables) => {
       localStorage.setItem("token", jwt);
       localStorage.setItem("callsign", variables.callsign);
@@ -39,7 +39,7 @@ export function useCallsignSetup({ code, codeType }: UseCallsignSetupOptions) {
     onError: handleCommonError,
   });
 
-  const { mutate: initEnrollment, isLoading: isLoadingEnrollment } =
+  const { mutate: initEnrollment, isPending: isLoadingEnrollment } =
     useInitEnrollment({
       onSuccess: (data) => {
         localStorage.setItem("token", data.jwt);

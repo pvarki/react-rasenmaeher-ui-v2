@@ -132,9 +132,9 @@ function ManageUsersPage() {
   }
 
   const isMutating =
-    promoteUserMutation.isLoading ||
-    demoteUserMutation.isLoading ||
-    deleteUserMutation.isLoading;
+    promoteUserMutation.isPending ||
+    demoteUserMutation.isPending ||
+    deleteUserMutation.isPending;
 
   return (
     <div
@@ -234,7 +234,7 @@ function ManageUsersPage() {
           callsign: selectedUser?.callsign,
         })}
         onConfirm={handlePromoteConfirm}
-        isLoading={promoteUserMutation.isLoading}
+        isLoading={promoteUserMutation.isPending}
       />
 
       <TypeConfirmationModal
@@ -245,7 +245,7 @@ function ManageUsersPage() {
           callsign: selectedUser?.callsign,
         })}
         onConfirm={handleDemoteConfirm}
-        isLoading={demoteUserMutation.isLoading}
+        isLoading={demoteUserMutation.isPending}
       />
 
       <TypeConfirmationModal
@@ -256,7 +256,7 @@ function ManageUsersPage() {
           callsign: selectedUser?.callsign,
         })}
         onConfirm={handleRemoveConfirm}
-        isLoading={deleteUserMutation.isLoading}
+        isLoading={deleteUserMutation.isPending}
       />
 
       <TypeConfirmationModal

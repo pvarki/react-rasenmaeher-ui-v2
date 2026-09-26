@@ -176,8 +176,8 @@ function ApproveUsersPage() {
         onApprovalCodeChange={setApprovalCode}
         onApprove={handleApprove}
         onReject={handleReject}
-        isApproving={approveUserMutation.isLoading}
-        isRejecting={rejectUserMutation.isLoading}
+        isApproving={approveUserMutation.isPending}
+        isRejecting={rejectUserMutation.isPending}
       />
     </div>
   );
