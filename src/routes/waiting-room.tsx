@@ -75,7 +75,7 @@ function WaitingRoomPage() {
           </div>
         </div>
 
-        <ApprovalCodeDisplay callsign={callsign} approveCode={approvalCode} />
+        <ApprovalCodeDisplay callsign={callsign} approvalCode={approvalCode} />
 
         <Button
           onClick={() => handleCopy(approvalUrl)}

@@ -1,5 +1,3 @@
-"use client";
-
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -8,7 +6,7 @@ import {
   useGuidePreferences,
   withGuidePreference,
 } from "@/hooks/useGuidePreferences";
-import { useUserType } from "@/hooks/auth/useUserType";
+import { useEnrollmentStatus } from "@/hooks/api/enrollment/useEnrollmentStatus";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MtlsInstructions } from "@/components/mtls/MtlsInstructions";
@@ -33,11 +31,9 @@ export const Route = createFileRoute("/mtls-install")({
 });
 
 function MtlsInstallPage() {
-  const { callsign: userCallsign } = useUserType();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
 
-  const [callsign, setCallsign] = useState("");
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
@@ -46,19 +42,11 @@ function MtlsInstallPage() {
     () => localStorage.getItem("cert_downloaded") === "true",
   );
   const { deployment } = useHealthCheck();
+  const callsign = useEnrollmentStatus().data?.callsign ?? "";
 
   useEffect(() => {
     setUserOS(getOperatingSystem());
   }, []);
-
-  useEffect(() => {
-    const storedCallsign = localStorage.getItem("callsign");
-    if (storedCallsign) {
-      setCallsign(storedCallsign);
-    } else if (userCallsign) {
-      setCallsign(userCallsign);
-    }
-  }, [userCallsign]);
 
   useEffect(() => {
     // The help button still opens this; only the uninvited appearance stops.
@@ -76,7 +64,6 @@ function MtlsInstallPage() {
       toast.success(t("mtlsInstall.certificateDownloaded"));
     },
     onError: (err) => {
-      console.error("Certificate download error:", err);
       toast.error(err.message || t("mtlsInstall.downloadFailed"));
     },
   });
