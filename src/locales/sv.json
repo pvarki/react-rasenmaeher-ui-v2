@@ -11,25 +11,15 @@
     "admin": "Admin",
     "user": "Användare",
     "deployApp": "Deploy App",
-    "takServer": "Takserver",
     "learnAboutMtls": "Lär dig om mTLS",
     "proudlyServedBy": "Stolt serverad av PV-Arki.",
-    "releasedUnder": "Utgiven under GNU GPLv3 av TAK Product Center.",
-    "viewSource": "Visa källa",
-    "letDevelopersKnow": "Låt utvecklarna veta",
-    "whatYouThink": "vad du tycker",
-    "allRightsReserved": "Alla rättigheter förbehållna.",
     "copyright": "© 2026 PV-Arki. Alla rättigheter förbehållna.",
     "authenticating": "Autentiserar...",
-    "adminConsole": "Administrationskonsol",
     "forbiddenAdminAccess": "403 Förbjuden: Administratörsåtkomst krävs",
     "cancel": "Avbryt",
     "confirm": "Bekräfta",
     "confirming": "Bekräftar...",
     "processing": "Bearbetar...",
-    "type": "Typ",
-    "toConfirm": "för att bekräfta",
-    "typeConfirmPlaceholder": "Skriv \"{text}\" för att bekräfta",
     "managing": "Hanterar",
     "step": "Steg",
     "of": "av",
@@ -39,12 +29,8 @@
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora",
-    "footer": "Öppna sidfot"
-  },
-  "pages": {
-    "login": "Logga in",
-    "waitingRoom": "Väntrum",
-    "error": "Fel"
+    "footer": "Öppna sidfot",
+    "close": "Stäng"
   },
   "modals": {
     "keycloak": {
@@ -96,7 +82,6 @@
       }
     },
     "completion": "Introduktionen är slutförd!",
-    "completionDesc": "Du är redo och kan nu arbeta i full kapacitet.",
     "step": "Steg",
     "of": "av",
     "finish": "Slutför",
@@ -111,9 +96,6 @@
   "systemStatus": {
     "title": "Systemstatus",
     "lastUpdated": "Senast uppdaterad",
-    "services": "Tjänster",
-    "active": "Aktiv",
-    "issues": "Problem",
     "noServices": "Inga tjänster tillgängliga",
     "operational": "OPERATIV",
     "down": "NERE",
@@ -165,10 +147,6 @@
         "title": "Säker anslutning",
         "description": "mTLS säkerställer att både du och servern verifierar identitet. Installera certifikatet för säker åtkomst."
       },
-      "platform": {
-        "title": "Välj din plattform",
-        "description": "Välj ditt operativsystem från rullgardinsmenyn. Installationsinstruktionerna anpassas automatiskt för att visa rätt steg för Windows, macOS, Linux, Android eller iOS."
-      },
       "download": {
         "title": "Ladda ner certifikat",
         "description": "Klicka på 'Ladda ner certifikat' för att få ditt personliga mTLS-certifikat. Håll filen säker."
@@ -176,10 +154,6 @@
       "install": {
         "title": "Installation",
         "description": "Följ de plattformsspecifika stegen nedan för att installera ditt certifikat."
-      },
-      "navigate": {
-        "title": "Få tillgång till säkra tjänster",
-        "description": "När det är installerat, klicka på 'Navigera till tjänster' för att komma åt den säkra domänen. Din webbläsare kommer att använda ditt nyinstallerade certifikat för att autentisera automatiskt. Du är nu redo att använda alla taktiska tjänster!"
       }
     },
     "androidWarning": {
@@ -233,14 +207,11 @@
   },
   "addUsers": {
     "title": "Lägg till användare med inbjudningskod",
-    "subtitle": "En inbjudningskod kan användas flera gånger. Klicka på en kod för att se dess QR-kod och dela den. Skapa en ny kod endast vid behov.",
-    "subtitleHighlight": "En inbjudningskod kan användas flera gånger.",
     "createNewInvite": "Skapa ny inbjudan",
     "create": "Skapa",
     "creating": "Skapar...",
     "selectMultiple": "Markera flera",
     "cancel": "Avbryt",
-    "selected": "{{count}} markerade",
     "enable": "Aktivera",
     "disable": "Inaktivera",
     "delete": "Ta bort",
@@ -250,9 +221,7 @@
     "createdBy": "{{creator}} skapade koden den {{date}}",
     "createdByYou": "Du skapade koden den {{date}}",
     "forbidden": "403 Förbjudet: Adminbehörighet krävs",
-    "noCallsign": "Ingen anropssignal hittades. Logga in.",
     "createModalTitle": "Skapa ny inbjudningskod",
-    "createModalDescription": "En enda inbjudningskod kan användas av flera användare",
     "createModalWarning": "⚠️ En inbjudningskod kan användas av flera användare",
     "createModalText": "Du behöver bara skapa en ny kod om:",
     "createModalReason1": "Du har tagit bort eller inaktiverat din tidigare kod",
@@ -264,7 +233,6 @@
     "enableCode": "Aktivera kod",
     "deleteCode": "Ta bort kod",
     "deleting": "Tar bort...",
-    "goBack": "Tillbaka",
     "walkthrough": {
       "title": "Hur man lägger till användare",
       "description": "Snabbguide för att bjuda in användare",
@@ -302,7 +270,6 @@
     "approvalCodeLabel": "Godkännandekod",
     "approvalCodePlaceholder": "Ange godkännandekod",
     "enterApprovalCodeMessage": "Ange en godkännandekod",
-    "goBack": "Tillbaka",
     "cancel": "Avbryt",
     "approve": "Godkänn",
     "approving": "Godkänner...",
@@ -357,11 +324,9 @@
       "icon": "⚠️"
     },
     "returnHome": "Tillbaka till hem",
-    "troubleshootingSteps": "Vanliga felsökningssteg",
-    "errorCode": "Fel: {{code}}"
+    "troubleshootingSteps": "Vanliga felsökningssteg"
   },
   "home": {
-    "welcome": "Välkommen till Deploy App",
     "description": "Få åtkomst till dina taktiska tjänster. Välj en tjänst för att börja.",
     "loadingServices": "Laddar tjänster...",
     "authRequired": "Du måste vara autentiserad för att komma åt tjänster.",
@@ -436,17 +401,12 @@
   },
   "manageUsers": {
     "title": "Hantera användare",
-    "description": "Hantera användare här. Administratörer kan använda dessa verktyg. Krigare är grundanvändare med tjänsteåtkomst.",
-    "adminHighlight": "Admins",
-    "fighterHighlight": "Krigare",
-    "noCallsignFound": "Ingen anropssignal hittades. Logga in.",
     "forbidden": "403 Förbjudet: Adminbehörighet krävs",
     "administrators": "Administratörer",
     "fighters": "Krigare",
     "noAdministrators": "Inga administratörer ännu.",
     "noFighters": "Inga krigare ännu.",
     "you": "Du",
-    "keycloakButton": "Öppna Keycloak-hanteringskonsol",
     "walkthrough": {
       "title": "Hur man hanterar användare",
       "description": "Snabbguide",
@@ -464,32 +424,37 @@
       "currentRole": "Nuvarande roll:",
       "goBack": "Tillbaka",
       "remove": "Ta bort",
-      "removing": "Tar bort...",
       "promote": "Befordra",
-      "promoting": "Befordrar...",
-      "demote": "Degradera",
-      "demoting": "Degraderar..."
+      "demote": "Degradera"
     },
     "tooltips": {
       "cannotRemove": "Du kan inte ta bort dig själv",
-      "cannotDemote": "Du kan inte degradera dig själv"
+      "cannotDemote": "Du kan inte degradera dig själv",
+      "cannotPromoteAdmins": "Urvalet innehåller användare som redan är administratörer",
+      "cannotDemoteNonAdmins": "Välj minst en administratör att degradera"
     },
     "confirmModals": {
       "promote": {
         "title": "Befordra användare",
-        "description": "Vill du befordra {{callsign}} till administratör?",
-        "requiredText": "PROMOTE"
+        "description": "Vill du befordra {{callsign}} till administratör?"
       },
       "demote": {
         "title": "Degradera användare",
-        "description": "Vill du degradera {{callsign}} från administratör till krigare?",
-        "requiredText": "DEMOTE"
+        "description": "Vill du degradera {{callsign}} från administratör till krigare?"
       },
       "remove": {
         "title": "Ta bort användare",
-        "description": "Detta kan inte ångras. Ta bort {{callsign}}?",
-        "requiredText": "{{callsign}}"
+        "description": "Detta kan inte ångras. Ta bort {{callsign}}?"
       }
+    },
+    "bulkConfirm": {
+      "title": "Bekräfta massåtgärd",
+      "promoteDescription": "Du är på väg att befordra {{count}} användare. Fortsätta?",
+      "demoteDescription": "Du är på väg att degradera {{count}} användare. Fortsätta?",
+      "removeDescription": "Du är på väg att ta bort {{count}} användare. Detta kan inte ångras.",
+      "promoteSuccess": "{{count}} användare befordrade till administratörer",
+      "demoteSuccess": "{{count}} användare degraderade",
+      "removeSuccess": "{{count}} användare borttagna"
     },
     "messages": {
       "noCandidateFound": "Ingen anropssignal hittades. Logga in.",
@@ -506,16 +471,16 @@
     },
     "bulkMode": "Markera flera",
     "exitBulkMode": "Avsluta massläge",
-    "bulkConfirm": {
-      "title": "Bekräfta massåtgärd",
-      "promoteDescription": "Du är på väg att befordra {{count}} användare. Fortsätta?",
-      "demoteDescription": "Du är på väg att degradera {{count}} användare. Fortsätta?",
-      "removeDescription": "Du är på väg att ta bort {{count}} användare. Detta kan inte ångras."
-    },
     "selected": "{{count}} markerade",
     "promote": "Befordra",
     "demote": "Degradera",
-    "remove": "Ta bort"
+    "remove": "Ta bort",
+    "infoModal": {
+      "title": "Användarroller",
+      "description": "Vad varje roll kan göra",
+      "adminDesc": "Administratörer kan använda administratörsverktygen och lägga till, godkänna, befordra, degradera och ta bort användare.",
+      "userDesc": "Användare har tillgång till tjänsterna."
+    }
   },
   "mtlsInstall": {
     "title": "Ladda ner och installera din nyckel",
@@ -526,7 +491,6 @@
     "selectPlaceholder": "Välj OS",
     "instructionsTitle": "Installationsinstruktioner:",
     "note": "Obs:",
-    "passwordLabel": "Lösenord för certifikat:",
     "downloadButton": "Ladda ner nyckel",
     "downloading": "Laddar ner...",
     "navigateButton": "Fortsätt med nyckeln",
@@ -622,8 +586,6 @@
     "iosExplanation": "På iOS stöder endast Safari nödvändiga säkerhetsfunktioner. Andra webbläsare fungerar inte.",
     "unknownExplanation": "Denna webbläsare har inte testats med applikationen.",
     "supportedBrowsers": "Kompatibla webbläsare",
-    "importantNote": "Viktigt",
-    "securityRequirement": "Applikationen kräver webbläsare som stöder mTLS-certifikat för att säkerställa säkerhet.",
     "refreshNote": "Ladda ner en kompatibel webbläsare och öppna sidan igen.",
     "continueAtRisk": "Fortsätt på egen risk",
     "riskWarning": "Varning: Saker kan gå sönder om du fortsätter med en webbläsare som inte stöds.",
@@ -636,13 +598,11 @@
     "goHome": "Tillbaka hem",
     "notFoundRedirect": "Produkten hittades inte, omdirigerar...",
     "loadingProduct": "Laddar {{title}}",
-    "progress": "{{progress}}%",
     "loadingRemote": "Laddar fjärrapp...",
     "remoteUnavailable": "Fjärrapp ej tillgänglig för \"{{shortname}}\".",
     "loadingMarkdown": "Laddar markdown..."
   },
   "waitingRoom": {
-    "titleShort": "Väntar på godkännande",
     "title": "Du är i väntrummet!",
     "description": "Du väntar på att en administratör ska godkänna dig. Kopiera och skicka din godkännandelänk.",
     "checkingStatus": "Kontrollerar status...",
@@ -650,16 +610,12 @@
     "copyButton": "Kopiera godkännandelänk",
     "copied": "Kopierad!",
     "actionFailed": "Åtgärd misslyckades: {{error}}",
-    "instructionsTitle": "Väntar på godkännande (instruktioner)",
-    "instructionsText": "Godkänn användare genom deras godkännandekod, godkännandelänk eller via \"Godkänn användare\".",
     "approvedToast": "Du har blivit godkänd!"
   },
   "adminTools": {
     "navLink": "Adminverktyg",
-    "title": "Administrationskonsol",
     "toolsDesc": "Adminverktyg",
     "description": "Hantera team, användare och externa tjänster från en central plats.",
-    "userManagementSection": "Användarhantering",
     "userManagementDesc": "Godkänn nya användare och hantera roller.",
     "externalServicesSection": "Externa tjänster",
     "externalServicesDesc": "Få åtkomst till och hantera dina taktiska och battle-log-servrar.",
@@ -668,17 +624,7 @@
     "addUsersDesc": "Skapa och hantera inbjudningskoder",
     "keycloakTitle": "Keycloak-hantering",
     "keycloakDesc": "Identitetsadministration och felsökning",
-    "takServerTitle": "Takserver",
-    "takServerDesc": "Hantera Takserver-konfiguration",
-    "blServerTitle": "Battle log-server",
-    "blServerDesc": "Hantera konfiguration",
-    "openExternal": "Öppna extern",
-    "access": "Öppna",
-    "helpTitle": "Snabbhjälp",
-    "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
-    "help2": "Inbjudningskoder – generera och hantera koder",
-    "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL"
+    "forbiddenAdminAccess": "Administratörsverktygen är endast tillgängliga för administratörer."
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"

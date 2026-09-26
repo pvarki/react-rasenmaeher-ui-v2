@@ -51,15 +51,3 @@ export function getLocalizedValue(path: string, defaultValue = ""): string {
 
   return typeof value === "string" ? value : defaultValue;
 }
-
-export async function loadLocalizationFromServer(endpoint: string) {
-  try {
-    const response = await fetch(endpoint);
-    if (response.ok) {
-      const config = (await response.json()) as LocalizationConfig;
-      setRuntimeLocalization(config);
-    }
-  } catch (error) {
-    console.warn("Failed to load runtime localization:", error);
-  }
-}

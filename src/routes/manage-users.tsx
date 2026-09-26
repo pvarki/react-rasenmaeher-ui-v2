@@ -262,14 +262,14 @@ function ManageUsersPage() {
       <TypeConfirmationModal
         open={bulkConfirmOpen}
         onOpenChange={setBulkConfirmOpen}
-        title={t(
-          `manageUsers.confirmModals.bulk${bulkAction}.title`,
-          "Confirm Action",
-        )}
-        description={t(
-          `manageUsers.confirmModals.bulk${bulkAction}.description`,
-          "Are you sure?",
-        )}
+        title={t("manageUsers.bulkConfirm.title")}
+        description={
+          bulkAction
+            ? t(`manageUsers.bulkConfirm.${bulkAction}Description`, {
+                count: selectedUsers.length,
+              })
+            : ""
+        }
         onConfirm={confirmBulkAction}
         isLoading={false}
       />

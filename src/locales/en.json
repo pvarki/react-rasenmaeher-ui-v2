@@ -11,25 +11,15 @@
     "admin": "Admin",
     "user": "User",
     "deployApp": "Deploy App",
-    "takServer": "Takserver",
     "learnAboutMtls": "Learn about mTLS",
     "proudlyServedBy": "Proudly served by PV-Arki.",
-    "releasedUnder": "Released under GNU GPLv3 by TAK Product Center.",
-    "viewSource": "View source",
-    "letDevelopersKnow": "Let developers know",
-    "whatYouThink": "what you think",
-    "allRightsReserved": "All rights reserved.",
     "copyright": "© 2026 PV-Arki. All rights reserved.",
     "authenticating": "Authenticating...",
-    "adminConsole": "Admin Console",
     "forbiddenAdminAccess": "403 Forbidden: Admin access required",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "confirming": "Confirming...",
     "processing": "Processing...",
-    "type": "Type",
-    "toConfirm": "to confirm",
-    "typeConfirmPlaceholder": "Type \"{text}\" to confirm",
     "managing": "Managing",
     "step": "Step",
     "of": "of",
@@ -39,12 +29,8 @@
     "help": "Help",
     "imageNotAvailable": "Image not available",
     "clickToEnlarge": "Click to enlarge",
-    "footer": "Open footer"
-  },
-  "pages": {
-    "login": "Login",
-    "waitingRoom": "Waiting Room",
-    "error": "Error"
+    "footer": "Open footer",
+    "close": "Close"
   },
   "modals": {
     "keycloak": {
@@ -96,7 +82,6 @@
       }
     },
     "completion": "Onboarding Completed!",
-    "completionDesc": "You're all set and ready to operate at full capacity.",
     "step": "Step",
     "of": "of",
     "finish": "Finish",
@@ -111,9 +96,6 @@
   "systemStatus": {
     "title": "System Status",
     "lastUpdated": "Last updated",
-    "services": "Services",
-    "active": "Active",
-    "issues": "Issues",
     "noServices": "No services available",
     "operational": "OPERATIONAL",
     "down": "DOWN",
@@ -165,10 +147,6 @@
         "title": "Secure Connection",
         "description": "mTLS ensures both you and the server verify identity. Install the certificate for secure access."
       },
-      "platform": {
-        "title": "Select Your Platform",
-        "description": "Choose your operating system from the dropdown menu. The installation instructions will automatically adjust to show the correct steps for Windows, macOS, Linux, Android, or iOS."
-      },
       "download": {
         "title": "Download Certificate",
         "description": "Click 'Download Certificate' to get your personal mTLS certificate. Keep this file secure."
@@ -176,10 +154,6 @@
       "install": {
         "title": "Installation",
         "description": "Follow the platform-specific steps below to install your certificate."
-      },
-      "navigate": {
-        "title": "Access Secure Services",
-        "description": "Once installed, click 'Navigate to Services' to access the secure domain. Your browser will use your newly installed certificate to authenticate automatically. You're now ready to use all tactical services!"
       }
     },
     "androidWarning": {
@@ -233,14 +207,11 @@
   },
   "addUsers": {
     "title": "Add Users with Invite Code",
-    "subtitle": "One invite code can be used multiple times. Click on a code to view its QR code and share it with users. Create a new code only if needed.",
-    "subtitleHighlight": "One invite code can be used multiple times.",
     "createNewInvite": "Create New Invite",
     "create": "Create",
     "creating": "Creating...",
     "selectMultiple": "Select Multiple",
     "cancel": "Cancel",
-    "selected": "{{count}} selected",
     "enable": "Enable",
     "disable": "Disable",
     "delete": "Delete",
@@ -250,9 +221,7 @@
     "createdBy": "{{creator}} created this code on {{date}}",
     "createdByYou": "You created this code on {{date}}",
     "forbidden": "403 Forbidden: Admin access required",
-    "noCallsign": "No callsign found. Please log in.",
     "createModalTitle": "Create New Invite Code",
-    "createModalDescription": "One invite code can be used by multiple users",
     "createModalWarning": "⚠️ One invite code can be used by multiple users",
     "createModalText": "You only need to create a new code if:",
     "createModalReason1": "You've deleted or deactivated your previous code",
@@ -264,7 +233,6 @@
     "enableCode": "Enable Code",
     "deleteCode": "Delete Code",
     "deleting": "Deleting...",
-    "goBack": "Go Back",
     "walkthrough": {
       "title": "How to Add Users",
       "description": "Quick guide to inviting users",
@@ -302,7 +270,6 @@
     "approvalCodeLabel": "Approval Code",
     "approvalCodePlaceholder": "Enter approval code",
     "enterApprovalCodeMessage": "Please enter an approval code",
-    "goBack": "Go Back",
     "cancel": "Cancel",
     "approve": "Approve",
     "approving": "Approving...",
@@ -357,11 +324,9 @@
       "icon": "⚠️"
     },
     "returnHome": "Return Home",
-    "troubleshootingSteps": "Common troubleshooting steps",
-    "errorCode": "Error: {{code}}"
+    "troubleshootingSteps": "Common troubleshooting steps"
   },
   "home": {
-    "welcome": "Welcome to Deploy App",
     "description": "Access your tactical services and tools. Select a service below to get started.",
     "loadingServices": "Loading your services...",
     "authRequired": "You must be authenticated to access services. Please log in.",
@@ -436,17 +401,12 @@
   },
   "manageUsers": {
     "title": "Manage Users",
-    "description": "Manage users in this view.",
-    "adminHighlight": "Admins",
-    "fighterHighlight": "Fighters",
-    "noCallsignFound": "No callsign found. Please log in.",
     "forbidden": "403 Forbidden: Admin access required",
     "administrators": "Administrators",
     "fighters": "Fighters",
     "noAdministrators": "No administrators yet.",
     "noFighters": "No fighters yet.",
     "you": "You",
-    "keycloakButton": "Open Keycloak Management Console",
     "walkthrough": {
       "title": "How to Manage Users",
       "description": "Quick guide to managing your team",
@@ -464,32 +424,37 @@
       "currentRole": "Current role:",
       "goBack": "Go back",
       "remove": "Remove",
-      "removing": "Removing...",
       "promote": "Promote",
-      "promoting": "Promoting...",
-      "demote": "Demote",
-      "demoting": "Demoting..."
+      "demote": "Demote"
     },
     "tooltips": {
       "cannotRemove": "You cannot remove yourself from this application",
-      "cannotDemote": "You cannot demote yourself"
+      "cannotDemote": "You cannot demote yourself",
+      "cannotPromoteAdmins": "Selection includes users who are already admins",
+      "cannotDemoteNonAdmins": "Select at least one admin to demote"
     },
     "confirmModals": {
       "promote": {
         "title": "Promote User",
-        "description": "Are you sure you want to promote {{callsign}} to administrator? They will have full access to user management tools.",
-        "requiredText": "PROMOTE"
+        "description": "Are you sure you want to promote {{callsign}} to administrator? They will have full access to user management tools."
       },
       "demote": {
         "title": "Demote User",
-        "description": "Are you sure you want to demote {{callsign}} from administrator to fighter? They will lose access to user management tools.",
-        "requiredText": "DEMOTE"
+        "description": "Are you sure you want to demote {{callsign}} from administrator to fighter? They will lose access to user management tools."
       },
       "remove": {
         "title": "Remove User",
-        "description": "This action cannot be undone. Are you sure you want to remove {{callsign}}?",
-        "requiredText": "{{callsign}}"
+        "description": "This action cannot be undone. Are you sure you want to remove {{callsign}}?"
       }
+    },
+    "bulkConfirm": {
+      "title": "Confirm Bulk Action",
+      "promoteDescription": "You are about to promote {{count}} user(s) to admin. Continue?",
+      "demoteDescription": "You are about to demote {{count}} user(s) from admin. Continue?",
+      "removeDescription": "You are about to remove {{count}} user(s). This cannot be undone. Continue?",
+      "promoteSuccess": "Promoted {{count}} user(s) to admin",
+      "demoteSuccess": "Demoted {{count}} user(s) from admin",
+      "removeSuccess": "Removed {{count}} user(s)"
     },
     "messages": {
       "noCandidateFound": "No callsign found. Please log in.",
@@ -506,16 +471,16 @@
     },
     "bulkMode": "Select Multiple",
     "exitBulkMode": "Exit Bulk Mode",
-    "bulkConfirm": {
-      "title": "Confirm Bulk Action",
-      "promoteDescription": "You are about to promote {{count}} user(s) to admin. Continue?",
-      "demoteDescription": "You are about to demote {{count}} user(s) from admin. Continue?",
-      "removeDescription": "You are about to remove {{count}} user(s). This cannot be undone. Continue?"
-    },
     "selected": "{{count}} selected",
     "promote": "Promote",
     "demote": "Demote",
-    "remove": "Remove"
+    "remove": "Remove",
+    "infoModal": {
+      "title": "User Roles",
+      "description": "What each user role can do",
+      "adminDesc": "Admins can use the admin tools and add, approve, promote, demote and remove users.",
+      "userDesc": "Users have access to the services."
+    }
   },
   "mtlsInstall": {
     "title": "Download & Install Your Key",
@@ -526,7 +491,6 @@
     "selectPlaceholder": "Select your OS",
     "instructionsTitle": "Installation Instructions:",
     "note": "Note:",
-    "passwordLabel": "Password for certificate:",
     "downloadButton": "Download your key",
     "downloading": "Downloading...",
     "navigateButton": "Navigate with your key",
@@ -622,8 +586,6 @@
     "iosExplanation": "On iOS, only Safari supports the necessary security features. Other browsers won't work.",
     "unknownExplanation": "This browser has not been tested with the application.",
     "supportedBrowsers": "Compatible browsers",
-    "importantNote": "Note",
-    "securityRequirement": "The application requires browsers that support mTLS certificates to ensure security.",
     "refreshNote": "Download a compatible browser and reopen the page.",
     "continueAtRisk": "Continue at your own risk",
     "riskWarning": "Warning: Things may break if you continue with an unsupported browser.",
@@ -636,13 +598,11 @@
     "goHome": "Go Home",
     "notFoundRedirect": "Product not found, redirecting...",
     "loadingProduct": "Loading {{title}}",
-    "progress": "{{progress}}%",
     "loadingRemote": "Loading remote...",
     "remoteUnavailable": "Remote app unavailable for \"{{shortname}}\". Please try again later.",
     "loadingMarkdown": "Loading markdown..."
   },
   "waitingRoom": {
-    "titleShort": "Awaiting Approval",
     "title": "You are in the Waiting Room!",
     "description": "You are awaiting your administrator to approve you to the services. Copy and send your Admin your Approval Link.",
     "checkingStatus": "Checking enrollment status...",
@@ -650,16 +610,12 @@
     "copyButton": "Copy approval link for your administrator",
     "copied": "Copied!",
     "actionFailed": "Action failed: {{error}}",
-    "instructionsTitle": "Waiting for Approval (instructions)",
-    "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
     "approvedToast": "You have been approved!"
   },
   "adminTools": {
     "navLink": "Admin Tools",
-    "title": "Admin Console",
     "toolsDesc": "Administrator Tools",
     "description": "Manage your team, users, and external services from a central location.",
-    "userManagementSection": "User Management",
     "userManagementDesc": "Approve new users, manage team roles, and control access to your services.",
     "externalServicesSection": "External Services",
     "externalServicesDesc": "Access and manage your tactical and battle-log servers.",
@@ -668,17 +624,7 @@
     "addUsersDesc": "Create and manage invite codes for new users",
     "keycloakTitle": "Keycloak Management",
     "keycloakDesc": "Identity administration and troubleshooting",
-    "takServerTitle": "Takserver",
-    "takServerDesc": "Manage Takserver configuration",
-    "blServerTitle": "Battlelog Server",
-    "blServerDesc": "Manage Battlelog and integration services",
-    "openExternal": "Open External",
-    "access": "Access",
-    "helpTitle": "Quick Help",
-    "help1": "User Management - Approve, promote, demote, or remove users",
-    "help2": "Invite Codes - Generate and manage user invite codes",
-    "help3": "Keycloak - Advanced identity inspection and troubleshooting",
-    "help4": "External Services - Access Takserver and Battlelog servers"
+    "forbiddenAdminAccess": "Admin tools are only available to administrators."
   },
   "guides": {
     "disableAutoOpen": "Do not show me guides automatically"

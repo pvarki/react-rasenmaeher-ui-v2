@@ -11,25 +11,15 @@
     "admin": "Ylläpitäjä",
     "user": "Käyttäjä",
     "deployApp": "Deploy App",
-    "takServer": "Takserver",
     "learnAboutMtls": "Lue lisää mTLS:stä",
     "proudlyServedBy": "Palvelun tarjoaa PV-Arki.",
-    "releasedUnder": "Julkaistu GNU GPLv3 -lisenssillä TAK Product Centerin toimesta.",
-    "viewSource": "Näytä lähdekoodi",
-    "letDevelopersKnow": "Kerro kehittäjille",
-    "whatYouThink": "mitä ajattelet",
-    "allRightsReserved": "Kaikki oikeudet pidätetään.",
     "copyright": "© 2026 PV-Arki. Kaikki oikeudet pidätetään.",
     "authenticating": "Autentikoidaan...",
-    "adminConsole": "Ylläpitäjän konsoli",
     "forbiddenAdminAccess": "403 Kielletty: Ylläpitäjäoikeudet vaaditaan",
     "cancel": "Peruuta",
     "confirm": "Vahvista",
     "confirming": "Vahvistetaan...",
     "processing": "Käsitellään...",
-    "type": "Tyyppi",
-    "toConfirm": "vahvistaaksesi",
-    "typeConfirmPlaceholder": "Kirjoita \"{text}\" vahvistaaksesi",
     "managing": "Hallitaan",
     "step": "Vaihe",
     "of": "/",
@@ -39,12 +29,8 @@
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi",
-    "footer": "Avaa alatunniste"
-  },
-  "pages": {
-    "login": "Kirjaudu",
-    "waitingRoom": "Odotushuone",
-    "error": "Virhe"
+    "footer": "Avaa alatunniste",
+    "close": "Sulje"
   },
   "modals": {
     "keycloak": {
@@ -96,7 +82,6 @@
       }
     },
     "completion": "Perehdyttäminen valmis!",
-    "completionDesc": "Olet valmis ja voit nyt työskennellä täysillä teholla.",
     "step": "Vaihe",
     "of": "/",
     "finish": "Valmis",
@@ -111,9 +96,6 @@
   "systemStatus": {
     "title": "Järjestelmän tila",
     "lastUpdated": "Päivitetty",
-    "services": "Palvelut",
-    "active": "Aktiivinen",
-    "issues": "Ongelmat",
     "noServices": "Ei palveluita saatavilla",
     "operational": "TOIMII",
     "down": "ALHAALLA",
@@ -165,10 +147,6 @@
         "title": "Turvallinen yhteys",
         "description": "mTLS varmistaa että sekä sinä että palvelin vahvistatte henkilöllisyyden. Asenna varmenne turvalliseen käyttöön."
       },
-      "platform": {
-        "title": "Valitse alustasi",
-        "description": "Valitse käyttöjärjestelmäsi pudotusvalikosta. Asennusohjeet mukautuvat automaattisesti näyttämään oikeat vaiheet Windowsille, macOS:lle, Linuxille, Androidille tai iOS:lle."
-      },
       "download": {
         "title": "Lataa varmenne",
         "description": "Klikkaa 'Lataa varmenne' saadaksesi henkilökohtaisen mTLS-varmenteesi. Pidä tämä tiedosto turvassa."
@@ -176,10 +154,6 @@
       "install": {
         "title": "Asennus",
         "description": "Seuraa alla olevia alustasi koskevia asennusohjeita."
-      },
-      "navigate": {
-        "title": "Käytä turvallisia palveluita",
-        "description": "Kun asennus on valmis, klikkaa 'Siirry palveluihin' päästäksesi turvalliseen verkkotunnukseen. Selaimesi käyttää juuri asennettua varmennettasi automaattiseen tunnistautumiseen. Olet nyt valmis käyttämään kaikkia taktisia palveluita!"
       }
     },
     "androidWarning": {
@@ -233,14 +207,11 @@
   },
   "addUsers": {
     "title": "Lisää käyttäjiä kutsukoodilla",
-    "subtitle": "Yhtä kutsukoodia voidaan käyttää useita kertoja. Klikkaa koodia nähdäksesi sen QR-koodin ja jakaaksesi sen käyttäjille. Luo uusi koodi vain tarvittaessa.",
-    "subtitleHighlight": "Yhtä kutsukoodia voidaan käyttää useita kertoja.",
     "createNewInvite": "Luo uusi kutsukoodi",
     "create": "Luo",
     "creating": "Luodaan...",
     "selectMultiple": "Valitse useita",
     "cancel": "Peruuta",
-    "selected": "{{count}} valittu",
     "enable": "Ota käyttöön",
     "disable": "Poista käytöstä",
     "delete": "Poista",
@@ -250,9 +221,7 @@
     "createdBy": "{{creator}} loi tämän koodin {{date}}",
     "createdByYou": "Loit tämän koodin {{date}}",
     "forbidden": "403 Kielletty: Ylläpitäjän oikeudet vaaditaan",
-    "noCallsign": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "createModalTitle": "Luo uusi kutsukoodi",
-    "createModalDescription": "Yhtä kutsukoodia voi käyttää useampi käyttäjä",
     "createModalWarning": "⚠️ Yhtä kutsukoodia voi käyttää useampi käyttäjä",
     "createModalText": "Sinun tarvitsee luoda uusi koodi vain, jos:",
     "createModalReason1": "Olet poistanut tai poistanut käytöstä edellisen koodisi",
@@ -264,7 +233,6 @@
     "enableCode": "Ota koodi käyttöön",
     "deleteCode": "Poista koodi",
     "deleting": "Poistetaan...",
-    "goBack": "Takaisin",
     "walkthrough": {
       "title": "Näin lisäät käyttäjiä",
       "description": "Pikakäyttöopas kutsujen lähettämiseen",
@@ -302,7 +270,6 @@
     "approvalCodeLabel": "Hyväksyntäkoodi",
     "approvalCodePlaceholder": "Syötä hyväksyntäkoodi",
     "enterApprovalCodeMessage": "Syötä hyväksyntäkoodi",
-    "goBack": "Takaisin",
     "cancel": "Peruuta",
     "approve": "Hyväksy",
     "approving": "Hyväksytään...",
@@ -357,11 +324,9 @@
       "icon": "⚠️"
     },
     "returnHome": "Palaa etusivulle",
-    "troubleshootingSteps": "Yleiset vianmääritysvaiheet",
-    "errorCode": "Virhe: {{code}}"
+    "troubleshootingSteps": "Yleiset vianmääritysvaiheet"
   },
   "home": {
-    "welcome": "Tervetuloa Deploy Appiin",
     "description": "Pääset käyttämään taktisia palveluita ja työkaluja. Valitse palvelu aloittaaksesi.",
     "loadingServices": "Ladataan palveluita...",
     "authRequired": "Sinun tulee olla kirjautunut käyttääksesi palveluita.",
@@ -436,17 +401,12 @@
   },
   "manageUsers": {
     "title": "Hallitse käyttäjiä",
-    "description": "Hallitse käyttäjiä tässä näkymässä.",
-    "adminHighlight": "Ylläpitäjät",
-    "fighterHighlight": "Taistelijat",
-    "noCallsignFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
     "forbidden": "403 Kielletty: Ylläpito-oikeudet vaaditaan",
     "administrators": "Ylläpitäjät",
     "fighters": "Taistelijat",
     "noAdministrators": "Ei ylläpitäjiä.",
     "noFighters": "Ei taistelijoita.",
     "you": "Sinä",
-    "keycloakButton": "Avaa Keycloak-hallintakonsoli",
     "walkthrough": {
       "title": "Käyttäjähallinnan opas",
       "description": "Pikakäyttöopas tiimin hallintaan",
@@ -464,32 +424,37 @@
       "currentRole": "Nykyinen rooli:",
       "goBack": "Takaisin",
       "remove": "Poista",
-      "removing": "Poistetaan...",
       "promote": "Ylennä",
-      "promoting": "Ylennetään...",
-      "demote": "Alenna",
-      "demoting": "Alennetaan..."
+      "demote": "Alenna"
     },
     "tooltips": {
       "cannotRemove": "Et voi poistaa itseäsi",
-      "cannotDemote": "Et voi alentaa itseäsi"
+      "cannotDemote": "Et voi alentaa itseäsi",
+      "cannotPromoteAdmins": "Valinnassa on käyttäjiä, jotka ovat jo ylläpitäjiä",
+      "cannotDemoteNonAdmins": "Valitse vähintään yksi alennettava ylläpitäjä"
     },
     "confirmModals": {
       "promote": {
         "title": "Ylennä käyttäjä",
-        "description": "Haluatko varmasti ylentää käyttäjän {{callsign}} ylläpitäjäksi? He saavat täydet hallintaoikeudet.",
-        "requiredText": "PROMOTE"
+        "description": "Haluatko varmasti ylentää käyttäjän {{callsign}} ylläpitäjäksi? He saavat täydet hallintaoikeudet."
       },
       "demote": {
         "title": "Alenna käyttäjä",
-        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä taistelijaksi?",
-        "requiredText": "DEMOTE"
+        "description": "Haluatko varmasti alentaa käyttäjän {{callsign}} ylläpitäjästä taistelijaksi?"
       },
       "remove": {
         "title": "Poista käyttäjä",
-        "description": "Toimintoa ei voi peruuttaa. Haluatko varmasti poistaa käyttäjän {{callsign}}?",
-        "requiredText": "{{callsign}}"
+        "description": "Toimintoa ei voi peruuttaa. Haluatko varmasti poistaa käyttäjän {{callsign}}?"
       }
+    },
+    "bulkConfirm": {
+      "title": "Vahvista massatoiminto",
+      "promoteDescription": "Olet ylentämässä {{count}} käyttäjää ylläpitäjiksi. Jatketaanko?",
+      "demoteDescription": "Olet alentamassa {{count}} käyttäjää. Jatketaanko?",
+      "removeDescription": "Olet poistamassa {{count}} käyttäjää. Tätä ei voi perua. Jatketaanko?",
+      "promoteSuccess": "{{count}} käyttäjää ylennetty ylläpitäjiksi",
+      "demoteSuccess": "{{count}} käyttäjää alennettu",
+      "removeSuccess": "{{count}} käyttäjää poistettu"
     },
     "messages": {
       "noCandidateFound": "Kutsutunnusta ei löytynyt. Kirjaudu sisään.",
@@ -506,16 +471,16 @@
     },
     "bulkMode": "Valitse useita",
     "exitBulkMode": "Poistu massatilasta",
-    "bulkConfirm": {
-      "title": "Vahvista massatoiminto",
-      "promoteDescription": "Olet ylentämässä {{count}} käyttäjää ylläpitäjiksi. Jatketaanko?",
-      "demoteDescription": "Olet alentamassa {{count}} käyttäjää. Jatketaanko?",
-      "removeDescription": "Olet poistamassa {{count}} käyttäjää. Tätä ei voi perua. Jatketaanko?"
-    },
     "selected": "{{count}} valittu",
     "promote": "Ylennä",
     "demote": "Alenna",
-    "remove": "Poista"
+    "remove": "Poista",
+    "infoModal": {
+      "title": "Käyttäjäroolit",
+      "description": "Mitä kukin rooli voi tehdä",
+      "adminDesc": "Ylläpitäjät voivat käyttää hallintatyökaluja sekä lisätä, hyväksyä, ylentää, alentaa ja poistaa käyttäjiä.",
+      "userDesc": "Käyttäjillä on pääsy palveluihin."
+    }
   },
   "mtlsInstall": {
     "title": "Lataa ja asenna avain",
@@ -526,7 +491,6 @@
     "selectPlaceholder": "Valitse OS",
     "instructionsTitle": "Asennusohjeet:",
     "note": "Huom:",
-    "passwordLabel": "Varmenteen salasana:",
     "downloadButton": "Lataa avain",
     "downloading": "Ladataan...",
     "navigateButton": "Siirry avaimella",
@@ -622,8 +586,6 @@
     "iosExplanation": "iOS:llä vain Safari tukee tarvittavia turvaominaisuuksia. Muut selaimet eivät toimi.",
     "unknownExplanation": "Tätä selainta ei ole testattu sovelluksen kanssa.",
     "supportedBrowsers": "Yhteensopivat selaimet",
-    "importantNote": "Huomio",
-    "securityRequirement": "Sovellus vaatii selaimia, jotka tukevat mTLS-varmenteita turvallisuuden takaamiseksi.",
     "refreshNote": "Lataa yhteensopiva selain ja avaa sivu uudelleen.",
     "continueAtRisk": "Jatka omalla vastuulla",
     "riskWarning": "Varoitus: Asiat voivat mennä rikki, jos jatkat tukemattomalla selaimella.",
@@ -636,13 +598,11 @@
     "goHome": "Palaa etusivulle",
     "notFoundRedirect": "Tuotetta ei löytynyt, siirrytään...",
     "loadingProduct": "Ladataan {{title}}",
-    "progress": "{{progress}}%",
     "loadingRemote": "Ladataan etäresurssia...",
     "remoteUnavailable": "Etäsovellus ei saatavilla tuotteelle \"{{shortname}}\". Yritä myöhemmin uudelleen.",
     "loadingMarkdown": "Ladataan markdownia..."
   },
   "waitingRoom": {
-    "titleShort": "Odottaa hyväksyntää",
     "title": "Olet odotushuoneessa!",
     "description": "Odotat ylläpitäjän hyväksyntää palveluihin. Kopioi ja lähetä ylläpitäjälle hyväksyntälinkkisi.",
     "checkingStatus": "Tarkistetaan tilaa...",
@@ -650,16 +610,12 @@
     "copyButton": "Kopioi hyväksyntälinkki",
     "copied": "Kopioitu!",
     "actionFailed": "Toiminto epäonnistui: {{error}}",
-    "instructionsTitle": "Hyväksynnän ohjeet",
-    "instructionsText": "Voit hyväksyä käyttäjän ottamalla hänen hyväksyntäkoodinsa odotushuoneen näytöltä, pyytämällä hänen hyväksyntälinkkinsä tai syöttämällä koodin “Hyväksy käyttäjiä” -näkymässä.",
     "approvedToast": "Sinut on hyväksytty!"
   },
   "adminTools": {
     "navLink": "Ylläpitotyökalut",
-    "title": "Ylläpitäjän konsoli",
     "toolsDesc": "Ylläpitotyökalut",
     "description": "Hallitse tiimiäsi, käyttäjiä ja ulkoisia palveluita keskitetysti.",
-    "userManagementSection": "Käyttäjähallinta",
     "userManagementDesc": "Hyväksy uusia käyttäjiä, hallinnoi rooleja ja hallitse pääsyoikeuksia.",
     "externalServicesSection": "Ulkoiset palvelut",
     "externalServicesDesc": "Käytä ja hallinnoi taktisia ja battle-log-palvelimiasi.",
@@ -668,17 +624,7 @@
     "addUsersDesc": "Luo ja hallitse kutsukoodeja",
     "keycloakTitle": "Keycloak-hallinta",
     "keycloakDesc": "Identiteettien hallinta ja vianselvitys",
-    "takServerTitle": "Takserverin hallinta",
-    "takServerDesc": "Hallinnoi Takserverin asetuksia",
-    "blServerTitle": "Battlelogin hallinta",
-    "blServerDesc": "Hallinnoi Battlelogin palveluita",
-    "openExternal": "Avaa ulkoinen",
-    "access": "Avaa",
-    "helpTitle": "Pikaopas",
-    "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
-    "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
-    "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "forbiddenAdminAccess": "Hallintatyökalut ovat vain ylläpitäjien käytössä."
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"

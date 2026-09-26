@@ -182,7 +182,11 @@ export function useUserManagement({
         await deleteUserMutation.mutateAsync(callsign);
       }
     }
-    toast.success(t(`manageUsers.messages.bulk${bulkAction}Success`));
+    toast.success(
+      t(`manageUsers.bulkConfirm.${bulkAction}Success`, {
+        count: selectedUsers.length,
+      }),
+    );
     setSelectedUsers([]);
     setBulkMode(false);
     setBulkConfirmOpen(false);
