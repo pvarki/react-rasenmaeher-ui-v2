@@ -226,7 +226,7 @@ export default defineConfig(({ mode }) => {
       federation({
         name: "rasenmaeher",
         shared: {
-          react: { requiredVersion: "18.3.1", singleton: true },
+          react: { requiredVersion: "19.3.0", singleton: true },
           i18next: { requiredVersion: "25.6.2", singleton: true },
           "react-i18next": { requiredVersion: "16.3.3", singleton: true },
           "@tanstack/react-router": {

@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 interface InviteQRCodeCardProps {
   inviteUrl: string;
-  qrRef: RefObject<HTMLDivElement>;
+  qrRef: RefObject<HTMLDivElement | null>;
   onDownloadPdf: () => void;
 }
 
