@@ -585,7 +585,7 @@
         "steps": {
           "1": "Lataa varmenteesi laitteellesi",
           "2": "Laitteesi avaa asennusikkunan automaattisesti",
-          "3": "Syötä salasanaksi kutsutunnuksesi",
+          "3": "Syötä salasanaksi kutsumanimesi",
           "4": "Valitse 'VPN ja sovelluskäytön varmenne' varmenteen käyttötarkoitukseksi",
           "5": "Älä vaihda varmenteen nimeä ja paina 'OK'",
           "6": "Siirry palveluihin avaimella"
@@ -610,6 +610,38 @@
           "2": "Saatat saada varoituksen varmenteen asennuksesta"
         }
       }
+    },
+    "steps": {
+      "download": "Lataa",
+      "install": "Asenna",
+      "done": "Valmis"
+    },
+    "copy": "Kopioi",
+    "copied": "Kopioitu",
+    "copyPassword": "Kopioi salasana",
+    "install": {
+      "next": "Asennettu – jatka"
+    },
+    "password": "Salasana",
+    "done": {
+      "title": "Valmis.",
+      "action": "Siirry palveluun"
+    },
+    "android": {
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain",
+        "caption": "Android kysyy tätä. Paina sitten OK, kahdesti."
+      },
+      "install": {
+        "title": "PAINA OK",
+        "openDownload": "Ei ikkunaa? Avaa tiedosto latauksistasi.",
+        "retry": "Eikö asentunut? Avaa tiedosto latauksistasi."
+      },
+      "done": {
+        "caption": "Kun sovellus pyytää varmennettasi, valitse se ja paina Valitse."
+      },
+      "notAndroid": "Eikö laite ole Android?"
     }
   },
   "browserGuard": {
@@ -643,16 +675,35 @@
   },
   "waitingRoom": {
     "titleShort": "Odottaa hyväksyntää",
-    "title": "Olet odotushuoneessa!",
-    "description": "Odotat ylläpitäjän hyväksyntää palveluihin. Kopioi ja lähetä ylläpitäjälle hyväksyntälinkkisi.",
-    "checkingStatus": "Tarkistetaan tilaa...",
-    "yourApprovalCodeLabel": "Hyväksyntäkoodisi:",
-    "copyButton": "Kopioi hyväksyntälinkki",
-    "copied": "Kopioitu!",
+    "title": "Odotetaan ylläpitäjää",
+    "description": "Tee jompikumpi näistä ja jätä tämä näkymä auki.",
     "actionFailed": "Toiminto epäonnistui: {{error}}",
     "instructionsTitle": "Hyväksynnän ohjeet",
     "instructionsText": "Voit hyväksyä käyttäjän ottamalla hänen hyväksyntäkoodinsa odotushuoneen näytöltä, pyytämällä hänen hyväksyntälinkkinsä tai syöttämällä koodin “Hyväksy käyttäjiä” -näkymässä.",
-    "approvedToast": "Sinut on hyväksytty!"
+    "approvedToast": "Sinut on hyväksytty!",
+    "checking": "Tarkistetaan",
+    "codeLabel": "KOODI",
+    "codeHint": "vain jos hän pyytää sitä",
+    "routes": {
+      "present": "Ylläpitäjä on vieressäsi",
+      "showThem": "Näytä tämä hänelle",
+      "or": "tai",
+      "away": "Ylläpitäjä on muualla"
+    },
+    "strip": {
+      "link": "Linkki",
+      "chat": "Viestiin",
+      "tap": "Hän avaa"
+    },
+    "share": {
+      "send": "Lähetä ylläpitäjälle",
+      "copied": "Kopioitu",
+      "opensApps": "Avaa Signalin, WhatsAppin, Teamsin...",
+      "willCopy": "Kopioi linkin, jotta voit liittää sen",
+      "thenSend": "Liitä ja lähetä se ylläpitäjällesi",
+      "title": "Deploy App -hyväksyntä",
+      "text": "Hyväksy {{callsign}} Deploy Appissa"
+    }
   },
   "adminTools": {
     "navLink": "Ylläpitotyökalut",

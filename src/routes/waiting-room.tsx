@@ -2,24 +2,23 @@
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
-import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
-import QRCode from "react-qr-code";
 import { useTranslation } from "react-i18next";
-import { WaitingRoomHeader } from "@/components/waiting-room/WaitingRoomHeader";
+import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { CompactHeader } from "@/components/CompactHeader";
+import { HandoffRoutes } from "@/components/waiting-room/HandoffRoutes";
+import { ApprovalStatus } from "@/components/waiting-room/ApprovalStatus";
 import { ApprovalCodeDisplay } from "@/components/waiting-room/ApprovalCodeDisplay";
+
 export const Route = createFileRoute("/waiting-room")({
   component: WaitingRoomPage,
 });
 
 function WaitingRoomPage() {
   const navigate = useNavigate();
-  const { isCopied, copyError, handleCopy } = useCopyToClipboard();
   const { t } = useTranslation();
+  const { deployment } = useHealthCheck();
 
   const callsign = localStorage.getItem("callsign") ?? undefined;
   const approveCode = localStorage.getItem("approveCode") ?? undefined;
@@ -43,7 +42,7 @@ function WaitingRoomPage() {
 
   const [shouldPoll, setShouldPoll] = useState(true);
 
-  const { data: enrolled, isLoading } = useOwnEnrollmentStatus({
+  const { data: enrolled } = useOwnEnrollmentStatus({
     refetchInterval: shouldPoll ? 5000 : false,
   });
 
@@ -56,50 +55,36 @@ function WaitingRoomPage() {
   }, [enrolled, shouldPoll, t]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 md:p-6">
-      <div className="w-full max-w-2xl space-y-6 md:space-y-8 mt-8">
-        <WaitingRoomHeader
-          isLoading={isLoading}
-          appDesc={t("waitingRoom.description")}
-        />
+    <div
+      data-testid="waiting-room-page"
+      className="flex h-dvh flex-col bg-background px-4 pb-4 pt-4"
+    >
+      {/* Exactly one screen: the QR takes whatever height is left, so a tall
+          phone gets a bigger code and a short one never has to scroll. */}
+      <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-4">
+        <CompactHeader deployment={deployment} />
 
-        <div className="flex justify-center">
-          <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg">
-            <QRCode value={approvalUrl} bgColor="#FFFFFF" size={240} />
-          </div>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-balance [@media(max-height:640px)]:text-2xl">
+            {t("waitingRoom.title")}
+          </h1>
+          <p className="text-lg leading-snug text-muted-foreground [@media(max-height:640px)]:hidden">
+            {t("waitingRoom.description")}
+          </p>
         </div>
 
-        <ApprovalCodeDisplay
-          callsign={callsign || ""}
-          approveCode={approveCode || ""}
-        />
+        <HandoffRoutes approvalUrl={approvalUrl} callsign={callsign} />
 
-        <Button
-          onClick={() => handleCopy(approvalUrl)}
-          variant={"outline"}
-          className="w-full bg-primary-light hover:bg-primary-light/90 h-14 md:h-12 text-sm md:text-base font-medium rounded-xl relative overflow-hidden"
-        >
-          <span
-            className={
-              cn("transition-all", isCopied && "opacity-0") + " text-xs"
-            }
-          >
-            {t("waitingRoom.copyButton")}
-          </span>
-          {isCopied && (
-            <span className="absolute inset-0 flex items-center justify-center gap-2">
-              <Check className="w-5 h-5" />
-              {t("waitingRoom.copied")}
-            </span>
-          )}
-        </Button>
-
-        {copyError && (
-          <span className="text-sm text-destructive">
-            {t("waitingRoom.actionFailed", { error: copyError.message })}
-          </span>
-        )}
+        <div className="space-y-2">
+          <ApprovalStatus polling={shouldPoll} />
+          <ApprovalCodeDisplay
+            callsign={callsign || ""}
+            approveCode={approveCode || ""}
+          />
+        </div>
       </div>
     </div>
   );
 }
+
+export default WaitingRoomPage;
