@@ -585,7 +585,7 @@
         "steps": {
           "1": "Download your certificate",
           "2": "Your device will automatically open the installation window",
-          "3": "Enter your invitation code as the password",
+          "3": "Enter your callsign as the password",
           "4": "Select 'VPN and app usage certificate' as the certificate purpose",
           "5": "Do not change the certificate name and press 'OK'",
           "6": "Proceed to the services using the key"
@@ -610,6 +610,38 @@
           "2": "You may see a prompt asking to allow certificate installation"
         }
       }
+    },
+    "steps": {
+      "download": "Download",
+      "install": "Install",
+      "done": "Ready"
+    },
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyPassword": "Copy password",
+    "install": {
+      "next": "Installed – continue"
+    },
+    "password": "Password",
+    "done": {
+      "title": "Ready.",
+      "action": "Go to the service"
+    },
+    "android": {
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Android will ask for this. Then press OK, twice."
+      },
+      "install": {
+        "title": "PRESS OK",
+        "openDownload": "No dialog? Open the file from your downloads.",
+        "retry": "Didn't install? Open the file from your downloads."
+      },
+      "done": {
+        "caption": "When an app asks for your certificate, pick it and tap Select."
+      },
+      "notAndroid": "Not an Android phone?"
     }
   },
   "browserGuard": {
@@ -643,16 +675,35 @@
   },
   "waitingRoom": {
     "titleShort": "Awaiting Approval",
-    "title": "You are in the Waiting Room!",
-    "description": "You are awaiting your administrator to approve you to the services. Copy and send your Admin your Approval Link.",
-    "checkingStatus": "Checking enrollment status...",
-    "yourApprovalCodeLabel": "Your approval code:",
-    "copyButton": "Copy approval link for your administrator",
-    "copied": "Copied!",
+    "title": "Waiting for your admin",
+    "description": "Do one of these, then leave this screen open.",
     "actionFailed": "Action failed: {{error}}",
     "instructionsTitle": "Waiting for Approval (instructions)",
     "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
-    "approvedToast": "You have been approved!"
+    "approvedToast": "You have been approved!",
+    "checking": "Checking",
+    "codeLabel": "CODE",
+    "codeHint": "only if they ask for it",
+    "routes": {
+      "present": "Admin is next to you",
+      "showThem": "Show them this",
+      "or": "or",
+      "away": "Admin is away"
+    },
+    "strip": {
+      "link": "Link",
+      "chat": "In chat",
+      "tap": "They tap"
+    },
+    "share": {
+      "send": "Send to admin",
+      "copied": "Copied",
+      "opensApps": "Opens Signal, WhatsApp, Teams...",
+      "willCopy": "Copies the link so you can paste it",
+      "thenSend": "Now paste and send it to your admin",
+      "title": "Deploy App approval",
+      "text": "Approve {{callsign}} in Deploy App"
+    }
   },
   "adminTools": {
     "navLink": "Admin Tools",

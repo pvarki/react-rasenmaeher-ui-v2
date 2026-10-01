@@ -5,6 +5,12 @@ export function getOperatingSystem(): string {
   const windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"];
   const iosPlatforms = ["iPhone", "iPad", "iPod"];
 
+  // iPadOS 13+ reports platform "MacIntel", so a touch-capable Mac is an iPad.
+  // Without this an iPad gets Keychain instructions it cannot follow.
+  if (macosPlatforms.indexOf(platform) !== -1 && navigator.maxTouchPoints > 1) {
+    return "iOS";
+  }
+
   if (macosPlatforms.indexOf(platform) !== -1) {
     return "MacOS";
   } else if (iosPlatforms.indexOf(platform) !== -1) {

@@ -17,6 +17,9 @@ import { MtlsExplanationCard } from "@/components/mtls/MtlsExplanationCard";
 import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
+import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
+import { CompactHeader } from "@/components/CompactHeader";
+import { readStore, writeStore } from "@/lib/safeStorage";
 import {
   getOperatingSystem,
   getMtlsUrl,
@@ -32,6 +35,11 @@ export const Route = createFileRoute("/mtls-install")({
   component: MtlsInstallPage,
 });
 
+// Phones where a system dialog does the install and we can walk the user
+// through it one screen at a time. Everything else, iOS included for now,
+// keeps the full page.
+const GUIDED = ["Android"];
+
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
   const { t } = useTranslation();
@@ -41,10 +49,14 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
+  const [forceClassic, setForceClassic] = useState(false);
   const { autoOpen } = useGuidePreferences();
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
-    () => localStorage.getItem("cert_downloaded") === "true",
+    () => readStore("cert_downloaded") === "true",
   );
+  // Counts completed downloads rather than tracking a flag: re-downloading has
+  // to move the Android flow on again, and the flag is already true by then.
+  const [downloadCount, setDownloadCount] = useState(0);
   const { deployment } = useHealthCheck();
 
   useEffect(() => {
@@ -52,7 +64,7 @@ function MtlsInstallPage() {
   }, []);
 
   useEffect(() => {
-    const storedCallsign = localStorage.getItem("callsign");
+    const storedCallsign = readStore("callsign");
     if (storedCallsign) {
       setCallsign(storedCallsign);
     } else if (userCallsign) {
@@ -60,20 +72,28 @@ function MtlsInstallPage() {
     }
   }, [userCallsign]);
 
-  useEffect(() => {
-    // The help button still opens this; only the uninvited appearance stops.
-    if (autoOpen) setShowGuide(true);
-  }, [autoOpen]);
-
   const osToShow = selectedOS || userOS;
+  const guided = isMobile && GUIDED.includes(osToShow) && !forceClassic;
+
+  useEffect(() => {
+    if (!userOS) return;
+    // The guided flows are the walkthrough, so the guide would only cover them.
+    // The help button still opens it; only the uninvited appearance stops.
+    const guidedPhone =
+      GUIDED.includes(userOS) &&
+      window.matchMedia("(max-width: 767px)").matches;
+    if (autoOpen && !guidedPhone) setShowGuide(true);
+  }, [autoOpen, userOS]);
 
   const mtlsUrl = withGuidePreference(getMtlsUrl());
 
   const getCertificateMutation = useGetCertificate({
     onSuccess: () => {
-      localStorage.setItem("cert_downloaded", "true");
+      writeStore("cert_downloaded", "true");
       setCertDownloaded(true);
-      toast.success(t("mtlsInstall.certificateDownloaded"));
+      setDownloadCount((n) => n + 1);
+      // The guided flow moves to the next screen instead, which says more.
+      if (!guided) toast.success(t("mtlsInstall.certificateDownloaded"));
     },
     onError: (err) => {
       console.error("Certificate download error:", err);
@@ -91,8 +111,54 @@ function MtlsInstallPage() {
     }
   };
 
+  // Picking a platform we guide goes to its flow; anything else falls back to
+  // the full instructions. Without clearing forceClassic, choosing Android here
+  // would strand the user in the classic layout.
+  const chooseOS = (next: string) => {
+    setSelectedOS(next);
+    setForceClassic(!GUIDED.includes(next));
+  };
+
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;
+
+  if (guided) {
+    return (
+      <>
+        <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
+
+        <div
+          data-testid="mtls-install-page"
+          data-mtls-layout="guided"
+          data-mtls-os={osToShow}
+          className="flex h-dvh flex-col bg-background px-4 pb-4 pt-4"
+        >
+          <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-4">
+            <CompactHeader
+              deployment={deployment}
+              onHelp={() => setShowGuide(true)}
+            />
+
+            <AndroidInstallFlow
+              callsign={callsign}
+              fileName={`${callsign}_${deployment}.pfx`}
+              mtlsUrl={mtlsUrl}
+              onDownload={handleDownloadKey}
+              isDownloading={getCertificateMutation.isLoading}
+              downloadCount={downloadCount}
+              platformPicker={
+                <PlatformSelector
+                  value={osToShow}
+                  onValueChange={chooseOS}
+                  triggerLabel={t("mtlsInstall.android.notAndroid")}
+                />
+              }
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (isMobile) {
     return (
@@ -124,10 +190,7 @@ function MtlsInstallPage() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-max">
                 <div className="lg:col-span-1 space-y-6">
-                  <PlatformSelector
-                    value={osToShow}
-                    onValueChange={setSelectedOS}
-                  />
+                  <PlatformSelector value={osToShow} onValueChange={chooseOS} />
                   <MtlsCallsignDisplay callsign={callsign} />
                   <MtlsActionButtons
                     onDownload={handleDownloadKey}
@@ -196,3 +259,5 @@ function MtlsInstallPage() {
     </>
   );
 }
+
+export default MtlsInstallPage;
