@@ -585,7 +585,7 @@
         "steps": {
           "1": "Ladda ner ditt certifikat",
           "2": "Din enhet öppnar installationsfönstret automatiskt",
-          "3": "Ange din inbjudningskod som lösenord",
+          "3": "Ange din anropssignal som lösenord",
           "4": "Välj 'VPN- och appanvändningscertifikat' som certifikatets användningsområde",
           "5": "Ändra inte certifikatets namn och tryck på 'OK'",
           "6": "Gå vidare till tjänsterna med nyckeln"
@@ -610,6 +610,38 @@
           "2": "iOS kan visa en varning"
         }
       }
+    },
+    "steps": {
+      "download": "Hämta",
+      "install": "Installera",
+      "done": "Klart"
+    },
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "copyPassword": "Kopiera lösenord",
+    "install": {
+      "next": "Installerad – fortsätt"
+    },
+    "password": "Lösenord",
+    "done": {
+      "title": "Klart.",
+      "action": "Gå till tjänsten"
+    },
+    "android": {
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Android frågar efter detta. Tryck sedan OK, två gånger."
+      },
+      "install": {
+        "title": "TRYCK OK",
+        "openDownload": "Ingen dialog? Öppna filen bland dina nedladdningar.",
+        "retry": "Installerades den inte? Öppna filen bland dina nedladdningar."
+      },
+      "done": {
+        "caption": "När en app ber om ditt certifikat, välj det och tryck Välj."
+      },
+      "notAndroid": "Inte en Android-telefon?"
     }
   },
   "browserGuard": {
@@ -643,16 +675,50 @@
   },
   "waitingRoom": {
     "titleShort": "Väntar på godkännande",
-    "title": "Du är i väntrummet!",
-    "description": "Du väntar på att en administratör ska godkänna dig. Kopiera och skicka din godkännandelänk.",
-    "checkingStatus": "Kontrollerar status...",
-    "yourApprovalCodeLabel": "Din godkännandekod:",
-    "copyButton": "Kopiera godkännandelänk",
-    "copied": "Kopierad!",
+    "title": "Bli godkänd",
+    "description": "Administratören är oftast den som gav dig din inbjudningskod.",
     "actionFailed": "Åtgärd misslyckades: {{error}}",
     "instructionsTitle": "Väntar på godkännande (instruktioner)",
     "instructionsText": "Godkänn användare genom deras godkännandekod, godkännandelänk eller via \"Godkänn användare\".",
-    "approvedToast": "Du har blivit godkänd!"
+    "approvedToast": "Du har blivit godkänd!",
+    "codeLabel": "Godkännandekod",
+    "callsignLabel": "Anropssignal",
+    "status": {
+      "connecting": "Ansluter…",
+      "lastChecked": "Ansluten · senast kontrollerad {{time}}",
+      "failing": "Ingen anslutning till servern, försöker igen…",
+      "waiting": "Väntar på godkännande",
+      "details": "Detaljer",
+      "hideDetails": "Dölj detaljer",
+      "link": "Godkännandelänk",
+      "keepOpen": "Låt sidan vara öppen.",
+      "detailsHint": "Bara om administratören frågar.",
+      "close": "Stäng",
+      "copy": "Kopiera"
+    },
+    "remote": {
+      "title": "Är administratören någon annanstans?",
+      "copy": "Kopiera länk",
+      "copied": "Kopierat",
+      "steps": {
+        "send": "Klistra in den i ett meddelande till hen",
+        "wait": "Håll den här sidan öppen"
+      },
+      "phone": {
+        "send": "Skicka länk",
+        "sendAgain": "Skicka igen",
+        "copyAgain": "Kopiera igen",
+        "pickApp": "Välj hen i till exempel Signal",
+        "paste": "Klistra in länken i ett meddelande till din administratör",
+        "shareTitle": "Deploy App-godkännande",
+        "shareText": "Hej! Kan du godkänna mig i Deploy App? Min anropssignal är {{callsign}}."
+      }
+    },
+    "present": {
+      "title": "Är administratören bredvid dig?",
+      "caption": "Visa detta för hen"
+    },
+    "or": "eller"
   },
   "adminTools": {
     "navLink": "Adminverktyg",

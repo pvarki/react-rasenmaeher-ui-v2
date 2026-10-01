@@ -7,6 +7,11 @@ interface ApprovalCodeDisplayProps {
   approveCode: string;
 }
 
+/**
+ * Callsign and approval code as text, big enough to read off the screen. This
+ * is the way in when there is no camera to scan the QR code, and it shows the
+ * user the callsign they will later use as the certificate password.
+ */
 export function ApprovalCodeDisplay({
   callsign,
   approveCode,
@@ -14,19 +19,24 @@ export function ApprovalCodeDisplay({
   const { t } = useTranslation();
 
   return (
-    <div
+    <dl
       data-testid="approval-code-display"
       data-callsign={callsign}
       data-approve-code={approveCode}
-      className="space-y-2 bg-card border border-border rounded-xl p-4 md:p-6 text-center"
+      className="grid grid-cols-2 gap-3 rounded-xl border border-border bg-card px-4 py-3"
     >
-      <p className="font-semibold text-lg md:text-xl">{callsign}</p>
-      <p className="text-sm text-muted-foreground pt-2">
-        {t("waitingRoom.yourApprovalCodeLabel")}{" "}
-        <span className="font-mono font-bold text-foreground text-base">
-          {approveCode}
-        </span>
-      </p>
-    </div>
+      <div className="min-w-0">
+        <dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+          {t("waitingRoom.callsignLabel")}
+        </dt>
+        <dd className="truncate font-mono text-xl font-bold">{callsign}</dd>
+      </div>
+      <div className="min-w-0">
+        <dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+          {t("waitingRoom.codeLabel")}
+        </dt>
+        <dd className="truncate font-mono text-xl font-bold">{approveCode}</dd>
+      </div>
+    </dl>
   );
 }

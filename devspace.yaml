@@ -29,3 +29,14 @@ dev:
       - path: ./public:/app/public
       - path: ./index.html:/app/index.html
     logs: {}
+    # Dev pod only: the deployment's 128Mi limit OOM-kills pnpm + Vite.
+    patches:
+      - op: replace
+        path: spec.containers[0].resources
+        value:
+          limits:
+            memory: 3Gi
+          requests:
+            # Small so it still schedules on the nearly full kind node.
+            cpu: 50m
+            memory: 200Mi
