@@ -610,6 +610,38 @@
           "2": "Saatat saada varoituksen varmenteen asennuksesta"
         }
       }
+    },
+    "steps": {
+      "download": "Lataa",
+      "install": "Asenna",
+      "done": "Valmis"
+    },
+    "copy": "Kopioi",
+    "copied": "Kopioitu",
+    "copyPassword": "Kopioi salasana",
+    "install": {
+      "next": "Asennettu – jatka"
+    },
+    "password": "Salasana",
+    "done": {
+      "title": "Valmis.",
+      "action": "Siirry palveluun"
+    },
+    "android": {
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain",
+        "caption": "Android kysyy tätä. Paina sitten OK, kahdesti."
+      },
+      "install": {
+        "title": "PAINA OK",
+        "openDownload": "Ei ikkunaa? Avaa tiedosto latauksistasi.",
+        "retry": "Eikö asentunut? Avaa tiedosto latauksistasi."
+      },
+      "done": {
+        "caption": "Kun sovellus pyytää varmennettasi, valitse se ja paina Valitse."
+      },
+      "notAndroid": "Eikö laite ole Android?"
     }
   },
   "browserGuard": {
@@ -643,16 +675,50 @@
   },
   "waitingRoom": {
     "titleShort": "Odottaa hyväksyntää",
-    "title": "Olet odotushuoneessa!",
-    "description": "Odotat ylläpitäjän hyväksyntää palveluihin. Kopioi ja lähetä ylläpitäjälle hyväksyntälinkkisi.",
-    "checkingStatus": "Tarkistetaan tilaa...",
-    "yourApprovalCodeLabel": "Hyväksyntäkoodisi:",
-    "copyButton": "Kopioi hyväksyntälinkki",
-    "copied": "Kopioitu!",
+    "title": "Pyydä hyväksyntä",
+    "description": "Ylläpitäjä on yleensä se, joka antoi sinulle kutsukoodin.",
     "actionFailed": "Toiminto epäonnistui: {{error}}",
     "instructionsTitle": "Hyväksynnän ohjeet",
     "instructionsText": "Voit hyväksyä käyttäjän ottamalla hänen hyväksyntäkoodinsa odotushuoneen näytöltä, pyytämällä hänen hyväksyntälinkkinsä tai syöttämällä koodin “Hyväksy käyttäjiä” -näkymässä.",
-    "approvedToast": "Sinut on hyväksytty!"
+    "approvedToast": "Sinut on hyväksytty!",
+    "codeLabel": "Hyväksyntäkoodi",
+    "callsignLabel": "Kutsutunnus",
+    "status": {
+      "connecting": "Yhdistetään…",
+      "lastChecked": "Yhteys kunnossa · tarkistettu {{time}}",
+      "failing": "Ei yhteyttä palvelimeen, yritetään uudelleen…",
+      "waiting": "Odottaa hyväksyntää",
+      "details": "Lisätiedot",
+      "hideDetails": "Piilota lisätiedot",
+      "link": "Hyväksyntälinkki",
+      "keepOpen": "Jätä tämä sivu auki.",
+      "detailsHint": "Vain jos ylläpitäjä kysyy.",
+      "close": "Sulje",
+      "copy": "Kopioi"
+    },
+    "remote": {
+      "title": "Onko ylläpitäjä muualla?",
+      "copy": "Kopioi linkki",
+      "copied": "Kopioitu",
+      "steps": {
+        "send": "Liitä se viestiin ylläpitäjälle",
+        "wait": "Pidä tämä sivu auki"
+      },
+      "phone": {
+        "send": "Lähetä linkki",
+        "sendAgain": "Lähetä uudelleen",
+        "copyAgain": "Kopioi uudelleen",
+        "pickApp": "Valitse hänet esim. Signalista",
+        "paste": "Liitä linkki viestiin ylläpitäjällesi",
+        "shareTitle": "Deploy App -hyväksyntä",
+        "shareText": "Hei! Voitko hyväksyä minut Deploy Appissa? Kutsutunnukseni on {{callsign}}."
+      }
+    },
+    "present": {
+      "title": "Onko ylläpitäjä vieressäsi?",
+      "caption": "Näytä tämä hänelle"
+    },
+    "or": "tai"
   },
   "adminTools": {
     "navLink": "Ylläpitotyökalut",
