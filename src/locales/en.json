@@ -642,6 +642,40 @@
         "caption": "When an app asks for your certificate, pick it and tap Select."
       },
       "notAndroid": "Not an Android phone?"
+    },
+    "ios": {
+      "notIos": "Not an iPhone?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Safari asks these. Tap Allow, then Close."
+      },
+      "install": {
+        "title": "Open Settings",
+        "retry": "Not in Settings? Download again",
+        "tiles": {
+          "open": "Profile Downloaded",
+          "install": "Install ×3 + passcode",
+          "paste": "Paste password",
+          "back": "Done, ◀ Safari"
+        },
+        "oldProfile": "Install failed? Remove the old profile: General → VPN & Device Management."
+      },
+      "done": {
+        "caption": "When Safari asks for your certificate, tap Continue."
+      },
+      "system": {
+        "allowPrompt": "“{{host}}” is trying to download a configuration profile. Do you want to allow this?",
+        "ignore": "Ignore",
+        "allow": "Allow",
+        "downloadedTitle": "Profile Downloaded",
+        "downloadedBody": "Review the profile in the Settings app if you want to install it.",
+        "close": "Close",
+        "certTitle": "“{{host}}” requires a client certificate",
+        "certBody": "Use the certificate “{{callsign}}” when connecting to this website.",
+        "cancel": "Cancel",
+        "continue": "Continue"
+      }
     }
   },
   "browserGuard": {

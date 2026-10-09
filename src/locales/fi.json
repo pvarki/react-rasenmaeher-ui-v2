@@ -642,6 +642,40 @@
         "caption": "Kun sovellus pyytää varmennettasi, valitse se ja paina Valitse."
       },
       "notAndroid": "Eikö laite ole Android?"
+    },
+    "ios": {
+      "notIos": "Eikö laite ole iPhone?",
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain",
+        "caption": "Safari kysyy nämä. Paina Salli, sitten Sulje."
+      },
+      "install": {
+        "title": "Avaa Asetukset",
+        "retry": "Ei näy Asetuksissa? Lataa uudelleen",
+        "tiles": {
+          "open": "Profiili ladattu",
+          "install": "Asenna ×3 + pääsykoodi",
+          "paste": "Sijoita salasana",
+          "back": "Valmis, ◀ Safari"
+        },
+        "oldProfile": "Asennus epäonnistui? Poista vanha profiili: Yleiset → VPN ja laitehallinta."
+      },
+      "done": {
+        "caption": "Kun Safari pyytää varmennettasi, paina Jatka."
+      },
+      "system": {
+        "allowPrompt": "{{host}} yrittää ladata asetusprofiilin. Sallitaanko tämä?",
+        "ignore": "Älä huomioi",
+        "allow": "Salli",
+        "downloadedTitle": "Profiili ladattu",
+        "downloadedBody": "Tarkista profiili Asetuksissa, jos haluat asentaa sen.",
+        "close": "Sulje",
+        "certTitle": "”{{host}}” vaatii asiakasvarmenteen",
+        "certBody": "Käytä varmennetta ”{{callsign}}”, kun siirryt tälle sivustolle.",
+        "cancel": "Kumoa",
+        "continue": "Jatka"
+      }
     }
   },
   "browserGuard": {

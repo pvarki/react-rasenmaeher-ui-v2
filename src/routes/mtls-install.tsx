@@ -18,6 +18,7 @@ import { MtlsPageHeader } from "@/components/mtls/MtlsPageHeader";
 import { MtlsActionButtons } from "@/components/mtls/MtlsActionButtons";
 import { PlatformSelector } from "@/components/mtls/PlatformSelector";
 import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
+import { IosInstallFlow } from "@/components/mtls/IosInstallFlow";
 import { CompactHeader } from "@/components/CompactHeader";
 import { readStore, writeStore } from "@/lib/safeStorage";
 import {
@@ -35,10 +36,8 @@ export const Route = createFileRoute("/mtls-install")({
   component: MtlsInstallPage,
 });
 
-// Phones where a system dialog does the install and we can walk the user
-// through it one screen at a time. Everything else, iOS included for now,
-// keeps the full page.
-const GUIDED = ["Android"];
+// Phones we walk through the install one screen at a time.
+const GUIDED = ["Android", "iOS"];
 
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
@@ -139,21 +138,38 @@ function MtlsInstallPage() {
               onHelp={() => setShowGuide(true)}
             />
 
-            <AndroidInstallFlow
-              callsign={callsign}
-              fileName={`${callsign}_${deployment}.pfx`}
-              mtlsUrl={mtlsUrl}
-              onDownload={handleDownloadKey}
-              isDownloading={getCertificateMutation.isLoading}
-              downloadCount={downloadCount}
-              platformPicker={
-                <PlatformSelector
-                  value={osToShow}
-                  onValueChange={chooseOS}
-                  triggerLabel={t("mtlsInstall.android.notAndroid")}
-                />
-              }
-            />
+            {osToShow === "iOS" ? (
+              <IosInstallFlow
+                callsign={callsign}
+                mtlsUrl={mtlsUrl}
+                onDownload={handleDownloadKey}
+                isDownloading={getCertificateMutation.isLoading}
+                downloadCount={downloadCount}
+                platformPicker={
+                  <PlatformSelector
+                    value={osToShow}
+                    onValueChange={chooseOS}
+                    triggerLabel={t("mtlsInstall.ios.notIos")}
+                  />
+                }
+              />
+            ) : (
+              <AndroidInstallFlow
+                callsign={callsign}
+                fileName={`${callsign}_${deployment}.pfx`}
+                mtlsUrl={mtlsUrl}
+                onDownload={handleDownloadKey}
+                isDownloading={getCertificateMutation.isLoading}
+                downloadCount={downloadCount}
+                platformPicker={
+                  <PlatformSelector
+                    value={osToShow}
+                    onValueChange={chooseOS}
+                    triggerLabel={t("mtlsInstall.android.notAndroid")}
+                  />
+                }
+              />
+            )}
           </div>
         </div>
       </>

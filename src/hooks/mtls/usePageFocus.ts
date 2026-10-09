@@ -29,7 +29,10 @@ const POLL_MS = 250;
  * None of it says what happened in the dialog. Callers may use it to move the
  * emphasis around, never to move the step.
  */
-export function usePageFocus(active: boolean): PageFocus {
+export function usePageFocus(
+  active: boolean,
+  { hiddenOnly = false }: { hiddenOnly?: boolean } = {},
+): PageFocus {
   const [focused, setFocused] = useState(true);
   const [wasAway, setWasAway] = useState(false);
 
@@ -41,12 +44,13 @@ export function usePageFocus(active: boolean): PageFocus {
     }
 
     const read = () => {
-      const now = document.visibilityState === "visible" && document.hasFocus();
+      const visible = document.visibilityState === "visible";
+      const now = hiddenOnly ? visible : visible && document.hasFocus();
       setFocused(now);
       if (!now) setWasAway(true);
     };
     const onFocus = () => {
-      setWasAway(true);
+      if (!hiddenOnly) setWasAway(true);
       read();
     };
 
@@ -61,7 +65,7 @@ export function usePageFocus(active: boolean): PageFocus {
       window.removeEventListener("focus", onFocus);
       document.removeEventListener("visibilitychange", read);
     };
-  }, [active]);
+  }, [active, hiddenOnly]);
 
   return { focused, wasAway, returned: wasAway && focused };
 }

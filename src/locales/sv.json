@@ -642,6 +642,40 @@
         "caption": "När en app ber om ditt certifikat, välj det och tryck Välj."
       },
       "notAndroid": "Inte en Android-telefon?"
+    },
+    "ios": {
+      "notIos": "Inte en iPhone?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Safari frågar detta. Tryck Tillåt, sedan Stäng."
+      },
+      "install": {
+        "title": "Öppna Inställningar",
+        "retry": "Inte i Inställningar? Ladda ner igen",
+        "tiles": {
+          "open": "Profil hämtad",
+          "install": "Installera ×3 + lösenkod",
+          "paste": "Klistra in lösenord",
+          "back": "Klar, ◀ Safari"
+        },
+        "oldProfile": "Misslyckades installationen? Ta bort den gamla profilen: Allmänt → VPN och enhetshantering."
+      },
+      "done": {
+        "caption": "När Safari ber om ditt certifikat, tryck Fortsätt."
+      },
+      "system": {
+        "allowPrompt": "\"{{host}}\" försöker hämta en konfigurationsprofil. Vill du tillåta detta?",
+        "ignore": "Ignorera",
+        "allow": "Tillåt",
+        "downloadedTitle": "Profil hämtad",
+        "downloadedBody": "Granska profilen i appen Inställningar om du vill installera den.",
+        "close": "Stäng",
+        "certTitle": "”{{host}}” kräver ett klientcertifikat",
+        "certBody": "Använd certifikatet ”{{callsign}}” när du ansluter till denna webbplats.",
+        "cancel": "Avbryt",
+        "continue": "Fortsätt"
+      }
     }
   },
   "browserGuard": {
