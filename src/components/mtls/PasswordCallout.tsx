@@ -34,7 +34,14 @@ export function PasswordCallout({
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-600">
           {t("mtlsInstall.password")}
         </p>
-        <p className="truncate font-mono text-[clamp(1.75rem,9vw,2.5rem)] font-bold leading-tight tracking-wider text-black">
+        <p
+          className={cn(
+            "break-all font-mono font-bold leading-tight text-black",
+            callsign.length > 8
+              ? "text-[clamp(1.25rem,7vw,2.25rem)] tracking-wide"
+              : "text-[clamp(1.75rem,9vw,2.5rem)] tracking-wider",
+          )}
+        >
           {callsign}
         </p>
       </div>

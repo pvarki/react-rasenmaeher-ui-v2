@@ -27,11 +27,17 @@ export function CompactHeader({ deployment, onHelp }: CompactHeaderProps) {
       data-deployment={deployment ?? ""}
     >
       {theme.assets?.logoUrl && (
-        <img src={theme.assets.logoUrl} alt="" className="h-6 w-auto" />
+        <img
+          src={theme.assets.logoUrl}
+          alt=""
+          className="h-6 w-auto shrink-0"
+        />
       )}
-      <span className="text-sm font-semibold tracking-wide">{deployment}</span>
+      <span className="min-w-0 truncate text-sm font-semibold tracking-wide">
+        {deployment}
+      </span>
 
-      <div className="ml-auto flex items-center gap-1">
+      <div className="ml-auto flex shrink-0 items-center gap-1">
         {onHelp && (
           <Button
             variant="ghost"
