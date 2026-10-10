@@ -614,7 +614,8 @@
     "steps": {
       "download": "Hämta",
       "install": "Installera",
-      "done": "Klart"
+      "done": "Klart",
+      "keychain": "Nyckelring"
     },
     "copy": "Kopiera",
     "copied": "Kopierat",
@@ -675,6 +676,107 @@
         "certBody": "Använd certifikatet ”{{callsign}}” när du ansluter till denna webbplats.",
         "cancel": "Avbryt",
         "continue": "Fortsätt"
+      }
+    },
+    "mac": {
+      "notMac": "Inte en Mac?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Nyckeln är en fil som du installerar på den här Macen.",
+        "safari": "Safari frågar detta första gången. Tryck Tillåt."
+      },
+      "install": {
+        "title": "Installera nyckeln",
+        "open": "Öppna den hämtade filen",
+        "openHint": "Från webbläsarens nedladdningar uppe till höger eller från mappen Hämtade filer.",
+        "retry": "Laddades den inte ner? Ladda ner igen",
+        "unlock": "Lås upp med Touch ID eller Macens lösenord",
+        "password": "Ange din anropssignal som lösenord och tryck OK",
+        "comeBack": "När du tryckt OK öppnas Nyckelringsåtkomst. Kom sedan tillbaka till den här webbläsaren och tryck Installerad – fortsätt."
+      },
+      "done": {
+        "pick": "Välj {{callsign}} och tryck OK",
+        "generic": "När webbläsaren ber om ett certifikat, välj {{callsign}}. Om din Mac frågar efter ett lösenord, ange Macens inloggningslösenord och välj Tillåt alltid.",
+        "allowIf": "Om din Mac fortfarande frågar efter lösenord, ange Macens lösenord och välj Tillåt alltid",
+        "safariLogin": "Tryck Logga in med certifikat, välj {{callsign}} i listan och tryck Fortsätt",
+        "safariGo": "Tryck Gå till tjänsten nedan"
+      },
+      "system": {
+        "importTitle": "Ange lösenordet för ”{{file}}”:",
+        "password": "Lösenord:",
+        "cancel": "Avbryt",
+        "ok": "OK",
+        "pickTitle": "Välj ett certifikat",
+        "pickBody": "Välj ett certifikat för att autentisera dig för {{host}}:443",
+        "subject": "Ämne",
+        "issuer": "Utfärdare",
+        "pickCancel": "Avbryt",
+        "signTitle": "{{browser}} vill signera med nyckeln ”privateKey” i nyckelringen.",
+        "signBody": "Ange lösenordet för nyckelringen ”inloggning” för att tillåta detta.",
+        "allowAlways": "Tillåt alltid",
+        "deny": "Neka",
+        "allow": "Tillåt",
+        "authTitle": "Nyckelringsåtkomst försöker använda information som sparats i dina nyckelringar.",
+        "authBody": "Nyckelringsåtkomst: fortsätt med Touch ID eller ange ditt lösenord.",
+        "usePassword": "Använd lösenord…",
+        "safariTitle": "Vill du tillåta hämtningar på ”{{host}}”?",
+        "safariBody": "Du kan ändra vilka webbplatser som kan hämta filer i webbplatsinställningarna.",
+        "safariPickTitle": "Webbplatsen {{host}} kräver ett klientcertifikat.",
+        "safariPickBody": "Webbplatsen kräver ett certifikat för att bekräfta din identitet. Välj det certifikat som ska användas för webbplatsen och klicka på Fortsätt.",
+        "continue": "Fortsätt",
+        "showCert": "Visa certifikat"
+      },
+      "keychain": {
+        "title": "Ställ in nyckelringen",
+        "nextPart": "Klart – nästa",
+        "done": "Klart – fortsätt",
+        "open": {
+          "title": "Öppna certifikatet",
+          "hint": "Det nya certifikatet syns inte i listan förrän du söker efter det. Öppnades inte Nyckelringsåtkomst? Öppna Spotlight (⌘ + mellanslag) och skriv Nyckelringsåtkomst.",
+          "steps": [
+            "Välj Mina certifikat",
+            "Sök efter {{callsign}} (⌘V)",
+            "Dubbelklicka på raden {{callsign}}"
+          ]
+        },
+        "trust": {
+          "title": "Lita på certifikatet",
+          "steps": [
+            "Öppna Lita på",
+            "Vid användning av certifikatet: Lita alltid på",
+            "Stäng fönstret och bekräfta med Touch ID eller lösenord"
+          ]
+        },
+        "access": {
+          "title": "Tillåt användning av nyckeln",
+          "steps": [
+            "Öppna pilen till vänster om raden {{callsign}}",
+            "Dubbelklicka på Imported Private Key",
+            "Välj Åtkomstkontroll",
+            "Tillåt alla appar att använda objektet",
+            "Spara ändringar",
+            "Macens lösenord (inte Touch ID) → Tillåt",
+            "Stäng fönstret och Nyckelringsåtkomst"
+          ]
+        },
+        "ui": {
+          "app": "Nyckelringsåtkomst",
+          "allItems": "Alla objekt",
+          "myCertificates": "Mina certifikat",
+          "certificate": "certifikat",
+          "privateKey": "privat nyckel",
+          "issuedBy": "Utfärdare: {{issuer}}",
+          "trust": "Lita på",
+          "whenUsing": "Vid användning av certifikatet:",
+          "alwaysTrust": "Lita alltid på",
+          "attributes": "Attribut",
+          "accessControl": "Åtkomstkontroll",
+          "allowAll": "Tillåt alla appar att använda objektet",
+          "confirm": "Bekräfta innan åtkomst tillåts",
+          "save": "Spara ändringar",
+          "changeTitle": "Nyckelringsåtkomst vill ändra åtkomstbehörigheterna för nyckelringsobjektet ”privateKey”."
+        }
       }
     }
   },
