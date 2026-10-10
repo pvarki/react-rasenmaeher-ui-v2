@@ -814,6 +814,8 @@
         "title": "Lägg till nyckeln i Firefox",
         "copy": "Kopiera adressen",
         "copied": "Adressen kopierad",
+        "fallback": "Öppnas den inte?",
+        "fallbackPath": "I Firefox: ≡-menyn → Inställningar → Sekretess och säkerhet → Certifikat → Visa certifikat…",
         "steps": [
           "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
           "Tryck Importera…",
@@ -848,7 +850,7 @@
         "ffManager": "Certifikathanterare",
         "ffYours": "Dina certifikat",
         "ffImport": "Importera…",
-        "ffPasswordTitle": "Lösenord krävs",
+        "ffUnlockTitle": "Lösenord krävs",
         "ffSignIn": "Logga in",
         "ffPickBody": "”{{host}}” har begärt att du identifierar dig med ett certifikat:",
         "ffPickDetails": "Detaljer för valt certifikat:",
