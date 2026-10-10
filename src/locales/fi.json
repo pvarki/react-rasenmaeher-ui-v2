@@ -814,6 +814,8 @@
         "title": "Lisää avain Firefoxiin",
         "copy": "Kopioi osoite",
         "copied": "Osoite kopioitu",
+        "fallback": "Eikö aukea?",
+        "fallbackPath": "Firefoxissa: ≡-valikko → Asetukset → Tietosuoja ja turvallisuus → Varmenteet → Näytä varmenteet…",
         "steps": [
           "Kopioi osoite ja avaa se uuteen ikkunaan näillä näppäimillä:",
           "Paina Tuo…",
@@ -848,7 +850,7 @@
         "ffManager": "Varmenteiden hallinta",
         "ffYours": "Omat varmenteet",
         "ffImport": "Tuo…",
-        "ffPasswordTitle": "Salasana vaaditaan",
+        "ffUnlockTitle": "Salasana vaaditaan",
         "ffSignIn": "Kirjaudu sisään",
         "ffPickBody": "\"{{host}}\" on pyytänyt sinua tunnistamaan itsesi varmenteella:",
         "ffPickDetails": "Valitun varmenteen yksityiskohdat:",

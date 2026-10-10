@@ -215,7 +215,7 @@ export function FirefoxPassword({
 
   return (
     <div aria-hidden="true" className={cn(FF_CARD, "p-4", FONT)}>
-      <p className="text-[14px] font-semibold">{s("ffPasswordTitle")}</p>
+      <p className="text-[14px] font-semibold">{s("ffUnlockTitle")}</p>
       <span
         className={cn(
           "relative mt-3 flex h-7 items-center rounded border border-black/30 px-2 font-mono",
@@ -247,7 +247,9 @@ export function FirefoxCertPicker({
 
   return (
     <div aria-hidden="true" className={cn(FF_CARD, "p-4", FONT)}>
-      <p className="wrap-break-word font-semibold">{s("ffPickBody", { host })}</p>
+      <p className="wrap-break-word font-semibold">
+        {s("ffPickBody", { host })}
+      </p>
       <span className="mt-2 flex h-7 items-center justify-between rounded border border-[#0061e0] px-2">
         <span className="truncate">{callsign} […]</span>
         <ChevronDown className="h-3.5 w-3.5 shrink-0" />

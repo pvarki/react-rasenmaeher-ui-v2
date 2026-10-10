@@ -2,7 +2,14 @@
 
 import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Check, Copy, Download, FileKey, Loader2, RotateCw } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Download,
+  FileKey,
+  Loader2,
+  RotateCw,
+} from "lucide-react";
 import { useWizardStep } from "@/hooks/mtls/useWizardStep";
 import { usePageFocus } from "@/hooks/mtls/usePageFocus";
 import { useStickyCopy } from "@/hooks/mtls/useStickyCopy";
@@ -322,10 +329,16 @@ export function WinInstallFlow({
                       </button>
                       <p className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
                         {["Ctrl+N", "Ctrl+V", "Enter"].map((keys, k) => (
-                          <span key={keys} className="flex items-center gap-1.5">
+                          <span
+                            key={keys}
+                            className="flex items-center gap-1.5"
+                          >
                             {k > 0 && <span aria-hidden="true">→</span>}
                             {keys.split("+").map((key, j) => (
-                              <span key={key} className="flex items-center gap-1">
+                              <span
+                                key={key}
+                                className="flex items-center gap-1"
+                              >
                                 {j > 0 && "+"}
                                 <kbd className="rounded border border-border bg-card px-1.5 py-0.5 font-mono text-xs text-foreground">
                                   {key}
@@ -335,6 +348,14 @@ export function WinInstallFlow({
                           </span>
                         ))}
                       </p>
+                      <details className="text-sm text-muted-foreground">
+                        <summary className="cursor-pointer select-none hover:text-foreground">
+                          {t("mtlsInstall.win.firefox.fallback")}
+                        </summary>
+                        <p className="mt-1">
+                          {t("mtlsInstall.win.firefox.fallbackPath")}
+                        </p>
+                      </details>
                     </div>
                   )}
                 </li>

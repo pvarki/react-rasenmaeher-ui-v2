@@ -814,6 +814,8 @@
         "title": "Add the key to Firefox",
         "copy": "Copy address",
         "copied": "Address copied",
+        "fallback": "Doesn't open?",
+        "fallbackPath": "In Firefox: ≡ menu → Settings → Privacy & Security → Certificates → View Certificates…",
         "steps": [
           "Copy the address, then open it in a new window with these keys:",
           "Press Import…",
@@ -848,7 +850,7 @@
         "ffManager": "Certificate Manager",
         "ffYours": "Your Certificates",
         "ffImport": "Import…",
-        "ffPasswordTitle": "Password Required",
+        "ffUnlockTitle": "Password Required",
         "ffSignIn": "Sign in",
         "ffPickBody": "“{{host}}” has requested that you identify yourself with a certificate:",
         "ffPickDetails": "Details of selected certificate:",
