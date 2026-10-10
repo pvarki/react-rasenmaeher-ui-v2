@@ -615,7 +615,8 @@
       "download": "Download",
       "install": "Install",
       "done": "Ready",
-      "keychain": "Keychain"
+      "keychain": "Keychain",
+      "firefox": "Firefox"
     },
     "copy": "Copy",
     "copied": "Copied",
@@ -777,6 +778,81 @@
           "save": "Save Changes",
           "changeTitle": "Keychain Access wants to change the access permissions of the “privateKey” keychain item."
         }
+      }
+    },
+    "win": {
+      "notWindows": "Not Windows?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Your key is a file you install on this computer."
+      },
+      "install": {
+        "title": "Install the key",
+        "openHint": "Open it from your browser's downloads in the top-right corner.",
+        "steps": [
+          "Press Next twice",
+          "Enter your callsign as the password",
+          "Press Next twice, then Finish and OK"
+        ],
+        "showAll": "Show every wizard page",
+        "retry": "Didn't download? Download again",
+        "pages": [
+          "Welcome: press Next",
+          "File to import: press Next",
+          "Enter the password (your callsign) and press Next",
+          "Certificate store: press Next",
+          "Completing: press Finish",
+          "Import successful: press OK"
+        ]
+      },
+      "done": {
+        "pick": "Your browser asks for a certificate. Select {{callsign}} and press OK.",
+        "pickFirefox": "Firefox asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "firefox": {
+        "title": "Add the key to Firefox",
+        "copy": "Copy address",
+        "copied": "Address copied",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import…",
+          "Open Downloads, select {{fileName}} and press Open.",
+          "Enter your callsign as the password and press Sign in.",
+          "Press OK in the certificate window, then Installed – continue here."
+        ]
+      },
+      "system": {
+        "wizardTitle": "Certificate Import Wizard",
+        "next": "Next",
+        "cancel": "Cancel",
+        "finish": "Finish",
+        "welcome": "Welcome to the Certificate Import Wizard",
+        "storeLocation": "Store Location",
+        "currentUser": "Current User",
+        "localMachine": "Local Machine",
+        "fileTitle": "File to Import",
+        "fileSubtitle": "Specify the file you want to import.",
+        "passwordTitle": "Private key protection",
+        "passwordSubtitle": "To maintain security, the private key was protected with a password.",
+        "password": "Password:",
+        "storeTitle": "Certificate Store",
+        "storeSubtitle": "Certificate stores are system areas where certificates are kept.",
+        "storeAuto": "Automatically select the certificate store based on the type of certificate",
+        "finishTitle": "Completing the Certificate Import Wizard",
+        "finishBody": "The certificate will be imported after you click Finish.",
+        "success": "The import was successful.",
+        "pickTitle": "Select a certificate for authentication",
+        "pickBody": "Site {{host}}:443 needs your credentials:",
+        "details": "Certificate information",
+        "ffManager": "Certificate Manager",
+        "ffYours": "Your Certificates",
+        "ffImport": "Import…",
+        "ffPasswordTitle": "Password Required",
+        "ffSignIn": "Sign in",
+        "ffPickBody": "“{{host}}” has requested that you identify yourself with a certificate:",
+        "ffPickDetails": "Details of selected certificate:",
+        "ffRemember": "Remember this decision"
       }
     }
   },
