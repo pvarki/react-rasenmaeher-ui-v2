@@ -615,7 +615,8 @@
       "download": "Hämta",
       "install": "Installera",
       "done": "Klart",
-      "keychain": "Nyckelring"
+      "keychain": "Nyckelring",
+      "firefox": "Firefox"
     },
     "copy": "Kopiera",
     "copied": "Kopierat",
@@ -777,6 +778,81 @@
           "save": "Spara ändringar",
           "changeTitle": "Nyckelringsåtkomst vill ändra åtkomstbehörigheterna för nyckelringsobjektet ”privateKey”."
         }
+      }
+    },
+    "win": {
+      "notWindows": "Inte Windows?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Nyckeln är en fil som du installerar på den här datorn."
+      },
+      "install": {
+        "title": "Installera nyckeln",
+        "openHint": "Öppna den från webbläsarens nedladdningar uppe till höger.",
+        "steps": [
+          "Tryck Nästa två gånger",
+          "Ange din anropssignal som lösenord",
+          "Tryck Nästa två gånger, sedan Slutför och OK"
+        ],
+        "showAll": "Visa alla sidor i guiden",
+        "retry": "Laddades den inte ner? Ladda ner igen",
+        "pages": [
+          "Välkommen: tryck Nästa",
+          "Fil att importera: tryck Nästa",
+          "Ange lösenordet (anropssignalen) och tryck Nästa",
+          "Certifikatarkiv: tryck Nästa",
+          "Slutför: tryck Slutför",
+          "Importen lyckades: tryck OK"
+        ]
+      },
+      "done": {
+        "pick": "Webbläsaren ber om ett certifikat. Välj {{callsign}} och tryck OK.",
+        "pickFirefox": "Firefox ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "firefox": {
+        "title": "Lägg till nyckeln i Firefox",
+        "copy": "Kopiera adressen",
+        "copied": "Adressen kopierad",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera…",
+          "Öppna Hämtade filer, välj {{fileName}} och tryck Öppna.",
+          "Ange din anropssignal som lösenord och tryck Logga in.",
+          "Tryck OK i certifikatfönstret och sedan Installerad – fortsätt här."
+        ]
+      },
+      "system": {
+        "wizardTitle": "Guiden Importera certifikat",
+        "next": "Nästa",
+        "cancel": "Avbryt",
+        "finish": "Slutför",
+        "welcome": "Välkommen till guiden Importera certifikat",
+        "storeLocation": "Lagringsplats",
+        "currentUser": "Aktuell användare",
+        "localMachine": "Lokal dator",
+        "fileTitle": "Fil som ska importeras",
+        "fileSubtitle": "Ange vilken fil du vill importera.",
+        "passwordTitle": "Skydd för privat nyckel",
+        "passwordSubtitle": "Den privata nyckeln skyddades med ett lösenord.",
+        "password": "Lösenord:",
+        "storeTitle": "Certifikatarkiv",
+        "storeSubtitle": "Certifikatarkiv är systemområden där certifikat lagras.",
+        "storeAuto": "Välj certifikatarkiv automatiskt baserat på certifikattypen",
+        "finishTitle": "Slutför guiden Importera certifikat",
+        "finishBody": "Certifikatet importeras när du klickar på Slutför.",
+        "success": "Importen lyckades.",
+        "pickTitle": "Välj ett certifikat för autentisering",
+        "pickBody": "Webbplatsen {{host}}:443 behöver dina autentiseringsuppgifter:",
+        "details": "Certifikatinformation",
+        "ffManager": "Certifikathanterare",
+        "ffYours": "Dina certifikat",
+        "ffImport": "Importera…",
+        "ffPasswordTitle": "Lösenord krävs",
+        "ffSignIn": "Logga in",
+        "ffPickBody": "”{{host}}” har begärt att du identifierar dig med ett certifikat:",
+        "ffPickDetails": "Detaljer för valt certifikat:",
+        "ffRemember": "Kom ihåg detta beslut"
       }
     }
   },

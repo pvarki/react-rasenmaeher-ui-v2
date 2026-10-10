@@ -615,7 +615,8 @@
       "download": "Lataa",
       "install": "Asenna",
       "done": "Valmis",
-      "keychain": "Avainnippu"
+      "keychain": "Avainnippu",
+      "firefox": "Firefox"
     },
     "copy": "Kopioi",
     "copied": "Kopioitu",
@@ -777,6 +778,81 @@
           "save": "Tallenna muutokset",
           "changeTitle": "Avainnippu haluaa muuttaa avainnipun kohteen privateKey käyttöoikeuksia."
         }
+      }
+    },
+    "win": {
+      "notWindows": "Eikö tämä ole Windows?",
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain",
+        "caption": "Avain on tiedosto, jonka asennat tälle tietokoneelle."
+      },
+      "install": {
+        "title": "Asenna avain",
+        "openHint": "Avaa se selaimen latauksista oikeasta yläkulmasta.",
+        "steps": [
+          "Paina Seuraava kahdesti",
+          "Anna salasanaksi kutsutunnuksesi",
+          "Paina Seuraava kahdesti, sitten Valmis ja OK"
+        ],
+        "showAll": "Näytä kaikki ohjatun toiminnon sivut",
+        "retry": "Ei latautunut? Lataa uudelleen",
+        "pages": [
+          "Tervetuloa: paina Seuraava",
+          "Tuotava tiedosto: paina Seuraava",
+          "Anna salasana (kutsutunnus) ja paina Seuraava",
+          "Varmennesäilö: paina Seuraava",
+          "Viimeistely: paina Valmis",
+          "Tuonti onnistui: paina OK"
+        ]
+      },
+      "done": {
+        "pick": "Selain kysyy varmennetta. Valitse {{callsign}} ja paina OK.",
+        "pickFirefox": "Firefox kysyy varmennetta. {{callsign}} on jo valittuna. Paina OK."
+      },
+      "firefox": {
+        "title": "Lisää avain Firefoxiin",
+        "copy": "Kopioi osoite",
+        "copied": "Osoite kopioitu",
+        "steps": [
+          "Kopioi osoite ja avaa se uuteen ikkunaan näillä näppäimillä:",
+          "Paina Tuo…",
+          "Avaa Ladatut tiedostot, valitse {{fileName}} ja paina Avaa.",
+          "Kirjoita salasanaksi tunnuksesi ja paina Kirjaudu sisään.",
+          "Paina varmenneikkunassa OK ja sitten täällä Asennettu – jatka."
+        ]
+      },
+      "system": {
+        "wizardTitle": "Ohjattu varmenteiden tuominen",
+        "next": "Seuraava",
+        "cancel": "Peruuta",
+        "finish": "Valmis",
+        "welcome": "Tervetuloa ohjattuun varmenteiden tuomiseen",
+        "storeLocation": "Säilön sijainti",
+        "currentUser": "Nykyinen käyttäjä",
+        "localMachine": "Paikallinen tietokone",
+        "fileTitle": "Tuotava tiedosto",
+        "fileSubtitle": "Valitse tuotava tiedosto.",
+        "passwordTitle": "Yksityisen avaimen suojaus",
+        "passwordSubtitle": "Yksityinen avain on suojattu salasanalla.",
+        "password": "Salasana:",
+        "storeTitle": "Varmennesäilö",
+        "storeSubtitle": "Varmennesäilöt ovat järjestelmän alueita, joissa varmenteita säilytetään.",
+        "storeAuto": "Valitse varmennesäilö automaattisesti varmenteen lajin perusteella",
+        "finishTitle": "Viimeistellään ohjattua varmenteiden tuomista",
+        "finishBody": "Varmenne tuodaan sen jälkeen, kun olet valinnut Valmis.",
+        "success": "Tuonti suoritettiin onnistuneesti.",
+        "pickTitle": "Valitse varmenne todentamista varten",
+        "pickBody": "Sivusto {{host}}:443 tarvitsee tunnistetietosi:",
+        "details": "Varmenteen tiedot",
+        "ffManager": "Varmenteiden hallinta",
+        "ffYours": "Omat varmenteet",
+        "ffImport": "Tuo…",
+        "ffPasswordTitle": "Salasana vaaditaan",
+        "ffSignIn": "Kirjaudu sisään",
+        "ffPickBody": "\"{{host}}\" on pyytänyt sinua tunnistamaan itsesi varmenteella:",
+        "ffPickDetails": "Valitun varmenteen yksityiskohdat:",
+        "ffRemember": "Muista tämä päätös"
       }
     }
   },

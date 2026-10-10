@@ -20,6 +20,7 @@ import { PlatformSelector } from "@/components/mtls/PlatformSelector";
 import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
 import { IosInstallFlow } from "@/components/mtls/IosInstallFlow";
 import { MacInstallFlow } from "@/components/mtls/MacInstallFlow";
+import { WinInstallFlow } from "@/components/mtls/WinInstallFlow";
 import { CompactHeader } from "@/components/CompactHeader";
 import { readStore, writeStore } from "@/lib/safeStorage";
 import {
@@ -39,7 +40,7 @@ export const Route = createFileRoute("/mtls-install")({
 
 // Platforms we walk through the install one screen at a time.
 const GUIDED = ["Android", "iOS"];
-const GUIDED_DESKTOP = ["MacOS"];
+const GUIDED_DESKTOP = ["MacOS", "Windows"];
 
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
@@ -141,22 +142,41 @@ function MtlsInstallPage() {
               onHelp={() => setShowGuide(true)}
             />
             <div className="my-auto pb-10">
-              <MacInstallFlow
-                callsign={callsign}
-                deployment={deployment}
-                fileName={`${callsign}_${deployment}.pfx`}
-                mtlsUrl={mtlsUrl}
-                onDownload={handleDownloadKey}
-                isDownloading={getCertificateMutation.isLoading}
-                downloadCount={downloadCount}
-                platformPicker={
-                  <PlatformSelector
-                    value={osToShow}
-                    onValueChange={chooseOS}
-                    triggerLabel={t("mtlsInstall.mac.notMac")}
-                  />
-                }
-              />
+              {osToShow === "Windows" ? (
+                <WinInstallFlow
+                  callsign={callsign}
+                  deployment={deployment}
+                  fileName={`${callsign}_${deployment}.pfx`}
+                  mtlsUrl={mtlsUrl}
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  downloadCount={downloadCount}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.win.notWindows")}
+                    />
+                  }
+                />
+              ) : (
+                <MacInstallFlow
+                  callsign={callsign}
+                  deployment={deployment}
+                  fileName={`${callsign}_${deployment}.pfx`}
+                  mtlsUrl={mtlsUrl}
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  downloadCount={downloadCount}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.mac.notMac")}
+                    />
+                  }
+                />
+              )}
             </div>
           </div>
         </div>
