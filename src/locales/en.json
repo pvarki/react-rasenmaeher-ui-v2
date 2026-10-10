@@ -856,6 +856,63 @@
         "ffPickDetails": "Details of selected certificate:",
         "ffRemember": "Remember this decision"
       }
+    },
+    "linux": {
+      "notLinux": "Not Linux?",
+      "copy": "Copy address",
+      "copied": "Address copied",
+      "fallback": "Doesn't open?",
+      "retry": "Didn't download? Download again",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key"
+      },
+      "firefox": {
+        "caption": "Your key is a file you add to Firefox.",
+        "title": "Add the key to Firefox",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import…",
+          "Open Downloads, select {{fileName}} and press Select.",
+          "Enter your callsign as the password and press Sign in.",
+          "Press OK in the certificate window, then Installed – continue here."
+        ],
+        "fallbackPath": "In Firefox: ≡ menu → Settings → search “certificates” → Manage certificates → Your Certificates.",
+        "pick": "Firefox asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "chrome": {
+        "caption": "Your key is a file you add to your browser.",
+        "title": "Add the key to your browser",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import.",
+          "Open Downloads, select {{fileName}} and press Select.",
+          "Enter your callsign as the password and press OK.",
+          "Come back to this window and press Installed – continue."
+        ],
+        "fallbackPath": "In the browser: ⋮ menu → Settings → Privacy and security → Security → Manage certificates → Your certificates.",
+        "pick": "Your browser asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "system": {
+        "crManager": "Certificate Manager",
+        "crPlatform": "Client certificates from platform",
+        "crImport": "Import",
+        "crNone": "No certificates",
+        "crPassword": "Enter certificate password",
+        "crPickTitle": "Select a certificate",
+        "crPickBody": "Select a certificate to authenticate yourself to {{host}}:443",
+        "crSubject": "Subject",
+        "crIssuer": "Issuer",
+        "cancel": "Cancel",
+        "ffImport": "Import…",
+        "ffManager": "Certificate Manager",
+        "ffPickBody": "“{{host}}” has requested that you identify yourself with a certificate:",
+        "ffPickDetails": "Details of selected certificate:",
+        "ffRemember": "Remember this decision",
+        "ffSignIn": "Sign in",
+        "ffUnlockTitle": "Password Required",
+        "ffYours": "Your Certificates"
+      }
     }
   },
   "browserGuard": {

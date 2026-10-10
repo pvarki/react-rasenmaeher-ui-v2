@@ -856,6 +856,63 @@
         "ffPickDetails": "Detaljer för valt certifikat:",
         "ffRemember": "Kom ihåg detta beslut"
       }
+    },
+    "linux": {
+      "notLinux": "Inte Linux?",
+      "copy": "Kopiera adress",
+      "copied": "Adressen kopierad",
+      "fallback": "Öppnas den inte?",
+      "retry": "Laddades den inte ner? Ladda ner igen",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel"
+      },
+      "firefox": {
+        "caption": "Nyckeln är en fil som du lägger till i Firefox.",
+        "title": "Lägg till nyckeln i Firefox",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera…",
+          "Öppna Hämtningar, välj {{fileName}} och tryck Välj.",
+          "Ange din anropssignal som lösenord och tryck Logga in.",
+          "Tryck OK i certifikatfönstret och sedan Installerad – fortsätt här."
+        ],
+        "fallbackPath": "I Firefox: ≡-menyn → Inställningar → sök ”certifikat” → Hantera certifikat → Dina certifikat.",
+        "pick": "Firefox ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "chrome": {
+        "caption": "Nyckeln är en fil som du lägger till i webbläsaren.",
+        "title": "Lägg till nyckeln i webbläsaren",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera.",
+          "Öppna Hämtningar, välj {{fileName}} och tryck Välj.",
+          "Ange din anropssignal som lösenord och tryck OK.",
+          "Kom tillbaka till det här fönstret och tryck Installerad – fortsätt."
+        ],
+        "fallbackPath": "I webbläsaren: ⋮-menyn → Inställningar → Integritet och säkerhet → Säkerhet → Hantera certifikat → Dina certifikat.",
+        "pick": "Webbläsaren ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "system": {
+        "crManager": "Certifikathanterare",
+        "crPlatform": "Klientcertifikat från plattformen",
+        "crImport": "Importera",
+        "crNone": "Inga certifikat",
+        "crPassword": "Ange certifikatets lösenord",
+        "crPickTitle": "Välj ett certifikat",
+        "crPickBody": "Välj ett certifikat för att autentisera dig för {{host}}:443",
+        "crSubject": "Ämne",
+        "crIssuer": "Utfärdare",
+        "cancel": "Avbryt",
+        "ffImport": "Importera…",
+        "ffManager": "Certifikathanterare",
+        "ffPickBody": "”{{host}}” har begärt att du identifierar dig med ett certifikat:",
+        "ffPickDetails": "Detaljer för valt certifikat:",
+        "ffRemember": "Kom ihåg detta beslut",
+        "ffSignIn": "Logga in",
+        "ffUnlockTitle": "Lösenord krävs",
+        "ffYours": "Dina certifikat"
+      }
     }
   },
   "browserGuard": {

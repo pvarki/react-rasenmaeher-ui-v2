@@ -856,6 +856,63 @@
         "ffPickDetails": "Valitun varmenteen yksityiskohdat:",
         "ffRemember": "Muista tämä päätös"
       }
+    },
+    "linux": {
+      "notLinux": "Eikö tämä ole Linux?",
+      "copy": "Kopioi osoite",
+      "copied": "Osoite kopioitu",
+      "fallback": "Eikö aukea?",
+      "retry": "Ei latautunut? Lataa uudelleen",
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain"
+      },
+      "firefox": {
+        "caption": "Avain on tiedosto, jonka lisäät Firefoxiin.",
+        "title": "Lisää avain Firefoxiin",
+        "steps": [
+          "Kopioi osoite ja avaa se uuteen ikkunaan näillä näppäimillä:",
+          "Paina Tuo…",
+          "Avaa Lataukset, valitse {{fileName}} ja paina Valitse.",
+          "Kirjoita salasanaksi tunnuksesi ja paina Kirjaudu sisään.",
+          "Paina varmenneikkunassa OK ja sitten täällä Asennettu – jatka."
+        ],
+        "fallbackPath": "Firefoxissa: ≡-valikko → Asetukset → hae ”varmenteet” → Varmenteiden hallinta → Omat varmenteet.",
+        "pick": "Firefox kysyy varmennetta. {{callsign}} on jo valittuna. Paina OK."
+      },
+      "chrome": {
+        "caption": "Avain on tiedosto, jonka lisäät selaimeen.",
+        "title": "Lisää avain selaimeen",
+        "steps": [
+          "Kopioi osoite ja avaa se uuteen ikkunaan näillä näppäimillä:",
+          "Paina Tuo.",
+          "Avaa Lataukset, valitse {{fileName}} ja paina Valitse.",
+          "Kirjoita salasanaksi tunnuksesi ja paina OK.",
+          "Palaa tähän ikkunaan ja paina Asennettu – jatka."
+        ],
+        "fallbackPath": "Selaimessa: ⋮-valikko → Asetukset → Tietosuoja ja turvallisuus → Turvallisuus → Hallinnoi varmenteita → Omat varmenteet.",
+        "pick": "Selain kysyy varmennetta. {{callsign}} on jo valittuna. Paina OK."
+      },
+      "system": {
+        "crManager": "Varmenteiden hallinta",
+        "crPlatform": "Asiakasvarmenteet alustalta",
+        "crImport": "Tuo",
+        "crNone": "Ei varmenteita",
+        "crPassword": "Anna varmenteen salasana",
+        "crPickTitle": "Valitse varmenne",
+        "crPickBody": "Valitse varmenne, jolla todennat itsesi kohteelle {{host}}:443",
+        "crSubject": "Kohde",
+        "crIssuer": "Myöntäjä",
+        "cancel": "Peruuta",
+        "ffImport": "Tuo…",
+        "ffManager": "Varmenteiden hallinta",
+        "ffPickBody": "\"{{host}}\" on pyytänyt sinua tunnistamaan itsesi varmenteella:",
+        "ffPickDetails": "Valitun varmenteen yksityiskohdat:",
+        "ffRemember": "Muista tämä päätös",
+        "ffSignIn": "Kirjaudu sisään",
+        "ffUnlockTitle": "Salasana vaaditaan",
+        "ffYours": "Omat varmenteet"
+      }
     }
   },
   "browserGuard": {

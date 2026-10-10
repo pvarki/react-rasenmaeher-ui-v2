@@ -21,6 +21,7 @@ import { AndroidInstallFlow } from "@/components/mtls/AndroidInstallFlow";
 import { IosInstallFlow } from "@/components/mtls/IosInstallFlow";
 import { MacInstallFlow } from "@/components/mtls/MacInstallFlow";
 import { WinInstallFlow } from "@/components/mtls/WinInstallFlow";
+import { LinuxInstallFlow } from "@/components/mtls/LinuxInstallFlow";
 import { CompactHeader } from "@/components/CompactHeader";
 import { readStore, writeStore } from "@/lib/safeStorage";
 import {
@@ -40,7 +41,7 @@ export const Route = createFileRoute("/mtls-install")({
 
 // Platforms we walk through the install one screen at a time.
 const GUIDED = ["Android", "iOS"];
-const GUIDED_DESKTOP = ["MacOS", "Windows"];
+const GUIDED_DESKTOP = ["MacOS", "Windows", "Linux"];
 
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
@@ -142,7 +143,24 @@ function MtlsInstallPage() {
               onHelp={() => setShowGuide(true)}
             />
             <div className="my-auto pb-10">
-              {osToShow === "Windows" ? (
+              {osToShow === "Linux" ? (
+                <LinuxInstallFlow
+                  callsign={callsign}
+                  deployment={deployment}
+                  fileName={`${callsign}_${deployment}.pfx`}
+                  mtlsUrl={mtlsUrl}
+                  onDownload={handleDownloadKey}
+                  isDownloading={getCertificateMutation.isLoading}
+                  downloadCount={downloadCount}
+                  platformPicker={
+                    <PlatformSelector
+                      value={osToShow}
+                      onValueChange={chooseOS}
+                      triggerLabel={t("mtlsInstall.linux.notLinux")}
+                    />
+                  }
+                />
+              ) : osToShow === "Windows" ? (
                 <WinInstallFlow
                   callsign={callsign}
                   deployment={deployment}
