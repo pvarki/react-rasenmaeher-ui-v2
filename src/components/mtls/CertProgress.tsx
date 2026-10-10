@@ -8,6 +8,7 @@ interface CertProgressProps {
   step: number;
   furthest: number;
   onSelect: (index: number) => void;
+  steps?: readonly string[];
 }
 
 /**
@@ -15,16 +16,21 @@ interface CertProgressProps {
  * tap away, so no sequence of taps (or a system dialog closing at the wrong
  * moment) can strand someone on the wrong screen.
  */
-export function CertProgress({ step, furthest, onSelect }: CertProgressProps) {
+export function CertProgress({
+  step,
+  furthest,
+  onSelect,
+  steps = CERT_STEPS,
+}: CertProgressProps) {
   const { t } = useTranslation();
 
   return (
     <div
       className="flex gap-2"
       data-testid="cert-progress"
-      data-current-step={CERT_STEPS[step]}
+      data-current-step={steps[step]}
     >
-      {CERT_STEPS.map((name, idx) => (
+      {steps.map((name, idx) => (
         <button
           key={name}
           type="button"

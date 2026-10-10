@@ -614,7 +614,8 @@
     "steps": {
       "download": "Download",
       "install": "Install",
-      "done": "Ready"
+      "done": "Ready",
+      "keychain": "Keychain"
     },
     "copy": "Copy",
     "copied": "Copied",
@@ -675,6 +676,107 @@
         "certBody": "Use the certificate “{{callsign}}” when connecting to this website.",
         "cancel": "Cancel",
         "continue": "Continue"
+      }
+    },
+    "mac": {
+      "notMac": "Not a Mac?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Your key is a file you install on this Mac.",
+        "safari": "Safari asks this the first time. Press Allow."
+      },
+      "install": {
+        "title": "Install the key",
+        "open": "Open the downloaded file",
+        "openHint": "From your browser's downloads in the top-right corner, or from your Downloads folder.",
+        "retry": "Didn't download? Download again",
+        "unlock": "Unlock with Touch ID or your Mac password",
+        "password": "Enter your callsign as the password and press OK",
+        "comeBack": "After you press OK, Keychain Access opens. Then come back to this browser and press Installed – continue."
+      },
+      "done": {
+        "pick": "Select {{callsign}} and press OK",
+        "generic": "When the browser asks for a certificate, select {{callsign}}. If your Mac asks for a password, enter your Mac login password and choose Always Allow.",
+        "allowIf": "If your Mac still asks for a password, enter your Mac password and choose Always Allow",
+        "safariLogin": "Press Login with Certificate, select {{callsign}} from the list and press Continue",
+        "safariGo": "Press Go to the service below"
+      },
+      "system": {
+        "importTitle": "Enter the password for “{{file}}”:",
+        "password": "Password:",
+        "cancel": "Cancel",
+        "ok": "OK",
+        "pickTitle": "Select a certificate",
+        "pickBody": "Select a certificate to authenticate yourself to {{host}}:443",
+        "subject": "Subject",
+        "issuer": "Issuer",
+        "pickCancel": "Cancel",
+        "signTitle": "{{browser}} wants to sign using key “privateKey” in your keychain.",
+        "signBody": "To allow this, enter the “login” keychain password.",
+        "allowAlways": "Always Allow",
+        "deny": "Deny",
+        "allow": "Allow",
+        "authTitle": "Keychain Access is trying to use information stored in your keychains.",
+        "authBody": "Keychain Access: continue with Touch ID or enter your password.",
+        "usePassword": "Use Password…",
+        "safariTitle": "Do you want to allow downloads on “{{host}}”?",
+        "safariBody": "You can change which websites can download files in Websites Settings.",
+        "safariPickTitle": "The website {{host}} requires a client certificate.",
+        "safariPickBody": "This website requires a certificate to validate your identity. Select the certificate to use when you connect to this website, then click Continue.",
+        "continue": "Continue",
+        "showCert": "Show Certificate"
+      },
+      "keychain": {
+        "title": "Set up Keychain",
+        "nextPart": "Done – next",
+        "done": "Ready – continue",
+        "open": {
+          "title": "Open the certificate",
+          "hint": "The new certificate doesn't show in the list until you search for it. Keychain Access didn't open? Open Spotlight (⌘ + space) and type Keychain Access.",
+          "steps": [
+            "Choose My Certificates",
+            "Search for {{callsign}} (⌘V)",
+            "Double-click the {{callsign}} row"
+          ]
+        },
+        "trust": {
+          "title": "Trust the certificate",
+          "steps": [
+            "Open Trust",
+            "When using this certificate: Always Trust",
+            "Close the window and confirm with Touch ID or password"
+          ]
+        },
+        "access": {
+          "title": "Allow use of the key",
+          "steps": [
+            "Open the arrow left of the {{callsign}} row",
+            "Double-click Imported Private Key",
+            "Choose Access Control",
+            "Allow all applications to access this item",
+            "Save Changes",
+            "Mac password (not Touch ID) → Allow",
+            "Close the window and Keychain Access"
+          ]
+        },
+        "ui": {
+          "app": "Keychain Access",
+          "allItems": "All Items",
+          "myCertificates": "My Certificates",
+          "certificate": "certificate",
+          "privateKey": "private key",
+          "issuedBy": "Issued by: {{issuer}}",
+          "trust": "Trust",
+          "whenUsing": "When using this certificate:",
+          "alwaysTrust": "Always Trust",
+          "attributes": "Attributes",
+          "accessControl": "Access Control",
+          "allowAll": "Allow all applications to access this item",
+          "confirm": "Confirm before allowing access",
+          "save": "Save Changes",
+          "changeTitle": "Keychain Access wants to change the access permissions of the “privateKey” keychain item."
+        }
       }
     }
   },

@@ -614,7 +614,8 @@
     "steps": {
       "download": "Lataa",
       "install": "Asenna",
-      "done": "Valmis"
+      "done": "Valmis",
+      "keychain": "Avainnippu"
     },
     "copy": "Kopioi",
     "copied": "Kopioitu",
@@ -675,6 +676,107 @@
         "certBody": "Käytä varmennetta ”{{callsign}}”, kun siirryt tälle sivustolle.",
         "cancel": "Kumoa",
         "continue": "Jatka"
+      }
+    },
+    "mac": {
+      "notMac": "Eikö tämä ole Mac?",
+      "download": {
+        "title": "Hae avaimesi",
+        "action": "Lataa avain",
+        "caption": "Avain on tiedosto, jonka asennat tälle Macille.",
+        "safari": "Safari kysyy tätä ensimmäisellä kerralla. Paina Salli."
+      },
+      "install": {
+        "title": "Asenna avain",
+        "open": "Avaa ladattu tiedosto",
+        "openHint": "Selaimen latauksista oikeasta yläkulmasta tai Lataukset-kansiosta.",
+        "retry": "Ei latautunut? Lataa uudelleen",
+        "unlock": "Avaa lukitus Touch ID:llä tai Macin salasanalla",
+        "password": "Anna salasanaksi kutsutunnuksesi ja paina OK",
+        "comeBack": "Painettuasi OK Avainnippu-sovellus aukeaa. Palaa sitten tähän selaimeen ja paina Asennettu – jatka."
+      },
+      "done": {
+        "pick": "Valitse {{callsign}} ja paina OK",
+        "generic": "Kun selain pyytää varmennetta, valitse {{callsign}}. Jos Mac kysyy salasanaa, anna Macin oma salasana ja valitse Salli aina.",
+        "allowIf": "Jos Mac vielä kysyy salasanaa, anna Macin salasana ja valitse Salli aina",
+        "safariLogin": "Paina Kirjaudu varmenteella, valitse listasta {{callsign}} ja paina Jatka",
+        "safariGo": "Paina alta Siirry palveluun"
+      },
+      "system": {
+        "importTitle": "Syötä kohteen ”{{file}}” salasana:",
+        "password": "Salasana:",
+        "cancel": "Kumoa",
+        "ok": "OK",
+        "pickTitle": "Valitse varmenne",
+        "pickBody": "Valitse varmenne, jolla todennat itsesi kohteelle {{host}}:443",
+        "subject": "Kohde",
+        "issuer": "Myöntäjä",
+        "pickCancel": "Peru",
+        "signTitle": "{{browser}} haluaa allekirjoittaa käyttäen avainnipun avainta privateKey.",
+        "signBody": "Voit sallia tämän syöttämällä avainnipun Sisäänkirjautuminen salasanan.",
+        "allowAlways": "Salli aina",
+        "deny": "Kiellä",
+        "allow": "Salli",
+        "authTitle": "Avainnippu yrittää käyttää avainnippuihisi tallennettuja tietoja.",
+        "authBody": "Avainnippu: jatka Touch ID:llä tai syöttämällä salasanasi.",
+        "usePassword": "Käytä salasanaa…",
+        "safariTitle": "Sallitko lataukset sivustolta {{host}}?",
+        "safariBody": "Voit hallita Safari-asetusten Sivustot-osiossa, mitkä sivustot voivat ladata tiedostoja.",
+        "safariPickTitle": "Sivusto {{host}} vaatii asiakasvarmenteen.",
+        "safariPickBody": "Sivusto vaatii varmennetta, jotta henkilöllisyytesi voidaan varmistaa. Valitse tälle sivustolle siirryttäessä käytettävä varmenne, ja klikkaa Jatka.",
+        "continue": "Jatka",
+        "showCert": "Näytä varmenne"
+      },
+      "keychain": {
+        "title": "Määritä Avainnippu",
+        "nextPart": "Tehty – seuraava",
+        "done": "Valmis – jatka",
+        "open": {
+          "title": "Avaa varmenne",
+          "hint": "Asennettu varmenne ei näy listassa ennen kuin haet sitä. Avainnippu ei auennut? Avaa Spotlight (⌘ + välilyönti) ja kirjoita Avainnippu.",
+          "steps": [
+            "Valitse Omat varmenteet",
+            "Hae {{callsign}} hakukentästä (⌘V)",
+            "Kaksoisklikkaa {{callsign}}-riviä"
+          ]
+        },
+        "trust": {
+          "title": "Luota varmenteeseen",
+          "steps": [
+            "Avaa Luottamus",
+            "Varmennetta käytettäessä: Luota aina",
+            "Sulje ikkuna ja vahvista Touch ID:llä tai salasanalla"
+          ]
+        },
+        "access": {
+          "title": "Salli avaimen käyttö",
+          "steps": [
+            "Avaa nuoli {{callsign}}-rivin vasemmalla",
+            "Kaksoisklikkaa Imported Private Key",
+            "Valitse Pääsynhallinta",
+            "Salli kaikkien appien käyttää tätä kohdetta",
+            "Tallenna muutokset",
+            "Macin salasana (ei Touch ID) → Salli",
+            "Sulje ikkuna ja Avainnippu"
+          ]
+        },
+        "ui": {
+          "app": "Avainnippu",
+          "allItems": "Kaikki kohteet",
+          "myCertificates": "Omat varmenteet",
+          "certificate": "varmenne",
+          "privateKey": "yksityinen avain",
+          "issuedBy": "Myöntäjä: {{issuer}}",
+          "trust": "Luottamus",
+          "whenUsing": "Varmennetta käytettäessä:",
+          "alwaysTrust": "Luota aina",
+          "attributes": "Attribuutit",
+          "accessControl": "Pääsynhallinta",
+          "allowAll": "Salli kaikkien appien käyttää tätä kohdetta",
+          "confirm": "Vahvista ennen käytön sallimista",
+          "save": "Tallenna muutokset",
+          "changeTitle": "Avainnippu haluaa muuttaa avainnipun kohteen privateKey käyttöoikeuksia."
+        }
       }
     }
   },
