@@ -49,6 +49,7 @@ export function IosInstallFlow({
 
   useEffect(() => {
     for (const name of SHOTS) new Image().src = `${shotDir}/${name}.webp`;
+    new Image().src = "/guide/ios/settings-icon.webp";
   }, [shotDir]);
 
   const seenDownloads = useRef(downloadCount);
@@ -114,7 +115,8 @@ export function IosInstallFlow({
             onCopy={copy}
           />
 
-          <h1 className="text-3xl font-bold leading-tight text-balance">
+          <h1 className="flex items-center gap-3 text-3xl font-bold leading-tight text-balance">
+            <SettingsAppIcon />
             {t("mtlsInstall.ios.install.title")}
           </h1>
 
@@ -189,5 +191,16 @@ export function IosInstallFlow({
         </>
       )}
     </div>
+  );
+}
+
+function SettingsAppIcon() {
+  return (
+    <img
+      src="/guide/ios/settings-icon.webp"
+      alt=""
+      aria-hidden="true"
+      className="h-12 w-12 shrink-0"
+    />
   );
 }
