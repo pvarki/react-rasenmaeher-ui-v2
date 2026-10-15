@@ -15,8 +15,13 @@ import {
 import { setRuntimeLocalization } from "@/config/localization";
 import { UserTypeFetcher } from "./hooks/auth/userTypeFetcher";
 import { BrowserGuard } from "@/components/BrowserGuard";
+import { applyGuidePreferenceFromUrl } from "@/hooks/useGuidePreferences";
 
 const initializeApp = async () => {
+  // Before anything renders, and on every origin: the invite link carries the
+  // choice from the base domain to the mtls host, which is a separate origin with its own localStorage.
+  applyGuidePreferenceFromUrl();
+
   const themeName = getActiveThemeName();
   const theme = await loadCompleteTheme(themeName);
 

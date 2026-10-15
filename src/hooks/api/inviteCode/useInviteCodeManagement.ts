@@ -8,11 +8,13 @@ import { useDeleteInviteCode } from "@/hooks/api/inviteCode/useDeleteInviteCode"
 import { useDeactivateInviteCode } from "@/hooks/api/inviteCode/useDeactivateInviteCode";
 import { useReactivateInviteCode } from "@/hooks/api/inviteCode/useReactivateInviteCode";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { useGuidePreferences } from "@/hooks/useGuidePreferences";
 
 export function useInviteCodeManagement() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
+  const { autoOpen } = useGuidePreferences();
 
   const [filterText, setFilterText] = useState("");
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -99,6 +101,8 @@ export function useInviteCodeManagement() {
 
   // Walkthrough on first visit
   useEffect(() => {
+    // The help button still opens this; only the uninvited appearance stops.
+    if (!autoOpen) return;
     const hasSeenWalkthrough = localStorage.getItem(
       `add-users-walkthrough-${callsign}`,
     );
@@ -106,7 +110,7 @@ export function useInviteCodeManagement() {
       setWalkthroughOpen(true);
       localStorage.setItem(`add-users-walkthrough-${callsign}`, "true");
     }
-  }, [callsign, userTypeLoading]);
+  }, [callsign, userTypeLoading, autoOpen]);
 
   // Reset selected code when dialog closes
   useEffect(() => {

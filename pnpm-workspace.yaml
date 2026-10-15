@@ -1,2 +1,6 @@
 allowBuilds:
   esbuild: true
+
+# pnpm 11+ no longer reads the "pnpm" field in package.json, so these live here.
+overrides:
+  vite: 5.2.10

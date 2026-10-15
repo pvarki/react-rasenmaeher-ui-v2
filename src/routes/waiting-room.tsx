@@ -2,24 +2,22 @@
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
-import { useCopyToClipboard } from "@/hooks/helpers/useCopyToClipboard";
-import QRCode from "react-qr-code";
 import { useTranslation } from "react-i18next";
-import { WaitingRoomHeader } from "@/components/waiting-room/WaitingRoomHeader";
-import { ApprovalCodeDisplay } from "@/components/waiting-room/ApprovalCodeDisplay";
+import { useOwnEnrollmentStatus } from "@/hooks/api/useOwnEnrollmentStatus";
+import useHealthCheck from "@/hooks/helpers/useHealthcheck";
+import { CompactHeader } from "@/components/CompactHeader";
+import { ApprovalHandoff } from "@/components/waiting-room/ApprovalHandoff";
+import { ApprovalStatus } from "@/components/waiting-room/ApprovalStatus";
+
 export const Route = createFileRoute("/waiting-room")({
   component: WaitingRoomPage,
 });
 
 function WaitingRoomPage() {
   const navigate = useNavigate();
-  const { isCopied, copyError, handleCopy } = useCopyToClipboard();
   const { t } = useTranslation();
+  const { deployment } = useHealthCheck();
 
   const callsign = localStorage.getItem("callsign") ?? undefined;
   const approveCode = localStorage.getItem("approveCode") ?? undefined;
@@ -43,7 +41,12 @@ function WaitingRoomPage() {
 
   const [shouldPoll, setShouldPoll] = useState(true);
 
-  const { data: enrolled, isLoading } = useOwnEnrollmentStatus({
+  const {
+    data: enrolled,
+    dataUpdatedAt,
+    isError,
+    failureCount,
+  } = useOwnEnrollmentStatus({
     refetchInterval: shouldPoll ? 5000 : false,
   });
 
@@ -56,50 +59,41 @@ function WaitingRoomPage() {
   }, [enrolled, shouldPoll, t]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 md:p-6">
-      <div className="w-full max-w-2xl space-y-6 md:space-y-8 mt-8">
-        <WaitingRoomHeader
-          isLoading={isLoading}
-          appDesc={t("waitingRoom.description")}
-        />
+    <div
+      data-testid="waiting-room-page"
+      className="flex min-h-dvh flex-col bg-background p-4 md:p-8"
+    >
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 md:max-w-4xl md:gap-8">
+        <CompactHeader deployment={deployment} />
 
-        <div className="flex justify-center">
-          <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg">
-            <QRCode value={approvalUrl} bgColor="#FFFFFF" size={240} />
+        <div className="flex flex-col gap-4 md:my-auto md:gap-6">
+          <div className="space-y-1 text-center">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-balance md:text-4xl">
+              {t("waitingRoom.title")}
+            </h1>
+            <p className="text-base leading-snug text-muted-foreground text-balance md:text-lg">
+              {t("waitingRoom.description")}
+            </p>
           </div>
+
+          <ApprovalHandoff
+            approvalUrl={approvalUrl}
+            callsign={callsign || ""}
+          />
+
+          {/* isError only flips after react-query's retries run out. */}
+          <ApprovalStatus
+            callsign={callsign || ""}
+            approveCode={approveCode || ""}
+            approvalUrl={approvalUrl}
+            lastCheckedAt={dataUpdatedAt}
+            failing={isError || failureCount > 0}
+            className="mx-auto w-full max-w-md"
+          />
         </div>
-
-        <ApprovalCodeDisplay
-          callsign={callsign || ""}
-          approveCode={approveCode || ""}
-        />
-
-        <Button
-          onClick={() => handleCopy(approvalUrl)}
-          variant={"outline"}
-          className="w-full bg-primary-light hover:bg-primary-light/90 h-14 md:h-12 text-sm md:text-base font-medium rounded-xl relative overflow-hidden"
-        >
-          <span
-            className={
-              cn("transition-all", isCopied && "opacity-0") + " text-xs"
-            }
-          >
-            {t("waitingRoom.copyButton")}
-          </span>
-          {isCopied && (
-            <span className="absolute inset-0 flex items-center justify-center gap-2">
-              <Check className="w-5 h-5" />
-              {t("waitingRoom.copied")}
-            </span>
-          )}
-        </Button>
-
-        {copyError && (
-          <span className="text-sm text-destructive">
-            {t("waitingRoom.actionFailed", { error: copyError.message })}
-          </span>
-        )}
       </div>
     </div>
   );
 }
+
+export default WaitingRoomPage;

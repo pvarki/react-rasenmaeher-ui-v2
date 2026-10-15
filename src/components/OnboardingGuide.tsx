@@ -16,6 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft, ImageOff, BookOpen } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { useGuidePreferences } from "@/hooks/useGuidePreferences";
+import { DisableGuidesButton } from "@/components/guides/DisableGuidesButton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -148,6 +150,7 @@ export function OnboardingGuide() {
   const preloadedForDeviceRef = useRef<boolean | null>(null);
   const isMobile = useIsMobile();
   const { userType, callsign } = useUserType();
+  const { autoOpen } = useGuidePreferences();
   const { t } = useTranslation();
   const { deployment } = useHealthCheck();
 
@@ -223,12 +226,15 @@ export function OnboardingGuide() {
         newAdminSteps.filter((id) => !["users", "invite"].includes(id)),
       );
       setCurrentStep(adminSteps.findIndex((step) => step.id === "users"));
-      setOpen(true);
-      localStorage.setItem(roleChangeKey, userType);
+      // The help button still opens this; only the uninvited appearance stops.
+      if (autoOpen) {
+        setOpen(true);
+        localStorage.setItem(roleChangeKey, userType);
+      }
       return;
     }
 
-    if (!seenOnboarding && lastRole !== userType) {
+    if (!seenOnboarding && lastRole !== userType && autoOpen) {
       setOpen(true);
       localStorage.setItem(roleChangeKey, userType);
     }
@@ -254,7 +260,7 @@ export function OnboardingGuide() {
         setCanReview(true);
       }
     }
-  }, [callsign, userType, deployment]);
+  }, [callsign, userType, deployment, autoOpen]);
 
   // Check cache when step changes
   useEffect(() => {
@@ -373,7 +379,8 @@ export function OnboardingGuide() {
     localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-user`) ||
     localStorage.getItem(`${deploymentHash}-onboarding-${callsign}-admin`);
 
-  if ((canReview || hasSeenOnboarding) && !open && !reviewMode) {
+  // With auto-opening off this button is the only way in, so it always shows.
+  if ((canReview || hasSeenOnboarding || !autoOpen) && !open && !reviewMode) {
     return (
       <button
         onClick={handleReviewClick}
@@ -458,7 +465,7 @@ export function OnboardingGuide() {
         </div>
       </div>
 
-      <div className="border-t px-4 py-4 flex gap-3 bg-background">
+      <div className="border-t px-4 pt-4 pb-4 flex gap-3 bg-background">
         <Button
           variant="outline"
           onClick={handlePrev}
@@ -491,6 +498,13 @@ export function OnboardingGuide() {
           style={{ width: `${progress}%` }}
         />
       </div>
+
+      {currentStep === 0 && (
+        <DisableGuidesButton
+          className="px-4 pt-3"
+          onDismiss={() => handleOpenChange(false)}
+        />
+      )}
     </>
   );
 

@@ -12,7 +12,6 @@
     "user": "Användare",
     "deployApp": "Deploy App",
     "takServer": "Takserver",
-    "feedback": "Återkoppling",
     "learnAboutMtls": "Lär dig om mTLS",
     "proudlyServedBy": "Stolt serverad av PV-Arki.",
     "releasedUnder": "Utgiven under GNU GPLv3 av TAK Product Center.",
@@ -40,8 +39,7 @@
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora",
-    "footer": "Öppna sidfot",
-    "mdm": "MDM"
+    "footer": "Öppna sidfot"
   },
   "pages": {
     "login": "Logga in",
@@ -430,6 +428,10 @@
       "footer": "Deploy App",
       "downloadSuccess": "PDF hämtad!",
       "downloadFailure": "Export av PDF misslyckades."
+    },
+    "guides": {
+      "label": "Visa guider automatiskt",
+      "description": "Stäng av detta så startar de som ansluter med den här koden utan att guider öppnas av sig själva. De kan fortfarande öppnas via info-knapparna."
     }
   },
   "manageUsers": {
@@ -583,7 +585,7 @@
         "steps": {
           "1": "Ladda ner ditt certifikat",
           "2": "Din enhet öppnar installationsfönstret automatiskt",
-          "3": "Ange din inbjudningskod som lösenord",
+          "3": "Ange din anropssignal som lösenord",
           "4": "Välj 'VPN- och appanvändningscertifikat' som certifikatets användningsområde",
           "5": "Ändra inte certifikatets namn och tryck på 'OK'",
           "6": "Gå vidare till tjänsterna med nyckeln"
@@ -607,6 +609,309 @@
           "1": "Certifikatet måste markeras som betrott",
           "2": "iOS kan visa en varning"
         }
+      }
+    },
+    "steps": {
+      "download": "Hämta",
+      "install": "Installera",
+      "done": "Klart",
+      "keychain": "Nyckelring",
+      "firefox": "Firefox"
+    },
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "copyPassword": "Kopiera lösenord",
+    "install": {
+      "next": "Installerad – fortsätt"
+    },
+    "password": "Lösenord",
+    "done": {
+      "title": "Klart.",
+      "action": "Gå till tjänsten"
+    },
+    "android": {
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Android frågar efter detta. Tryck sedan OK, två gånger."
+      },
+      "install": {
+        "title": "TRYCK OK",
+        "openDownload": "Ingen dialog? Öppna filen bland dina nedladdningar.",
+        "retry": "Installerades den inte? Öppna filen bland dina nedladdningar."
+      },
+      "done": {
+        "caption": "När en app ber om ditt certifikat, välj det och tryck Välj."
+      },
+      "notAndroid": "Inte en Android-telefon?"
+    },
+    "ios": {
+      "notIos": "Inte en iPhone?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Safari frågar detta. Tryck Tillåt, sedan Stäng."
+      },
+      "install": {
+        "title": "Öppna Inställningar",
+        "retry": "Inte i Inställningar? Ladda ner igen",
+        "tiles": {
+          "open": "Profil hämtad",
+          "install": "Installera ×3 + lösenkod",
+          "paste": "Klistra in lösenord",
+          "back": "Klar, ◀ Safari"
+        },
+        "oldProfile": "Misslyckades installationen? Ta bort den gamla profilen: Allmänt → VPN och enhetshantering."
+      },
+      "done": {
+        "caption": "När Safari ber om ditt certifikat, tryck Fortsätt."
+      },
+      "system": {
+        "allowPrompt": "\"{{host}}\" försöker hämta en konfigurationsprofil. Vill du tillåta detta?",
+        "ignore": "Ignorera",
+        "allow": "Tillåt",
+        "downloadedTitle": "Profil hämtad",
+        "downloadedBody": "Granska profilen i appen Inställningar om du vill installera den.",
+        "close": "Stäng",
+        "certTitle": "”{{host}}” kräver ett klientcertifikat",
+        "certBody": "Använd certifikatet ”{{callsign}}” när du ansluter till denna webbplats.",
+        "cancel": "Avbryt",
+        "continue": "Fortsätt"
+      }
+    },
+    "mac": {
+      "notMac": "Inte en Mac?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Nyckeln är en fil som du installerar på den här Macen.",
+        "safari": "Safari frågar detta första gången. Tryck Tillåt."
+      },
+      "install": {
+        "title": "Installera nyckeln",
+        "open": "Öppna den hämtade filen",
+        "openHint": "Från webbläsarens nedladdningar uppe till höger eller från mappen Hämtade filer.",
+        "retry": "Laddades den inte ner? Ladda ner igen",
+        "unlock": "Lås upp med Touch ID eller Macens lösenord",
+        "password": "Ange din anropssignal som lösenord och tryck OK",
+        "comeBack": "När du tryckt OK öppnas Nyckelringsåtkomst. Kom sedan tillbaka till den här webbläsaren och tryck Installerad – fortsätt."
+      },
+      "done": {
+        "pick": "Välj {{callsign}} och tryck OK",
+        "generic": "När webbläsaren ber om ett certifikat, välj {{callsign}}. Om din Mac frågar efter ett lösenord, ange Macens inloggningslösenord och välj Tillåt alltid.",
+        "allowIf": "Om din Mac fortfarande frågar efter lösenord, ange Macens lösenord och välj Tillåt alltid",
+        "safariLogin": "Tryck Logga in med certifikat, välj {{callsign}} i listan och tryck Fortsätt",
+        "safariGo": "Tryck Gå till tjänsten nedan"
+      },
+      "system": {
+        "importTitle": "Ange lösenordet för ”{{file}}”:",
+        "password": "Lösenord:",
+        "cancel": "Avbryt",
+        "ok": "OK",
+        "pickTitle": "Välj ett certifikat",
+        "pickBody": "Välj ett certifikat för att autentisera dig för {{host}}:443",
+        "subject": "Ämne",
+        "issuer": "Utfärdare",
+        "pickCancel": "Avbryt",
+        "signTitle": "{{browser}} vill signera med nyckeln ”privateKey” i nyckelringen.",
+        "signBody": "Ange lösenordet för nyckelringen ”inloggning” för att tillåta detta.",
+        "allowAlways": "Tillåt alltid",
+        "deny": "Neka",
+        "allow": "Tillåt",
+        "authTitle": "Nyckelringsåtkomst försöker använda information som sparats i dina nyckelringar.",
+        "authBody": "Nyckelringsåtkomst: fortsätt med Touch ID eller ange ditt lösenord.",
+        "usePassword": "Använd lösenord…",
+        "safariTitle": "Vill du tillåta hämtningar på ”{{host}}”?",
+        "safariBody": "Du kan ändra vilka webbplatser som kan hämta filer i webbplatsinställningarna.",
+        "safariPickTitle": "Webbplatsen {{host}} kräver ett klientcertifikat.",
+        "safariPickBody": "Webbplatsen kräver ett certifikat för att bekräfta din identitet. Välj det certifikat som ska användas för webbplatsen och klicka på Fortsätt.",
+        "continue": "Fortsätt",
+        "showCert": "Visa certifikat"
+      },
+      "keychain": {
+        "title": "Ställ in nyckelringen",
+        "nextPart": "Klart – nästa",
+        "done": "Klart – fortsätt",
+        "open": {
+          "title": "Öppna certifikatet",
+          "hint": "Det nya certifikatet syns inte i listan förrän du söker efter det. Öppnades inte Nyckelringsåtkomst? Öppna Spotlight (⌘ + mellanslag) och skriv Nyckelringsåtkomst.",
+          "steps": [
+            "Välj Mina certifikat",
+            "Sök efter {{callsign}} (⌘V)",
+            "Dubbelklicka på raden {{callsign}}"
+          ]
+        },
+        "trust": {
+          "title": "Lita på certifikatet",
+          "steps": [
+            "Öppna Lita på",
+            "Vid användning av certifikatet: Lita alltid på",
+            "Stäng fönstret och bekräfta med Touch ID eller lösenord"
+          ]
+        },
+        "access": {
+          "title": "Tillåt användning av nyckeln",
+          "steps": [
+            "Öppna pilen till vänster om raden {{callsign}}",
+            "Dubbelklicka på Imported Private Key",
+            "Välj Åtkomstkontroll",
+            "Tillåt alla appar att använda objektet",
+            "Spara ändringar",
+            "Macens lösenord (inte Touch ID) → Tillåt",
+            "Stäng fönstret och Nyckelringsåtkomst"
+          ]
+        },
+        "ui": {
+          "app": "Nyckelringsåtkomst",
+          "allItems": "Alla objekt",
+          "myCertificates": "Mina certifikat",
+          "certificate": "certifikat",
+          "privateKey": "privat nyckel",
+          "issuedBy": "Utfärdare: {{issuer}}",
+          "trust": "Lita på",
+          "whenUsing": "Vid användning av certifikatet:",
+          "alwaysTrust": "Lita alltid på",
+          "attributes": "Attribut",
+          "accessControl": "Åtkomstkontroll",
+          "allowAll": "Tillåt alla appar att använda objektet",
+          "confirm": "Bekräfta innan åtkomst tillåts",
+          "save": "Spara ändringar",
+          "changeTitle": "Nyckelringsåtkomst vill ändra åtkomstbehörigheterna för nyckelringsobjektet ”privateKey”."
+        }
+      }
+    },
+    "win": {
+      "notWindows": "Inte Windows?",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel",
+        "caption": "Nyckeln är en fil som du installerar på den här datorn."
+      },
+      "install": {
+        "title": "Installera nyckeln",
+        "openHint": "Öppna den från webbläsarens nedladdningar uppe till höger.",
+        "steps": [
+          "Tryck Nästa två gånger",
+          "Ange din anropssignal som lösenord",
+          "Tryck Nästa två gånger, sedan Slutför och OK"
+        ],
+        "showAll": "Visa alla sidor i guiden",
+        "retry": "Laddades den inte ner? Ladda ner igen",
+        "pages": [
+          "Välkommen: tryck Nästa",
+          "Fil att importera: tryck Nästa",
+          "Ange lösenordet (anropssignalen) och tryck Nästa",
+          "Certifikatarkiv: tryck Nästa",
+          "Slutför: tryck Slutför",
+          "Importen lyckades: tryck OK"
+        ]
+      },
+      "done": {
+        "pick": "Webbläsaren ber om ett certifikat. Välj {{callsign}} och tryck OK.",
+        "pickFirefox": "Firefox ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "firefox": {
+        "title": "Lägg till nyckeln i Firefox",
+        "copy": "Kopiera adressen",
+        "copied": "Adressen kopierad",
+        "fallback": "Öppnas den inte?",
+        "fallbackPath": "I Firefox: ≡-menyn → Inställningar → Sekretess och säkerhet → Certifikat → Visa certifikat…",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera…",
+          "Öppna Hämtade filer, välj {{fileName}} och tryck Öppna.",
+          "Ange din anropssignal som lösenord och tryck Logga in.",
+          "Tryck OK i certifikatfönstret och sedan Installerad – fortsätt här."
+        ]
+      },
+      "system": {
+        "wizardTitle": "Guiden Importera certifikat",
+        "next": "Nästa",
+        "cancel": "Avbryt",
+        "finish": "Slutför",
+        "welcome": "Välkommen till guiden Importera certifikat",
+        "storeLocation": "Lagringsplats",
+        "currentUser": "Aktuell användare",
+        "localMachine": "Lokal dator",
+        "fileTitle": "Fil som ska importeras",
+        "fileSubtitle": "Ange vilken fil du vill importera.",
+        "passwordTitle": "Skydd för privat nyckel",
+        "passwordSubtitle": "Den privata nyckeln skyddades med ett lösenord.",
+        "password": "Lösenord:",
+        "storeTitle": "Certifikatarkiv",
+        "storeSubtitle": "Certifikatarkiv är systemområden där certifikat lagras.",
+        "storeAuto": "Välj certifikatarkiv automatiskt baserat på certifikattypen",
+        "finishTitle": "Slutför guiden Importera certifikat",
+        "finishBody": "Certifikatet importeras när du klickar på Slutför.",
+        "success": "Importen lyckades.",
+        "pickTitle": "Välj ett certifikat för autentisering",
+        "pickBody": "Webbplatsen {{host}}:443 behöver dina autentiseringsuppgifter:",
+        "details": "Certifikatinformation",
+        "ffManager": "Certifikathanterare",
+        "ffYours": "Dina certifikat",
+        "ffImport": "Importera…",
+        "ffUnlockTitle": "Lösenord krävs",
+        "ffSignIn": "Logga in",
+        "ffPickBody": "”{{host}}” har begärt att du identifierar dig med ett certifikat:",
+        "ffPickDetails": "Detaljer för valt certifikat:",
+        "ffRemember": "Kom ihåg detta beslut"
+      }
+    },
+    "linux": {
+      "notLinux": "Inte Linux?",
+      "copy": "Kopiera adress",
+      "copied": "Adressen kopierad",
+      "fallback": "Öppnas den inte?",
+      "retry": "Laddades den inte ner? Ladda ner igen",
+      "download": {
+        "title": "Hämta din nyckel",
+        "action": "Ladda ner nyckel"
+      },
+      "firefox": {
+        "caption": "Nyckeln är en fil som du lägger till i Firefox.",
+        "title": "Lägg till nyckeln i Firefox",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera…",
+          "Öppna Hämtningar, välj {{fileName}} och tryck Välj.",
+          "Ange din anropssignal som lösenord och tryck Logga in.",
+          "Tryck OK i certifikatfönstret och sedan Installerad – fortsätt här."
+        ],
+        "fallbackPath": "I Firefox: ≡-menyn → Inställningar → sök ”certifikat” → Hantera certifikat → Dina certifikat.",
+        "pick": "Firefox ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "chrome": {
+        "caption": "Nyckeln är en fil som du lägger till i webbläsaren.",
+        "title": "Lägg till nyckeln i webbläsaren",
+        "steps": [
+          "Kopiera adressen och öppna den i ett nytt fönster med dessa tangenter:",
+          "Tryck Importera.",
+          "Öppna Hämtningar, välj {{fileName}} och tryck Välj.",
+          "Ange din anropssignal som lösenord och tryck OK.",
+          "Kom tillbaka till det här fönstret och tryck Installerad – fortsätt."
+        ],
+        "fallbackPath": "I webbläsaren: ⋮-menyn → Inställningar → Integritet och säkerhet → Säkerhet → Hantera certifikat → Dina certifikat.",
+        "pick": "Webbläsaren ber om ett certifikat. {{callsign}} är redan valt. Tryck OK."
+      },
+      "system": {
+        "crManager": "Certifikathanterare",
+        "crPlatform": "Klientcertifikat från plattformen",
+        "crImport": "Importera",
+        "crNone": "Inga certifikat",
+        "crPassword": "Ange certifikatets lösenord",
+        "crPickTitle": "Välj ett certifikat",
+        "crPickBody": "Välj ett certifikat för att autentisera dig för {{host}}:443",
+        "crSubject": "Ämne",
+        "crIssuer": "Utfärdare",
+        "cancel": "Avbryt",
+        "ffImport": "Importera…",
+        "ffManager": "Certifikathanterare",
+        "ffPickBody": "”{{host}}” har begärt att du identifierar dig med ett certifikat:",
+        "ffPickDetails": "Detaljer för valt certifikat:",
+        "ffRemember": "Kom ihåg detta beslut",
+        "ffSignIn": "Logga in",
+        "ffUnlockTitle": "Lösenord krävs",
+        "ffYours": "Dina certifikat"
       }
     }
   },
@@ -641,16 +946,50 @@
   },
   "waitingRoom": {
     "titleShort": "Väntar på godkännande",
-    "title": "Du är i väntrummet!",
-    "description": "Du väntar på att en administratör ska godkänna dig. Kopiera och skicka din godkännandelänk.",
-    "checkingStatus": "Kontrollerar status...",
-    "yourApprovalCodeLabel": "Din godkännandekod:",
-    "copyButton": "Kopiera godkännandelänk",
-    "copied": "Kopierad!",
+    "title": "Bli godkänd",
+    "description": "Administratören är oftast den som gav dig din inbjudningskod.",
     "actionFailed": "Åtgärd misslyckades: {{error}}",
     "instructionsTitle": "Väntar på godkännande (instruktioner)",
     "instructionsText": "Godkänn användare genom deras godkännandekod, godkännandelänk eller via \"Godkänn användare\".",
-    "approvedToast": "Du har blivit godkänd!"
+    "approvedToast": "Du har blivit godkänd!",
+    "codeLabel": "Godkännandekod",
+    "callsignLabel": "Anropssignal",
+    "status": {
+      "connecting": "Ansluter…",
+      "lastChecked": "Ansluten · senast kontrollerad {{time}}",
+      "failing": "Ingen anslutning till servern, försöker igen…",
+      "waiting": "Väntar på godkännande",
+      "details": "Detaljer",
+      "hideDetails": "Dölj detaljer",
+      "link": "Godkännandelänk",
+      "keepOpen": "Låt sidan vara öppen.",
+      "detailsHint": "Bara om administratören frågar.",
+      "close": "Stäng",
+      "copy": "Kopiera"
+    },
+    "remote": {
+      "title": "Är administratören någon annanstans?",
+      "copy": "Kopiera länk",
+      "copied": "Kopierat",
+      "steps": {
+        "send": "Klistra in den i ett meddelande till hen",
+        "wait": "Håll den här sidan öppen"
+      },
+      "phone": {
+        "send": "Skicka länk",
+        "sendAgain": "Skicka igen",
+        "copyAgain": "Kopiera igen",
+        "pickApp": "Välj hen i till exempel Signal",
+        "paste": "Klistra in länken i ett meddelande till din administratör",
+        "shareTitle": "Deploy App-godkännande",
+        "shareText": "Hej! Kan du godkänna mig i Deploy App? Min anropssignal är {{callsign}}."
+      }
+    },
+    "present": {
+      "title": "Är administratören bredvid dig?",
+      "caption": "Visa detta för hen"
+    },
+    "or": "eller"
   },
   "adminTools": {
     "navLink": "Adminverktyg",
@@ -676,46 +1015,7 @@
     "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
     "help2": "Inbjudningskoder – generera och hantera koder",
     "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL",
-    "mdmTitle": "Enheter",
-    "mdmDesc": "Planera anropssignaler för telefoner som ansluter via din MDM"
-  },
-  "feedbackForm": {
-    "title": "Skicka feedback",
-    "description": "Låt oss veta vad du tycker. Din feedback hjälper oss att förbättra appen.",
-    "roleLabel": "Din roll",
-    "rolePlaceholder": "Välj roll...",
-    "roles": {
-      "end_user": "Slutanvändare",
-      "developer": "Utvecklare",
-      "admin": "Administratör",
-      "maintainer": "Underhållare",
-      "other": "Annat"
-    },
-    "versionLabel": "Den version av Deploy App som du använder",
-    "osLabel": "Operativsystem",
-    "osPlaceholder": "Välj OS...",
-    "os": {
-      "linux": "Linux",
-      "windows": "Windows",
-      "macos": "macOS",
-      "android": "Android",
-      "iphone": "iPhone",
-      "other": "Annat"
-    },
-    "ratingLabel": "Hur var din upplevelse?",
-    "ratingPlaceholder": "Välj...",
-    "ratings": {
-      "excellent": "Utmärkt",
-      "good": "Bra",
-      "veryBad": "Mycket Dåligt",
-      "bad": "Dåligt"
-    },
-    "commentsLabel": "Kommentarer",
-    "commentsPlaceholder": "Dela detaljer, förslag eller problem...",
-    "send": "Skicka feedback",
-    "sending": "Skickar...",
-    "thanks": "Tack för din feedback!"
+    "help4": "Externa tjänster – åtkomst till TAK och BL"
   },
   "mdm": {
     "scepUrl": "SCEP-adress",
@@ -769,5 +1069,8 @@
     "listPlaceholder": "KORPPI\nKIRVES\nHAUKKA",
     "chooseFile": "Välj en fil",
     "listHint": "En per rad, eller en CSV. Bara första kolumnen läses."
+  },
+  "guides": {
+    "disableAutoOpen": "Visa inte guider automatiskt för mig"
   }
 }

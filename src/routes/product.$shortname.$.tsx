@@ -14,6 +14,7 @@ import { ArrowLeft } from "lucide-react";
 import { MarkdownRenderer } from "@/components/product/MarkdownRenderer";
 import { loadRemoteComponent } from "@/components/product/remoteComponentLoader";
 import { useUserType } from "@/hooks/auth/useUserType";
+import { useGuidePreferences } from "@/hooks/useGuidePreferences";
 
 export const Route = createFileRoute("/product/$shortname/$")({
   component: ProductPage,
@@ -41,6 +42,7 @@ function ProductPage() {
   const [markdownLoading, setMarkdownLoading] = useState(false);
   const { currentLanguage } = useLanguage();
   const { callsign } = useUserType();
+  const { autoOpen, disableAutoOpen } = useGuidePreferences();
 
   const {
     data: products = [],
@@ -115,6 +117,8 @@ function ProductPage() {
             meta={{
               theme: import.meta.env.VITE_THEME,
               callsign: callsign,
+              autoOpenGuides: autoOpen,
+              onDisableGuides: disableAutoOpen,
             }}
             shortname={shortname}
             onNavigate={navigate}

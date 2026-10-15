@@ -12,7 +12,6 @@
     "user": "User",
     "deployApp": "Deploy App",
     "takServer": "Takserver",
-    "feedback": "Feedback",
     "learnAboutMtls": "Learn about mTLS",
     "proudlyServedBy": "Proudly served by PV-Arki.",
     "releasedUnder": "Released under GNU GPLv3 by TAK Product Center.",
@@ -40,8 +39,7 @@
     "help": "Help",
     "imageNotAvailable": "Image not available",
     "clickToEnlarge": "Click to enlarge",
-    "footer": "Open footer",
-    "mdm": "MDM"
+    "footer": "Open footer"
   },
   "pages": {
     "login": "Login",
@@ -430,6 +428,10 @@
       "footer": "Deploy App",
       "downloadSuccess": "PDF downloaded successfully!",
       "downloadFailure": "Failed to export PDF. Please try again."
+    },
+    "guides": {
+      "label": "Show guides automatically",
+      "description": "Turn this off and people joining with this code start without guides opening by themselves. They can still open them from the info buttons."
     }
   },
   "manageUsers": {
@@ -583,7 +585,7 @@
         "steps": {
           "1": "Download your certificate",
           "2": "Your device will automatically open the installation window",
-          "3": "Enter your invitation code as the password",
+          "3": "Enter your callsign as the password",
           "4": "Select 'VPN and app usage certificate' as the certificate purpose",
           "5": "Do not change the certificate name and press 'OK'",
           "6": "Proceed to the services using the key"
@@ -607,6 +609,309 @@
           "1": "iOS requires the certificate to be trusted before use",
           "2": "You may see a prompt asking to allow certificate installation"
         }
+      }
+    },
+    "steps": {
+      "download": "Download",
+      "install": "Install",
+      "done": "Ready",
+      "keychain": "Keychain",
+      "firefox": "Firefox"
+    },
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyPassword": "Copy password",
+    "install": {
+      "next": "Installed – continue"
+    },
+    "password": "Password",
+    "done": {
+      "title": "Ready.",
+      "action": "Go to the service"
+    },
+    "android": {
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Android will ask for this. Then press OK, twice."
+      },
+      "install": {
+        "title": "PRESS OK",
+        "openDownload": "No dialog? Open the file from your downloads.",
+        "retry": "Didn't install? Open the file from your downloads."
+      },
+      "done": {
+        "caption": "When an app asks for your certificate, pick it and tap Select."
+      },
+      "notAndroid": "Not an Android phone?"
+    },
+    "ios": {
+      "notIos": "Not an iPhone?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Safari asks these. Tap Allow, then Close."
+      },
+      "install": {
+        "title": "Open Settings",
+        "retry": "Not in Settings? Download again",
+        "tiles": {
+          "open": "Profile Downloaded",
+          "install": "Install ×3 + passcode",
+          "paste": "Paste password",
+          "back": "Done, ◀ Safari"
+        },
+        "oldProfile": "Install failed? Remove the old profile: General → VPN & Device Management."
+      },
+      "done": {
+        "caption": "When Safari asks for your certificate, tap Continue."
+      },
+      "system": {
+        "allowPrompt": "“{{host}}” is trying to download a configuration profile. Do you want to allow this?",
+        "ignore": "Ignore",
+        "allow": "Allow",
+        "downloadedTitle": "Profile Downloaded",
+        "downloadedBody": "Review the profile in the Settings app if you want to install it.",
+        "close": "Close",
+        "certTitle": "“{{host}}” requires a client certificate",
+        "certBody": "Use the certificate “{{callsign}}” when connecting to this website.",
+        "cancel": "Cancel",
+        "continue": "Continue"
+      }
+    },
+    "mac": {
+      "notMac": "Not a Mac?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Your key is a file you install on this Mac.",
+        "safari": "Safari asks this the first time. Press Allow."
+      },
+      "install": {
+        "title": "Install the key",
+        "open": "Open the downloaded file",
+        "openHint": "From your browser's downloads in the top-right corner, or from your Downloads folder.",
+        "retry": "Didn't download? Download again",
+        "unlock": "Unlock with Touch ID or your Mac password",
+        "password": "Enter your callsign as the password and press OK",
+        "comeBack": "After you press OK, Keychain Access opens. Then come back to this browser and press Installed – continue."
+      },
+      "done": {
+        "pick": "Select {{callsign}} and press OK",
+        "generic": "When the browser asks for a certificate, select {{callsign}}. If your Mac asks for a password, enter your Mac login password and choose Always Allow.",
+        "allowIf": "If your Mac still asks for a password, enter your Mac password and choose Always Allow",
+        "safariLogin": "Press Login with Certificate, select {{callsign}} from the list and press Continue",
+        "safariGo": "Press Go to the service below"
+      },
+      "system": {
+        "importTitle": "Enter the password for “{{file}}”:",
+        "password": "Password:",
+        "cancel": "Cancel",
+        "ok": "OK",
+        "pickTitle": "Select a certificate",
+        "pickBody": "Select a certificate to authenticate yourself to {{host}}:443",
+        "subject": "Subject",
+        "issuer": "Issuer",
+        "pickCancel": "Cancel",
+        "signTitle": "{{browser}} wants to sign using key “privateKey” in your keychain.",
+        "signBody": "To allow this, enter the “login” keychain password.",
+        "allowAlways": "Always Allow",
+        "deny": "Deny",
+        "allow": "Allow",
+        "authTitle": "Keychain Access is trying to use information stored in your keychains.",
+        "authBody": "Keychain Access: continue with Touch ID or enter your password.",
+        "usePassword": "Use Password…",
+        "safariTitle": "Do you want to allow downloads on “{{host}}”?",
+        "safariBody": "You can change which websites can download files in Websites Settings.",
+        "safariPickTitle": "The website {{host}} requires a client certificate.",
+        "safariPickBody": "This website requires a certificate to validate your identity. Select the certificate to use when you connect to this website, then click Continue.",
+        "continue": "Continue",
+        "showCert": "Show Certificate"
+      },
+      "keychain": {
+        "title": "Set up Keychain",
+        "nextPart": "Done – next",
+        "done": "Ready – continue",
+        "open": {
+          "title": "Open the certificate",
+          "hint": "The new certificate doesn't show in the list until you search for it. Keychain Access didn't open? Open Spotlight (⌘ + space) and type Keychain Access.",
+          "steps": [
+            "Choose My Certificates",
+            "Search for {{callsign}} (⌘V)",
+            "Double-click the {{callsign}} row"
+          ]
+        },
+        "trust": {
+          "title": "Trust the certificate",
+          "steps": [
+            "Open Trust",
+            "When using this certificate: Always Trust",
+            "Close the window and confirm with Touch ID or password"
+          ]
+        },
+        "access": {
+          "title": "Allow use of the key",
+          "steps": [
+            "Open the arrow left of the {{callsign}} row",
+            "Double-click Imported Private Key",
+            "Choose Access Control",
+            "Allow all applications to access this item",
+            "Save Changes",
+            "Mac password (not Touch ID) → Allow",
+            "Close the window and Keychain Access"
+          ]
+        },
+        "ui": {
+          "app": "Keychain Access",
+          "allItems": "All Items",
+          "myCertificates": "My Certificates",
+          "certificate": "certificate",
+          "privateKey": "private key",
+          "issuedBy": "Issued by: {{issuer}}",
+          "trust": "Trust",
+          "whenUsing": "When using this certificate:",
+          "alwaysTrust": "Always Trust",
+          "attributes": "Attributes",
+          "accessControl": "Access Control",
+          "allowAll": "Allow all applications to access this item",
+          "confirm": "Confirm before allowing access",
+          "save": "Save Changes",
+          "changeTitle": "Keychain Access wants to change the access permissions of the “privateKey” keychain item."
+        }
+      }
+    },
+    "win": {
+      "notWindows": "Not Windows?",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key",
+        "caption": "Your key is a file you install on this computer."
+      },
+      "install": {
+        "title": "Install the key",
+        "openHint": "Open it from your browser's downloads in the top-right corner.",
+        "steps": [
+          "Press Next twice",
+          "Enter your callsign as the password",
+          "Press Next twice, then Finish and OK"
+        ],
+        "showAll": "Show every wizard page",
+        "retry": "Didn't download? Download again",
+        "pages": [
+          "Welcome: press Next",
+          "File to import: press Next",
+          "Enter the password (your callsign) and press Next",
+          "Certificate store: press Next",
+          "Completing: press Finish",
+          "Import successful: press OK"
+        ]
+      },
+      "done": {
+        "pick": "Your browser asks for a certificate. Select {{callsign}} and press OK.",
+        "pickFirefox": "Firefox asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "firefox": {
+        "title": "Add the key to Firefox",
+        "copy": "Copy address",
+        "copied": "Address copied",
+        "fallback": "Doesn't open?",
+        "fallbackPath": "In Firefox: ≡ menu → Settings → Privacy & Security → Certificates → View Certificates…",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import…",
+          "Open Downloads, select {{fileName}} and press Open.",
+          "Enter your callsign as the password and press Sign in.",
+          "Press OK in the certificate window, then Installed – continue here."
+        ]
+      },
+      "system": {
+        "wizardTitle": "Certificate Import Wizard",
+        "next": "Next",
+        "cancel": "Cancel",
+        "finish": "Finish",
+        "welcome": "Welcome to the Certificate Import Wizard",
+        "storeLocation": "Store Location",
+        "currentUser": "Current User",
+        "localMachine": "Local Machine",
+        "fileTitle": "File to Import",
+        "fileSubtitle": "Specify the file you want to import.",
+        "passwordTitle": "Private key protection",
+        "passwordSubtitle": "To maintain security, the private key was protected with a password.",
+        "password": "Password:",
+        "storeTitle": "Certificate Store",
+        "storeSubtitle": "Certificate stores are system areas where certificates are kept.",
+        "storeAuto": "Automatically select the certificate store based on the type of certificate",
+        "finishTitle": "Completing the Certificate Import Wizard",
+        "finishBody": "The certificate will be imported after you click Finish.",
+        "success": "The import was successful.",
+        "pickTitle": "Select a certificate for authentication",
+        "pickBody": "Site {{host}}:443 needs your credentials:",
+        "details": "Certificate information",
+        "ffManager": "Certificate Manager",
+        "ffYours": "Your Certificates",
+        "ffImport": "Import…",
+        "ffUnlockTitle": "Password Required",
+        "ffSignIn": "Sign in",
+        "ffPickBody": "“{{host}}” has requested that you identify yourself with a certificate:",
+        "ffPickDetails": "Details of selected certificate:",
+        "ffRemember": "Remember this decision"
+      }
+    },
+    "linux": {
+      "notLinux": "Not Linux?",
+      "copy": "Copy address",
+      "copied": "Address copied",
+      "fallback": "Doesn't open?",
+      "retry": "Didn't download? Download again",
+      "download": {
+        "title": "Get your key",
+        "action": "Download key"
+      },
+      "firefox": {
+        "caption": "Your key is a file you add to Firefox.",
+        "title": "Add the key to Firefox",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import…",
+          "Open Downloads, select {{fileName}} and press Select.",
+          "Enter your callsign as the password and press Sign in.",
+          "Press OK in the certificate window, then Installed – continue here."
+        ],
+        "fallbackPath": "In Firefox: ≡ menu → Settings → search “certificates” → Manage certificates → Your Certificates.",
+        "pick": "Firefox asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "chrome": {
+        "caption": "Your key is a file you add to your browser.",
+        "title": "Add the key to your browser",
+        "steps": [
+          "Copy the address, then open it in a new window with these keys:",
+          "Press Import.",
+          "Open Downloads, select {{fileName}} and press Select.",
+          "Enter your callsign as the password and press OK.",
+          "Come back to this window and press Installed – continue."
+        ],
+        "fallbackPath": "In the browser: ⋮ menu → Settings → Privacy and security → Security → Manage certificates → Your certificates.",
+        "pick": "Your browser asks for a certificate. {{callsign}} is already selected. Press OK."
+      },
+      "system": {
+        "crManager": "Certificate Manager",
+        "crPlatform": "Client certificates from platform",
+        "crImport": "Import",
+        "crNone": "No certificates",
+        "crPassword": "Enter certificate password",
+        "crPickTitle": "Select a certificate",
+        "crPickBody": "Select a certificate to authenticate yourself to {{host}}:443",
+        "crSubject": "Subject",
+        "crIssuer": "Issuer",
+        "cancel": "Cancel",
+        "ffImport": "Import…",
+        "ffManager": "Certificate Manager",
+        "ffPickBody": "“{{host}}” has requested that you identify yourself with a certificate:",
+        "ffPickDetails": "Details of selected certificate:",
+        "ffRemember": "Remember this decision",
+        "ffSignIn": "Sign in",
+        "ffUnlockTitle": "Password Required",
+        "ffYours": "Your Certificates"
       }
     }
   },
@@ -641,16 +946,50 @@
   },
   "waitingRoom": {
     "titleShort": "Awaiting Approval",
-    "title": "You are in the Waiting Room!",
-    "description": "You are awaiting your administrator to approve you to the services. Copy and send your Admin your Approval Link.",
-    "checkingStatus": "Checking enrollment status...",
-    "yourApprovalCodeLabel": "Your approval code:",
-    "copyButton": "Copy approval link for your administrator",
-    "copied": "Copied!",
+    "title": "Get approved",
+    "description": "Your admin is usually whoever gave you your invite code.",
     "actionFailed": "Action failed: {{error}}",
     "instructionsTitle": "Waiting for Approval (instructions)",
     "instructionsText": "You may approve your user either by taking the approval code from the Waiting Room screen, by asking them to provide the approval code as a link, or by entering their approval code in the “Approve Users” view.",
-    "approvedToast": "You have been approved!"
+    "approvedToast": "You have been approved!",
+    "codeLabel": "Approval code",
+    "callsignLabel": "Callsign",
+    "status": {
+      "connecting": "Connecting…",
+      "lastChecked": "Connected · last checked {{time}}",
+      "failing": "No connection to the server, retrying…",
+      "waiting": "Waiting for approval",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "link": "Approval link",
+      "keepOpen": "Leave this page open.",
+      "detailsHint": "Only if your admin asks.",
+      "close": "Close",
+      "copy": "Copy"
+    },
+    "remote": {
+      "title": "Is your admin somewhere else?",
+      "copy": "Copy link",
+      "copied": "Copied",
+      "steps": {
+        "send": "Paste it into a message to your admin",
+        "wait": "Keep this page open"
+      },
+      "phone": {
+        "send": "Send link",
+        "sendAgain": "Send again",
+        "copyAgain": "Copy again",
+        "pickApp": "Pick them in Signal, for example",
+        "paste": "Paste the link into a message to your admin",
+        "shareTitle": "Deploy App approval",
+        "shareText": "Hi! Could you approve me in Deploy App? My callsign is {{callsign}}."
+      }
+    },
+    "present": {
+      "title": "Is your admin next to you?",
+      "caption": "Show this to them"
+    },
+    "or": "or"
   },
   "adminTools": {
     "navLink": "Admin Tools",
@@ -676,46 +1015,7 @@
     "help1": "User Management - Approve, promote, demote, or remove users",
     "help2": "Invite Codes - Generate and manage user invite codes",
     "help3": "Keycloak - Advanced identity inspection and troubleshooting",
-    "help4": "External Services - Access Takserver and Battlelog servers",
-    "mdmTitle": "Devices",
-    "mdmDesc": "Plan callsigns for phones that enrol through your MDM"
-  },
-  "feedbackForm": {
-    "title": "Send feedback",
-    "description": "Let us know what you think. Your feedback helps improve the app.",
-    "roleLabel": "Your role",
-    "rolePlaceholder": "Select role...",
-    "roles": {
-      "end_user": "End user",
-      "developer": "Developer",
-      "admin": "Administrator",
-      "maintainer": "Maintainer",
-      "other": "Other"
-    },
-    "versionLabel": "The Deploy App version you are using",
-    "osLabel": "Operating system",
-    "osPlaceholder": "Select OS...",
-    "os": {
-      "linux": "Linux",
-      "windows": "Windows",
-      "macos": "macOS",
-      "android": "Android",
-      "iphone": "iPhone",
-      "other": "Other"
-    },
-    "ratingLabel": "How was your experience?",
-    "ratingPlaceholder": "Choose...",
-    "ratings": {
-      "excellent": "Excellent",
-      "good": "Good",
-      "veryBad": "Very Bad",
-      "bad": "Bad"
-    },
-    "commentsLabel": "Comments",
-    "commentsPlaceholder": "Share details, suggestions or issues...",
-    "send": "Send feedback",
-    "sending": "Sending...",
-    "thanks": "Thanks for the feedback!"
+    "help4": "External Services - Access Takserver and Battlelog servers"
   },
   "mdm": {
     "scepUrl": "SCEP URL",
@@ -769,5 +1069,8 @@
     "listPlaceholder": "KORPPI\nKIRVES\nHAUKKA",
     "chooseFile": "Choose a file",
     "listHint": "One per line, or a CSV. Only the first column is read."
+  },
+  "guides": {
+    "disableAutoOpen": "Do not show me guides automatically"
   }
 }

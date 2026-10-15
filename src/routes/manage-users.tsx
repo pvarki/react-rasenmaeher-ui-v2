@@ -9,6 +9,7 @@ import { useUserType } from "@/hooks/auth/useUserType";
 import { TypeConfirmationModal } from "@/components/ConfirmationModals";
 import { useTranslation } from "react-i18next";
 import { useUserManagement } from "@/hooks/api/useUserManagement";
+import { useGuidePreferences } from "@/hooks/useGuidePreferences";
 import {
   UserList,
   BulkActionsBar,
@@ -26,6 +27,7 @@ function ManageUsersPage() {
   const [walkthroughOpen, setWalkthroughOpen] = useState(false);
 
   const { userType, isLoading: userTypeLoading, callsign } = useUserType();
+  const { autoOpen } = useGuidePreferences();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -74,13 +76,15 @@ function ManageUsersPage() {
   }, [callsign, userTypeLoading, navigate, t]);
 
   useEffect(() => {
+    // The help button still opens this; only the uninvited appearance stops.
+    if (!autoOpen) return;
     const walkthroughKey = `manage-users-walkthrough-${callsign}`;
     const hasSeenWalkthrough = localStorage.getItem(walkthroughKey);
     if (!hasSeenWalkthrough && !userTypeLoading) {
       setWalkthroughOpen(true);
       localStorage.setItem(walkthroughKey, "true");
     }
-  }, [userTypeLoading, callsign]);
+  }, [userTypeLoading, callsign, autoOpen]);
 
   useEffect(() => {
     if (!userTypeLoading && userType !== "admin") {

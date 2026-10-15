@@ -80,7 +80,7 @@ FROM builder_base AS devel_build
 WORKDIR /app
 RUN chown node:node /app
 USER node
-COPY --chown=node:node ./package.json ./pnpm-lock.yaml /app/
+COPY --chown=node:node ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml /app/
 
 RUN pnpm install --ignore-scripts --frozen-lockfile
 

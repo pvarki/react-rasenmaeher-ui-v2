@@ -305,3 +305,27 @@
 .hljs-title {
   color: #61afef;
 }
+
+/* The Android certificate dialog dims whatever is behind it, and the page has
+   no way to know where it sits. Opacity-based pulsing would fade the
+   instruction exactly when the system is already fading it, so this scales
+   instead and stays at full brightness. */
+@keyframes attention-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.animate-attention {
+  animation: attention-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-attention {
+    animation: none;
+  }
+}

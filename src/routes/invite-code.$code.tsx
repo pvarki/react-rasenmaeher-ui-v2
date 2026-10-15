@@ -1,6 +1,7 @@
 "use client";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useHealthCheck from "@/hooks/helpers/useHealthcheck";
 import { useInvitePdfExport } from "@/hooks/helpers/useInvitePdfExport";
@@ -10,12 +11,14 @@ import { InviteSteps } from "@/components/invite-code/InviteSteps";
 import { ApprovalMethodsSection } from "@/components/invite-code/ApprovalMethodsSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/invite-code/$code")({
   component: InviteCodePage,
 });
 
-function getInviteUrl(code: string): string {
+function getInviteUrl(code: string, autoOpenGuides: boolean): string {
   let hostname = new URL(window.location.origin).hostname;
   hostname = hostname.replace(/^mtls\./, "");
   return (
@@ -24,7 +27,10 @@ function getInviteUrl(code: string): string {
     hostname +
     (window.location.port ? ":" + window.location.port : "") +
     "/login?code=" +
-    code
+    code +
+    // Carried in the link rather than stored server side: it is a default for
+    // the people joining with this code, not a deployment-wide policy.
+    (autoOpenGuides ? "" : "&guides=off")
   );
 }
 
@@ -34,7 +40,8 @@ function InviteCodePage() {
   const { deployment } = useHealthCheck();
   const { t } = useTranslation();
 
-  const inviteUrl = getInviteUrl(code ?? "");
+  const [autoOpenGuides, setAutoOpenGuides] = useState(true);
+  const inviteUrl = getInviteUrl(code ?? "", autoOpenGuides);
   const { qrRef, downloadQRCodeAsPDF } = useInvitePdfExport({
     code: code ?? "",
     inviteUrl,
@@ -66,6 +73,27 @@ function InviteCodePage() {
             qrRef={qrRef}
             onDownloadPdf={downloadQRCodeAsPDF}
           />
+
+          <div
+            data-testid="invite-guides-toggle"
+            data-auto-guides={autoOpenGuides ? "on" : "off"}
+            className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4"
+          >
+            <div className="min-w-0">
+              <Label htmlFor="invite-guides" className="cursor-pointer text-sm">
+                {t("inviteCode.guides.label")}
+              </Label>
+              <p className="pt-1 text-xs text-muted-foreground">
+                {t("inviteCode.guides.description")}
+              </p>
+            </div>
+            <Switch
+              id="invite-guides"
+              checked={autoOpenGuides}
+              onCheckedChange={setAutoOpenGuides}
+              aria-label={t("inviteCode.guides.label")}
+            />
+          </div>
 
           <InviteSteps />
 
