@@ -103,6 +103,8 @@ CMD ["pnpm", "exec", "vite", "--host", "0.0.0.0", "--port", "8080"]
 # Hacking #
 ###########
 FROM devel_build AS devel_shell
+# devel_build drops to node for DevSpace, the hacking shell needs root for apt
+USER root
 # Copy everything to the image
 WORKDIR /app
 COPY . /app
