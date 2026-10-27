@@ -39,7 +39,8 @@
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi",
-    "footer": "Avaa alatunniste"
+    "footer": "Avaa alatunniste",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -1015,7 +1016,9 @@
     "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
     "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
     "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia",
+    "mdmTitle": "Laitteet",
+    "mdmDesc": "Suunnittele kutsutunnukset MDM:n kautta liittyville puhelimille"
   },
   "mdm": {
     "scepUrl": "SCEP-osoite",

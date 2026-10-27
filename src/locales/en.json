@@ -39,7 +39,8 @@
     "help": "Help",
     "imageNotAvailable": "Image not available",
     "clickToEnlarge": "Click to enlarge",
-    "footer": "Open footer"
+    "footer": "Open footer",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Login",
@@ -1015,7 +1016,9 @@
     "help1": "User Management - Approve, promote, demote, or remove users",
     "help2": "Invite Codes - Generate and manage user invite codes",
     "help3": "Keycloak - Advanced identity inspection and troubleshooting",
-    "help4": "External Services - Access Takserver and Battlelog servers"
+    "help4": "External Services - Access Takserver and Battlelog servers",
+    "mdmTitle": "Devices",
+    "mdmDesc": "Plan callsigns for phones that enrol through your MDM"
   },
   "mdm": {
     "scepUrl": "SCEP URL",

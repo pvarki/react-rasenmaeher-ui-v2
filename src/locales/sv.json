@@ -39,7 +39,8 @@
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora",
-    "footer": "Öppna sidfot"
+    "footer": "Öppna sidfot",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Logga in",
@@ -1015,7 +1016,9 @@
     "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
     "help2": "Inbjudningskoder – generera och hantera koder",
     "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL"
+    "help4": "Externa tjänster – åtkomst till TAK och BL",
+    "mdmTitle": "Enheter",
+    "mdmDesc": "Planera anropssignaler för telefoner som ansluter via din MDM"
   },
   "mdm": {
     "scepUrl": "SCEP-adress",
