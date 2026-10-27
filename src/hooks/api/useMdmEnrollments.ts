@@ -3,7 +3,6 @@ import type { EnrollmentState } from "./model/enrollmentState";
 
 export interface MdmEnrollment {
   callsign: string;
-  approvecode: string;
   state: EnrollmentState;
   /** What the MDM has to be told this device is called. */
   deviceName: string;
@@ -34,11 +33,9 @@ async function getMdmEnrollments(): Promise<MdmEnrollment[]> {
     .filter((item) => item.mdm)
     .map((item) => ({
       callsign: item.callsign,
-      approvecode: item.approvecode,
       state: item.state,
-      // The callsign alone is not enough. The code is what proves to the deployment that this
-      // device was meant to have this callsign, and it travels in the certificate request, so
-      // the MDM has to carry both.
+      // The code proves to the deployment that this device was meant to have this callsign. It
+      // travels in the certificate request, so the MDM has to carry both.
       deviceName: `${item.callsign}@${item.approvecode}`,
     }));
 }
@@ -50,8 +47,23 @@ type UseMdmEnrollmentsOptions = UseQueryOptions<
   "mdmEnrollments"
 >;
 
-/** Devices planned for MDM enrolment. A separate key from "enrollmentList", which two other
- * hooks already share and invalidate on their own schedule. */
+/** Devices planned for MDM enrolment */
 export function useMdmEnrollments(options?: UseMdmEnrollmentsOptions) {
   return useQuery("mdmEnrollments", () => getMdmEnrollments(), options);
+}
+
+/** Plan one callsign for a device. No login token is issued for it; only the MDM agent may
+ * complete it. */
+export async function planMdmEnrollment(callsign: string): Promise<void> {
+  const res = await fetch("/api/v1/enrollment/init", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ callsign, mdm: true }),
+  });
+  if (res.status !== 200) {
+    const data = (await res.json().catch(() => ({}))) as { detail?: unknown };
+    throw new Error(
+      typeof data.detail === "string" ? data.detail : res.statusText,
+    );
+  }
 }
