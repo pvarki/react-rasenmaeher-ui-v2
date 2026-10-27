@@ -9,63 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WaitingRoomRouteImport } from './routes/waiting-room'
-import { Route as MtlsInstallRouteImport } from './routes/mtls-install'
-import { Route as ManageUsersRouteImport } from './routes/manage-users'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ErrorRouteImport } from './routes/error'
-import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
-import { Route as ApproveUsersRouteImport } from './routes/approve-users'
-import { Route as ApproveUserRouteImport } from './routes/approve-user'
-import { Route as AdminToolsRouteImport } from './routes/admin-tools'
-import { Route as AddUsersRouteImport } from './routes/add-users'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddUsersRouteImport } from './routes/add-users'
+import { Route as AdminToolsRouteImport } from './routes/admin-tools'
+import { Route as ApproveUserRouteImport } from './routes/approve-user'
+import { Route as ApproveUsersRouteImport } from './routes/approve-users'
+import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
+import { Route as ErrorRouteImport } from './routes/error'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ManageUsersRouteImport } from './routes/manage-users'
+import { Route as MtlsInstallRouteImport } from './routes/mtls-install'
+import { Route as WaitingRoomRouteImport } from './routes/waiting-room'
 import { Route as InviteCodeCodeRouteImport } from './routes/invite-code.$code'
 import { Route as ProductShortnameSplatRouteImport } from './routes/product.$shortname.$'
 
-const WaitingRoomRoute = WaitingRoomRouteImport.update({
-  id: '/waiting-room',
-  path: '/waiting-room',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MtlsInstallRoute = MtlsInstallRouteImport.update({
-  id: '/mtls-install',
-  path: '/mtls-install',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ManageUsersRoute = ManageUsersRouteImport.update({
-  id: '/manage-users',
-  path: '/manage-users',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ErrorRoute = ErrorRouteImport.update({
-  id: '/error',
-  path: '/error',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CallsignSetupRoute = CallsignSetupRouteImport.update({
-  id: '/callsign-setup',
-  path: '/callsign-setup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApproveUsersRoute = ApproveUsersRouteImport.update({
-  id: '/approve-users',
-  path: '/approve-users',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApproveUserRoute = ApproveUserRouteImport.update({
-  id: '/approve-user',
-  path: '/approve-user',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminToolsRoute = AdminToolsRouteImport.update({
-  id: '/admin-tools',
-  path: '/admin-tools',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddUsersRoute = AddUsersRouteImport.update({
@@ -73,9 +33,49 @@ const AddUsersRoute = AddUsersRouteImport.update({
   path: '/add-users',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminToolsRoute = AdminToolsRouteImport.update({
+  id: '/admin-tools',
+  path: '/admin-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApproveUserRoute = ApproveUserRouteImport.update({
+  id: '/approve-user',
+  path: '/approve-user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApproveUsersRoute = ApproveUsersRouteImport.update({
+  id: '/approve-users',
+  path: '/approve-users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CallsignSetupRoute = CallsignSetupRouteImport.update({
+  id: '/callsign-setup',
+  path: '/callsign-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorRoute = ErrorRouteImport.update({
+  id: '/error',
+  path: '/error',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManageUsersRoute = ManageUsersRouteImport.update({
+  id: '/manage-users',
+  path: '/manage-users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MtlsInstallRoute = MtlsInstallRouteImport.update({
+  id: '/mtls-install',
+  path: '/mtls-install',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WaitingRoomRoute = WaitingRoomRouteImport.update({
+  id: '/waiting-room',
+  path: '/waiting-room',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InviteCodeCodeRoute = InviteCodeCodeRouteImport.update({
@@ -201,67 +201,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/waiting-room': {
-      id: '/waiting-room'
-      path: '/waiting-room'
-      fullPath: '/waiting-room'
-      preLoaderRoute: typeof WaitingRoomRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mtls-install': {
-      id: '/mtls-install'
-      path: '/mtls-install'
-      fullPath: '/mtls-install'
-      preLoaderRoute: typeof MtlsInstallRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/manage-users': {
-      id: '/manage-users'
-      path: '/manage-users'
-      fullPath: '/manage-users'
-      preLoaderRoute: typeof ManageUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/error': {
-      id: '/error'
-      path: '/error'
-      fullPath: '/error'
-      preLoaderRoute: typeof ErrorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/callsign-setup': {
-      id: '/callsign-setup'
-      path: '/callsign-setup'
-      fullPath: '/callsign-setup'
-      preLoaderRoute: typeof CallsignSetupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approve-users': {
-      id: '/approve-users'
-      path: '/approve-users'
-      fullPath: '/approve-users'
-      preLoaderRoute: typeof ApproveUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approve-user': {
-      id: '/approve-user'
-      path: '/approve-user'
-      fullPath: '/approve-user'
-      preLoaderRoute: typeof ApproveUserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin-tools': {
-      id: '/admin-tools'
-      path: '/admin-tools'
-      fullPath: '/admin-tools'
-      preLoaderRoute: typeof AdminToolsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-users': {
@@ -271,11 +215,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin-tools': {
+      id: '/admin-tools'
+      path: '/admin-tools'
+      fullPath: '/admin-tools'
+      preLoaderRoute: typeof AdminToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approve-user': {
+      id: '/approve-user'
+      path: '/approve-user'
+      fullPath: '/approve-user'
+      preLoaderRoute: typeof ApproveUserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approve-users': {
+      id: '/approve-users'
+      path: '/approve-users'
+      fullPath: '/approve-users'
+      preLoaderRoute: typeof ApproveUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/callsign-setup': {
+      id: '/callsign-setup'
+      path: '/callsign-setup'
+      fullPath: '/callsign-setup'
+      preLoaderRoute: typeof CallsignSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/error': {
+      id: '/error'
+      path: '/error'
+      fullPath: '/error'
+      preLoaderRoute: typeof ErrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manage-users': {
+      id: '/manage-users'
+      path: '/manage-users'
+      fullPath: '/manage-users'
+      preLoaderRoute: typeof ManageUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mtls-install': {
+      id: '/mtls-install'
+      path: '/mtls-install'
+      fullPath: '/mtls-install'
+      preLoaderRoute: typeof MtlsInstallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waiting-room': {
+      id: '/waiting-room'
+      path: '/waiting-room'
+      fullPath: '/waiting-room'
+      preLoaderRoute: typeof WaitingRoomRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invite-code/$code': {
