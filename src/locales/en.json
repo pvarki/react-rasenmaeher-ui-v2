@@ -1035,7 +1035,14 @@
     "copyFailed": "Could not copy",
     "callsigns": "Callsigns, one per line",
     "loadFailed": "Could not load the devices",
-    "statusRejected": "Rejected"
+    "statusRejected": "Rejected",
+    "enrolmentOpen": "Devices can enrol until {{time}}",
+    "enrolmentClosed": "Device enrolment is closed",
+    "open": "Open for 24 hours",
+    "close": "Close now",
+    "scepUrl": "SCEP URL",
+    "challenge": "Challenge",
+    "windowFailed": "Could not change device enrolment"
   },
   "guides": {
     "disableAutoOpen": "Do not show me guides automatically"

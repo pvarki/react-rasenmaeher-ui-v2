@@ -7,7 +7,9 @@ import { Copy } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
   planMdmEnrollment,
+  setMdmEnrolmentWindow,
   useMdmEnrollments,
+  useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
 import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
 import { Button } from "@/components/ui/button";
@@ -27,6 +29,9 @@ export const Route = createFileRoute("/mdm")({
   component: MdmPage,
 });
 
+/** How long opening enrolment lasts before it closes itself */
+const ENROLMENT_HOURS = 24;
+
 function StatusBadge({ state }: { state: EnrollmentState }) {
   const { t } = useTranslation();
   if (state === EnrollmentState.PENDING) {
@@ -45,6 +50,8 @@ function MdmPage() {
   const { data: devices, isLoading, isError } = useMdmEnrollments();
   const [callsigns, setCallsigns] = useState("");
   const [planning, setPlanning] = useState(false);
+  const { data: settings } = useMdmSettings();
+  const [switching, setSwitching] = useState(false);
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -75,6 +82,19 @@ function MdmPage() {
     void queryClient.invalidateQueries("mdmEnrollments");
   };
 
+  const isOpen = Boolean(settings?.open_until);
+
+  const switchWindow = async () => {
+    setSwitching(true);
+    try {
+      await setMdmEnrolmentWindow(isOpen ? 0 : ENROLMENT_HOURS);
+    } catch {
+      toast.error(t("mdm.windowFailed"));
+    }
+    setSwitching(false);
+    void queryClient.invalidateQueries("mdmSettings");
+  };
+
   const copy = (name: string) => {
     navigator.clipboard
       .writeText(name)
@@ -89,6 +109,56 @@ function MdmPage() {
         </h1>
         <p className="text-sm text-muted-foreground">{t("mdm.subtitle")}</p>
       </header>
+
+      {settings && (
+        <section
+          data-testid="mdm-enrolment"
+          data-open={isOpen ? "true" : "false"}
+          className="rounded-2xl border border-border p-4 space-y-3"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm font-medium">
+              {settings.open_until
+                ? t("mdm.enrolmentOpen", {
+                    time: new Date(settings.open_until).toLocaleString(),
+                  })
+                : t("mdm.enrolmentClosed")}
+            </p>
+            <Button
+              data-testid="mdm-window"
+              variant={isOpen ? "outline" : "default"}
+              onClick={() => void switchWindow()}
+              disabled={switching}
+            >
+              {isOpen ? t("mdm.close") : t("mdm.open")}
+            </Button>
+          </div>
+          <dl className="grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-1 text-sm">
+            {(
+              [
+                ["mdm.scepUrl", settings.scep_url],
+                ["mdm.challenge", settings.challenge],
+              ] as const
+            ).map(([label, value]) => (
+              <div key={label} className="contents">
+                <dt className="text-muted-foreground">{t(label)}</dt>
+                <dd className="font-mono break-all">
+                  {value}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="ml-2 h-7 w-7"
+                    aria-label={t("mdm.copy")}
+                    onClick={() => copy(value)}
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <section className="space-y-2">
         <Label htmlFor="mdm-callsigns">{t("mdm.callsigns")}</Label>

@@ -1035,7 +1035,14 @@
     "copyFailed": "Kopiointi ei onnistunut",
     "callsigns": "Kutsutunnukset, yksi riviä kohden",
     "loadFailed": "Laitteita ei voitu ladata",
-    "statusRejected": "Hylätty"
+    "statusRejected": "Hylätty",
+    "enrolmentOpen": "Laitteet voivat liittyä {{time}} asti",
+    "enrolmentClosed": "Laitteiden liittyminen on suljettu",
+    "open": "Avaa 24 tunniksi",
+    "close": "Sulje nyt",
+    "scepUrl": "SCEP-osoite",
+    "challenge": "Haaste",
+    "windowFailed": "Liittymisen tilaa ei voitu muuttaa"
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"

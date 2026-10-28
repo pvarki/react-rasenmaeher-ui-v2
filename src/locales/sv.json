@@ -1035,7 +1035,14 @@
     "copyFailed": "Kunde inte kopiera",
     "callsigns": "Anropssignaler, en per rad",
     "loadFailed": "Kunde inte läsa in enheterna",
-    "statusRejected": "Avvisad"
+    "statusRejected": "Avvisad",
+    "enrolmentOpen": "Enheter kan ansluta till {{time}}",
+    "enrolmentClosed": "Anslutning av enheter är stängd",
+    "open": "Öppna i 24 timmar",
+    "close": "Stäng nu",
+    "scepUrl": "SCEP-adress",
+    "challenge": "Utmaning",
+    "windowFailed": "Kunde inte ändra anslutningen av enheter"
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"
