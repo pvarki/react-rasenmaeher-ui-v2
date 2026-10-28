@@ -12,6 +12,7 @@ import {
   useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
 import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
+import { useRejectUser } from "@/hooks/api/useRejectUser";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -52,6 +53,11 @@ function MdmPage() {
   const [planning, setPlanning] = useState(false);
   const { data: settings } = useMdmSettings();
   const [switching, setSwitching] = useState(false);
+  const rejectDevice = useRejectUser({
+    onSuccess: () => void queryClient.invalidateQueries("mdmEnrollments"),
+    onError: (error) =>
+      toast.error(t("mdm.rejectFailed", { error: error.message })),
+  });
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -196,7 +202,7 @@ function MdmPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>{t("mdm.columnDeviceName")}</TableHead>
-                  <TableHead className="w-28 text-right">
+                  <TableHead className="w-48 text-right">
                     {t("mdm.columnStatus")}
                   </TableHead>
                 </TableRow>
@@ -220,7 +226,32 @@ function MdmPage() {
                         <Copy className="w-4 h-4" />
                       </Button>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right whitespace-nowrap">
+                      {device.state === EnrollmentState.PENDING && (
+                        <Button
+                          data-testid="mdm-reject"
+                          variant="ghost"
+                          size="sm"
+                          className="mr-2"
+                          disabled={rejectDevice.isLoading}
+                          onClick={() => {
+                            // A rejected device can never enrol, and its callsign is spent.
+                            if (
+                              window.confirm(
+                                t("mdm.rejectConfirm", {
+                                  callsign: device.callsign,
+                                }),
+                              )
+                            ) {
+                              rejectDevice.mutate({
+                                callsign: device.callsign,
+                              });
+                            }
+                          }}
+                        >
+                          {t("mdm.reject")}
+                        </Button>
+                      )}
                       <StatusBadge state={device.state} />
                     </TableCell>
                   </TableRow>

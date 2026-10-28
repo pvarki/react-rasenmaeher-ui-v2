@@ -88,9 +88,12 @@ async function getMdmSettings(): Promise<MdmSettings> {
   return (await res.json()) as MdmSettings;
 }
 
-/** What to configure the MDM with, and until when devices may enrol */
+/** What to configure the MDM with, and until when devices may enrol. Re-read every minute so
+ * the page notices when the window closes itself. */
 export function useMdmSettings() {
-  return useQuery("mdmSettings", () => getMdmSettings());
+  return useQuery("mdmSettings", () => getMdmSettings(), {
+    refetchInterval: 60_000,
+  });
 }
 
 /** Open device enrolment for this many hours, or close it with 0. It closes itself when the

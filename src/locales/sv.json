@@ -1042,7 +1042,10 @@
     "close": "Stäng nu",
     "scepUrl": "SCEP-adress",
     "challenge": "Utmaning",
-    "windowFailed": "Kunde inte ändra anslutningen av enheter"
+    "windowFailed": "Kunde inte ändra anslutningen av enheter",
+    "reject": "Avvisa",
+    "rejectConfirm": "Avvisa {{callsign}}? Enheten kan sedan aldrig ansluta, och anropssignalen kan inte användas igen.",
+    "rejectFailed": "Kunde inte avvisa: {{error}}"
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"

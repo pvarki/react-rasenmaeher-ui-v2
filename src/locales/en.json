@@ -1042,7 +1042,10 @@
     "close": "Close now",
     "scepUrl": "SCEP URL",
     "challenge": "Challenge",
-    "windowFailed": "Could not change device enrolment"
+    "windowFailed": "Could not change device enrolment",
+    "reject": "Reject",
+    "rejectConfirm": "Reject {{callsign}}? The device can then never enrol, and the callsign cannot be used again.",
+    "rejectFailed": "Could not reject: {{error}}"
   },
   "guides": {
     "disableAutoOpen": "Do not show me guides automatically"
