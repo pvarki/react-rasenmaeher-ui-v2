@@ -1018,34 +1018,25 @@
     "help3": "Keycloak – granskning av identiteter och felsökning",
     "help4": "Externa tjänster – åtkomst till TAK och BL",
     "mdmTitle": "Enheter",
-    "mdmDesc": "Planera anropssignaler för telefoner som ansluter via din MDM"
+    "mdmDesc": "Anslut telefoner via din MDM"
   },
   "mdm": {
     "title": "MDM",
-    "subtitle": "Telefoner ansluter via din MDM och kommer tillbaka som användare här.",
+    "subtitle": "Telefoner ansluter via din MDM och kommer tillbaka som användare här, under det namn din MDM ger dem.",
     "forbidden": "Endast administratörer kan hantera enheter",
-    "plan": "Lägg till",
-    "devicesDesc": "Ge varje värd dess namn i din MDM.",
+    "devicesDesc": "Anslutna telefoner: {{count}}. Varje anropssignal är det namn din MDM gav telefonen.",
+    "columnCallsign": "Anropssignal",
     "emptyTitle": "Inga enheter ännu",
-    "columnDeviceName": "Namn i MDM:en",
-    "columnStatus": "Status",
-    "statusWaiting": "Väntar",
-    "statusEnrolled": "Ansluten",
     "copy": "Kopiera",
     "copyFailed": "Kunde inte kopiera",
-    "callsigns": "Anropssignaler, en per rad",
     "loadFailed": "Kunde inte läsa in enheterna",
-    "statusRejected": "Avvisad",
     "enrolmentOpen": "Enheter kan ansluta till {{time}}",
     "enrolmentClosed": "Anslutning av enheter är stängd",
-    "open": "Öppna i 24 timmar",
+    "open": "Öppna i 2 timmar",
     "close": "Stäng nu",
     "scepUrl": "SCEP-adress",
     "challenge": "Utmaning",
-    "windowFailed": "Kunde inte ändra anslutningen av enheter",
-    "reject": "Avvisa",
-    "rejectConfirm": "Avvisa {{callsign}}? Enheten kan sedan aldrig ansluta, och anropssignalen kan inte användas igen.",
-    "rejectFailed": "Kunde inte avvisa: {{error}}"
+    "windowFailed": "Kunde inte ändra anslutningen av enheter"
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"

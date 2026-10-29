@@ -6,17 +6,11 @@ import { toast } from "sonner";
 import { Copy } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
-  planMdmEnrollment,
   setMdmEnrolmentWindow,
-  useMdmEnrollments,
+  useMdmDevices,
   useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
-import { EnrollmentState } from "@/hooks/api/model/enrollmentState";
-import { useRejectUser } from "@/hooks/api/useRejectUser";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Table,
   TableBody,
@@ -31,33 +25,15 @@ export const Route = createFileRoute("/mdm")({
 });
 
 /** How long opening enrolment lasts before it closes itself */
-const ENROLMENT_HOURS = 24;
-
-function StatusBadge({ state }: { state: EnrollmentState }) {
-  const { t } = useTranslation();
-  if (state === EnrollmentState.PENDING) {
-    return <Badge variant="secondary">{t("mdm.statusWaiting")}</Badge>;
-  }
-  if (state === EnrollmentState.APPROVED) {
-    return <Badge>{t("mdm.statusEnrolled")}</Badge>;
-  }
-  return <Badge variant="destructive">{t("mdm.statusRejected")}</Badge>;
-}
+const ENROLMENT_HOURS = 2;
 
 function MdmPage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { userType, isLoading: userTypeLoading } = useUserType();
-  const { data: devices, isLoading, isError } = useMdmEnrollments();
-  const [callsigns, setCallsigns] = useState("");
-  const [planning, setPlanning] = useState(false);
+  const { data: devices, isLoading, isError } = useMdmDevices();
   const { data: settings } = useMdmSettings();
   const [switching, setSwitching] = useState(false);
-  const rejectDevice = useRejectUser({
-    onSuccess: () => void queryClient.invalidateQueries("mdmEnrollments"),
-    onError: (error) =>
-      toast.error(t("mdm.rejectFailed", { error: error.message })),
-  });
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -70,23 +46,6 @@ function MdmPage() {
       </div>
     );
   }
-
-  // One at a time, so a refusal names its callsign. The ones refused stay in the box to fix.
-  const plan = async () => {
-    setPlanning(true);
-    const refused: string[] = [];
-    for (const callsign of callsigns.split(/[\s,;]+/).filter(Boolean)) {
-      try {
-        await planMdmEnrollment(callsign);
-      } catch (error) {
-        refused.push(callsign);
-        toast.error(`${callsign}: ${(error as Error).message}`);
-      }
-    }
-    setCallsigns(refused.join("\n"));
-    setPlanning(false);
-    void queryClient.invalidateQueries("mdmEnrollments");
-  };
 
   const isOpen = Boolean(settings?.open_until);
 
@@ -166,26 +125,10 @@ function MdmPage() {
         </section>
       )}
 
-      <section className="space-y-2">
-        <Label htmlFor="mdm-callsigns">{t("mdm.callsigns")}</Label>
-        <Textarea
-          id="mdm-callsigns"
-          data-testid="mdm-callsigns"
-          value={callsigns}
-          onChange={(event) => setCallsigns(event.target.value)}
-          disabled={planning}
-        />
-        <Button
-          data-testid="mdm-plan"
-          onClick={() => void plan()}
-          disabled={planning || !callsigns.trim()}
-        >
-          {t("mdm.plan")}
-        </Button>
-      </section>
-
       <section data-testid="mdm-devices" className="space-y-3">
-        <p className="text-sm text-muted-foreground">{t("mdm.devicesDesc")}</p>
+        <p className="text-sm text-muted-foreground">
+          {t("mdm.devicesDesc", { count: devices?.length ?? 0 })}
+        </p>
         {isLoading || userTypeLoading ? (
           <div className="w-8 h-8 mx-auto border-4 border-primary border-t-transparent rounded-full animate-spin" />
         ) : isError ? (
@@ -201,10 +144,7 @@ function MdmPage() {
             <Table data-testid="mdm-device-table">
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("mdm.columnDeviceName")}</TableHead>
-                  <TableHead className="w-48 text-right">
-                    {t("mdm.columnStatus")}
-                  </TableHead>
+                  <TableHead>{t("mdm.columnCallsign")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -215,44 +155,7 @@ function MdmPage() {
                     key={device.callsign}
                   >
                     <TableCell className="font-mono">
-                      {device.deviceName}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="ml-2 h-7 w-7"
-                        aria-label={t("mdm.copy")}
-                        onClick={() => copy(device.deviceName)}
-                      >
-                        <Copy className="w-4 h-4" />
-                      </Button>
-                    </TableCell>
-                    <TableCell className="text-right whitespace-nowrap">
-                      {device.state === EnrollmentState.PENDING && (
-                        <Button
-                          data-testid="mdm-reject"
-                          variant="ghost"
-                          size="sm"
-                          className="mr-2"
-                          disabled={rejectDevice.isLoading}
-                          onClick={() => {
-                            // A rejected device can never enrol, and its callsign is spent.
-                            if (
-                              window.confirm(
-                                t("mdm.rejectConfirm", {
-                                  callsign: device.callsign,
-                                }),
-                              )
-                            ) {
-                              rejectDevice.mutate({
-                                callsign: device.callsign,
-                              });
-                            }
-                          }}
-                        >
-                          {t("mdm.reject")}
-                        </Button>
-                      )}
-                      <StatusBadge state={device.state} />
+                      {device.callsign}
                     </TableCell>
                   </TableRow>
                 ))}

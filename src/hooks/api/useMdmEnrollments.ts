@@ -1,77 +1,53 @@
 import { type UseQueryOptions, useQuery } from "react-query";
-import type { EnrollmentState } from "./model/enrollmentState";
 
-export interface MdmEnrollment {
+export interface MdmDevice {
+  /** The name the MDM gave the device, which became its callsign */
   callsign: string;
-  state: EnrollmentState;
-  /** What the MDM has to be told this device is called. */
-  deviceName: string;
 }
 
-interface CallsignItem {
-  approvecode: string;
+interface Person {
   callsign: string;
-  state: EnrollmentState;
-  mdm?: boolean;
+  extra?: { mdm?: boolean } | null;
 }
 
-interface EnrollmentListResponse {
-  callsign_list: CallsignItem[];
+interface PeopleListResponse {
+  callsign_list: Person[];
 }
 
-async function getMdmEnrollments(): Promise<MdmEnrollment[]> {
-  const res = await fetch("/api/v1/enrollment/list", {
+async function getMdmDevices(): Promise<MdmDevice[]> {
+  const res = await fetch("/api/v1/people/list", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   if (res.status !== 200) {
-    throw new Error("Failed to read the enrollment list");
+    throw new Error("Failed to read the user list");
   }
-  const data = (await res.json()) as EnrollmentListResponse;
-
+  const data = (await res.json()) as PeopleListResponse;
   return data.callsign_list
-    .filter((item) => item.mdm)
-    .map((item) => ({
-      callsign: item.callsign,
-      state: item.state,
-      // The code proves to the deployment that this device was meant to have this callsign. It
-      // travels in the certificate request, so the MDM has to carry both.
-      deviceName: `${item.callsign}@${item.approvecode}`,
-    }));
+    .filter((person) => person.extra?.mdm)
+    .map((person) => ({ callsign: person.callsign }));
 }
 
-type UseMdmEnrollmentsOptions = UseQueryOptions<
-  MdmEnrollment[],
+type UseMdmDevicesOptions = UseQueryOptions<
+  MdmDevice[],
   Error,
-  MdmEnrollment[],
-  "mdmEnrollments"
+  MdmDevice[],
+  "mdmDevices"
 >;
 
-/** Devices planned for MDM enrolment */
-export function useMdmEnrollments(options?: UseMdmEnrollmentsOptions) {
-  return useQuery("mdmEnrollments", () => getMdmEnrollments(), options);
-}
-
-/** Plan one callsign for a device. No login token is issued for it; only the MDM agent may
- * complete it. */
-export async function planMdmEnrollment(callsign: string): Promise<void> {
-  const res = await fetch("/api/v1/enrollment/init", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ callsign, mdm: true }),
+/** Users that enrolled through the MDM. Re-read while the page is open, so phones show up as they
+ * enrol. */
+export function useMdmDevices(options?: UseMdmDevicesOptions) {
+  return useQuery("mdmDevices", () => getMdmDevices(), {
+    refetchInterval: 10_000,
+    ...options,
   });
-  if (res.status !== 200) {
-    const data = (await res.json().catch(() => ({}))) as { detail?: unknown };
-    throw new Error(
-      typeof data.detail === "string" ? data.detail : res.statusText,
-    );
-  }
 }
 
 export interface MdmSettings {
   /** Where the MDM sends each device's certificate request */
   scep_url: string;
-  /** Not a secret: the MDM hands it to every device */
+  /** The MDM hands it to every device, so the open window is what really gates enrolment */
   challenge: string;
   /** When the enrolment window closes, or null while it is closed */
   open_until: string | null;

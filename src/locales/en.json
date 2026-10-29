@@ -1018,34 +1018,25 @@
     "help3": "Keycloak - Advanced identity inspection and troubleshooting",
     "help4": "External Services - Access Takserver and Battlelog servers",
     "mdmTitle": "Devices",
-    "mdmDesc": "Plan callsigns for phones that enrol through your MDM"
+    "mdmDesc": "Let phones enrol through your MDM"
   },
   "mdm": {
     "title": "MDM",
-    "subtitle": "Phones enrol through your MDM and come back as users here.",
+    "subtitle": "Phones enrol through your MDM and come back as users here, under the name your MDM gives them.",
     "forbidden": "Only admins can manage devices",
-    "plan": "Add",
-    "devicesDesc": "Give each host its name in your MDM.",
+    "devicesDesc": "Phones enrolled: {{count}}. Each callsign is the name your MDM gave the phone.",
+    "columnCallsign": "Callsign",
     "emptyTitle": "No devices yet",
-    "columnDeviceName": "Name in the MDM",
-    "columnStatus": "Status",
-    "statusWaiting": "Waiting",
-    "statusEnrolled": "Enrolled",
     "copy": "Copy",
     "copyFailed": "Could not copy",
-    "callsigns": "Callsigns, one per line",
     "loadFailed": "Could not load the devices",
-    "statusRejected": "Rejected",
     "enrolmentOpen": "Devices can enrol until {{time}}",
     "enrolmentClosed": "Device enrolment is closed",
-    "open": "Open for 24 hours",
+    "open": "Open for 2 hours",
     "close": "Close now",
     "scepUrl": "SCEP URL",
     "challenge": "Challenge",
-    "windowFailed": "Could not change device enrolment",
-    "reject": "Reject",
-    "rejectConfirm": "Reject {{callsign}}? The device can then never enrol, and the callsign cannot be used again.",
-    "rejectFailed": "Could not reject: {{error}}"
+    "windowFailed": "Could not change device enrolment"
   },
   "guides": {
     "disableAutoOpen": "Do not show me guides automatically"

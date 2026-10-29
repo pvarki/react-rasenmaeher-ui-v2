@@ -84,10 +84,7 @@ function ApproveUsersPage() {
   });
 
   const waitingUsers =
-    enrollmentList?.filter(
-      // Devices planned for an MDM are not people waiting, and rejecting one spends its callsign.
-      (u) => u.state === EnrollmentState.PENDING && !u.mdm,
-    ) || [];
+    enrollmentList?.filter((u) => u.state === EnrollmentState.PENDING) || [];
 
   const handleApproveClick = (callsign: string) => {
     setSelectedUser(callsign);

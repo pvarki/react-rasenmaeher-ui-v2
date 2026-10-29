@@ -1018,34 +1018,25 @@
     "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
     "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia",
     "mdmTitle": "Laitteet",
-    "mdmDesc": "Suunnittele kutsutunnukset MDM:n kautta liittyville puhelimille"
+    "mdmDesc": "Liitä puhelimet MDM:n kautta"
   },
   "mdm": {
     "title": "MDM",
-    "subtitle": "Puhelimet liittyvät MDM:n kautta ja palaavat tänne käyttäjinä.",
+    "subtitle": "Puhelimet liittyvät MDM:n kautta ja palaavat tänne käyttäjinä sillä nimellä, jonka MDM niille antaa.",
     "forbidden": "Vain ylläpitäjät voivat hallita laitteita",
-    "plan": "Lisää",
-    "devicesDesc": "Anna kullekin laitteelle sen nimi MDM:ssä.",
+    "devicesDesc": "Liitettyjä puhelimia: {{count}}. Kunkin kutsutunnus on nimi, jonka MDM sille antoi.",
+    "columnCallsign": "Kutsutunnus",
     "emptyTitle": "Ei vielä laitteita",
-    "columnDeviceName": "Nimi MDM:ssä",
-    "columnStatus": "Tila",
-    "statusWaiting": "Odottaa",
-    "statusEnrolled": "Liitetty",
     "copy": "Kopioi",
     "copyFailed": "Kopiointi ei onnistunut",
-    "callsigns": "Kutsutunnukset, yksi riviä kohden",
     "loadFailed": "Laitteita ei voitu ladata",
-    "statusRejected": "Hylätty",
     "enrolmentOpen": "Laitteet voivat liittyä {{time}} asti",
     "enrolmentClosed": "Laitteiden liittyminen on suljettu",
-    "open": "Avaa 24 tunniksi",
+    "open": "Avaa 2 tunniksi",
     "close": "Sulje nyt",
     "scepUrl": "SCEP-osoite",
     "challenge": "Haaste",
-    "windowFailed": "Liittymisen tilaa ei voitu muuttaa",
-    "reject": "Hylkää",
-    "rejectConfirm": "Hylätäänkö {{callsign}}? Laite ei voi sen jälkeen liittyä, eikä kutsutunnusta voi käyttää uudelleen.",
-    "rejectFailed": "Hylkääminen ei onnistunut: {{error}}"
+    "windowFailed": "Liittymisen tilaa ei voitu muuttaa"
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"
