@@ -39,7 +39,8 @@
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi",
-    "footer": "Avaa alatunniste"
+    "footer": "Avaa alatunniste",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -1015,7 +1016,36 @@
     "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
     "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
     "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia",
+    "mdmTitle": "Laitteet",
+    "mdmDesc": "Suunnittele kutsutunnukset MDM:n kautta liittyville puhelimille"
+  },
+  "mdm": {
+    "title": "MDM",
+    "subtitle": "Puhelimet liittyvät MDM:n kautta ja palaavat tänne käyttäjinä.",
+    "forbidden": "Vain ylläpitäjät voivat hallita laitteita",
+    "plan": "Lisää",
+    "devicesDesc": "Anna kullekin laitteelle sen nimi MDM:ssä.",
+    "emptyTitle": "Ei vielä laitteita",
+    "columnDeviceName": "Nimi MDM:ssä",
+    "columnStatus": "Tila",
+    "statusWaiting": "Odottaa",
+    "statusEnrolled": "Liitetty",
+    "copy": "Kopioi",
+    "copyFailed": "Kopiointi ei onnistunut",
+    "callsigns": "Kutsutunnukset, yksi riviä kohden",
+    "loadFailed": "Laitteita ei voitu ladata",
+    "statusRejected": "Hylätty",
+    "enrolmentOpen": "Laitteet voivat liittyä {{time}} asti",
+    "enrolmentClosed": "Laitteiden liittyminen on suljettu",
+    "open": "Avaa 24 tunniksi",
+    "close": "Sulje nyt",
+    "scepUrl": "SCEP-osoite",
+    "challenge": "Haaste",
+    "windowFailed": "Liittymisen tilaa ei voitu muuttaa",
+    "reject": "Hylkää",
+    "rejectConfirm": "Hylätäänkö {{callsign}}? Laite ei voi sen jälkeen liittyä, eikä kutsutunnusta voi käyttää uudelleen.",
+    "rejectFailed": "Hylkääminen ei onnistunut: {{error}}"
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"

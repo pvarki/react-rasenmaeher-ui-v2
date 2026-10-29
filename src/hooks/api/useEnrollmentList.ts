@@ -5,6 +5,8 @@ interface CallsignItem {
   approvecode: string;
   callsign: string;
   state: EnrollmentState;
+  /** Planned for a device: an MDM completes it, not an admin. */
+  mdm?: boolean;
 }
 
 interface EnrollmentListResponse {

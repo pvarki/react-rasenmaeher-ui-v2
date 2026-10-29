@@ -18,6 +18,7 @@ import { Route as CallsignSetupRouteImport } from './routes/callsign-setup'
 import { Route as ErrorRouteImport } from './routes/error'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ManageUsersRouteImport } from './routes/manage-users'
+import { Route as MdmRouteImport } from './routes/mdm'
 import { Route as MtlsInstallRouteImport } from './routes/mtls-install'
 import { Route as WaitingRoomRouteImport } from './routes/waiting-room'
 import { Route as InviteCodeCodeRouteImport } from './routes/invite-code.$code'
@@ -68,6 +69,11 @@ const ManageUsersRoute = ManageUsersRouteImport.update({
   path: '/manage-users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MdmRoute = MdmRouteImport.update({
+  id: '/mdm',
+  path: '/mdm',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MtlsInstallRoute = MtlsInstallRouteImport.update({
   id: '/mtls-install',
   path: '/mtls-install',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
   '/manage-users': typeof ManageUsersRoute
+  '/mdm': typeof MdmRoute
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
   '/manage-users': typeof ManageUsersRoute
+  '/mdm': typeof MdmRoute
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
   '/manage-users': typeof ManageUsersRoute
+  '/mdm': typeof MdmRoute
   '/mtls-install': typeof MtlsInstallRoute
   '/waiting-room': typeof WaitingRoomRoute
   '/invite-code/$code': typeof InviteCodeCodeRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/manage-users'
+    | '/mdm'
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/manage-users'
+    | '/mdm'
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/manage-users'
+    | '/mdm'
     | '/mtls-install'
     | '/waiting-room'
     | '/invite-code/$code'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   ErrorRoute: typeof ErrorRoute
   LoginRoute: typeof LoginRoute
   ManageUsersRoute: typeof ManageUsersRoute
+  MdmRoute: typeof MdmRoute
   MtlsInstallRoute: typeof MtlsInstallRoute
   WaitingRoomRoute: typeof WaitingRoomRoute
   InviteCodeCodeRoute: typeof InviteCodeCodeRoute
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ManageUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mdm': {
+      id: '/mdm'
+      path: '/mdm'
+      fullPath: '/mdm'
+      preLoaderRoute: typeof MdmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mtls-install': {
       id: '/mtls-install'
       path: '/mtls-install'
@@ -305,6 +325,7 @@ const rootRouteChildren: RootRouteChildren = {
   ErrorRoute: ErrorRoute,
   LoginRoute: LoginRoute,
   ManageUsersRoute: ManageUsersRoute,
+  MdmRoute: MdmRoute,
   MtlsInstallRoute: MtlsInstallRoute,
   WaitingRoomRoute: WaitingRoomRoute,
   InviteCodeCodeRoute: InviteCodeCodeRoute,
