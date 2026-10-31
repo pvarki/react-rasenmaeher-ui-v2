@@ -102,7 +102,8 @@ function MdmPage() {
             {(
               [
                 ["mdm.scepUrl", settings.scep_url],
-                ["mdm.challenge", settings.challenge],
+                // Opening makes a new one, so the closed window's challenge is a trap to copy
+                ...(isOpen ? [["mdm.challenge", settings.challenge]] : []),
               ] as const
             ).map(([label, value]) => (
               <div key={label} className="contents">
@@ -122,6 +123,9 @@ function MdmPage() {
               </div>
             ))}
           </dl>
+          <p className="text-sm text-muted-foreground">
+            {isOpen ? t("mdm.challengeNew") : t("mdm.challengeOnOpen")}
+          </p>
         </section>
       )}
 

@@ -1036,6 +1036,8 @@
     "close": "Stäng nu",
     "scepUrl": "SCEP-adress",
     "challenge": "Utmaning",
+    "challengeNew": "Den här utmaningen är ny för det här fönstret. Lägg in den i din MDM innan telefonerna ansluter.",
+    "challengeOnOpen": "När du öppnar skapas en ny utmaning för din MDM.",
     "windowFailed": "Kunde inte ändra anslutningen av enheter"
   },
   "guides": {

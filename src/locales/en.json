@@ -1036,6 +1036,8 @@
     "close": "Close now",
     "scepUrl": "SCEP URL",
     "challenge": "Challenge",
+    "challengeNew": "This challenge is new for this window. Put it in your MDM before phones enrol.",
+    "challengeOnOpen": "Opening makes a new challenge for your MDM.",
     "windowFailed": "Could not change device enrolment"
   },
   "guides": {
