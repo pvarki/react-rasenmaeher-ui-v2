@@ -1040,7 +1040,37 @@
     "copyConnector": "Kopiera inställningarna",
     "openConnector": "Öppna i MDM-anslutaren",
     "openConnectorNote": "Anslutaren måste vara igång på den här datorn.",
-    "windowFailed": "Kunde inte ändra anslutningen av enheter"
+    "windowFailed": "Kunde inte ändra anslutningen av enheter",
+    "installConnector": "Installera ODMDM connector",
+    "installConnectorNote": "Det enkla sättet att arbeta med din MDM.",
+    "connectorTitle": "ODMDM connector",
+    "connectorDesc": "Ett litet program för din dator: det ställer in din MDM för den här Deploy App och namnger dina telefoner.",
+    "connectorWorksWith": "Fungerar med",
+    "connectorDownload": "Ladda ner för {{system}} ({{size}}\u00a0MB)",
+    "connectorDownloadAny": "Ladda ner för Python 3.11 eller nyare ({{size}}\u00a0MB)",
+    "connectorOther": "Andra system",
+    "connectorAnySystem": "Alla system med Python 3.11 eller nyare",
+    "connectorThen": "Sedan",
+    "connectorSteps": {
+      "windows": [
+        "Öppna den nedladdade filen.",
+        "Om Windows stoppar den, välj Mer information och sedan Kör ändå.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "macos": [
+        "Öppna odmdm-connector bland dina hämtade filer; packa först upp zip-filen om det behövs.",
+        "Om macOS stoppar den: Systeminställningar, Integritet och säkerhet, Öppna ändå.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "linux": [
+        "Packa upp filen.",
+        "Kör ./odmdm-connector i en terminal.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "any": ["Kör den med Python:", "Anslutaren öppnas i din webbläsare."]
+    },
+    "connectorVersion": "Version {{version}}",
+    "connectorSha": "SHA-256"
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"

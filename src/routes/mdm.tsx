@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { toast } from "sonner";
 import { Copy, ExternalLink } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
@@ -11,6 +11,8 @@ import {
   useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
 import { Button } from "@/components/ui/button";
+import { ConnectorDialog } from "@/components/mdm/ConnectorDialog";
+import { readConnectorManifest } from "@/lib/mdmConnectorFiles";
 import { mdmSettingsLine, openInMdmConnector } from "@/lib/mdmSettingsLine";
 import {
   Table,
@@ -35,6 +37,12 @@ function MdmPage() {
   const { data: devices, isLoading, isError } = useMdmDevices();
   const { data: settings } = useMdmSettings();
   const [switching, setSwitching] = useState(false);
+  // Null unless this deployment serves the connector's downloads beside the UI
+  const { data: connector } = useQuery(
+    "mdmConnector",
+    () => readConnectorManifest(),
+    { staleTime: Infinity, retry: false, refetchOnWindowFocus: false },
+  );
 
   if (!userTypeLoading && userType !== "admin") {
     return (
@@ -168,6 +176,8 @@ function MdmPage() {
           )}
         </section>
       )}
+
+      {connector && <ConnectorDialog manifest={connector} onCopy={copy} />}
 
       <section data-testid="mdm-devices" className="space-y-3">
         <p className="text-sm text-muted-foreground">

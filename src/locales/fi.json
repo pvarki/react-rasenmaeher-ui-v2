@@ -1040,7 +1040,37 @@
     "copyConnector": "Kopioi asetukset",
     "openConnector": "Avaa MDM-liittimessä",
     "openConnectorNote": "Liittimen on oltava käynnissä tällä tietokoneella.",
-    "windowFailed": "Liittymisen tilaa ei voitu muuttaa"
+    "windowFailed": "Liittymisen tilaa ei voitu muuttaa",
+    "installConnector": "Asenna ODMDM connector",
+    "installConnectorNote": "Helppo tapa käyttää MDM:ää.",
+    "connectorTitle": "ODMDM connector",
+    "connectorDesc": "Pieni ohjelma tietokoneellesi: se määrittää MDM:n tälle Deploy Appille ja nimeää puhelimesi.",
+    "connectorWorksWith": "Tuetut MDM:t",
+    "connectorDownload": "Lataa: {{system}} ({{size}}\u00a0Mt)",
+    "connectorDownloadAny": "Lataa: Python 3.11 tai uudempi ({{size}}\u00a0Mt)",
+    "connectorOther": "Muut järjestelmät",
+    "connectorAnySystem": "Mikä tahansa järjestelmä, jossa on Python 3.11 tai uudempi",
+    "connectorThen": "Sitten",
+    "connectorSteps": {
+      "windows": [
+        "Avaa ladattu tiedosto.",
+        "Jos Windows pysäyttää sen, valitse Lisätietoja ja sitten Suorita silti.",
+        "Liitin avautuu selaimeen."
+      ],
+      "macos": [
+        "Avaa odmdm-connector latauksistasi; pura zip-tiedosto ensin tarvittaessa.",
+        "Jos macOS pysäyttää sen: Järjestelmäasetukset, Tietosuoja ja turvallisuus, Avaa silti.",
+        "Liitin avautuu selaimeen."
+      ],
+      "linux": [
+        "Pura tiedosto.",
+        "Suorita ./odmdm-connector päätteessä.",
+        "Liitin avautuu selaimeen."
+      ],
+      "any": ["Suorita se Pythonilla:", "Liitin avautuu selaimeen."]
+    },
+    "connectorVersion": "Versio {{version}}",
+    "connectorSha": "SHA-256"
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"

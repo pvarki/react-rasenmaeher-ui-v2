@@ -1040,7 +1040,37 @@
     "copyConnector": "Copy settings",
     "openConnector": "Open in the MDM connector",
     "openConnectorNote": "The connector must be running on this computer.",
-    "windowFailed": "Could not change device enrolment"
+    "windowFailed": "Could not change device enrolment",
+    "installConnector": "Install the ODMDM connector",
+    "installConnectorNote": "The easy way to work with your MDM.",
+    "connectorTitle": "ODMDM connector",
+    "connectorDesc": "A small program for your computer: it sets your MDM up for this Deploy App and names your phones.",
+    "connectorWorksWith": "Works with",
+    "connectorDownload": "Download for {{system}} ({{size}}\u00a0MB)",
+    "connectorDownloadAny": "Download for Python 3.11 or newer ({{size}}\u00a0MB)",
+    "connectorOther": "Other systems",
+    "connectorAnySystem": "Any system with Python 3.11 or newer",
+    "connectorThen": "Then",
+    "connectorSteps": {
+      "windows": [
+        "Open the downloaded file.",
+        "If Windows stops it, choose More info, then Run anyway.",
+        "The connector opens in your browser."
+      ],
+      "macos": [
+        "Open odmdm-connector from your downloads; unzip it first if needed.",
+        "If macOS stops it: System Settings, Privacy & Security, Open Anyway.",
+        "The connector opens in your browser."
+      ],
+      "linux": [
+        "Unpack the file.",
+        "Run ./odmdm-connector in a terminal.",
+        "The connector opens in your browser."
+      ],
+      "any": ["Run it with Python:", "The connector opens in your browser."]
+    },
+    "connectorVersion": "Version {{version}}",
+    "connectorSha": "SHA-256"
   },
   "guides": {
     "disableAutoOpen": "Do not show me guides automatically"
