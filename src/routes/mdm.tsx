@@ -94,7 +94,12 @@ function MdmPage() {
             </p>
             <Button
               data-testid="mdm-window"
-              variant={isOpen ? "outline" : "default"}
+              variant={isOpen ? "destructive" : "default"}
+              className={
+                isOpen
+                  ? undefined
+                  : "bg-green-600! text-white! hover:bg-green-700!"
+              }
               onClick={() => void switchWindow()}
               disabled={switching}
             >
