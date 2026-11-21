@@ -88,7 +88,10 @@ function MdmPage() {
             <p className="text-sm font-medium">
               {settings.open_until
                 ? t("mdm.enrolmentOpen", {
-                    time: new Date(settings.open_until).toLocaleString(),
+                    time: new Date(settings.open_until).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }),
                   })
                 : t("mdm.enrolmentClosed")}
             </p>
@@ -131,9 +134,11 @@ function MdmPage() {
               </div>
             ))}
           </dl>
-          <p className="text-sm text-muted-foreground">
-            {isOpen ? t("mdm.challengeNew") : t("mdm.challengeOnOpen")}
-          </p>
+          {isOpen && (
+            <p className="text-sm text-muted-foreground">
+              {t("mdm.challengeNew")}
+            </p>
+          )}
           {connectorLine && (
             <div className="space-y-2">
               <div className="flex flex-wrap gap-2">
