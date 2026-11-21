@@ -11,6 +11,7 @@ import {
   useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
 import { Button } from "@/components/ui/button";
+import { mdmSettingsLine } from "@/lib/mdmSettingsLine";
 import {
   Table,
   TableBody,
@@ -48,6 +49,8 @@ function MdmPage() {
   }
 
   const isOpen = Boolean(settings?.open_until);
+  // Never shown: it carries the challenge
+  const connectorLine = settings ? mdmSettingsLine(settings) : null;
 
   const switchWindow = async () => {
     setSwitching(true);
@@ -126,6 +129,18 @@ function MdmPage() {
           <p className="text-sm text-muted-foreground">
             {isOpen ? t("mdm.challengeNew") : t("mdm.challengeOnOpen")}
           </p>
+          {connectorLine && (
+            <Button
+              data-testid="mdm-copy-connector"
+              variant="outline"
+              className="h-auto! max-w-full whitespace-normal! text-left"
+              aria-label={t("mdm.copyConnector")}
+              onClick={() => copy(connectorLine)}
+            >
+              <Copy className="w-4 h-4 mr-2 shrink-0" />
+              {t("mdm.copyConnector")}
+            </Button>
+          )}
         </section>
       )}
 

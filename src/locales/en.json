@@ -1038,6 +1038,7 @@
     "challenge": "Challenge",
     "challengeNew": "This challenge is new for this window. Put it in your MDM before phones enrol.",
     "challengeOnOpen": "Opening makes a new challenge for your MDM.",
+    "copyConnector": "Copy settings",
     "windowFailed": "Could not change device enrolment"
   },
   "guides": {
