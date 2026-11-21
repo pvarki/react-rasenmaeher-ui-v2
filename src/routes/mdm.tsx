@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";
 import { toast } from "sonner";
-import { Copy } from "lucide-react";
+import { Copy, ExternalLink } from "lucide-react";
 import { useUserType } from "@/hooks/auth/useUserType";
 import {
   setMdmEnrolmentWindow,
@@ -11,7 +11,7 @@ import {
   useMdmSettings,
 } from "@/hooks/api/useMdmEnrollments";
 import { Button } from "@/components/ui/button";
-import { mdmSettingsLine } from "@/lib/mdmSettingsLine";
+import { mdmSettingsLine, openInMdmConnector } from "@/lib/mdmSettingsLine";
 import {
   Table,
   TableBody,
@@ -130,16 +130,31 @@ function MdmPage() {
             {isOpen ? t("mdm.challengeNew") : t("mdm.challengeOnOpen")}
           </p>
           {connectorLine && (
-            <Button
-              data-testid="mdm-copy-connector"
-              variant="outline"
-              className="h-auto! max-w-full whitespace-normal! text-left"
-              aria-label={t("mdm.copyConnector")}
-              onClick={() => copy(connectorLine)}
-            >
-              <Copy className="w-4 h-4 mr-2 shrink-0" />
-              {t("mdm.copyConnector")}
-            </Button>
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  data-testid="mdm-open-connector"
+                  className="h-auto! max-w-full whitespace-normal! text-left"
+                  onClick={() => openInMdmConnector(connectorLine)}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2 shrink-0" />
+                  {t("mdm.openConnector")}
+                </Button>
+                <Button
+                  data-testid="mdm-copy-connector"
+                  variant="outline"
+                  className="h-auto! max-w-full whitespace-normal! text-left"
+                  aria-label={t("mdm.copyConnector")}
+                  onClick={() => copy(connectorLine)}
+                >
+                  <Copy className="w-4 h-4 mr-2 shrink-0" />
+                  {t("mdm.copyConnector")}
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {t("mdm.openConnectorNote")}
+              </p>
+            </div>
           )}
         </section>
       )}

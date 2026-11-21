@@ -1039,6 +1039,8 @@
     "challengeNew": "Tämä haaste on uusi tälle aikaikkunalle. Vaihda se MDM:ään ennen kuin puhelimet liittyvät.",
     "challengeOnOpen": "Avaaminen luo MDM:lle uuden haasteen.",
     "copyConnector": "Kopioi asetukset",
+    "openConnector": "Avaa MDM-liittimessä",
+    "openConnectorNote": "Liittimen on oltava käynnissä tällä tietokoneella.",
     "windowFailed": "Liittymisen tilaa ei voitu muuttaa"
   },
   "guides": {

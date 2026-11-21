@@ -1039,6 +1039,8 @@
     "challengeNew": "Den här utmaningen är ny för det här fönstret. Lägg in den i din MDM innan telefonerna ansluter.",
     "challengeOnOpen": "När du öppnar skapas en ny utmaning för din MDM.",
     "copyConnector": "Kopiera inställningarna",
+    "openConnector": "Öppna i MDM-anslutaren",
+    "openConnectorNote": "Anslutaren måste vara igång på den här datorn.",
     "windowFailed": "Kunde inte ändra anslutningen av enheter"
   },
   "guides": {
