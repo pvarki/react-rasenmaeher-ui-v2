@@ -1,17 +1,10 @@
 import { type UseQueryOptions, useQuery } from "react-query";
+import { type MdmDevice, mdmDevices } from "@/lib/mdmDevices";
 
-export interface MdmDevice {
-  /** The name the MDM gave the device, which became its callsign */
-  callsign: string;
-}
-
-interface Person {
-  callsign: string;
-  extra?: { mdm?: boolean } | null;
-}
+export type { MdmDevice };
 
 interface PeopleListResponse {
-  callsign_list: Person[];
+  callsign_list: Parameters<typeof mdmDevices>[0];
 }
 
 async function getMdmDevices(): Promise<MdmDevice[]> {
@@ -23,9 +16,7 @@ async function getMdmDevices(): Promise<MdmDevice[]> {
     throw new Error("Failed to read the user list");
   }
   const data = (await res.json()) as PeopleListResponse;
-  return data.callsign_list
-    .filter((person) => person.extra?.mdm)
-    .map((person) => ({ callsign: person.callsign }));
+  return mdmDevices(data.callsign_list);
 }
 
 type UseMdmDevicesOptions = UseQueryOptions<

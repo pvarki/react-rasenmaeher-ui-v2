@@ -1026,6 +1026,7 @@
     "forbidden": "Only admins can manage devices",
     "devicesDesc": "Phones enrolled: {{count}}",
     "columnCallsign": "Callsign",
+    "columnCertEnds": "Certificate ends",
     "emptyTitle": "No devices yet",
     "copy": "Copy",
     "copyFailed": "Could not copy",

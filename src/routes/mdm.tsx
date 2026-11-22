@@ -31,7 +31,7 @@ export const Route = createFileRoute("/mdm")({
 const ENROLMENT_HOURS = 2;
 
 function MdmPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const { userType, isLoading: userTypeLoading } = useUserType();
   const { data: devices, isLoading, isError } = useMdmDevices();
@@ -59,6 +59,8 @@ function MdmPage() {
   const isOpen = Boolean(settings?.open_until);
   // Never shown: it carries the challenge
   const connectorLine = settings ? mdmSettingsLine(settings) : null;
+  // A Deploy App whose API does not say when certificates end gets no such column
+  const showCertEnds = devices?.some((device) => device.certEnds) ?? false;
 
   const switchWindow = async () => {
     setSwitching(true);
@@ -199,6 +201,9 @@ function MdmPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>{t("mdm.columnCallsign")}</TableHead>
+                  {showCertEnds && (
+                    <TableHead>{t("mdm.columnCertEnds")}</TableHead>
+                  )}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -211,6 +216,24 @@ function MdmPage() {
                     <TableCell className="font-mono">
                       {device.callsign}
                     </TableCell>
+                    {showCertEnds && (
+                      <TableCell
+                        data-testid="mdm-device-cert-ends"
+                        className={
+                          device.certEnds && device.certEnds < new Date()
+                            ? "text-destructive"
+                            : undefined
+                        }
+                      >
+                        {device.certEnds
+                          ? device.certEnds.toLocaleDateString(i18n.language, {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            })
+                          : "–"}
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>

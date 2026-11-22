@@ -1026,6 +1026,7 @@
     "forbidden": "Endast administratörer kan hantera enheter",
     "devicesDesc": "Anslutna telefoner: {{count}}",
     "columnCallsign": "Anropssignal",
+    "columnCertEnds": "Certifikatet går ut",
     "emptyTitle": "Inga enheter ännu",
     "copy": "Kopiera",
     "copyFailed": "Kunde inte kopiera",

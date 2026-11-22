@@ -1026,6 +1026,7 @@
     "forbidden": "Vain ylläpitäjät voivat hallita laitteita",
     "devicesDesc": "Liitettyjä puhelimia: {{count}}",
     "columnCallsign": "Kutsutunnus",
+    "columnCertEnds": "Varmenne vanhenee",
     "emptyTitle": "Ei vielä laitteita",
     "copy": "Kopioi",
     "copyFailed": "Kopiointi ei onnistunut",
