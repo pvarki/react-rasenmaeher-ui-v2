@@ -1055,12 +1055,12 @@
     "connectorSteps": {
       "windows": [
         "Avaa ladattu tiedosto.",
-        "Jos Windows pysäyttää sen, valitse Lisätietoja ja sitten Suorita silti.",
+        "Jos Windows pysäyttää sen, valitse Lisätietoja ja sitten Suorita joka tapauksessa.",
         "Liitin avautuu selaimeen."
       ],
       "macos": [
         "Avaa odmdm-connector latauksistasi; pura zip-tiedosto ensin tarvittaessa.",
-        "Jos macOS pysäyttää sen: Järjestelmäasetukset, Tietosuoja ja turvallisuus, Avaa silti.",
+        "Jos macOS pysäyttää sen: Järjestelmäasetukset, Tietosuoja ja suojaus, Avaa kuitenkin.",
         "Liitin avautuu selaimeen."
       ],
       "linux": [
