@@ -14,6 +14,18 @@ jobs:
           pnpm-version: "11"
       - uses: j178/prek-action@v2
 
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pvarki/config-ci-library/.github/actions/setup-typescript@main
+        with:
+          node-version: "24"
+          pnpm-version: "11"
+      - name: Run the unit tests
+        run: pnpm test
+
   bumpversion-check:
     runs-on: ubuntu-latest
     name: Validate .bumpversion.toml
@@ -36,7 +48,7 @@ jobs:
 
   publish_nginx:
     name: Publish NGinx Docker image (${{ matrix.theme }})
-    needs: [pre-commit, bumpversion-check, docker_builds]
+    needs: [pre-commit, unit-tests, bumpversion-check, docker_builds]
     runs-on: arc-runner-set
     permissions:
       contents: read
@@ -65,7 +77,7 @@ jobs:
 
   publish_files:
     name: Publish file delivery Docker image (${{ matrix.theme }})
-    needs: [pre-commit, bumpversion-check, docker_builds]
+    needs: [pre-commit, unit-tests, bumpversion-check, docker_builds]
     runs-on: arc-runner-set
     permissions:
       contents: read
