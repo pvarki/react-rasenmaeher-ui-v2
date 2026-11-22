@@ -52,6 +52,17 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
     && pnpm run build \
     && true
 
+# The ODMDM connector's release folder, served beside the app as mdm-connector/ (README.md).
+# The unpacker proves its refusals first, on every build, with or without a release to unpack.
+RUN python3 -I docker/mdm_connector.py --self-test
+# Both or neither: the release archive's address and its SHA-256. Neither leaves the image as it was.
+ARG MDM_CONNECTOR_URL=""
+ARG MDM_CONNECTOR_SHA256=""
+RUN if [ -z "$MDM_CONNECTOR_URL" ] && [ -z "$MDM_CONNECTOR_SHA256" ]; then exit 0; fi \
+    && if [ -z "$MDM_CONNECTOR_URL" ] || [ -z "$MDM_CONNECTOR_SHA256" ]; then \
+        echo "MDM_CONNECTOR_URL and MDM_CONNECTOR_SHA256 go together" >&2; exit 1; fi \
+    && python3 -I docker/mdm_connector.py "$MDM_CONNECTOR_URL" "$MDM_CONNECTOR_SHA256" dist
+
 
 #########################
 # Main production build #
