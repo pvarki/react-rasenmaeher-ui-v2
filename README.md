@@ -1,5 +1,35 @@
 # React + TypeScript + Vite
 
+## The ODMDM connector download
+
+The MDM page offers the ODMDM connector for download when the image carries a connector release's
+`mdm-connector/` folder. Pin one release with two build arguments, both or neither:
+
+```bash
+docker build --target k8s_nginx \
+  --build-arg MDM_CONNECTOR_URL=<the release's mdm-connector archive (.tar.gz)> \
+  --build-arg MDM_CONNECTOR_SHA256=<its SHA-256 from the release> .
+```
+
+The build fetches exactly that archive, fails on any other SHA-256, and unpacks only the plain
+files of its `mdm-connector/` folder that `connector.json` names, with their sizes and SHA-256
+(`docker/mdm_connector.py`). Without the arguments the image has no `mdm-connector/` and the page
+shows no download. nginx answers 404 for a missing file there, never the app's page. The image
+build first runs `python3 -I docker/mdm_connector.py --self-test`, which proves each refusal on
+archives made in memory; run it the same way after changing the script.
+
+The archive is the connector release's `mdm-connector.tar.gz`, with its SHA-256 in
+`mdm-connector.tar.gz.sha256` beside it (the connector's README, 'A file to download'):
+
+```text
+https://github.com/pvarki/python-odmdm-fleet/releases/download/v<version>/mdm-connector.tar.gz
+https://github.com/pvarki/python-odmdm-fleet/releases/download/v<version>/mdm-connector.tar.gz.sha256
+```
+
+Pin one tag, never `latest`, and take `MDM_CONNECTOR_SHA256` from that `.sha256`. The same
+release also lists each file's SHA-256 in `SHA256SUMS`: that is what the SHA-256 the MDM page's
+dialog shows can be compared with.
+
 ## Git Conventions
 
 ### Feature Branches
