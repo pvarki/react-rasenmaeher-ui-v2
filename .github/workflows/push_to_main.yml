@@ -8,8 +8,8 @@ on:
 
 # The ODMDM connector release the images serve (README.md): the tag and its archive's SHA-256 change together
 env:
-  MDM_CONNECTOR_URL: https://github.com/pvarki/python-odmdm-fleet/releases/download/v1.5.0%2B261122/mdm-connector.tar.gz
-  MDM_CONNECTOR_SHA256: fffb65bebcf353b2dfff7bce630dd70dfae8ba9190c36b8c6f4686eb343d45fd # pragma: allowlist secret
+  MDM_CONNECTOR_URL: https://github.com/pvarki/python-odmdm-fleet/releases/download/v1.6.0%2B261123/mdm-connector.tar.gz
+  MDM_CONNECTOR_SHA256: 2bc4de2c70fee8bdf8905c19521d17b7ce92f73fd2182f1a48f5b80ba0bbc628 # pragma: allowlist secret
 
 jobs:
   publish_nginx:
