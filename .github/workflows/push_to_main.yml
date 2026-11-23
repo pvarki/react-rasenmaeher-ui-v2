@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+# The ODMDM connector release the images serve (README.md): the tag and its archive's SHA-256 change together
+env:
+  MDM_CONNECTOR_URL: https://github.com/pvarki/python-odmdm-fleet/releases/download/v1.5.0%2B261122/mdm-connector.tar.gz
+  MDM_CONNECTOR_SHA256: fffb65bebcf353b2dfff7bce630dd70dfae8ba9190c36b8c6f4686eb343d45fd # pragma: allowlist secret
+
 jobs:
   publish_nginx:
     name: Publish NGinx Docker image (${{ matrix.theme }})
@@ -28,6 +33,8 @@ jobs:
           target: k8s_nginx
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -56,6 +63,8 @@ jobs:
           target: production
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -19,14 +19,16 @@ build first runs `python3 -I docker/mdm_connector.py --self-test`, which proves 
 archives made in memory; run it the same way after changing the script.
 
 The archive is the connector release's `mdm-connector.tar.gz`, with its SHA-256 in
-`mdm-connector.tar.gz.sha256` beside it (the connector's README, 'A file to download'):
+`mdm-connector.tar.gz.sha256` beside it (the connector's README, 'Building and serving the files'):
 
 ```text
 https://github.com/pvarki/python-odmdm-fleet/releases/download/v<version>/mdm-connector.tar.gz
 https://github.com/pvarki/python-odmdm-fleet/releases/download/v<version>/mdm-connector.tar.gz.sha256
 ```
 
-Pin one tag, never `latest`, and take `MDM_CONNECTOR_SHA256` from that `.sha256`. The same
+Pin one tag, never `latest`, and take `MDM_CONNECTOR_SHA256` from that `.sha256`. The images CI
+publishes are pinned in `env` at the top of `.github/workflows/pull_request.yml` and
+`push_to_main.yml`: change both values in both files together. The same
 release also lists each file's SHA-256 in `SHA256SUMS`: that is what the SHA-256 the MDM page's
 dialog shows can be compared with.
 

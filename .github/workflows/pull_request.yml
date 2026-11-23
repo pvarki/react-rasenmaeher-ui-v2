@@ -2,6 +2,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+# The ODMDM connector release the images serve (README.md): the tag and its archive's SHA-256 change together
+env:
+  MDM_CONNECTOR_URL: https://github.com/pvarki/python-odmdm-fleet/releases/download/v1.5.0%2B261122/mdm-connector.tar.gz
+  MDM_CONNECTOR_SHA256: fffb65bebcf353b2dfff7bce630dd70dfae8ba9190c36b8c6f4686eb343d45fd # pragma: allowlist secret
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -42,9 +47,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Build k8s_nginx target (${{ matrix.theme }})
-        run: docker build --target k8s_nginx --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:k8s_nginx .
+        run: docker build --target k8s_nginx --build-arg VITE_THEME=${{ matrix.theme }} --build-arg MDM_CONNECTOR_URL --build-arg MDM_CONNECTOR_SHA256 -t rasenmaeher-${{ matrix.theme }}-ui:k8s_nginx .
       - name: Build production target (${{ matrix.theme }})
-        run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:production .
+        run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} --build-arg MDM_CONNECTOR_URL --build-arg MDM_CONNECTOR_SHA256 -t rasenmaeher-${{ matrix.theme }}-ui:production .
 
   publish_nginx:
     name: Publish NGinx Docker image (${{ matrix.theme }})
@@ -68,6 +73,8 @@ jobs:
           target: k8s_nginx
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -97,6 +104,8 @@ jobs:
           target: production
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
