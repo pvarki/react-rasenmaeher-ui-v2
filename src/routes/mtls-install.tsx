@@ -42,6 +42,8 @@ export const Route = createFileRoute("/mtls-install")({
 // Platforms we walk through the install one screen at a time.
 const GUIDED = ["Android", "iOS"];
 const GUIDED_DESKTOP = ["MacOS", "Windows", "Linux"];
+const isGuidedOS = (os: string) =>
+  GUIDED.includes(os) || GUIDED_DESKTOP.includes(os);
 
 function MtlsInstallPage() {
   const { callsign: userCallsign } = useUserType();
@@ -52,7 +54,6 @@ function MtlsInstallPage() {
   const [selectedOS, setSelectedOS] = useState("");
   const [userOS, setUserOS] = useState("");
   const [showGuide, setShowGuide] = useState(false);
-  const [forceClassic, setForceClassic] = useState(false);
   const { autoOpen } = useGuidePreferences();
   const [certDownloaded, setCertDownloaded] = useState<boolean>(
     () => readStore("cert_downloaded") === "true",
@@ -76,17 +77,13 @@ function MtlsInstallPage() {
   }, [userCallsign]);
 
   const osToShow = selectedOS || userOS;
-  const isGuidedOS = (os: string) =>
-    (isMobile ? GUIDED : GUIDED_DESKTOP).includes(os);
-  const guided = isGuidedOS(osToShow) && !forceClassic;
+  const guided = isGuidedOS(osToShow);
 
   useEffect(() => {
     if (!userOS) return;
     // The guided flows are the walkthrough, so the guide would only cover them.
     // The help button still opens it; only the uninvited appearance stops.
-    const narrow = window.matchMedia("(max-width: 767px)").matches;
-    const guidedNow = (narrow ? GUIDED : GUIDED_DESKTOP).includes(userOS);
-    if (autoOpen && !guidedNow) setShowGuide(true);
+    if (autoOpen && !isGuidedOS(userOS)) setShowGuide(true);
   }, [autoOpen, userOS]);
 
   const mtlsUrl = withGuidePreference(getMtlsUrl());
@@ -115,18 +112,12 @@ function MtlsInstallPage() {
     }
   };
 
-  // Picking a platform we guide goes to its flow; anything else falls back to
-  // the full instructions. Without clearing forceClassic, choosing Android here
-  // would strand the user in the classic layout.
-  const chooseOS = (next: string) => {
-    setSelectedOS(next);
-    setForceClassic(!isGuidedOS(next));
-  };
+  const chooseOS = setSelectedOS;
 
   const platformInstructions =
     PLATFORM_INSTRUCTIONS[osToShow] || PLATFORM_INSTRUCTIONS.Android;
 
-  if (guided && !isMobile) {
+  if (guided && GUIDED_DESKTOP.includes(osToShow)) {
     return (
       <>
         <MtlsGuide open={showGuide} onOpenChange={setShowGuide} />
@@ -211,7 +202,7 @@ function MtlsInstallPage() {
           data-testid="mtls-install-page"
           data-mtls-layout="guided"
           data-mtls-os={osToShow}
-          className="flex h-dvh flex-col bg-background px-4 pb-4 pt-4"
+          className="flex min-h-dvh flex-col bg-background px-4 pb-4 pt-4"
         >
           <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-4">
             <CompactHeader
