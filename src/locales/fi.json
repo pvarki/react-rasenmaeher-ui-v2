@@ -39,7 +39,8 @@
     "help": "Apua",
     "imageNotAvailable": "Kuva ei saatavilla",
     "clickToEnlarge": "Klikkaa suurentaaksesi",
-    "footer": "Avaa alatunniste"
+    "footer": "Avaa alatunniste",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Kirjaudu",
@@ -1015,7 +1016,62 @@
     "help1": "Käyttäjähallinta – hyväksy, ylennä, alenna tai poista käyttäjiä",
     "help2": "Kutsukoodit – luo ja hallitse käyttäjäkoodeja",
     "help3": "Keycloak – identiteettien tarkastelu ja vianselvitys",
-    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia"
+    "help4": "Ulkoiset palvelut – käytä TAK- ja BL-palvelimia",
+    "mdmTitle": "Laitteet",
+    "mdmDesc": "Liitä puhelimet MDM:n kautta"
+  },
+  "mdm": {
+    "title": "MDM",
+    "subtitle": "Puhelimet liittyvät tänne MDM:n kautta.",
+    "forbidden": "Vain ylläpitäjät voivat hallita laitteita",
+    "devicesDesc": "Liitettyjä puhelimia: {{count}}",
+    "columnCallsign": "Kutsutunnus",
+    "columnCertEnds": "Varmenne vanhenee",
+    "emptyTitle": "Ei vielä laitteita",
+    "copy": "Kopioi",
+    "copyFailed": "Kopiointi ei onnistunut",
+    "loadFailed": "Laitteita ei voitu ladata",
+    "enrolmentOpen": "Liittyminen on auki {{time}} asti",
+    "enrolmentClosed": "Liittyminen on suljettu",
+    "open": "Avaa 2 tunniksi",
+    "close": "Sulje",
+    "scepUrl": "SCEP-osoite",
+    "challenge": "Haaste",
+    "challengeNew": "Uusi tälle aikaikkunalle: MDM tarvitsee sen.",
+    "copyConnector": "Kopioi asetukset",
+    "openConnector": "Avaa MDM-liittimessä",
+    "openConnectorNote": "Liittimen on oltava käynnissä tällä tietokoneella.",
+    "windowFailed": "Liittymisen tilaa ei voitu muuttaa",
+    "installConnector": "Asenna ODMDM connector",
+    "installConnectorNote": "Helppo tapa käyttää MDM:ää.",
+    "connectorTitle": "ODMDM connector",
+    "connectorDesc": "Pieni ohjelma tietokoneellesi: se määrittää MDM:n tälle Deploy Appille ja nimeää puhelimesi.",
+    "connectorWorksWith": "Tuetut MDM:t",
+    "connectorDownload": "Lataa: {{system}} ({{size}}\u00a0Mt)",
+    "connectorDownloadAny": "Lataa: Python 3.11 tai uudempi ({{size}}\u00a0Mt)",
+    "connectorOther": "Muut järjestelmät",
+    "connectorAnySystem": "Mikä tahansa järjestelmä, jossa on Python 3.11 tai uudempi",
+    "connectorThen": "Sitten",
+    "connectorSteps": {
+      "windows": [
+        "Avaa ladattu tiedosto.",
+        "Jos Windows pysäyttää sen, valitse Lisätietoja ja sitten Suorita joka tapauksessa.",
+        "Liitin avautuu selaimeen."
+      ],
+      "macos": [
+        "Avaa odmdm-connector latauksistasi; pura zip-tiedosto ensin tarvittaessa.",
+        "Jos macOS pysäyttää sen: Järjestelmäasetukset, Tietosuoja ja suojaus, Avaa kuitenkin.",
+        "Liitin avautuu selaimeen."
+      ],
+      "linux": [
+        "Pura tiedosto.",
+        "Suorita ./odmdm-connector päätteessä.",
+        "Liitin avautuu selaimeen."
+      ],
+      "any": ["Suorita se Pythonilla:", "Liitin avautuu selaimeen."]
+    },
+    "connectorVersion": "Versio {{version}}",
+    "connectorSha": "SHA-256"
   },
   "guides": {
     "disableAutoOpen": "Älä näytä minulle ohjeita automaattisesti"

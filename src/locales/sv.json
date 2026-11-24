@@ -39,7 +39,8 @@
     "help": "Hjälp",
     "imageNotAvailable": "Bilden är inte tillgänglig",
     "clickToEnlarge": "Klicka för att förstora",
-    "footer": "Öppna sidfot"
+    "footer": "Öppna sidfot",
+    "mdm": "MDM"
   },
   "pages": {
     "login": "Logga in",
@@ -1015,7 +1016,62 @@
     "help1": "Användarhantering – godkänn, befordra, degradera, ta bort",
     "help2": "Inbjudningskoder – generera och hantera koder",
     "help3": "Keycloak – granskning av identiteter och felsökning",
-    "help4": "Externa tjänster – åtkomst till TAK och BL"
+    "help4": "Externa tjänster – åtkomst till TAK och BL",
+    "mdmTitle": "Enheter",
+    "mdmDesc": "Anslut telefoner via din MDM"
+  },
+  "mdm": {
+    "title": "MDM",
+    "subtitle": "Telefoner ansluter hit via din MDM.",
+    "forbidden": "Endast administratörer kan hantera enheter",
+    "devicesDesc": "Anslutna telefoner: {{count}}",
+    "columnCallsign": "Anropssignal",
+    "columnCertEnds": "Certifikatet går ut",
+    "emptyTitle": "Inga enheter ännu",
+    "copy": "Kopiera",
+    "copyFailed": "Kunde inte kopiera",
+    "loadFailed": "Kunde inte läsa in enheterna",
+    "enrolmentOpen": "Anslutningen är öppen till {{time}}",
+    "enrolmentClosed": "Anslutningen är stängd",
+    "open": "Öppna i 2 timmar",
+    "close": "Stäng",
+    "scepUrl": "SCEP-adress",
+    "challenge": "Utmaning",
+    "challengeNew": "Ny för det här fönstret: din MDM behöver den.",
+    "copyConnector": "Kopiera inställningarna",
+    "openConnector": "Öppna i MDM-anslutaren",
+    "openConnectorNote": "Anslutaren måste vara igång på den här datorn.",
+    "windowFailed": "Kunde inte ändra anslutningen av enheter",
+    "installConnector": "Installera ODMDM connector",
+    "installConnectorNote": "Det enkla sättet att arbeta med din MDM.",
+    "connectorTitle": "ODMDM connector",
+    "connectorDesc": "Ett litet program för din dator: det ställer in din MDM för den här Deploy App och namnger dina telefoner.",
+    "connectorWorksWith": "Fungerar med",
+    "connectorDownload": "Ladda ner för {{system}} ({{size}}\u00a0MB)",
+    "connectorDownloadAny": "Ladda ner för Python 3.11 eller nyare ({{size}}\u00a0MB)",
+    "connectorOther": "Andra system",
+    "connectorAnySystem": "Alla system med Python 3.11 eller nyare",
+    "connectorThen": "Sedan",
+    "connectorSteps": {
+      "windows": [
+        "Öppna den nedladdade filen.",
+        "Om Windows stoppar den, välj Mer information och sedan Kör ändå.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "macos": [
+        "Öppna odmdm-connector bland dina hämtade filer; packa först upp zip-filen om det behövs.",
+        "Om macOS stoppar den: Systeminställningar, Integritet och säkerhet, Öppna ändå.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "linux": [
+        "Packa upp filen.",
+        "Kör ./odmdm-connector i en terminal.",
+        "Anslutaren öppnas i din webbläsare."
+      ],
+      "any": ["Kör den med Python:", "Anslutaren öppnas i din webbläsare."]
+    },
+    "connectorVersion": "Version {{version}}",
+    "connectorSha": "SHA-256"
   },
   "guides": {
     "disableAutoOpen": "Visa inte guider automatiskt för mig"

@@ -2,6 +2,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+# The ODMDM connector release the images serve (README.md): the tag and its archive's SHA-256 change together
+env:
+  MDM_CONNECTOR_URL: https://github.com/pvarki/python-odmdm-fleet/releases/download/v1.7.0%2B261123/mdm-connector.tar.gz
+  MDM_CONNECTOR_SHA256: 50f73544c7a174810180b95c4e5bd8c900d642041b40b6d943d55936498988ee # pragma: allowlist secret
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -13,6 +18,18 @@ jobs:
           node-version: "24"
           pnpm-version: "11"
       - uses: j178/prek-action@v2
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pvarki/config-ci-library/.github/actions/setup-typescript@main
+        with:
+          node-version: "24"
+          pnpm-version: "11"
+      - name: Run the unit tests
+        run: pnpm test
 
   bumpversion-check:
     runs-on: ubuntu-latest
@@ -30,13 +47,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Build k8s_nginx target (${{ matrix.theme }})
-        run: docker build --target k8s_nginx --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:k8s_nginx .
+        run: docker build --target k8s_nginx --build-arg VITE_THEME=${{ matrix.theme }} --build-arg MDM_CONNECTOR_URL --build-arg MDM_CONNECTOR_SHA256 -t rasenmaeher-${{ matrix.theme }}-ui:k8s_nginx .
       - name: Build production target (${{ matrix.theme }})
-        run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} -t rasenmaeher-${{ matrix.theme }}-ui:production .
+        run: docker build --target production --build-arg VITE_THEME=${{ matrix.theme }} --build-arg MDM_CONNECTOR_URL --build-arg MDM_CONNECTOR_SHA256 -t rasenmaeher-${{ matrix.theme }}-ui:production .
 
   publish_nginx:
     name: Publish NGinx Docker image (${{ matrix.theme }})
-    needs: [pre-commit, bumpversion-check, docker_builds]
+    needs: [pre-commit, unit-tests, bumpversion-check, docker_builds]
     runs-on: arc-runner-set
     permissions:
       contents: read
@@ -56,6 +73,8 @@ jobs:
           target: k8s_nginx
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -65,7 +84,7 @@ jobs:
 
   publish_files:
     name: Publish file delivery Docker image (${{ matrix.theme }})
-    needs: [pre-commit, bumpversion-check, docker_builds]
+    needs: [pre-commit, unit-tests, bumpversion-check, docker_builds]
     runs-on: arc-runner-set
     permissions:
       contents: read
@@ -85,6 +104,8 @@ jobs:
           target: production
           build-args: |
             VITE_THEME=${{ matrix.theme }}
+            MDM_CONNECTOR_URL=${{ env.MDM_CONNECTOR_URL }}
+            MDM_CONNECTOR_SHA256=${{ env.MDM_CONNECTOR_SHA256 }}
           dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
           dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

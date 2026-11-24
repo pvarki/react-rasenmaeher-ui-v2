@@ -1,7 +1,7 @@
 {
   "name": "react-rasenmaeher-ui-v2",
   "private": true,
-  "version": "2.7.7+261028",
+  "version": "2.9.0+261122",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -96,10 +96,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.26",
     "globals": "^16.5.0",
+    "jsdom": "^30.1.3",
     "prettier": "^3.9.10",
     "tw-animate-css": "^1.4.0",
     "typescript": "5.4.5",
     "typescript-eslint": "^8.72.0",
-    "vite": "5.2.10"
+    "vite": "5.2.10",
+    "vitest": "^3.2.7"
   }
 }
